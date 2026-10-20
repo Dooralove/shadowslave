@@ -1,6 +1,17 @@
 # ShadowSlave
 
-3D-игра на Godot 4.7.2 (GDScript). Стадия: инфраструктура и минимальная пустая сцена, игровая механика ещё не реализована.
+3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 1 — управляемый персонаж Санни (капсула) в graybox-локации.
+
+## Управление
+
+| Действие | Клавиша | Input Map action |
+|---|---|---|
+| Ходьба | W / A / S / D | `move_forward`, `move_left`, `move_back`, `move_right` |
+| Бег | Shift (удерживать) | `sprint` |
+| Прыжок | Space | `jump` |
+| Обзор камерой | мышь | — |
+| Освободить мышь | Escape | `release_mouse` |
+| Захватить мышь снова | ЛКМ в окне игры | `capture_mouse` |
 
 ## Версии инструментов
 
@@ -29,6 +40,12 @@ godot --editor --path "C:\Users\user\Desktop\shadowslave"
 godot --path "C:\Users\user\Desktop\shadowslave"
 ```
 
+Запустить только тестовую локацию:
+
+```bash
+godot --path "C:\Users\user\Desktop\shadowslave" res://scenes/levels/test_level.tscn
+```
+
 Headless-импорт и проверка без окна:
 
 ```bash
@@ -47,8 +64,8 @@ godot --headless --path "C:\Users\user\Desktop\shadowslave" -s addons/gut/gut_cm
 
 ```
 project.godot        конфигурация проекта
-scenes/              сцены (main, characters, levels, ui)
-scripts/             GDScript (player, combat, world, quests, ui)
+scenes/              сцены: main/main.tscn (точка входа), characters/sunny.tscn, levels/test_level.tscn, ui
+scripts/             GDScript: player/sunny_controller.gd, player/third_person_camera.gd, world, combat, quests, ui
 resources/           типизированные Resource (.tres): characters, enemies, items, quests
 assets/              исходные ассеты (через Git LFS для бинарных форматов)
 tests/               тесты GUT
@@ -59,4 +76,4 @@ addons/              сторонние плагины: godot_mcp, gut
 ## Отложено
 
 - Dialogic 2 — подключим после подтверждения работы проекта, управления персонажем и базовой сцены.
-- Управление Санни, боевая система, квесты — следующие этапы.
+- Модель, скелет и анимации Санни, боевая система, квесты — следующие этапы.

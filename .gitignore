@@ -3,6 +3,13 @@
 *.translation
 export_presets.cfg
 
+# Godot MCP scratch space (undo snapshots, screenshots), as in upstream .gitignore.
+# Keep only the .gdignore that stops the editor importing snapshot copies (duplicate UIDs).
+addons/godot_mcp/cache/*
+!addons/godot_mcp/cache/undo/
+addons/godot_mcp/cache/undo/*
+!addons/godot_mcp/cache/undo/.gdignore
+
 # Local Claude Code settings (per-machine)
 .claude/settings.local.json
 

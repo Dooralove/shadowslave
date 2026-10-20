@@ -1,0 +1,136 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/characters/sunny.tscn" id="1_sunny"]
+
+[sub_resource type="Environment" id="Env_gloom"]
+background_mode = 1
+background_color = Color(0.05, 0.05, 0.07, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.36, 0.37, 0.46, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.11, 0.11, 0.15, 1)
+fog_density = 0.02
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.17, 0.16, 0.19, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_stone"]
+albedo_color = Color(0.27, 0.25, 0.29, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.27, 0.19, 0.13, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_raised"]
+albedo_color = Color(0.32, 0.28, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_altar"]
+albedo_color = Color(0.35, 0.06, 0.07, 1)
+roughness = 0.6
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_gloom")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.87, -0.6, 0)
+light_color = Color(0.74, 0.78, 0.92, 1)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, -0.5, 0)
+use_collision = true
+size = Vector3(40, 1, 40)
+material = SubResource("Mat_floor")
+
+[node name="WallNorth" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 1.5, -20.5)
+use_collision = true
+size = Vector3(42, 3, 1)
+material = SubResource("Mat_stone")
+
+[node name="WallSouth" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 1.5, 20.5)
+use_collision = true
+size = Vector3(42, 3, 1)
+material = SubResource("Mat_stone")
+
+[node name="WallWest" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-20.5, 1.5, 0)
+use_collision = true
+size = Vector3(1, 3, 40)
+material = SubResource("Mat_stone")
+
+[node name="WallEast" type="CSGBox3D" parent="Geometry"]
+position = Vector3(20.5, 1.5, 0)
+use_collision = true
+size = Vector3(1, 3, 40)
+material = SubResource("Mat_stone")
+
+[node name="PillarA" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-4, 2, -4)
+use_collision = true
+size = Vector3(1, 4, 1)
+material = SubResource("Mat_stone")
+
+[node name="PillarB" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-4, 2, -9)
+use_collision = true
+size = Vector3(1, 4, 1)
+material = SubResource("Mat_stone")
+
+[node name="PillarBroken" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-4, 0.75, -14)
+use_collision = true
+size = Vector3(1, 1.5, 1)
+material = SubResource("Mat_stone")
+
+[node name="RuinedWall" type="CSGBox3D" parent="Geometry"]
+position = Vector3(2, 0.6, -2)
+use_collision = true
+size = Vector3(4, 1.2, 0.6)
+material = SubResource("Mat_stone")
+
+[node name="CrateA" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-8, 0.5, 2)
+use_collision = true
+size = Vector3(1, 1, 1)
+material = SubResource("Mat_wood")
+
+[node name="CrateB" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-8.6, 0.4, 3.1)
+rotation = Vector3(0, 0.5, 0)
+use_collision = true
+size = Vector3(0.8, 0.8, 0.8)
+material = SubResource("Mat_wood")
+
+[node name="Platform" type="CSGBox3D" parent="Geometry"]
+position = Vector3(8, 0.75, -6)
+use_collision = true
+size = Vector3(5, 1.5, 5)
+material = SubResource("Mat_raised")
+
+[node name="Ramp" type="CSGBox3D" parent="Geometry"]
+position = Vector3(8, 0.65, -1.12)
+rotation = Vector3(0.3047, 0, 0)
+use_collision = true
+size = Vector3(3, 0.2, 5)
+material = SubResource("Mat_raised")
+
+[node name="Altar" type="CSGBox3D" parent="Geometry"]
+position = Vector3(8, 2, -7)
+use_collision = true
+size = Vector3(1.6, 1, 0.8)
+material = SubResource("Mat_altar")
+
+[node name="Sunny" parent="." instance=ExtResource("1_sunny")]
+position = Vector3(0, 0.05, 6)
