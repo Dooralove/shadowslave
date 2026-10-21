@@ -49,6 +49,8 @@ const SPELL_GREETING := "Аспирант! Добро пожаловать в З
 ## Мгновенные переходы и постановки (для тестов); диалоги с «далее» всё равно ждут нажатия.
 @export var fast_mode := false
 @export var status_sheet: StatusSheet
+## Подмена сцены локации по ключу из LOCATIONS (варианты художественных проходов); пусто — штатные сцены.
+@export var location_overrides: Dictionary[StringName, String] = {}
 
 var beat := Beat.NONE
 var mode := Mode.LOCKED
@@ -252,7 +254,7 @@ func _load(key: StringName, spawn: StringName) -> void:
 	if location:
 		slot.remove_child(location)
 		location.queue_free()
-	location = (load(LOCATIONS[key]) as PackedScene).instantiate() as SliceLocation
+	location = (load(location_overrides.get(key, LOCATIONS[key])) as PackedScene).instantiate() as SliceLocation
 	slot.add_child(location)
 	location.interacted.connect(func(id: StringName) -> void: notify(StringName("interact:" + String(id))))
 	location.triggered.connect(func(id: StringName) -> void: notify(StringName("trigger:" + String(id))))

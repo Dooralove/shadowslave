@@ -1,0 +1,102 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/park_street.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/park/park_art.tscn" id="2_art"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_morning"]
+sky_top_color = Color(0.36, 0.45, 0.58, 1)
+sky_horizon_color = Color(0.7, 0.74, 0.8, 1)
+sky_curve = 0.12
+ground_bottom_color = Color(0.25, 0.27, 0.3, 1)
+ground_horizon_color = Color(0.7, 0.74, 0.8, 1)
+sun_angle_max = 20.0
+
+[sub_resource type="Sky" id="Sky_morning"]
+sky_material = SubResource("SkyMat_morning")
+
+[sub_resource type="Environment" id="Env_morning"]
+background_mode = 2
+sky = SubResource("Sky_morning")
+ambient_light_source = 3
+ambient_light_energy = 0.55
+reflected_light_source = 2
+tonemap_mode = 4
+tonemap_exposure = 0.9
+ssao_enabled = true
+ssao_radius = 1.5
+ssao_intensity = 1.6
+fog_enabled = true
+fog_light_color = Color(0.68, 0.73, 0.8, 1)
+fog_density = 0.01
+fog_aerial_perspective = 0.4
+fog_sky_affect = 0.5
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.85, 0.88, 0.92, 1)
+volumetric_fog_length = 48.0
+volumetric_fog_anisotropy = 0.4
+
+[node name="ParkStreetArt" instance=ExtResource("1_base")]
+
+[node name="WorldEnvironment" parent="."]
+environment = SubResource("Env_morning")
+
+[node name="Sun" parent="."]
+rotation = Vector3(-0.576, 0.646, 0)
+light_color = Color(0.96, 0.97, 1, 1)
+light_energy = 2.0
+light_angular_distance = 0.8
+directional_shadow_max_distance = 70.0
+
+[node name="Geometry" parent="."]
+visible = false
+
+[node name="ParkGround" parent="Geometry"]
+use_collision = false
+
+[node name="Street" parent="Geometry"]
+use_collision = false
+
+[node name="FarSidewalk" parent="Geometry"]
+use_collision = false
+
+[node name="Station" parent="Geometry"]
+use_collision = false
+
+[node name="Seat" parent="Geometry/Bench"]
+use_collision = false
+
+[node name="Back" parent="Geometry/Bench"]
+use_collision = false
+
+[node name="Bin" parent="Geometry"]
+use_collision = false
+
+[node name="LampPoleA" parent="Geometry"]
+use_collision = false
+
+[node name="LampPoleB" parent="Geometry"]
+use_collision = false
+
+[node name="TrunkA" parent="Geometry"]
+use_collision = false
+
+[node name="TrunkB" parent="Geometry"]
+use_collision = false
+
+[node name="TrunkC" parent="Geometry"]
+use_collision = false
+
+[node name="Skyline" parent="."]
+visible = false
+
+[node name="Lights" parent="."]
+visible = false
+
+[node name="BenchShot" parent="Shots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.05, 6.8)
+
+[node name="LookAt" parent="Shots/BenchShot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0.65, -18.8)
+
+[node name="Art" parent="." instance=ExtResource("2_art")]
