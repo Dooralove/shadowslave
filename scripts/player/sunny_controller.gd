@@ -44,9 +44,9 @@ func is_dead() -> bool:
 
 
 func _on_died() -> void:
+	# Падение показывает клип смерти (SunnyAnimator).
 	controls_enabled = false
 	attack.disable()
-	create_tween().tween_property(visual, "rotation:x", -PI / 2.0, 0.4)
 
 
 func _physics_process(delta: float) -> void:

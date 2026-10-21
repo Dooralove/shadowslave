@@ -1,6 +1,6 @@
 # ShadowSlave
 
-3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 2 — управляемый персонаж Санни (капсула), graybox-локация и боевое испытание с одним тестовым противником.
+3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 3 — управляемый Санни с временной гуманоидной моделью и анимациями (KayKit, CC0), graybox-локация и боевое испытание с одним тестовым противником.
 
 ## Управление
 
@@ -74,11 +74,12 @@ godot --headless --path "C:\Users\user\Desktop\shadowslave" -s addons/gut/gut_cm
 project.godot        конфигурация проекта
 scenes/              сцены: main/main.tscn (точка входа), characters/{sunny,test_enemy}.tscn,
                      levels/{test_level,combat_arena}.tscn, ui
-scripts/             GDScript: player/ (передвижение, камера), combat/ (здоровье, хёртбокс, атака,
+scripts/             GDScript: player/ (передвижение, камера, аниматор), combat/ (здоровье, хёртбокс, атака,
                      противник), world/ (сцены-обвязки), ui/ (HUD), quests
 resources/           типизированные Resource (.tres): characters/sunny_attack.tres,
                      enemies/test_enemy_attack.tres, items, quests
-assets/              исходные ассеты (через Git LFS для бинарных форматов)
+assets/              исходные ассеты (через Git LFS для бинарных форматов):
+                     characters/sunny_placeholder/ — временная модель Санни (KayKit, CC0)
 tests/               тесты GUT
 docs/                ASSET_LICENSES.md, DECISIONS.md, журналы решений
 addons/              сторонние плагины: godot_mcp, gut
@@ -87,4 +88,4 @@ addons/              сторонние плагины: godot_mcp, gut
 ## Отложено
 
 - Dialogic 2 — подключим после подтверждения работы проекта, управления персонажем и базовой сцены.
-- Модель, скелет и анимации Санни, комбо, блок, оружие, канонические противники, квесты — следующие этапы.
+- Финальная модель Санни, комбо, блок, оружие, канонические противники, квесты — следующие этапы.
