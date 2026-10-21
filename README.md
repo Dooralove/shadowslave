@@ -1,6 +1,6 @@
 # ShadowSlave
 
-3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 1 — управляемый персонаж Санни (капсула) в graybox-локации.
+3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 2 — управляемый персонаж Санни (капсула), graybox-локация и боевое испытание с одним тестовым противником.
 
 ## Управление
 
@@ -12,6 +12,8 @@
 | Обзор камерой | мышь | — |
 | Освободить мышь | Escape | `release_mouse` |
 | Захватить мышь снова | ЛКМ в окне игры | `capture_mouse` |
+| Удар ближнего боя | ЛКМ (при захваченной мыши) | `attack` |
+| Перезапустить боевое испытание | R | `restart` |
 
 ## Версии инструментов
 
@@ -46,6 +48,12 @@ godot --path "C:\Users\user\Desktop\shadowslave"
 godot --path "C:\Users\user\Desktop\shadowslave" res://scenes/levels/test_level.tscn
 ```
 
+Запустить боевое испытание:
+
+```bash
+godot --path "C:\Users\user\Desktop\shadowslave" res://scenes/levels/combat_arena.tscn
+```
+
 Headless-импорт и проверка без окна:
 
 ```bash
@@ -64,9 +72,12 @@ godot --headless --path "C:\Users\user\Desktop\shadowslave" -s addons/gut/gut_cm
 
 ```
 project.godot        конфигурация проекта
-scenes/              сцены: main/main.tscn (точка входа), characters/sunny.tscn, levels/test_level.tscn, ui
-scripts/             GDScript: player/sunny_controller.gd, player/third_person_camera.gd, world, combat, quests, ui
-resources/           типизированные Resource (.tres): characters, enemies, items, quests
+scenes/              сцены: main/main.tscn (точка входа), characters/{sunny,test_enemy}.tscn,
+                     levels/{test_level,combat_arena}.tscn, ui
+scripts/             GDScript: player/ (передвижение, камера), combat/ (здоровье, хёртбокс, атака,
+                     противник), world/ (сцены-обвязки), ui/ (HUD), quests
+resources/           типизированные Resource (.tres): characters/sunny_attack.tres,
+                     enemies/test_enemy_attack.tres, items, quests
 assets/              исходные ассеты (через Git LFS для бинарных форматов)
 tests/               тесты GUT
 docs/                ASSET_LICENSES.md, DECISIONS.md, журналы решений
@@ -76,4 +87,4 @@ addons/              сторонние плагины: godot_mcp, gut
 ## Отложено
 
 - Dialogic 2 — подключим после подтверждения работы проекта, управления персонажем и базовой сцены.
-- Модель, скелет и анимации Санни, боевая система, квесты — следующие этапы.
+- Модель, скелет и анимации Санни, комбо, блок, оружие, канонические противники, квесты — следующие этапы.

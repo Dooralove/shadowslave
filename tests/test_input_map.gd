@@ -10,6 +10,8 @@ const REQUIRED_ACTIONS := [
 	"jump",
 	"release_mouse",
 	"capture_mouse",
+	"attack",
+	"restart",
 ]
 
 const EXPECTED_KEYS := {
@@ -20,6 +22,7 @@ const EXPECTED_KEYS := {
 	"sprint": KEY_SHIFT,
 	"jump": KEY_SPACE,
 	"release_mouse": KEY_ESCAPE,
+	"restart": KEY_R,
 }
 
 
@@ -39,9 +42,10 @@ func test_keyboard_bindings() -> void:
 		assert_true(found, "%s должно быть привязано к %s" % [action, OS.get_keycode_string(EXPECTED_KEYS[action])])
 
 
-func test_capture_mouse_is_left_click() -> void:
-	var found := false
-	for event in InputMap.action_get_events("capture_mouse"):
-		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-			found = true
-	assert_true(found, "capture_mouse должно быть на левой кнопке мыши")
+func test_mouse_actions_are_left_click() -> void:
+	for action in ["capture_mouse", "attack"]:
+		var found := false
+		for event in InputMap.action_get_events(action):
+			if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+				found = true
+		assert_true(found, "%s должно быть на левой кнопке мыши" % action)

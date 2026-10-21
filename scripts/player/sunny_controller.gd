@@ -13,18 +13,52 @@ extends CharacterBody3D
 @export var turn_speed := 10.0
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+## Ложь после смерти: ввод игнорируется, гравитация продолжает действовать.
+var controls_enabled := true
 
 @onready var visual: Node3D = $Visual
 @onready var camera_rig: ThirdPersonCamera = $CameraRig
+@onready var health: HealthComponent = $Health
+@onready var attack: MeleeAttack = $Visual/MeleeAttack
+
+
+func _ready() -> void:
+	health.died.connect(_on_died)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Щелчок, которым захватывают мышь, камера помечает обработанным, поэтому сюда он не доходит.
+	if event.is_action_pressed("attack") and camera_rig.is_mouse_captured():
+		try_attack()
+
+
+## Удар в направлении взгляда камеры.
+func try_attack() -> bool:
+	if not controls_enabled or not attack.can_attack():
+		return false
+	visual.rotation.y = camera_rig.yaw
+	return attack.try_attack()
+
+
+func is_dead() -> bool:
+	return health.is_dead()
+
+
+func _on_died() -> void:
+	controls_enabled = false
+	attack.disable()
+	create_tween().tween_property(visual, "rotation:x", -PI / 2.0, 0.4)
 
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	elif Input.is_action_just_pressed("jump"):
+	elif controls_enabled and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity
 
-	var input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var input := Vector2.ZERO
+	if controls_enabled:
+		input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := camera_rig.get_planar_basis() * Vector3(input.x, 0.0, input.y)
 	var speed := sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 

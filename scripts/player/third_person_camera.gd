@@ -30,6 +30,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		release_mouse()
 	elif event.is_action_pressed("capture_mouse") and not is_mouse_captured():
 		capture_mouse()
+		# Этот щелчок только захватывает мышь и не должен считаться атакой.
+		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseMotion and is_mouse_captured():
 		var motion := event as InputEventMouseMotion
 		yaw = wrapf(yaw - motion.relative.x * mouse_sensitivity, -PI, PI)

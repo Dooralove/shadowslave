@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/player/sunny_controller.gd" id="1_controller"]
 [ext_resource type="Script" path="res://scripts/player/third_person_camera.gd" id="2_camera"]
+[ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="3_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/melee_attack.gd" id="5_attack"]
+[ext_resource type="Resource" path="res://resources/characters/sunny_attack.tres" id="6_attack_stats"]
+[ext_resource type="Script" path="res://scripts/combat/hit_flash.gd" id="7_flash"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.35
@@ -22,10 +27,26 @@ albedo_color = Color(0.55, 0.08, 0.08, 1)
 material = SubResource("Mat_facing")
 size = Vector3(0.2, 0.12, 0.2)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_attack_placeholder"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_swing"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.85, 0.9, 1, 0.35)
+
+[sub_resource type="SphereMesh" id="SphereMesh_swing"]
+material = SubResource("Mat_swing")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurtbox"]
+radius = 0.4
+height = 1.9
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_arm"]
 radius = 0.2
 
-[node name="Sunny" type="CharacterBody3D"]
+[node name="Sunny" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_controller")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -41,6 +62,40 @@ mesh = SubResource("CapsuleMesh_body")
 [node name="FacingMarker" type="MeshInstance3D" parent="Visual"]
 position = Vector3(0, 1.5, -0.35)
 mesh = SubResource("BoxMesh_facing")
+
+[node name="MeleeAttack" type="Area3D" parent="Visual" node_paths=PackedStringArray("swing_visual")]
+position = Vector3(0, 1, 0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_attack")
+stats = ExtResource("6_attack_stats")
+swing_visual = NodePath("SwingVisual")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/MeleeAttack"]
+shape = SubResource("SphereShape3D_attack_placeholder")
+
+[node name="SwingVisual" type="MeshInstance3D" parent="Visual/MeleeAttack"]
+visible = false
+cast_shadow = 0
+mesh = SubResource("SphereMesh_swing")
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("4_hurtbox")
+health = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+position = Vector3(0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_hurtbox")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")
+
+[node name="HitFlash" type="Node" parent="." node_paths=PackedStringArray("health", "mesh_root")]
+script = ExtResource("7_flash")
+health = NodePath("../Health")
+mesh_root = NodePath("../Visual")
 
 [node name="CameraRig" type="Node3D" parent="."]
 position = Vector3(0, 1.5, 0)
