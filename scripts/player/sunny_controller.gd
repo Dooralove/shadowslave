@@ -32,11 +32,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		try_attack()
 
 
-## Удар в направлении взгляда камеры.
+## Удар туда, куда смотрит модель (Visual, ось -Z). Камера на направление не влияет.
 func try_attack() -> bool:
-	if not controls_enabled or not attack.can_attack():
+	if not controls_enabled:
 		return false
-	visual.rotation.y = camera_rig.yaw
 	return attack.try_attack()
 
 

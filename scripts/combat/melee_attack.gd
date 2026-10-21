@@ -15,12 +15,17 @@ var enabled := true
 var _cooldown_left := 0.0
 var _active_left := 0.0
 var _hit_this_swing: Array[Hurtbox] = []
+## Направление удара фиксируется при его начале: родитель (модель) может поворачиваться
+## во время окна попадания, но зона, визуализация и урон остаются в исходном направлении.
+var _rest_basis := Basis.IDENTITY
+var _locked_basis := Basis.IDENTITY
 
 @onready var _shape: CollisionShape3D = $CollisionShape3D
 
 
 func _ready() -> void:
 	monitorable = false
+	_rest_basis = transform.basis
 	var sphere := SphereShape3D.new()
 	sphere.radius = stats.radius
 	_shape.shape = sphere
@@ -40,6 +45,7 @@ func tick(delta: float) -> void:
 	_cooldown_left = maxf(_cooldown_left - delta, 0.0)
 	if not is_active():
 		return
+	global_basis = _locked_basis
 	for area in get_overlapping_areas():
 		if area is Hurtbox:
 			apply_hit(area)
@@ -58,6 +64,7 @@ func try_attack() -> bool:
 	_cooldown_left = stats.cooldown
 	_active_left = stats.active_time
 	_hit_this_swing.clear()
+	_locked_basis = global_basis
 	if swing_visual:
 		swing_visual.visible = true
 	attack_started.emit()
@@ -88,6 +95,7 @@ func disable() -> void:
 
 func _end_swing() -> void:
 	_active_left = 0.0
+	transform.basis = _rest_basis
 	if swing_visual:
 		swing_visual.visible = false
 	attack_finished.emit()
