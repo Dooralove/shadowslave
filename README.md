@@ -1,6 +1,8 @@
 # ShadowSlave
 
-3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 3 — управляемый Санни с временной гуманоидной моделью и анимациями (KayKit, CC0), graybox-локация и боевое испытание с одним тестовым противником.
+3D-игра на Godot 4.7.2 (GDScript). Стадия: Milestone 4 — Санни и тестовый противник с временными моделями и анимациями (KayKit, CC0), атака с фазами подготовки, удара и восстановления, graybox-локация и боевое испытание.
+
+Отладка: зону удара можно показать флагом `show_hit_zone` у узла `MeleeAttack` (Санни: `Visual/MeleeAttack`, противник: то же) — на физику и урон не влияет.
 
 ## Управление
 
@@ -80,6 +82,7 @@ resources/           типизированные Resource (.tres): characters/s
                      enemies/test_enemy_attack.tres, items, quests
 assets/              исходные ассеты (через Git LFS для бинарных форматов):
                      characters/sunny_placeholder/ — временная модель Санни (KayKit, CC0)
+                     characters/enemy_placeholder/ — временная модель противника (KayKit, CC0)
 tests/               тесты GUT
 docs/                ASSET_LICENSES.md, DECISIONS.md, журналы решений
 addons/              сторонние плагины: godot_mcp, gut

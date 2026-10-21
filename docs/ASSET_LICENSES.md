@@ -10,6 +10,9 @@
 | Rogue_Hooded.glb — временная модель Санни со скелетом и 76 анимациями (`assets/characters/sunny_placeholder/`) | KayKit : Adventurers Character Pack 1.0, официальный GitHub автора (`Characters/gltf/Rogue_Hooded.glb`, SHA-256 `93E6E252…BB91545`) | Kay Lousberg (www.kaylousberg.com) | CC0 1.0 (текст: `assets/characters/sunny_placeholder/LICENSE_KayKit.txt`) | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0 | 2026-10-21 | Нет (CC0). Упоминание автора желательно, но не обязательно. Временный ассет: не финальный облик Санни |
 | Rogue_Hooded_rogue_texture.png — текстура модели, извлечена Godot из .glb при импорте | то же | Kay Lousberg | CC0 1.0 | — | 2026-10-21 | Как у модели |
 
-`rogue_placeholder_dark.tres` — собственный материал проекта (затемнённая копия материала модели), не внешний ассет.
+| Barbarian.glb — временная модель тестового противника со скелетом и 76 анимациями (`assets/characters/enemy_placeholder/`) | KayKit : Adventurers Character Pack 1.0, тот же официальный GitHub (`Characters/gltf/Barbarian.glb`, SHA-256 `CEFC311A…0669CC6`) | Kay Lousberg (www.kaylousberg.com) | CC0 1.0 (текст: `assets/characters/enemy_placeholder/LICENSE_KayKit.txt`) | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0 | 2026-10-21 | Нет (CC0). Временный ассет |
+| Barbarian_barbarian_texture.png — текстура модели, извлечена Godot из .glb при импорте | то же | Kay Lousberg | CC0 1.0 | — | 2026-10-21 | Как у модели |
+
+`rogue_placeholder_dark.tres` и `barbarian_placeholder_dark.tres` — собственные материалы проекта (затемнённые копии материалов моделей), не внешние ассеты.
 
 Mixamo рассматривался как основной источник, но скачивание требует входа в аккаунт Adobe; выбран CC0-аналог с подтверждения пользователя.

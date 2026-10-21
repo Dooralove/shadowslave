@@ -69,7 +69,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	if direction.length_squared() > 0.001:
+	# Во время атаки модель не разворачивается: видимый удар совпадает с зафиксированной зоной поражения.
+	if direction.length_squared() > 0.001 and not attack.is_attacking():
 		# Модель смотрит вдоль -Z.
 		var target_yaw := atan2(-direction.x, -direction.z)
 		visual.rotation.y = lerp_angle(visual.rotation.y, target_yaw, clampf(turn_speed * delta, 0.0, 1.0))

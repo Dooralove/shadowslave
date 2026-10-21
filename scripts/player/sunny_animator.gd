@@ -30,9 +30,10 @@ enum State { IDLE, WALK, RUN, JUMP, FALL, LAND, ATTACK, HIT, DEAD }
 ## Время в воздухе без прыжка, после которого включается падение (сглаживает ступеньки), с.
 @export var fall_delay := 0.12
 @export var blend_time := 0.15
-## Момент удара в клипе атаки (пик скорости замаха руки), с. Клип начинается так,
-## чтобы этот момент пришёлся на середину окна попадания MeleeAttack.
-@export var attack_impact_time := 0.267
+## Момент контакта в клипе атаки: максимальная скорость кисти с ножом перед корпусом,
+## измерена покадрово по позе скелета, с. Клип играет с начала со скоростью, при которой
+## этот момент приходится на середину окна попадания MeleeAttack.
+@export var attack_contact_time := 0.25
 ## Через сколько секунд реакцию на урон можно прервать движением, с.
 @export var hit_interrupt_time := 0.25
 
@@ -62,7 +63,8 @@ func update(delta: float, on_floor: bool, velocity: Vector3) -> void:
 	# Разовые анимации держатся, пока не закончатся или их не прервёт движение.
 	match state:
 		State.ATTACK:
-			if _state_time < attack.stats.cooldown:
+			# Удар держится ровно столько, сколько идут фазы MeleeAttack.
+			if attack.is_attacking():
 				return
 		State.HIT:
 			var moving := horizontal_speed > move_threshold and _state_time >= hit_interrupt_time
@@ -123,8 +125,14 @@ func _on_attack_started() -> void:
 	if state == State.DEAD:
 		return
 	_force(State.ATTACK)
-	var offset := maxf(attack_impact_time - attack.stats.active_time * 0.5, 0.0)
-	_play(attack_clip, offset, 0.05)
+	_play(attack_clip, 0.0, 0.05)
+	animation_player.speed_scale = attack_clip_speed()
+
+
+## Скорость клипа атаки, при которой контакт совпадает с серединой окна попадания.
+func attack_clip_speed() -> float:
+	var contact_at := attack.stats.windup_time + attack.stats.active_time * 0.5
+	return clampf(attack_contact_time / contact_at, 0.5, 2.0)
 
 
 func _on_damaged(_amount: float) -> void:

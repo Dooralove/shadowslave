@@ -6,36 +6,20 @@
 [ext_resource type="Script" path="res://scripts/combat/melee_attack.gd" id="4_attack"]
 [ext_resource type="Resource" path="res://resources/enemies/test_enemy_attack.tres" id="5_attack_stats"]
 [ext_resource type="Script" path="res://scripts/combat/hit_flash.gd" id="6_flash"]
+[ext_resource type="PackedScene" uid="uid://du437tw4snmuh" path="res://assets/characters/enemy_placeholder/Barbarian.glb" id="7_model"]
+[ext_resource type="Script" path="res://scripts/combat/enemy_animator.gd" id="8_animator"]
+[ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="9_spark"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.45
 height = 2.0
-
-[sub_resource type="StandardMaterial3D" id="Mat_body"]
-albedo_color = Color(0.5, 0.2, 0.13, 1)
-roughness = 0.8
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
-material = SubResource("Mat_body")
-radius = 0.45
-height = 2.0
-
-[sub_resource type="StandardMaterial3D" id="Mat_eyes"]
-albedo_color = Color(1, 0.75, 0.2, 1)
-emission_enabled = true
-emission = Color(1, 0.6, 0.1, 1)
-emission_energy_multiplier = 2.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_eyes"]
-material = SubResource("Mat_eyes")
-size = Vector3(0.4, 0.08, 0.1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_attack_placeholder"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_swing"]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(1, 0.15, 0.1, 0.45)
+albedo_color = Color(1, 0.15, 0.1, 0.3)
 
 [sub_resource type="SphereMesh" id="SphereMesh_swing"]
 material = SubResource("Mat_swing")
@@ -43,7 +27,7 @@ material = SubResource("Mat_swing")
 [sub_resource type="StandardMaterial3D" id="Mat_telegraph"]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(1, 0.25, 0.1, 0.5)
+albedo_color = Color(1, 0.25, 0.1, 0.35)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_telegraph"]
 material = SubResource("Mat_telegraph")
@@ -66,13 +50,8 @@ shape = SubResource("CapsuleShape3D_body")
 
 [node name="Visual" type="Node3D" parent="."]
 
-[node name="Body" type="MeshInstance3D" parent="Visual"]
-position = Vector3(0, 1, 0)
-mesh = SubResource("CapsuleMesh_body")
-
-[node name="Eyes" type="MeshInstance3D" parent="Visual"]
-position = Vector3(0, 1.6, -0.42)
-mesh = SubResource("BoxMesh_eyes")
+[node name="Model" parent="Visual" instance=ExtResource("7_model")]
+transform = Transform3D(-0.9, 0, 0, 0, 0.9, 0, 0, 0, -0.9, 0, 0, 0)
 
 [node name="MeleeAttack" type="Area3D" parent="Visual" node_paths=PackedStringArray("swing_visual")]
 position = Vector3(0, 1, 0)
@@ -114,3 +93,14 @@ max_health = 60.0
 script = ExtResource("6_flash")
 health = NodePath("../Health")
 mesh_root = NodePath("../Visual")
+
+[node name="HitSpark" type="Node" parent="." node_paths=PackedStringArray("attack")]
+script = ExtResource("9_spark")
+attack = NodePath("../Visual/MeleeAttack")
+
+[node name="Animator" type="Node" parent="." node_paths=PackedStringArray("enemy", "animation_player", "health", "attack")]
+script = ExtResource("8_animator")
+enemy = NodePath("..")
+animation_player = NodePath("../Visual/Model/AnimationPlayer")
+health = NodePath("../Health")
+attack = NodePath("../Visual/MeleeAttack")

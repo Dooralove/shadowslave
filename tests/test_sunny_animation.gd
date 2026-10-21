@@ -109,25 +109,42 @@ func test_short_ground_loss_does_not_trigger_fall() -> void:
 	assert_eq(animator.state, SunnyAnimator.State.FALL)
 
 
-func test_attack_plays_from_impact_aligned_offset() -> void:
+func test_attack_plays_from_start_with_contact_in_hit_window() -> void:
+	var stats := sunny.attack.stats
 	assert_true(sunny.try_attack())
 	assert_eq(animator.state, SunnyAnimator.State.ATTACK)
 	assert_eq(player.assigned_animation, String(animator.attack_clip))
-	var expected := animator.attack_impact_time - sunny.attack.stats.active_time * 0.5
-	assert_almost_eq(player.current_animation_position, expected, 0.01, "момент удара приходится на окно попадания")
+	assert_almost_eq(player.current_animation_position, 0.0, 0.001, "клип играет с начала")
+	assert_almost_eq(player.speed_scale, animator.attack_clip_speed(), 0.0001)
+	# Когда в реальном времени наступает контакт клипа.
+	var contact_real := animator.attack_contact_time / player.speed_scale
+	assert_between(contact_real, stats.windup_time, stats.windup_time + stats.active_time, "контакт внутри окна попадания")
+	assert_between(player.speed_scale, 0.8, 1.2, "клип почти не растянут: подготовка взята из самого клипа")
 
 
-func test_attack_holds_until_cooldown_then_returns() -> void:
+func test_attack_state_follows_attack_phases() -> void:
+	var stats := sunny.attack.stats
 	sunny.try_attack()
-	animator.update(sunny.attack.stats.cooldown * 0.5, true, Vector3(3.0, 0.0, 0.0))
-	assert_eq(animator.state, SunnyAnimator.State.ATTACK, "удар не прерывается движением")
-	animator.update(sunny.attack.stats.cooldown, true, Vector3(3.0, 0.0, 0.0))
-	assert_eq(animator.state, SunnyAnimator.State.WALK)
+	animator.update(stats.windup_time * 0.5, true, Vector3(3.0, 0.0, 0.0))
+	assert_eq(animator.state, SunnyAnimator.State.ATTACK, "подготовка не прерывается движением")
+	sunny.attack.tick(stats.windup_time)
+	assert_true(sunny.attack.is_active())
+	animator.update(DT, true, Vector3(3.0, 0.0, 0.0))
+	assert_eq(animator.state, SunnyAnimator.State.ATTACK, "окно попадания")
+	sunny.attack.tick(stats.active_time)
+	assert_eq(sunny.attack.phase, MeleeAttack.Phase.RECOVERY)
+	animator.update(DT, true, Vector3(3.0, 0.0, 0.0))
+	assert_eq(animator.state, SunnyAnimator.State.ATTACK, "восстановление")
+	sunny.attack.tick(stats.cooldown)
+	assert_false(sunny.attack.is_attacking())
+	animator.update(DT, true, Vector3(3.0, 0.0, 0.0))
+	assert_eq(animator.state, SunnyAnimator.State.WALK, "после атаки — снова передвижение")
 
 
 func test_reentering_attack_state_does_not_repeat_damage() -> void:
 	var target := _make_target()
 	sunny.try_attack()
+	sunny.attack.tick(sunny.attack.stats.windup_time)
 	assert_true(sunny.attack.apply_hit(target))
 	var after_hit := target.health.current_health
 	# Повторный вход в состояние атаки — только визуальное событие.

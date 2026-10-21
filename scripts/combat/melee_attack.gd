@@ -1,22 +1,30 @@
 class_name MeleeAttack
 extends Area3D
-## Атака ближнего боя: окно попадания, перезарядка, не больше одного попадания по цели за удар.
+## Атака ближнего боя в фазах: подготовка (WINDUP) → окно попадания (ACTIVE) → восстановление (RECOVERY).
+## Урон возможен только в окне попадания, не больше одного попадания по каждой цели за удар.
 ## Зона поражения — сфера вперёд по -Z узла; маска коллизии задаёт, чьи хёртбоксы она видит.
 
 signal attack_started
+signal hit_window_opened
+signal hit_window_closed
+## Атака полностью завершена (или отменена) — можно начинать следующую.
 signal attack_finished
 signal hit_landed(target: Hurtbox)
 
+enum Phase { READY, WINDUP, ACTIVE, RECOVERY }
+
 @export var stats: AttackStats
-## Необязательная визуализация удара; показывается на время окна попадания.
+## Отладочная визуализация зоны поражения.
 @export var swing_visual: Node3D
+## Показывать зону поражения во время окна попадания. Только отладка: на физику и урон не влияет.
+@export var show_hit_zone := false
 
 var enabled := true
-var _cooldown_left := 0.0
-var _active_left := 0.0
+var phase := Phase.READY
+var _phase_left := 0.0
 var _hit_this_swing: Array[Hurtbox] = []
 ## Направление удара фиксируется при его начале: родитель (модель) может поворачиваться
-## во время окна попадания, но зона, визуализация и урон остаются в исходном направлении.
+## во время атаки, но зона, визуализация и урон остаются в исходном направлении.
 var _rest_basis := Basis.IDENTITY
 var _locked_basis := Basis.IDENTITY
 
@@ -42,37 +50,45 @@ func _physics_process(delta: float) -> void:
 
 
 func tick(delta: float) -> void:
-	_cooldown_left = maxf(_cooldown_left - delta, 0.0)
-	if not is_active():
+	if phase == Phase.READY:
 		return
 	global_basis = _locked_basis
-	for area in get_overlapping_areas():
-		if area is Hurtbox:
-			apply_hit(area)
-	_active_left -= delta
-	if _active_left <= 0.0:
-		_end_swing()
+	if phase == Phase.ACTIVE:
+		for area in get_overlapping_areas():
+			if area is Hurtbox:
+				apply_hit(area)
+	_phase_left -= delta
+	# Остаток времени переносится в следующую фазу; короткие фазы могут пройти за один вызов.
+	while phase != Phase.READY and _phase_left <= 0.0:
+		_advance_phase()
 
 
 func can_attack() -> bool:
-	return enabled and stats != null and _cooldown_left <= 0.0 and not is_active()
+	return enabled and stats != null and phase == Phase.READY
 
 
 func try_attack() -> bool:
 	if not can_attack():
 		return false
-	_cooldown_left = stats.cooldown
-	_active_left = stats.active_time
 	_hit_this_swing.clear()
 	_locked_basis = global_basis
-	if swing_visual:
-		swing_visual.visible = true
 	attack_started.emit()
+	if stats.windup_time > 0.0:
+		phase = Phase.WINDUP
+		_phase_left = stats.windup_time
+	else:
+		_open_window(stats.active_time)
 	return true
 
 
+## Открыто ли окно попадания.
 func is_active() -> bool:
-	return _active_left > 0.0
+	return phase == Phase.ACTIVE
+
+
+## Идёт ли атака в любой фазе.
+func is_attacking() -> bool:
+	return phase != Phase.READY
 
 
 ## Засчитывает попадание, если окно открыто и эта цель ещё не получила урон в этом ударе.
@@ -86,16 +102,44 @@ func apply_hit(target: Hurtbox) -> bool:
 	return false
 
 
-## Окончательно отключает атаку (например, после смерти владельца).
+## Окончательно отключает атаку (например, после смерти владельца) и обрывает текущую.
 func disable() -> void:
 	enabled = false
-	if is_active():
-		_end_swing()
+	if phase == Phase.ACTIVE:
+		_close_window()
+	if phase != Phase.READY:
+		_finish()
 
 
-func _end_swing() -> void:
-	_active_left = 0.0
-	transform.basis = _rest_basis
+func _advance_phase() -> void:
+	match phase:
+		Phase.WINDUP:
+			_open_window(stats.active_time + _phase_left)
+		Phase.ACTIVE:
+			var overflow := _phase_left
+			_close_window()
+			phase = Phase.RECOVERY
+			_phase_left = maxf(stats.cooldown - stats.windup_time - stats.active_time, 0.0) + overflow
+		Phase.RECOVERY:
+			_finish()
+
+
+func _open_window(duration: float) -> void:
+	phase = Phase.ACTIVE
+	_phase_left = duration
+	if swing_visual and show_hit_zone:
+		swing_visual.visible = true
+	hit_window_opened.emit()
+
+
+func _close_window() -> void:
 	if swing_visual:
 		swing_visual.visible = false
+	hit_window_closed.emit()
+
+
+func _finish() -> void:
+	phase = Phase.READY
+	_phase_left = 0.0
+	transform.basis = _rest_basis
 	attack_finished.emit()

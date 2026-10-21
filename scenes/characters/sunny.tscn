@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/combat/hit_flash.gd" id="7_flash"]
 [ext_resource type="PackedScene" uid="uid://d0neuu3gowxgh" path="res://assets/characters/sunny_placeholder/Rogue_Hooded.glb" id="8_model"]
 [ext_resource type="Script" path="res://scripts/player/sunny_animator.gd" id="9_animator"]
+[ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="10_spark"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.35
@@ -19,7 +20,7 @@ height = 1.8
 [sub_resource type="StandardMaterial3D" id="Mat_swing"]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(0.85, 0.9, 1, 0.12)
+albedo_color = Color(0.85, 0.9, 1, 0.3)
 
 [sub_resource type="SphereMesh" id="SphereMesh_swing"]
 material = SubResource("Mat_swing")
@@ -78,6 +79,10 @@ script = ExtResource("3_health")
 script = ExtResource("7_flash")
 health = NodePath("../Health")
 mesh_root = NodePath("../Visual")
+
+[node name="HitSpark" type="Node" parent="." node_paths=PackedStringArray("attack")]
+script = ExtResource("10_spark")
+attack = NodePath("../Visual/MeleeAttack")
 
 [node name="Animator" type="Node" parent="." node_paths=PackedStringArray("body", "animation_player", "attack", "health")]
 script = ExtResource("9_animator")

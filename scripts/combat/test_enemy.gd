@@ -125,5 +125,5 @@ func _on_died() -> void:
 	attack.disable()
 	# Тело остаётся лежать на полу, но больше не загораживает проход.
 	collision_layer = 0
+	# Падение показывает клип смерти (EnemyAnimator).
 	_enter(State.DEAD)
-	create_tween().tween_property(visual, "rotation:x", -PI / 2.0, 0.4)

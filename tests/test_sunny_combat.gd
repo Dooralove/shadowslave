@@ -54,20 +54,35 @@ func test_camera_rotation_does_not_change_attack_direction() -> void:
 	_assert_direction(_direction_to("SwingVisual"), _forward_for_yaw(0.5), "визуализация удара — туда же")
 
 
-func test_attack_direction_locked_during_hit_window() -> void:
+func test_attack_direction_locked_from_start_to_end() -> void:
+	var stats := sunny.attack.stats
 	sunny.visual.rotation.y = 0.5
 	sunny.try_attack()
-	# Модель поворачивается во время окна попадания (например, Санни начал двигаться), камера тоже.
+	# Модель и камера поворачиваются во время атаки — направление удара не меняется.
 	sunny.visual.rotation.y = -1.2
 	sunny.camera_rig.yaw = 1.0
-	sunny.attack.tick(0.05)
-	assert_true(sunny.attack.is_active())
+	sunny.attack.tick(stats.windup_time * 0.5)
+	assert_eq(sunny.attack.phase, MeleeAttack.Phase.WINDUP)
+	_assert_direction(_direction_to("CollisionShape3D"), _forward_for_yaw(0.5), "зафиксировано уже на подготовке")
+
+	sunny.attack.tick(stats.windup_time * 0.5 + stats.active_time * 0.5)
+	assert_true(sunny.attack.is_active(), "окно попадания открыто")
 	_assert_direction(_direction_to("CollisionShape3D"), _forward_for_yaw(0.5), "зона удара зафиксирована")
 	_assert_direction(_direction_to("SwingVisual"), _forward_for_yaw(0.5), "визуализация зафиксирована")
 
-	sunny.attack.tick(sunny.attack.stats.active_time)
-	assert_false(sunny.attack.is_active())
-	_assert_direction(_direction_to("CollisionShape3D"), _forward_for_yaw(-1.2), "после удара зона снова следует за моделью")
+	sunny.attack.tick(stats.cooldown)
+	assert_false(sunny.attack.is_attacking())
+	_assert_direction(_direction_to("CollisionShape3D"), _forward_for_yaw(-1.2), "после атаки зона снова следует за моделью")
+
+
+func test_model_does_not_turn_during_attack() -> void:
+	sunny.visual.rotation.y = 0.5
+	sunny.try_attack()
+	sunny.camera_rig.yaw = 0.0
+	Input.action_press("move_left")
+	sunny._physics_process(1.0 / 60.0)
+	Input.action_release("move_left")
+	assert_almost_eq(sunny.visual.rotation.y, 0.5, 0.0001, "во время атаки модель не разворачивается по движению")
 
 
 func test_no_attack_and_no_controls_after_death() -> void:
