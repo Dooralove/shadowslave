@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"desk_officer"
+text = "Ты заблудился, парень?"
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"desk_officer"
+text = "Эй! Я с тобой говорю!"
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Э… нет."
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "По Третьей специальной директиве я пришёл сдаться. Я носитель Заклинания Кошмара."
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"desk_officer"
+text = "Ты уверен, что заражён? Когда появились симптомы?"
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Где-то неделю назад?"
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"desk_officer"
+text = "Чёрт."
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7")]

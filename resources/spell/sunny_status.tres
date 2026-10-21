@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusSheet" format=3]
+
+[ext_resource type="Script" path="res://scripts/spell/status_sheet.gd" id="1_sheet"]
+
+[resource]
+script = ExtResource("1_sheet")
+name_rune = "Sunless"
+true_name = "—"
+rank = "Aspirant"
+soul_core = "Dormant"
+memories = "—"
+echoes = "—"
+attributes = PackedStringArray("Fated", "Mark of Divinity", "Child of Shadows")
+aspect = "Temple Slave"
+aspect_description = "Раб ничего не умеет и ни на что не годен. Храмовый раб — то же самое, только встречается куда реже."

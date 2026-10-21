@@ -1,0 +1,340 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/locations/caravan_road.gd" id="1_loc"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+
+[sub_resource type="Environment" id="Env_mountain"]
+background_mode = 1
+background_color = Color(0.56, 0.59, 0.64, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.65, 0.72, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.58, 0.61, 0.66, 1)
+fog_density = 0.018
+
+[sub_resource type="StandardMaterial3D" id="Mat_road"]
+albedo_color = Color(0.33, 0.3, 0.27, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_rock"]
+albedo_color = Color(0.28, 0.28, 0.31, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_snow"]
+albedo_color = Color(0.8, 0.83, 0.88, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_chain"]
+albedo_color = Color(0.3, 0.29, 0.27, 1)
+metallic = 0.8
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_horse"]
+albedo_color = Color(0.22, 0.16, 0.12, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="Shape_edge"]
+size = Vector3(0.5, 4, 600)
+
+[node name="CaravanRoad" type="Node3D"]
+script = ExtResource("1_loc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_mountain")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.7, 2.4, 0)
+light_color = Color(0.9, 0.92, 1, 1)
+light_energy = 0.7
+shadow_enabled = true
+
+[node name="Valley" type="CSGBox3D" parent="."]
+position = Vector3(-60, -45, -200)
+size = Vector3(100, 2, 600)
+material = SubResource("Mat_snow")
+
+[node name="FarRidge" type="CSGCylinder3D" parent="."]
+position = Vector3(-120, 10, -180)
+radius = 60.0
+height = 110.0
+sides = 9
+cone = true
+material = SubResource("Mat_rock")
+
+[node name="Road" type="Node3D" parent="."]
+rotation = Vector3(0.08, 0, 0)
+
+[node name="Surface" type="CSGBox3D" parent="Road"]
+position = Vector3(0, -0.5, -260)
+use_collision = true
+size = Vector3(4, 1, 600)
+material = SubResource("Mat_road")
+
+[node name="Cliff" type="CSGBox3D" parent="Road"]
+position = Vector3(3.5, 6, -260)
+use_collision = true
+size = Vector3(3, 14, 600)
+material = SubResource("Mat_rock")
+
+[node name="Underside" type="CSGBox3D" parent="Road"]
+position = Vector3(0, -20, -260)
+size = Vector3(4, 38, 600)
+material = SubResource("Mat_rock")
+
+[node name="Edge" type="StaticBody3D" parent="Road"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road/Edge"]
+position = Vector3(-2.25, 2, -260)
+shape = SubResource("Shape_edge")
+
+[node name="Chain" type="Node3D" parent="Road"]
+
+[node name="Links" type="CSGBox3D" parent="Road/Chain"]
+position = Vector3(0, 0.95, -2.4)
+size = Vector3(0.04, 0.04, 14.4)
+material = SubResource("Mat_chain")
+
+[node name="BroadSlave" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -1.6)
+body_color = Color(0.46, 0.41, 0.34, 1)
+height_scale = 1.08
+width_scale = 1.4
+
+[node name="SlaveAhead2" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -3.2)
+body_color = Color(0.43, 0.39, 0.33, 1)
+
+[node name="SlaveAhead3" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -4.8)
+body_color = Color(0.45, 0.4, 0.33, 1)
+height_scale = 0.96
+
+[node name="SlaveAhead4" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -6.4)
+body_color = Color(0.41, 0.37, 0.31, 1)
+height_scale = 1.03
+
+[node name="SlaveAhead5" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -8)
+body_color = Color(0.45, 0.4, 0.33, 1)
+
+[node name="SlaveAhead6" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -9.6)
+body_color = Color(0.42, 0.38, 0.32, 1)
+width_scale = 1.1
+
+[node name="ShiftySlave" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, 1.6)
+body_color = Color(0.4, 0.36, 0.3, 1)
+head_color = Color(0.62, 0.52, 0.45, 1)
+height_scale = 0.95
+width_scale = 0.9
+
+[node name="SlaveBehind2" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, 3.2)
+body_color = Color(0.45, 0.4, 0.33, 1)
+
+[node name="SlaveBehind3" parent="Road/Chain" instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, 4.8)
+body_color = Color(0.43, 0.39, 0.33, 1)
+height_scale = 1.04
+
+[node name="Riders" type="Node3D" parent="Road/Chain"]
+
+[node name="RiderA" parent="Road/Chain/Riders" instance=ExtResource("2_mannequin")]
+position = Vector3(-1.5, 0.9, 6)
+body_color = Color(0.16, 0.13, 0.13, 1)
+height_scale = 1.1
+
+[node name="Horse" type="CSGBox3D" parent="Road/Chain/Riders/RiderA"]
+position = Vector3(0, -0.2, 0)
+size = Vector3(0.5, 0.9, 1.6)
+material = SubResource("Mat_horse")
+
+[node name="RiderB" parent="Road/Chain/Riders" instance=ExtResource("2_mannequin")]
+position = Vector3(-1.5, 0.9, -12)
+body_color = Color(0.16, 0.13, 0.13, 1)
+height_scale = 1.1
+
+[node name="Horse" type="CSGBox3D" parent="Road/Chain/Riders/RiderB"]
+position = Vector3(0, -0.2, 0)
+size = Vector3(0.5, 0.9, 1.6)
+material = SubResource("Mat_horse")
+
+[node name="Rocks" type="Node3D" parent="Road"]
+
+[node name="Rock01" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.375, -5.0)
+rotation = Vector3(0, 0.7, 0)
+size = Vector3(0.75, 0.75, 0.98)
+material = SubResource("Mat_rock")
+
+[node name="Rock02" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.500, -13.0)
+rotation = Vector3(0, 0.4, 0)
+size = Vector3(1.00, 1.00, 1.30)
+material = SubResource("Mat_rock")
+
+[node name="Rock03" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.250, -21.0)
+rotation = Vector3(0, 0.1, 0)
+size = Vector3(0.50, 0.50, 0.65)
+material = SubResource("Mat_rock")
+
+[node name="Rock04" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.375, -29.0)
+rotation = Vector3(0, 0.8, 0)
+size = Vector3(0.75, 0.75, 0.98)
+material = SubResource("Mat_rock")
+
+[node name="Rock05" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.500, -37.0)
+rotation = Vector3(0, 0.5, 0)
+size = Vector3(1.00, 1.00, 1.30)
+material = SubResource("Mat_rock")
+
+[node name="Rock06" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.250, -45.0)
+rotation = Vector3(0, 0.2, 0)
+size = Vector3(0.50, 0.50, 0.65)
+material = SubResource("Mat_rock")
+
+[node name="Rock07" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.375, -53.0)
+rotation = Vector3(0, 0.9, 0)
+size = Vector3(0.75, 0.75, 0.98)
+material = SubResource("Mat_rock")
+
+[node name="Rock08" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.500, -61.0)
+rotation = Vector3(0, 0.6, 0)
+size = Vector3(1.00, 1.00, 1.30)
+material = SubResource("Mat_rock")
+
+[node name="Rock09" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.250, -69.0)
+rotation = Vector3(0, 0.3, 0)
+size = Vector3(0.50, 0.50, 0.65)
+material = SubResource("Mat_rock")
+
+[node name="Rock10" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.375, -77.0)
+rotation = Vector3(0, 0.0, 0)
+size = Vector3(0.75, 0.75, 0.98)
+material = SubResource("Mat_rock")
+
+[node name="Rock11" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.500, -85.0)
+rotation = Vector3(0, 0.7, 0)
+size = Vector3(1.00, 1.00, 1.30)
+material = SubResource("Mat_rock")
+
+[node name="Rock12" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.250, -93.0)
+rotation = Vector3(0, 0.4, 0)
+size = Vector3(0.50, 0.50, 0.65)
+material = SubResource("Mat_rock")
+
+[node name="Rock13" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.375, -101.0)
+rotation = Vector3(0, 0.1, 0)
+size = Vector3(0.75, 0.75, 0.98)
+material = SubResource("Mat_rock")
+
+[node name="Rock14" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.500, -109.0)
+rotation = Vector3(0, 0.8, 0)
+size = Vector3(1.00, 1.00, 1.30)
+material = SubResource("Mat_rock")
+
+[node name="Rock15" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.250, -117.0)
+rotation = Vector3(0, 0.5, 0)
+size = Vector3(0.50, 0.50, 0.65)
+material = SubResource("Mat_rock")
+
+[node name="Rock16" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.375, -125.0)
+rotation = Vector3(0, 0.2, 0)
+size = Vector3(0.75, 0.75, 0.98)
+material = SubResource("Mat_rock")
+
+[node name="Rock17" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(2.0, 0.500, -133.0)
+rotation = Vector3(0, 0.9, 0)
+size = Vector3(1.00, 1.00, 1.30)
+material = SubResource("Mat_rock")
+
+[node name="Rock18" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(1.85, 0.250, -141.0)
+rotation = Vector3(0, 0.6, 0)
+size = Vector3(0.50, 0.50, 0.65)
+material = SubResource("Mat_rock")
+
+[node name="Edge01" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -6.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge02" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -18.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge03" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -30.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge04" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -42.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge05" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -54.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge06" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -66.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge07" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -78.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge08" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -90.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge09" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -102.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge10" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -114.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge11" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -126.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Edge12" type="CSGBox3D" parent="Road/Rocks"]
+position = Vector3(-2.05, 0.15, -138.0)
+size = Vector3(0.35, 0.3, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Chain" type="Marker3D" parent="Spawns"]
+position = Vector3(0, 0.02, 0)

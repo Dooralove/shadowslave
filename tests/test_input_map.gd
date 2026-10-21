@@ -12,6 +12,9 @@ const REQUIRED_ACTIONS := [
 	"capture_mouse",
 	"attack",
 	"restart",
+	"interact",
+	"advance_dialogue",
+	"open_status",
 ]
 
 const EXPECTED_KEYS := {
@@ -23,6 +26,9 @@ const EXPECTED_KEYS := {
 	"jump": KEY_SPACE,
 	"release_mouse": KEY_ESCAPE,
 	"restart": KEY_R,
+	"interact": KEY_E,
+	"advance_dialogue": KEY_SPACE,
+	"open_status": KEY_TAB,
 }
 
 

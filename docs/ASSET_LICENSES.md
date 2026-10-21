@@ -13,6 +13,10 @@
 | Barbarian.glb — временная модель тестового противника со скелетом и 76 анимациями (`assets/characters/enemy_placeholder/`) | KayKit : Adventurers Character Pack 1.0, тот же официальный GitHub (`Characters/gltf/Barbarian.glb`, SHA-256 `CEFC311A…0669CC6`) | Kay Lousberg (www.kaylousberg.com) | CC0 1.0 (текст: `assets/characters/enemy_placeholder/LICENSE_KayKit.txt`) | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0 | 2026-10-21 | Нет (CC0). Временный ассет |
 | Barbarian_barbarian_texture.png — текстура модели, извлечена Godot из .glb при импорте | то же | Kay Lousberg | CC0 1.0 | — | 2026-10-21 | Как у модели |
 
+| Open Sans SemiBold — шрифт интерфейса по умолчанию (встроен в Godot, отдельным файлом в проект не входит) | Godot Engine 4.7.2, `thirdparty/fonts/OpenSans*.woff2` (сведения из `Engine.get_copyright_info()`) | Steve Matteson / Open Sans Project Authors | SIL OFL 1.1 | https://github.com/googlefonts/opensans | 2026-10-21 (проверка) | Нет для использования в игре; шрифт нельзя продавать отдельно |
+
 `rogue_placeholder_dark.tres` и `barbarian_placeholder_dark.tres` — собственные материалы проекта (затемнённые копии материалов моделей), не внешние ассеты.
+
+S1 (graybox-срез) новых внешних ассетов не добавляет: локации собраны из CSG-примитивов, NPC — собственный манекен из капсулы и сферы (`scenes/slice/props/mannequin.tscn`), Санни — уже зарегистрированная модель KayKit Rogue со скрытыми ножами.
 
 Mixamo рассматривался как основной источник, но скачивание требует входа в аккаунт Adobe; выбран CC0-аналог с подтверждения пользователя.

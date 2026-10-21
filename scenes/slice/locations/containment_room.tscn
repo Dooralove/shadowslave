@@ -1,0 +1,298 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/locations/containment_room.gd" id="1_loc"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+
+[sub_resource type="Environment" id="Env_cell"]
+background_mode = 1
+background_color = Color(0.01, 0.01, 0.015, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.3, 0.31, 0.36, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="Mat_concrete"]
+albedo_color = Color(0.3, 0.3, 0.32, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_steel"]
+albedo_color = Color(0.32, 0.34, 0.37, 1)
+metallic = 0.8
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_chair"]
+albedo_color = Color(0.2, 0.21, 0.23, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_cuff"]
+albedo_color = Color(0.55, 0.57, 0.6, 1)
+metallic = 0.9
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_gun"]
+albedo_color = Color(0.06, 0.06, 0.07, 1)
+metallic = 0.5
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="Mesh_rifle"]
+material = SubResource("Mat_gun")
+size = Vector3(0.07, 0.09, 0.75)
+
+[node name="ContainmentRoom" type="Node3D"]
+script = ExtResource("1_loc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_cell")
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, -0.5, 0)
+use_collision = true
+size = Vector3(7.8, 1, 7.8)
+material = SubResource("Mat_concrete")
+
+[node name="Ceiling" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 2.95, 0)
+size = Vector3(7.8, 0.3, 7.8)
+material = SubResource("Mat_concrete")
+
+[node name="WallNorthL" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-2.2, 1.4, -3.7)
+use_collision = true
+size = Vector3(3, 2.8, 0.4)
+material = SubResource("Mat_concrete")
+
+[node name="WallNorthR" type="CSGBox3D" parent="Geometry"]
+position = Vector3(2.2, 1.4, -3.7)
+use_collision = true
+size = Vector3(3, 2.8, 0.4)
+material = SubResource("Mat_concrete")
+
+[node name="Lintel" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 2.5, -3.7)
+use_collision = true
+size = Vector3(1.4, 0.6, 0.4)
+material = SubResource("Mat_concrete")
+
+[node name="WallSouth" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 1.4, 3.7)
+use_collision = true
+size = Vector3(7.8, 2.8, 0.4)
+material = SubResource("Mat_concrete")
+
+[node name="WallWest" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-3.7, 1.4, 0)
+use_collision = true
+size = Vector3(0.4, 2.8, 7)
+material = SubResource("Mat_concrete")
+
+[node name="WallEast" type="CSGBox3D" parent="Geometry"]
+position = Vector3(3.7, 1.4, 0)
+use_collision = true
+size = Vector3(0.4, 2.8, 7)
+material = SubResource("Mat_concrete")
+
+[node name="CorridorFloor" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, -0.5, -6.9)
+use_collision = true
+size = Vector3(1.9, 1, 6)
+material = SubResource("Mat_concrete")
+
+[node name="CorridorWallL" type="CSGBox3D" parent="Geometry"]
+position = Vector3(-0.95, 1.4, -6.9)
+use_collision = true
+size = Vector3(0.3, 2.8, 6)
+material = SubResource("Mat_concrete")
+
+[node name="CorridorWallR" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0.95, 1.4, -6.9)
+use_collision = true
+size = Vector3(0.3, 2.8, 6)
+material = SubResource("Mat_concrete")
+
+[node name="CorridorEnd" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 1.4, -10)
+use_collision = true
+size = Vector3(2.2, 2.8, 0.3)
+material = SubResource("Mat_concrete")
+
+[node name="CorridorCeiling" type="CSGBox3D" parent="Geometry"]
+position = Vector3(0, 2.95, -6.9)
+size = Vector3(2.2, 0.3, 6)
+material = SubResource("Mat_concrete")
+
+[node name="DoorPivot" type="Node3D" parent="Geometry"]
+position = Vector3(-0.7, 0, -3.55)
+
+[node name="VaultDoor" type="CSGBox3D" parent="Geometry/DoorPivot"]
+position = Vector3(0.7, 1.1, 0)
+size = Vector3(1.4, 2.2, 0.25)
+material = SubResource("Mat_steel")
+
+[node name="Wheel" type="CSGTorus3D" parent="Geometry/DoorPivot/VaultDoor"]
+position = Vector3(0, 0, 0.14)
+rotation = Vector3(1.5708, 0, 0)
+inner_radius = 0.18
+outer_radius = 0.24
+material = SubResource("Mat_cuff")
+
+[node name="Chair" type="Node3D" parent="."]
+position = Vector3(0, 0, 1)
+
+[node name="Seat" type="CSGBox3D" parent="Chair"]
+position = Vector3(0, 0.47, 0)
+size = Vector3(0.5, 0.06, 0.5)
+material = SubResource("Mat_chair")
+
+[node name="Back" type="CSGBox3D" parent="Chair"]
+position = Vector3(0, 0.85, 0.24)
+size = Vector3(0.5, 0.7, 0.06)
+material = SubResource("Mat_chair")
+
+[node name="ArmL" type="CSGBox3D" parent="Chair"]
+position = Vector3(-0.28, 0.68, 0)
+size = Vector3(0.06, 0.06, 0.45)
+material = SubResource("Mat_chair")
+
+[node name="ArmR" type="CSGBox3D" parent="Chair"]
+position = Vector3(0.28, 0.68, 0)
+size = Vector3(0.06, 0.06, 0.45)
+material = SubResource("Mat_chair")
+
+[node name="LegFL" type="CSGBox3D" parent="Chair"]
+position = Vector3(-0.22, 0.22, -0.22)
+size = Vector3(0.05, 0.44, 0.05)
+material = SubResource("Mat_chair")
+
+[node name="LegFR" type="CSGBox3D" parent="Chair"]
+position = Vector3(0.22, 0.22, -0.22)
+size = Vector3(0.05, 0.44, 0.05)
+material = SubResource("Mat_chair")
+
+[node name="LegBL" type="CSGBox3D" parent="Chair"]
+position = Vector3(-0.22, 0.22, 0.22)
+size = Vector3(0.05, 0.44, 0.05)
+material = SubResource("Mat_chair")
+
+[node name="LegBR" type="CSGBox3D" parent="Chair"]
+position = Vector3(0.22, 0.22, 0.22)
+size = Vector3(0.05, 0.44, 0.05)
+material = SubResource("Mat_chair")
+
+[node name="Restraints" type="Node3D" parent="Chair"]
+visible = false
+
+[node name="WristL" type="CSGBox3D" parent="Chair/Restraints"]
+position = Vector3(-0.28, 0.72, -0.08)
+size = Vector3(0.12, 0.08, 0.12)
+material = SubResource("Mat_cuff")
+
+[node name="WristR" type="CSGBox3D" parent="Chair/Restraints"]
+position = Vector3(0.28, 0.72, -0.08)
+size = Vector3(0.12, 0.08, 0.12)
+material = SubResource("Mat_cuff")
+
+[node name="AnkleL" type="CSGBox3D" parent="Chair/Restraints"]
+position = Vector3(-0.22, 0.1, -0.24)
+size = Vector3(0.12, 0.08, 0.12)
+material = SubResource("Mat_cuff")
+
+[node name="AnkleR" type="CSGBox3D" parent="Chair/Restraints"]
+position = Vector3(0.22, 0.1, -0.24)
+size = Vector3(0.12, 0.08, 0.12)
+material = SubResource("Mat_cuff")
+
+[node name="ChestStrap" type="CSGBox3D" parent="Chair/Restraints"]
+position = Vector3(0, 1.0, 0.2)
+size = Vector3(0.52, 0.06, 0.04)
+material = SubResource("Mat_cuff")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Overhead" type="SpotLight3D" parent="Lights"]
+position = Vector3(0, 2.75, 0.8)
+rotation = Vector3(-1.5708, 0, 0)
+light_color = Color(0.95, 0.96, 1, 1)
+light_energy = 3.0
+shadow_enabled = true
+spot_range = 4.5
+spot_angle = 42.0
+
+[node name="Fill" type="OmniLight3D" parent="Lights"]
+position = Vector3(0, 2.4, -1.5)
+light_color = Color(0.7, 0.75, 0.85, 1)
+light_energy = 0.4
+omni_range = 6.0
+
+[node name="CorridorLight" type="OmniLight3D" parent="Lights"]
+position = Vector3(0, 2.5, -7)
+light_color = Color(1, 0.88, 0.7, 1)
+light_energy = 0.6
+omni_range = 4.0
+
+[node name="Guards" type="Node3D" parent="."]
+
+[node name="GuardA" parent="Guards" instance=ExtResource("2_mannequin")]
+position = Vector3(-2.4, 0, -1.6)
+rotation = Vector3(0, -2.396, 0)
+body_color = Color(0.12, 0.16, 0.26, 1)
+height_scale = 1.12
+
+[node name="Rifle" type="MeshInstance3D" parent="Guards/GuardA"]
+position = Vector3(0.16, 1.25, -0.4)
+mesh = SubResource("Mesh_rifle")
+
+[node name="GuardB" parent="Guards" instance=ExtResource("2_mannequin")]
+position = Vector3(2.4, 0, -1.6)
+rotation = Vector3(0, 2.396, 0)
+body_color = Color(0.12, 0.16, 0.26, 1)
+height_scale = 1.15
+
+[node name="Rifle" type="MeshInstance3D" parent="Guards/GuardB"]
+position = Vector3(0.16, 1.25, -0.4)
+mesh = SubResource("Mesh_rifle")
+
+[node name="Policeman" parent="." instance=ExtResource("2_mannequin")]
+position = Vector3(0, 0, -8.5)
+rotation = Vector3(0, 3.14159, 0)
+body_color = Color(0.18, 0.2, 0.26, 1)
+head_color = Color(0.66, 0.66, 0.66, 1)
+height_scale = 1.1
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Chair" type="Marker3D" parent="Spawns"]
+position = Vector3(0, 0, 0.95)
+
+[node name="Markers" type="Node3D" parent="."]
+
+[node name="ChairFront" type="Marker3D" parent="Markers"]
+position = Vector3(0.85, 0, -0.5)
+rotation = Vector3(0, 2.6, 0)
+
+[node name="CuffMarks" type="Node3D" parent="Markers"]
+
+[node name="CuffA" type="Marker3D" parent="Markers/CuffMarks"]
+position = Vector3(-0.75, 0, 0.9)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="CuffB" type="Marker3D" parent="Markers/CuffMarks"]
+position = Vector3(0.75, 0, 0.9)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Shots" type="Node3D" parent="."]
+
+[node name="RoomShot" type="Camera3D" parent="Shots"]
+position = Vector3(2.6, 2.2, 3.0)
+fov = 70.0
+
+[node name="LookAt" type="Marker3D" parent="Shots/RoomShot"]
+position = Vector3(-2.6, -1.3, -3.0)
+
+[node name="DoorShot" type="Camera3D" parent="Shots"]
+position = Vector3(0.8, 1.5, 2.6)
+
+[node name="LookAt" type="Marker3D" parent="Shots/DoorShot"]
+position = Vector3(-0.8, -0.3, -6.1)

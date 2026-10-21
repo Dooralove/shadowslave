@@ -1,0 +1,221 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/prologue_ui.gd" id="1_ui"]
+[ext_resource type="Script" path="res://scripts/ui/drowsiness_overlay.gd" id="2_drowsy"]
+[ext_resource type="Shader" path="res://scripts/ui/drowsiness.gdshader" id="3_shader"]
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" path="res://scripts/ui/subtitle_ui.gd" id="5_subs"]
+[ext_resource type="Script" path="res://scripts/ui/interaction_prompt_ui.gd" id="6_prompt"]
+[ext_resource type="Script" path="res://scripts/ui/spell_message_ui.gd" id="7_spell"]
+[ext_resource type="Script" path="res://scripts/ui/rune_status_ui.gd" id="8_runes"]
+
+[sub_resource type="ShaderMaterial" id="Mat_drowsy"]
+shader = ExtResource("3_shader")
+shader_parameter/intensity = 0.0
+
+[sub_resource type="StyleBoxFlat" id="Style_subtitles"]
+bg_color = Color(0, 0, 0, 0.55)
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="Style_runes"]
+bg_color = Color(0.03, 0.04, 0.07, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.75, 0.95, 0.8)
+content_margin_left = 28.0
+content_margin_top = 22.0
+content_margin_right = 28.0
+content_margin_bottom = 22.0
+
+[node name="PrologueUI" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_ui")
+
+[node name="Drowsiness" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("Mat_drowsy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_drowsy")
+
+[node name="Prompt" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -200.0
+offset_right = 240.0
+offset_bottom = -170.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+script = ExtResource("6_prompt")
+
+[node name="Hint" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 54.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Fade" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_fade")
+
+[node name="Subtitles" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -150.0
+offset_right = 420.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_subtitles")
+script = ExtResource("5_subs")
+
+[node name="Box" type="VBoxContainer" parent="Subtitles"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SpeakerLabel" type="Label" parent="Subtitles/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="TextLabel" type="Label" parent="Subtitles/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
+
+[node name="ContinueHint" type="Label" parent="Subtitles/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "E / Space — далее"
+horizontal_alignment = 2
+
+[node name="SpellMessage" type="Label" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_spell")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -80.0
+offset_right = 420.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="RuneStatus" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -210.0
+offset_right = 340.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_runes")
+script = ExtResource("8_runes")
+
+[node name="Box" type="VBoxContainer" parent="RuneStatus"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="RuneStatus/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Руны Заклинания"
+horizontal_alignment = 1
+
+[node name="Rows" type="VBoxContainer" parent="RuneStatus/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CloseHint" type="Label" parent="RuneStatus/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "Tab / E — закрыть"
+horizontal_alignment = 2
+
+[node name="EndCard" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -40.0
+offset_right = 360.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+text = "Конец вертикального среза"
+horizontal_alignment = 1
+vertical_alignment = 1

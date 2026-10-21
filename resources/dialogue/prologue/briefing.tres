@@ -1,0 +1,90 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Как тебя зовут, парень?"
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Санлесс."
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Санлесс? Странное имя."
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Почему странное? У меня хоть имя есть — на окраинах не у всех. Я родился во время солнечного затмения. Мама была романтиком."
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Сообщить твоей семье?"
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Некому. Не утруждайтесь."
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Ладно, Санлесс. Сколько ещё продержишься без сна?"
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Э… недолго."
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Тогда на полную процедуру времени нет. Держись сколько сможешь и слушай внимательно."
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Когда уснёшь, окажешься в Первом Кошмаре. Там будут чудовища — но и люди тоже. Они не настоящие: это иллюзии, созданные для испытания."
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Возможно, тебе придётся их убивать. Так что считай их иллюзиями — ради себя же."
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Заклинание устраивает испытания, а не казни. Первым делом проверь свои Атрибуты и Аспект."
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Боевой Аспект — это удача. Но бесполезных Аспектов почти не бывает. Делай всё, чтобы выжить."
+
+[sub_resource type="Resource" id="Line_14"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "Если погибнешь, откроешь проход Существу Кошмара, и разбираться с ним придётся нам. Так что, пожалуйста, не умирай, Санлесс."
+
+[sub_resource type="Resource" id="Line_15"]
+script = ExtResource("2_line")
+speaker = &"policeman"
+text = "…ближайший Пробуждённый доберётся сюда только через несколько часов…"
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_16"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Что?"
+duration = 1.6
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13"), SubResource("Line_14"), SubResource("Line_15"), SubResource("Line_16")]

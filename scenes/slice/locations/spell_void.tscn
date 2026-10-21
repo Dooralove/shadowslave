@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/slice_location.gd" id="1_loc"]
+
+[sub_resource type="Environment" id="Env_void"]
+background_mode = 1
+background_color = Color(0, 0, 0, 1)
+ambient_light_source = 1
+tonemap_mode = 2
+
+[node name="SpellVoid" type="Node3D"]
+script = ExtResource("1_loc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_void")
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Center" type="Marker3D" parent="Spawns"]

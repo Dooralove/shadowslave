@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ActionClipMap" format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/action_clip_map.gd" id="1_map"]
+
+[resource]
+script = ExtResource("1_map")
+clips = {
+&"chained_walk": &"Walking_C",
+&"idle": &"Unarmed_Idle",
+&"pick_up": &"PickUp",
+&"restrained_idle": &"Sit_Chair_Idle",
+&"sit_idle": &"Sit_Chair_Idle",
+&"stand_up": &"Sit_Chair_StandUp",
+&"throw": &"Throw",
+&"walk": &"Walking_A"
+}

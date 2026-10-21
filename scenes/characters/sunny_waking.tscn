@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/characters/sunny.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/interaction/interactor.gd" id="2_interactor"]
+[ext_resource type="Script" path="res://scripts/slice/cinematic_actor.gd" id="3_actor"]
+[ext_resource type="Resource" path="res://resources/slice/sunny_kaykit_clips.tres" id="4_clips"]
+
+[node name="Sunny" instance=ExtResource("1_base")]
+allow_sprint = false
+allow_jump = false
+combat_enabled = false
+
+[node name="Animator" parent="."]
+idle_clip = &"Unarmed_Idle"
+
+[node name="Interactor" type="Node3D" parent="."]
+position = Vector3(0, 0.9, 0)
+script = ExtResource("2_interactor")
+
+[node name="CinematicActor" type="Node" parent="." node_paths=PackedStringArray("animation_player", "animator")]
+script = ExtResource("3_actor")
+animation_player = NodePath("../Visual/Model/AnimationPlayer")
+clip_map = ExtResource("4_clips")
+animator = NodePath("../Animator")
+hidden_parts = PackedStringArray("../Visual/Model/Rig/Skeleton3D/handslot_r/Knife", "../Visual/Model/Rig/Skeleton3D/handslot_l/Knife_Offhand")

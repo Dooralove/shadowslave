@@ -11,6 +11,8 @@ extends Node3D
 
 var yaw := 0.0
 var pitch := 0.0
+## Ложь — мышь не вращает камеру (жёсткие постановки). Захват и освобождение мыши работают как обычно.
+var look_enabled := true
 
 @onready var spring_arm: SpringArm3D = $SpringArm3D
 @onready var camera: Camera3D = $SpringArm3D/Camera3D
@@ -32,7 +34,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		capture_mouse()
 		# Этот щелчок только захватывает мышь и не должен считаться атакой.
 		get_viewport().set_input_as_handled()
-	elif event is InputEventMouseMotion and is_mouse_captured():
+	elif event is InputEventMouseMotion and is_mouse_captured() and look_enabled:
 		var motion := event as InputEventMouseMotion
 		yaw = wrapf(yaw - motion.relative.x * mouse_sensitivity, -PI, PI)
 		set_pitch(pitch - motion.relative.y * mouse_sensitivity)

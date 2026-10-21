@@ -40,6 +40,16 @@ enum State { IDLE, WALK, RUN, JUMP, FALL, LAND, ATTACK, HIT, DEAD }
 var state := State.IDLE
 var _state_time := 0.0
 var _air_time := 0.0
+## Режим постановки: AnimationPlayer управляет CinematicActor, аниматор его не трогает.
+## При выходе персонаж возвращается в стойку, дальше состояние выбирается как обычно.
+var cinematic := false:
+	set(value):
+		if cinematic == value:
+			return
+		cinematic = value
+		if not cinematic and state != State.DEAD and animation_player:
+			_force(State.IDLE)
+			_play(idle_clip)
 
 
 func _ready() -> void:
@@ -50,12 +60,15 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	update(delta, body.is_on_floor(), body.velocity)
+	# Тело с выключенной физикой (диалог, постановка) стоит, где его поставили: is_on_floor()
+	# у него не обновляется, и без этой поправки персонаж «падал» бы посреди сцены.
+	var grounded := body.is_on_floor() or not body.is_physics_processing()
+	update(delta, grounded, body.velocity)
 
 
 ## Переход по фактическому движению тела; вызывается каждый физический кадр.
 func update(delta: float, on_floor: bool, velocity: Vector3) -> void:
-	if state == State.DEAD:
+	if state == State.DEAD or cinematic:
 		return
 	_state_time += delta
 	_air_time = 0.0 if on_floor else _air_time + delta
@@ -122,7 +135,7 @@ func _enter(new_state: State) -> void:
 
 
 func _on_attack_started() -> void:
-	if state == State.DEAD:
+	if state == State.DEAD or cinematic:
 		return
 	_force(State.ATTACK)
 	_play(attack_clip, 0.0, 0.05)
@@ -137,7 +150,7 @@ func attack_clip_speed() -> float:
 
 func _on_damaged(_amount: float) -> void:
 	# Реакция не прерывает удар, чтобы анимация оставалась согласованной с окном попадания.
-	if state == State.DEAD or state == State.ATTACK:
+	if state == State.DEAD or state == State.ATTACK or cinematic:
 		return
 	_force(State.HIT)
 	_play(hit_clip, 0.0, 0.05)
