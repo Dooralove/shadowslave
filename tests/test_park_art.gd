@@ -33,6 +33,18 @@ func test_graybox_hidden_without_collision() -> void:
 		assert_false((csg as CSGShape3D).use_collision, "%s без коллизии" % csg.name)
 
 
+func test_hero_props_in_place() -> void:
+	var park := _park()
+	var base := (load("res://scenes/slice/locations/park_street.tscn") as PackedScene).instantiate() as Node3D
+	autofree(base)
+	# S3.2: скамейка и урна — отдельные модели на прежних местах; стаканчик сценария получил модель.
+	assert_eq((park.get_node("Art/Bench") as Node3D).position, (base.get_node("Geometry/Bench") as Node3D).position)
+	assert_eq((park.get_node("Art/Bin") as Node3D).position * Vector3(1, 0, 1), (base.get_node("Geometry/Bin") as Node3D).position * Vector3(1, 0, 1))
+	var cup := park.get_node("Props/CoffeeCup") as MeshInstance3D
+	assert_null(cup.mesh, "заглушка-цилиндр снята")
+	assert_true(cup.has_node("CupModel"), "модель стаканчика внутри узла, который двигает сценарий")
+
+
 func test_art_floor_at_zero_along_route() -> void:
 	var park := _park()
 	await wait_physics_frames(2)

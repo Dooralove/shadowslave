@@ -6,6 +6,7 @@
 Координаты в скрипте — как в Godot (X вправо, Y вверх, −Z к участку), в Blender
 переводятся функцией `g2b`. Игровые точки `park_street.tscn` не двигаются: скамейка
 в (0, 0, 4) смотрит на участок, урна в (2.2, 0, 3.2), дверь участка на z = −19, пол на y = 0.
+Скамейка, урна и стаканчик — отдельные модели `build_park_props.py` (S3.2).
 Пол и все поверхности ходьбы — на одной высоте, бордюры только визуальные.
 
 Суффикс имени `-col` — Godot создаёт статическое тело с коллизией по мешу,
@@ -38,8 +39,6 @@ MATERIALS = {
     "station": ((0.075, 0.08, 0.09), 0.6, 0.3, 0.0),
     "station_panel": ((0.11, 0.115, 0.125), 0.5, 0.45, 0.0),
     "glass": ((0.10, 0.13, 0.17), 0.08, 0.7, 0.0),
-    "rust": ((0.19, 0.10, 0.065), 0.85, 0.35, 0.0),
-    "bin": ((0.68, 0.70, 0.72), 0.3, 0.1, 0.0),
     "dark_metal": ((0.08, 0.085, 0.09), 0.4, 0.8, 0.0),
     "tram": ((0.82, 0.84, 0.86), 0.25, 0.2, 0.0),
     "screen": ((0.55, 0.68, 0.80), 0.4, 0.0, 2.5),
@@ -200,25 +199,6 @@ def build_park():
         box(f"LampHead{i}", (x, 5.45, z + (0.45 if z < -10 else -0.45)), (0.18, 0.08, 1.0), "dark_metal", c)
 
 
-def build_bench_and_bin():
-    c = "Hero"
-    # Ржавая металлическая скамейка: верх сиденья 0.48 м (на нём стоит стаканчик).
-    for i in range(4):
-        z = 3.83 + i * 0.115
-        box(f"BenchSeatSlat{i}", (0.0, 0.46, z), (1.8, 0.04, 0.09), "rust", c, bevel=0.008)
-    for i in range(3):
-        box(f"BenchBackSlat{i}", (0.0, 0.66 + i * 0.12, 4.26 + i * 0.012), (1.8, 0.09, 0.03), "rust", c,
-            bevel=0.006, pitch_deg=-8.0)
-    for side, x in (("L", -0.82), ("R", 0.82)):
-        box(f"BenchLeg{side}", (x, 0.22, 4.0), (0.05, 0.44, 0.5), "rust", c, bevel=0.01)
-        box(f"BenchBackPost{side}", (x, 0.72, 4.27), (0.05, 0.5, 0.05), "rust", c, pitch_deg=-8.0)
-        box(f"BenchArm{side}", (x, 0.66, 4.0), (0.06, 0.04, 0.5), "rust", c, bevel=0.01)
-    box("Bench-colonly", (0.0, 0.4, 4.05), (1.8, 0.8, 0.55), "rust", c)
-    # Новая «умная» урна — чистая противоположность скамейке. Верх 0.85 — маркер BinTop.
-    cylinder("Bin-col", (2.2, 0.0, 3.2), 0.25, 0.8, "bin", c, segments=24)
-    cylinder("BinLid", (2.2, 0.8, 3.2), 0.26, 0.05, "dark_metal", c, segments=24)
-
-
 def build_station():
     c = "Station"
     front = -19.0
@@ -337,7 +317,6 @@ def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     build_ground()
     build_park()
-    build_bench_and_bin()
     build_station()
     build_backdrop()
     build_tram()

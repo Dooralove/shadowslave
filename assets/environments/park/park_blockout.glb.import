@@ -39,7 +39,55 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"asphalt": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/asphalt.tres",
+"use_external/path": "res://assets/environments/park/materials/asphalt.tres"
+},
+"composite_light": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/composite_light.tres",
+"use_external/path": "res://assets/environments/park/materials/composite_light.tres"
+},
+"composite_mid": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/composite_mid.tres",
+"use_external/path": "res://assets/environments/park/materials/composite_mid.tres"
+},
+"curb": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/curb.tres",
+"use_external/path": "res://assets/environments/park/materials/curb.tres"
+},
+"paving_old": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/paving_old.tres",
+"use_external/path": "res://assets/environments/park/materials/paving_old.tres"
+},
+"paving_park": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/paving_park.tres",
+"use_external/path": "res://assets/environments/park/materials/paving_park.tres"
+},
+"sidewalk": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/sidewalk.tres",
+"use_external/path": "res://assets/environments/park/materials/sidewalk.tres"
+},
+"station": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/station.tres",
+"use_external/path": "res://assets/environments/park/materials/station.tres"
+},
+"station_panel": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/environments/park/materials/station_panel.tres",
+"use_external/path": "res://assets/environments/park/materials/station_panel.tres"
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
 gltf/texture_map_mode=1

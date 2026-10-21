@@ -2,6 +2,60 @@
 
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/park_street.tscn" id="1_base"]
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/park/park_art.tscn" id="2_art"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/cup.glb" id="3_cup"]
+
+[sub_resource type="Gradient" id="Grad_puff"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_puff"]
+gradient = SubResource("Grad_puff")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="Mat_steam"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("Tex_puff")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="Mesh_steam"]
+material = SubResource("Mat_steam")
+size = Vector2(0.08, 0.08)
+
+[sub_resource type="Gradient" id="Grad_steam"]
+offsets = PackedFloat32Array(0, 0.25, 1)
+colors = PackedColorArray(1, 0.95, 0.88, 0, 1, 0.95, 0.88, 0.14, 1, 0.97, 0.94, 0)
+
+[sub_resource type="GradientTexture1D" id="Tex_steam_ramp"]
+gradient = SubResource("Grad_steam")
+
+[sub_resource type="Curve" id="Curve_steam_scale"]
+_data = [Vector2(0, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="Tex_steam_scale"]
+curve = SubResource("Curve_steam_scale")
+
+[sub_resource type="ParticleProcessMaterial" id="Proc_steam"]
+emission_shape = 1
+emission_sphere_radius = 0.02
+direction = Vector3(0, 1, 0)
+spread = 12.0
+initial_velocity_min = 0.04
+initial_velocity_max = 0.08
+gravity = Vector3(0.01, 0.03, 0)
+scale_min = 0.8
+scale_max = 1.6
+scale_curve = SubResource("Tex_steam_scale")
+color_ramp = SubResource("Tex_steam_ramp")
+turbulence_enabled = true
+turbulence_noise_strength = 0.3
+turbulence_noise_scale = 2.0
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_morning"]
 sky_top_color = Color(0.36, 0.45, 0.58, 1)
@@ -98,5 +152,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.05, 6.8)
 
 [node name="LookAt" parent="Shots/BenchShot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0.65, -18.8)
+
+[node name="CoffeeCup" parent="Props"]
+mesh = null
+
+[node name="CupModel" parent="Props/CoffeeCup" instance=ExtResource("3_cup")]
+
+[node name="Steam" type="GPUParticles3D" parent="Props/CoffeeCup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+amount = 16
+lifetime = 2.5
+visibility_aabb = AABB(-0.3, -0.1, -0.3, 0.6, 0.6, 0.6)
+process_material = SubResource("Proc_steam")
+draw_pass_1 = SubResource("Mesh_steam")
 
 [node name="Art" parent="." instance=ExtResource("2_art")]

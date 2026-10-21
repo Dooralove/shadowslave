@@ -2,6 +2,9 @@
 
 [ext_resource type="PackedScene" path="res://assets/environments/park/park_blockout.glb" id="1_blockout"]
 [ext_resource type="Shader" path="res://scenes/slice/locations/park/screen_landscape.gdshader" id="2_screen"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/bench.glb" id="3_bench"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/bin.glb" id="4_bin"]
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/rust_stain.png" id="5_stain"]
 
 [sub_resource type="ShaderMaterial" id="Mat_screen"]
 shader = ExtResource("2_screen")
@@ -12,6 +15,54 @@ shader = ExtResource("2_screen")
 
 [node name="Screen" parent="Blockout"]
 surface_material_override/0 = SubResource("Mat_screen")
+
+[node name="Bench" parent="." instance=ExtResource("3_bench")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Bin" parent="." instance=ExtResource("4_bin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 3.2)
+
+[node name="RustStains" type="Node3D" parent="."]
+
+[node name="LegFrontL" type="Decal" parent="RustStains"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78, 0, 3.8)
+size = Vector3(0.32, 0.2, 0.42)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="LegFrontR" type="Decal" parent="RustStains"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.78, 0, 3.8)
+size = Vector3(0.3, 0.2, 0.38)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="LegRearL" type="Decal" parent="RustStains"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -0.78, 0, 4.26)
+size = Vector3(0.36, 0.2, 0.3)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="LegRearR" type="Decal" parent="RustStains"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.78, 0, 4.26)
+size = Vector3(0.3, 0.2, 0.3)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="UnderSeat" type="Decal" parent="RustStains"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0)
+size = Vector3(1.9, 0.2, 0.7)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 0.55)
+upper_fade = 0.1
+lower_fade = 0.1
 
 [node name="StationSign" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.55, -18.86)

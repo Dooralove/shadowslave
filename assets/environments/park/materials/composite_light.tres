@@ -1,0 +1,14 @@
+[gd_resource type="ORMMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/plaster_grey_04_arm_1k.jpg" id="2_orm"]
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/plaster_grey_04_nor_gl_1k.jpg" id="3_normal"]
+
+[resource]
+resource_name = "composite_light"
+albedo_color = Color(0.62, 0.63, 0.65, 1)
+orm_texture = ExtResource("2_orm")
+normal_enabled = true
+normal_texture = ExtResource("3_normal")
+uv1_scale = Vector3(0.6667, 0.6667, 0.6667)
+uv1_triplanar = true
+uv1_world_triplanar = true

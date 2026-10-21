@@ -36,6 +36,22 @@
 
 S1 (graybox-срез) новых внешних ассетов не добавляет: локации собраны из CSG-примитивов, NPC — собственный манекен из капсулы и сферы (`scenes/slice/props/mannequin.tscn`), Санни — уже зарегистрированная модель KayKit Rogue со скрытыми ножами.
 
+### S3.2: CC0-текстуры парка (`assets/environments/park/materials/textures/`, ветка `s3-park-art`)
+
+Все наборы — Poly Haven, лицензия CC0 1.0 («all assets are CC0», https://polyhaven.com/license), загрузка 2026-10-21 по разрешению пользователя. Файлы — JPEG: `*_diff_*` (альбедо), `*_nor_gl_*` (нормали OpenGL), `*_arm_*` (AO/шероховатость/металличность = ORM в Godot). Всего 21 файл, ≈ 23,6 МБ.
+
+| Набор | Разрешение | Автор | URL | Использование |
+|---|---|---|---|---|
+| `rusty_metal_02` | 2K | Rob Tuytel | https://polyhaven.com/a/rusty_metal_02 | Скамейка: нормали и ARM напрямую, альбедо — источник для `bench_paint_rust_albedo.png` |
+| `granite_tile_04` | 2K | Amal Kumar | https://polyhaven.com/a/granite_tile_04 | Дорожки парка, тротуары, бордюры (разный оттенок и масштаб) |
+| `worn_tile_floor` | 1K | Dimitrios Savva | https://polyhaven.com/a/worn_tile_floor | Старая плитка в нише со скамейкой |
+| `clean_asphalt` | 1K | Dimitrios Savva | https://polyhaven.com/a/clean_asphalt | Проезжая часть |
+| `plaster_grey_04` | 1K | Rob Tuytel | https://polyhaven.com/a/plaster_grey_04 | Светлый композит и корпус урны (только нормали и ARM, альбедо — цвет) |
+| `concrete_slab_wall` | 1K | Dimitrios Savva | https://polyhaven.com/a/concrete_slab_wall | Композит со швами: опоры эстакады, стволы, кромки |
+| `metal_plate_02` | 1K | Rob Tuytel | https://polyhaven.com/a/metal_plate_02 | Тёмные бронепанели и объём участка |
+
+Производные собственные файлы (из CC0-источника, скрипт `assets/environments/park/source/make_bench_textures.py`): `bench_paint_rust_albedo.png` (краска перекрашена в тёмно-зелёный, ржавчина затемнена), `rust_stain.png` (декаль ржавых потёков). Скамейка, урна и стаканчик (`assets/environments/park/props/*.glb`) — собственные модели скрипта `build_park_props.py`.
+
 S3.1 (блок-аут парка, ветка `s3-park-art`) новых внешних ассетов не добавляет: `assets/environments/park/park_blockout.glb` собирается собственным скриптом `source/build_park_blockout.py` из примитивов, экран — собственный шейдер. CC0-материалы Poly Haven / ambientCG разрешены пользователем для S3.2 и будут регистрироваться здесь до попадания в проект.
 
 Mixamo рассматривался как основной источник, но скачивание требует входа в аккаунт Adobe; выбран CC0-аналог с подтверждения пользователя.
