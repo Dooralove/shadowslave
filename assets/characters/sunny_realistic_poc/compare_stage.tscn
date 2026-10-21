@@ -1,0 +1,101 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_placeholder/Rogue_Hooded.glb" id="1_kaykit"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_poc_model.tscn" id="2_poc"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="3_mannequin"]
+[ext_resource type="Script" path="res://assets/characters/sunny_realistic_poc/compare_stage.gd" id="4_stage"]
+
+[sub_resource type="Environment" id="Env_dawn"]
+background_mode = 1
+background_color = Color(0.34, 0.36, 0.41, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.56, 0.58, 0.64, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.4, 0.4, 0.42, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.3, 0.21, 0.14, 1)
+roughness = 0.85
+
+[node name="CompareStage" type="Node3D"]
+script = ExtResource("4_stage")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_dawn")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+position = Vector3(0, 10, 0)
+rotation = Vector3(-0.65, 0.55, 0)
+light_color = Color(0.86, 0.87, 0.92, 1)
+light_energy = 0.6
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+position = Vector3(0, -0.5, 0)
+size = Vector3(12, 1, 12)
+material = SubResource("Mat_floor")
+
+[node name="KayKit" parent="." instance=ExtResource("1_kaykit")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.6, 0, 0)
+
+[node name="AnimationPlayer" parent="KayKit" index="1"]
+autoplay = &"Unarmed_Idle"
+
+[node name="Poc" parent="." instance=ExtResource("2_poc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
+
+[node name="AnimationPlayer" parent="Poc" index="1"]
+autoplay = &"sunny/Idle_Relaxed"
+
+[node name="Commuter" parent="." instance=ExtResource("3_mannequin")]
+position = Vector3(1.8, 0, -0.4)
+body_color = Color(0.22, 0.24, 0.3, 1)
+height_scale = 1.12
+
+[node name="Benches" type="Node3D" parent="."]
+visible = false
+
+[node name="BenchKayKit" type="Node3D" parent="Benches"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.6, 0, -0.05)
+
+[node name="Seat" type="CSGBox3D" parent="Benches/BenchKayKit"]
+position = Vector3(0, 0.44, 0)
+size = Vector3(0.9, 0.08, 0.45)
+material = SubResource("Mat_wood")
+
+[node name="Back" type="CSGBox3D" parent="Benches/BenchKayKit"]
+position = Vector3(0, 0.78, 0.22)
+size = Vector3(0.9, 0.5, 0.06)
+material = SubResource("Mat_wood")
+
+[node name="BenchPoc" type="Node3D" parent="Benches"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.6, 0, -0.05)
+
+[node name="Seat" type="CSGBox3D" parent="Benches/BenchPoc"]
+position = Vector3(0, 0.44, 0)
+size = Vector3(0.9, 0.08, 0.45)
+material = SubResource("Mat_wood")
+
+[node name="Back" type="CSGBox3D" parent="Benches/BenchPoc"]
+position = Vector3(0, 0.78, 0.22)
+size = Vector3(0.9, 0.5, 0.06)
+material = SubResource("Mat_wood")
+
+[node name="Detail" type="Camera3D" parent="."]
+fov = 40.0
+
+[node name="Wide" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.998867, 0.0475813, 0, -0.0475813, 0.998867, 0.3, 1.1, 4.4)
+current = true
+
+[node name="CloseKayKit" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99899, 0.0449437, 0, -0.0449437, 0.99899, -0.6, 1.5, 1.2)
+fov = 50.0
+
+[node name="ClosePoc" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99944, 0.0333272, 0, -0.0333272, 0.99944, 0.6, 1.55, 0.95)
+fov = 50.0

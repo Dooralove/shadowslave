@@ -17,3 +17,6 @@
 
 # Text formats stay in plain Git for readable diffs:
 # *.gd, *.tscn, *.tres, *.json, *.godot, *.cfg, *.md are NOT listed here.
+
+# Текстуры прототипа S2 (2K PNG) — через LFS. Существующие PNG KayKit не затрагиваются.
+assets/characters/sunny_realistic_poc/**/*.png filter=lfs diff=lfs merge=lfs -text

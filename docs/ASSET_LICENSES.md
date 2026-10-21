@@ -15,6 +15,23 @@
 
 | Open Sans SemiBold — шрифт интерфейса по умолчанию (встроен в Godot, отдельным файлом в проект не входит) | Godot Engine 4.7.2, `thirdparty/fonts/OpenSans*.woff2` (сведения из `Engine.get_copyright_info()`) | Steve Matteson / Open Sans Project Authors | SIL OFL 1.1 | https://github.com/googlefonts/opensans | 2026-10-21 (проверка) | Нет для использования в игре; шрифт нельзя продавать отдельно |
 
+### Прототип S2 (`assets/characters/sunny_realistic_poc/`, ветка `s2-character-poc`)
+
+| Имя | Источник | Автор | Лицензия | URL | Дата загрузки | Ограничения использования |
+|---|---|---|---|---|---|---|
+| MPFB 2.0.18 — расширение Blender для генерации персонажей | extensions.blender.org (установлено в Blender 5.1 пользователя) | MakeHuman Community | Код GPL v3 (инструмент, в проект не входит) | https://extensions.blender.org/add-ons/mpfb/ | 2026-10-21 | Инструмент; на сгенерированные модели GPL не распространяется |
+| Базовый меш MakeHuman hm08, макроцели, скелет `game_engine` с весами (данные MPFB) | Поставка MPFB 2.0.18 | MakeHuman Community | CC0 1.0 («All core assets are shared under CC0») | https://static.makehumancommunity.org/about/license.html | 2026-10-21 | Нет |
+| Кожа `young_caucasian_male`, глаза `low-poly` + материал `brown`, брови `eyebrow001`, ресницы `eyelashes02`, обувь `shoes06` | Набор `makehuman_system_assets_cc0.zip` (280,7 МБ) | makehuman_system | CC0 1.0 (манифест набора) | https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html | 2026-10-21 | Нет |
+| Волосы `culturalibre_hair_05` | Набор `hair01_cc0.zip` (227,8 МБ) | culturalibre | CC0 1.0 | http://www.makehumancommunity.org/node/2445 | 2026-10-21 | Нет. Текстура затемнена до чёрного в скрипте сборки |
+| Свитер `toigo_fisherman_sweater` | Набор `shirts01_cc0.zip` (24,5 МБ) | Margaret Toigo | CC0 1.0 | http://www.makehumancommunity.org/node/1187 | 2026-10-21 | Нет. Перекрашен в выцветший серый в скрипте сборки |
+| Брюки `toigo_wool_pants` | Набор `pants01_cc0.zip` (21,9 МБ) | Margaret Toigo | CC0 1.0 | http://www.makehumancommunity.org/node/1194 | 2026-10-21 | Нет |
+| Universal Animation Library [Standard] — 46 клипов, скелет-гуманоид (`animations/ual_standard.glb`) | OpenGameArt (загружено автором `quaternius`), `universal_animation_librarystandard.zip`, 14,5 МБ | Quaternius | CC0 1.0 (`animations/LICENSE_Quaternius_UAL.txt`) | https://opengameart.org/content/universal-animation-library | 2026-10-21 | Нет |
+| `animations/sunny_idle_relaxed.glb` — собственный клип `Idle_Relaxed` (поза покоя) на скелете UAL | Создан в проекте скриптом `source/build_idle_relaxed.py` из `ual_standard.glb` | Проект ShadowSlave (скелет — Quaternius) | Производная CC0-ассета; собственная поза | — | 2026-10-21 | Нет |
+
+Дополнительно скачаны и установлены в пользовательские данные MPFB (вне проекта), но в модели не используются: `skins02_cc0.zip` (76,1 МБ, CC0). Все 146 ассетов пяти наборов помечены в манифестах как CC0. CC-BY-наборы не загружались.
+
+`sunny_poc.glb` собирается воспроизводимо скриптом `source/build_sunny_poc.py`; извлечённые Godot текстуры `sunny_poc_*.png` — производные перечисленных CC0-ассетов.
+
 `rogue_placeholder_dark.tres` и `barbarian_placeholder_dark.tres` — собственные материалы проекта (затемнённые копии материалов моделей), не внешние ассеты.
 
 S1 (graybox-срез) новых внешних ассетов не добавляет: локации собраны из CSG-примитивов, NPC — собственный манекен из капсулы и сферы (`scenes/slice/props/mannequin.tscn`), Санни — уже зарегистрированная модель KayKit Rogue со скрытыми ножами.
