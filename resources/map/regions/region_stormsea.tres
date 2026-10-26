@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_stormsea"
+title = "ШТОРМОВОЕ МОРЕ"
+subtitle = "Владения Дома Ночи"
+description = "Море на юге Царства. С ним граничат и владения Меча, и владения Песни."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0, 0.8, 0.08, 0.83, 0.176, 0.86, 0.272, 0.885, 0.352, 0.9, 0.44, 0.92, 0.528, 0.945, 0.624, 0.955, 0.72, 0.965, 0.8, 0.97, 0.8, 1, 0, 1)
+label_position = Vector2(0.248, 0.945)
+location_ids = Array[StringName]([])

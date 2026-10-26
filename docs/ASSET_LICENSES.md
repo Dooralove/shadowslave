@@ -76,3 +76,9 @@ Mixamo рассматривался как основной источник, н
 - `Wooden door grincing…` (Sadiquecat), `1./2. Wood staircase…` (VMan533), `Journey To The Interweb` (Aemyn), `G18-13-Bells and Horses` (craigsmith) — дерево, ambient или не относятся к камню.
 - `creaky_door_hinge.wav` (w.forster.1, CC0, OpenGameArt) — скрип петли, не камень; подмена каменному скрипу не принята.
 - `qubodup-DoorSet` (CC0, OpenGameArt) — дверные звуки дерева и металла; каменного нет.
+
+## Подложки карт (`assets/ui/map/`, 2026-10-27)
+
+- `dream_realm.png`, `first_nightmare.png`, `city.png` — собственные, процедурные: рисует `tools/map/build_maps.py`
+  (numpy, scipy, Pillow; шум, карта высот, светотень). Внешних изображений нет. Фан-карта вики Shadow Slave
+  использовалась только как текстовый ориентир по раскладке регионов (координаты меток), её изображение не копировалось.

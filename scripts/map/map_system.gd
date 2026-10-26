@@ -41,6 +41,9 @@ func open_map() -> bool:
 	if _open or screen == null:
 		return false
 
+	# Карта и меню персонажа — взаимоисключающие модальные слои.
+	_close_player_menu_for_switch()
+
 	var location := resolve_current_location()
 	_saved_paused = get_tree().paused
 	_saved_mouse_mode = Input.mouse_mode
@@ -49,6 +52,7 @@ func open_map() -> bool:
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_open = true
+	_update_player_marker(get_tree().current_scene)
 	screen.open_for_location(location)
 	map_opened.emit(location)
 	return true
@@ -65,6 +69,12 @@ func close_map() -> void:
 	map_closed.emit()
 
 
+func _close_player_menu_for_switch() -> void:
+	var player_menu := get_node_or_null("/root/PlayerMenuSystem")
+	if player_menu != null and player_menu.has_method(&"is_open") and player_menu.call(&"is_open"):
+		player_menu.call(&"close_menu")
+
+
 func resolve_current_location() -> MapDefinition:
 	return resolve_location_for(get_tree().current_scene)
 
@@ -79,6 +89,45 @@ func resolve_location_for(scene_root: Node) -> MapDefinition:
 	return MapDefinition.create_fallback(_fallback_title(scene_root))
 
 
+## Переводит игрока в координаты корня текущей сцены (мировые XZ карты).
+## Локальные сцены стоят в корне без смещения, поэтому разница — только
+## в позиции игрока внутри сцены. Без игрока маркер просто не рисуется.
+func _update_player_marker(scene_root: Node) -> void:
+	if screen == null:
+		return
+	var state := player_state(scene_root)
+	screen.set_player(state.position, state.forward, state.found)
+
+
+## Игрок в координатах сцены: {found, position (XZ), forward (XZ)}.
+func player_state(scene_root: Node) -> Dictionary:
+	var state := {"found": false, "position": Vector2.ZERO, "forward": Vector2.ZERO}
+	var root := scene_root as Node3D
+	var player := get_tree().get_first_node_in_group(&"player") as Node3D
+	if root == null or player == null:
+		return state
+	var local := root.to_local(player.global_position)
+	var forward := root.global_basis.inverse() * (-player.global_basis.z)
+	state.found = true
+	state.position = Vector2(local.x, local.z)
+	state.forward = Vector2(forward.x, forward.z)
+	return state
+
+
+## Заготовка круглой мини-карты: карта текущей локации (её геометрия в
+## мировых XZ сцены) и игрок в тех же координатах. Мини-карта рисует область
+## вокруг игрока из location.features/markers; общая карта эти данные не меняет.
+func minimap_snapshot() -> Dictionary:
+	var scene := get_tree().current_scene
+	var state := player_state(scene)
+	return {
+		"location": resolve_location_for(scene),
+		"has_player": state.found,
+		"player": state.position,
+		"forward": state.forward,
+	}
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if screen == null:
 		return
@@ -91,7 +140,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
-	if _open and event.is_action_pressed(&"ui_cancel"):
+	if _open and (
+		event.is_action_pressed(&"ui_cancel")
+		or event.is_action_pressed(&"release_mouse")
+	):
 		close_map()
 		get_viewport().set_input_as_handled()
 

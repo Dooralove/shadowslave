@@ -20,7 +20,30 @@ enum Kind {
 ## Позиция в нормализованных координатах карты: (0, 0) — левый верхний угол,
 ## (1, 1) — правый нижний. UI сам переводит её в пиксели.
 @export var position := Vector2(0.5, 0.5)
+## Если use_world_position = true, маркер стоит в мировых XZ сцены, и
+## MapDefinition переводит их в нормализованные координаты через world_bounds.
+@export var use_world_position := false
+@export var world_position := Vector2.ZERO
 @export var kind: Kind = Kind.LANDMARK
+## Локация, к которой относится маркер на общей карте региона (заполняет
+## MapAtlas.compose_region_map). Пусто — маркер самой карты.
+@export var location_id: StringName = &""
+## Задание, к которому относится маркер. Заготовка под квестовую систему:
+## пока ничего не выбирает, только помечает маркер кольцом.
+@export var quest_id: StringName = &""
+## Если задано, маркер виден только когда этот флаг выставлен в игре.
+## Пустое значение — маркер виден всегда.
+@export var show_when_flag: StringName = &""
+
+
+func is_visible_with(flags: Dictionary) -> bool:
+	if show_when_flag == &"":
+		return true
+	return bool(flags.get(show_when_flag, false))
+
+
+func is_objective() -> bool:
+	return quest_id != &""
 
 
 func kind_title() -> String:

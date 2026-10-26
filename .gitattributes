@@ -24,3 +24,6 @@ assets/characters/sunny_realistic_poc/**/*.png filter=lfs diff=lfs merge=lfs -te
 # CC0 textures for environments (S3+): JPEG and PNG via LFS.
 assets/environments/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 assets/environments/**/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Рисованные подложки карт (tools/map/build_maps.py) — PNG через LFS.
+assets/ui/map/**/*.png filter=lfs diff=lfs merge=lfs -text
