@@ -55,3 +55,24 @@ S1 (graybox-срез) новых внешних ассетов не добавл
 S3.1 (блок-аут парка, ветка `s3-park-art`) новых внешних ассетов не добавляет: `assets/environments/park/park_blockout.glb` собирается собственным скриптом `source/build_park_blockout.py` из примитивов, экран — собственный шейдер. CC0-материалы Poly Haven / ambientCG разрешены пользователем для S3.2 и будут регистрироваться здесь до попадания в проект.
 
 Mixamo рассматривался как основной источник, но скачивание требует входа в аккаунт Adobe; выбран CC0-аналог с подтверждения пользователя.
+
+## Звук святилища (C-подготовка, 2026-10-26)
+
+| Имя | Источник | Автор | Лицензия | URL | Дата загрузки | Ограничения использования |
+|---|---|---|---|---|---|---|
+| `assets/audio/sanctuary/wind_whoosh_loop.ogg` — зацикленный ветер (фоновый слой площадки храма) | OpenGameArt, `wind woosh loop.ogg` | SketchMan3 | CC0 1.0 (`http://creativecommons.org/publicdomain/zero/1.0/`) | https://opengameart.org/content/wind-whoosh-loop | 2026-10-26 | Атрибуция не обязательна; указан автор добровольно |
+| `assets/audio/sanctuary/guard_presence_ambience_1.wav` — тёмный амбиент (`ambience-1.wav`, 4.6 с, 24 бит, стерео) для присутствия стража | OpenGameArt, `dark_ambiences.zip` | Ogrebane | CC0 1.0 | https://opengameart.org/content/dark-ambiences | 2026-10-26 | Атрибуция не обязательна. Подходит по характеру, на слух не проверен |
+
+Не использовано: `rock_break.ogg` (CC0, themightyglider) — звук разрушения камня, не скрип; `dungeon_ambient_1.ogg` (CC0, JaggedStone) — пещерный амбиент с каплями, не открытая площадка; `legit_audio … the_shop_free_sfx` — CC0 только для бесплатных звуков сайта, пакет крупный и не относится к сцене. Подходящего CC0-скрипа камня не найдено: этот слой остаётся открытым блокером.
+
+### Звук святилища: каменный скрип при пересечении порога (2026-10-26)
+
+| Имя | Источник | Автор | Лицензия | URL | Дата | Ограничения использования |
+|---|---|---|---|---|---|---|
+| `assets/audio/sanctuary/stone_door_large_001.ogg` — тяжёлая каменная дверь, тихий скрип/трение камня при пересечении порога храма (A02) | Freesound, «Door - Stone - Large - 001.wav», публичное превью 128 kbps Ogg Vorbis, моно, 44.1 кГц, ≈3.5 с | DWOBoyle | **CC BY 4.0** (`https://creativecommons.org/licenses/by/4.0/`) | https://freesound.org/people/DWOBoyle/sounds/474178/ | 2026-10-26 | **Требуется атрибуция:** автор DWOBoyle, название звука, ссылка на страницу, пометка о лицензии CC BY 4.0. Внутриигровых титров с этой атрибуцией в проекте не проверялось — нужно решить до релиза. Оригинальный WAV доступен только после входа на сайт; в проект взято публичное превью без обхода доступа. Качество ниже оригинала. Не обрабатывалось. На слух не проверено |
+
+Не использовано:
+- `StoneDoor_OpensWithChoir.wav` (Schlaudio, sounds/581371) — помечен CC0, но сам указывает «Credits to original» на DWOBoyle 474178 (CC BY 4.0). Производная с CC0-пометкой не снимает требование атрибуции оригинала, поэтому не взят. Также содержит хор.
+- `Wooden door grincing…` (Sadiquecat), `1./2. Wood staircase…` (VMan533), `Journey To The Interweb` (Aemyn), `G18-13-Bells and Horses` (craigsmith) — дерево, ambient или не относятся к камню.
+- `creaky_door_hinge.wav` (w.forster.1, CC0, OpenGameArt) — скрип петли, не камень; подмена каменному скрипу не принята.
+- `qubodup-DoorSet` (CC0, OpenGameArt) — дверные звуки дерева и металла; каменного нет.
