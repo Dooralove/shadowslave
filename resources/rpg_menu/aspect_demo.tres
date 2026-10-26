@@ -1,0 +1,153 @@
+[gd_resource type="Resource" script_class="RpgDemoSkillTree" format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_skill_tree.gd" id="1_tree"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_skill.gd" id="2_skill"]
+
+[sub_resource type="Resource" id="Skill_a0"]
+script = ExtResource("2_skill")
+id = &"demo_a0"
+code = "A0"
+branch = "START"
+branch_title = "DEMO · СТАРТ"
+display_name = "DEMO · ИСХОДНЫЙ УЗЕЛ"
+subtitle = "КОРЕНЬ ДЕМО-СХЕМЫ · ВРЕМЕННО"
+description = "Корневой узел демонстрационной схемы. Он нужен только для проверки связей, выбора и состояний. Способность или эффект здесь не назначены."
+effect_note = "Эффект не назначен. Узел не связан с характеристиками персонажа."
+cost = 0
+required_ids = PackedStringArray()
+graph_position = Vector2(0.105, 0.5)
+initially_learned = true
+
+[sub_resource type="Resource" id="Skill_a1"]
+script = ExtResource("2_skill")
+id = &"demo_a1"
+code = "A1"
+branch = "A"
+branch_title = "DEMO · ВЕТВЬ A"
+display_name = "DEMO · УЗЕЛ A1"
+subtitle = "ПЕРВАЯ СТУПЕНЬ · ВРЕМЕННО"
+description = "Проверочный узел первой ветви. Показывает переход из состояния «доступен» в «изучен» и открытие следующего узла."
+effect_note = "Эффект не назначен. Название и содержание будут согласованы отдельно."
+cost = 1
+required_ids = PackedStringArray("demo_a0")
+graph_position = Vector2(0.36, 0.19)
+
+[sub_resource type="Resource" id="Skill_a2"]
+script = ExtResource("2_skill")
+id = &"demo_a2"
+code = "A2"
+branch = "A"
+branch_title = "DEMO · ВЕТВЬ A"
+display_name = "DEMO · УЗЕЛ A2"
+subtitle = "ВТОРАЯ СТУПЕНЬ · ВРЕМЕННО"
+description = "Служебный узел второй ступени. Требования и стоимость условны; содержание будет согласовано отдельно."
+effect_note = "Эффект не назначен. Это не подтверждённая способность."
+cost = 1
+required_ids = PackedStringArray("demo_a1")
+graph_position = Vector2(0.635, 0.19)
+
+[sub_resource type="Resource" id="Skill_a3"]
+script = ExtResource("2_skill")
+id = &"demo_a3"
+code = "A3"
+branch = "A"
+branch_title = "DEMO · ВЕТВЬ A"
+display_name = "DEMO · УЗЕЛ A3"
+subtitle = "КОНЕЦ ВЕТВИ · ВРЕМЕННО"
+description = "Конечный узел демонстрационной ветви. Не обозначает каноническую способность и не влияет на персонажа."
+effect_note = "Эффект не назначен. Ветвь существует только для проверки интерфейса."
+cost = 1
+required_ids = PackedStringArray("demo_a2")
+graph_position = Vector2(0.89, 0.19)
+
+[sub_resource type="Resource" id="Skill_b1"]
+script = ExtResource("2_skill")
+id = &"demo_b1"
+code = "B1"
+branch = "B"
+branch_title = "DEMO · ВЕТВЬ B"
+display_name = "DEMO · УЗЕЛ B1"
+subtitle = "ПЕРВАЯ СТУПЕНЬ · ВРЕМЕННО"
+description = "Первый узел второй ветви. Ветвление нужно, чтобы проверить разные пути развития в демо-дереве."
+effect_note = "Эффект не назначен. Узел не ссылается на реальные навыки."
+cost = 1
+required_ids = PackedStringArray("demo_a0")
+graph_position = Vector2(0.36, 0.5)
+
+[sub_resource type="Resource" id="Skill_b2"]
+script = ExtResource("2_skill")
+id = &"demo_b2"
+code = "B2"
+branch = "B"
+branch_title = "DEMO · ВЕТВЬ B"
+display_name = "DEMO · УЗЕЛ B2"
+subtitle = "ВТОРАЯ СТУПЕНЬ · ВРЕМЕННО"
+description = "Промежуточный узел второй ветви. Здесь проверяется блокировка до изучения предшественника."
+effect_note = "Эффект не назначен. Содержание считается черновым."
+cost = 1
+required_ids = PackedStringArray("demo_b1")
+graph_position = Vector2(0.635, 0.5)
+
+[sub_resource type="Resource" id="Skill_b3"]
+script = ExtResource("2_skill")
+id = &"demo_b3"
+code = "B3"
+branch = "B"
+branch_title = "DEMO · ВЕТВЬ B"
+display_name = "DEMO · УЗЕЛ B3"
+subtitle = "КОНЕЦ ВЕТВИ · ВРЕМЕННО"
+description = "Конечный узел второй ветви. Эффект не назначен, связь с боевой системой отсутствует."
+effect_note = "Эффект не назначен. Не является частью подтверждённой механики."
+cost = 1
+required_ids = PackedStringArray("demo_b2")
+graph_position = Vector2(0.89, 0.5)
+
+[sub_resource type="Resource" id="Skill_c1"]
+script = ExtResource("2_skill")
+id = &"demo_c1"
+code = "C1"
+branch = "C"
+branch_title = "DEMO · ВЕТВЬ C"
+display_name = "DEMO · УЗЕЛ C1"
+subtitle = "ПЕРВАЯ СТУПЕНЬ · ВРЕМЕННО"
+description = "Первый узел третьей ветви. Служит для проверки независимой линии развития."
+effect_note = "Эффект не назначен. Ветвь не описывает канонические способности."
+cost = 1
+required_ids = PackedStringArray("demo_a0")
+graph_position = Vector2(0.36, 0.81)
+
+[sub_resource type="Resource" id="Skill_c2"]
+script = ExtResource("2_skill")
+id = &"demo_c2"
+code = "C2"
+branch = "C"
+branch_title = "DEMO · ВЕТВЬ C"
+display_name = "DEMO · УЗЕЛ C2"
+subtitle = "ВТОРАЯ СТУПЕНЬ · ВРЕМЕННО"
+description = "Промежуточный узел третьей ветви. Название временное, требования демонстрационные."
+effect_note = "Эффект не назначен. Связь с игровыми данными отсутствует."
+cost = 1
+required_ids = PackedStringArray("demo_c1")
+graph_position = Vector2(0.635, 0.81)
+
+[sub_resource type="Resource" id="Skill_c3"]
+script = ExtResource("2_skill")
+id = &"demo_c3"
+code = "C3"
+branch = "C"
+branch_title = "DEMO · ВЕТВЬ C"
+display_name = "DEMO · УЗЕЛ C3"
+subtitle = "КОНЕЦ ВЕТВИ · ВРЕМЕННО"
+description = "Конечный узел третьей ветви. Не является подтверждённой механикой или лором."
+effect_note = "Эффект не назначен. Узел существует только в этом прототипе интерфейса."
+cost = 1
+required_ids = PackedStringArray("demo_c2")
+graph_position = Vector2(0.89, 0.81)
+
+[resource]
+script = ExtResource("1_tree")
+id = &"demo_aspect_tree"
+title = "DEMO · ДЕРЕВО НАВЫКОВ"
+note = "Временная схема интерфейса. Названия узлов, связи, очки и эффекты — DEMO. Не канон, не сохранения, не боевая система."
+starting_points = 3
+nodes = [SubResource("Skill_a0"), SubResource("Skill_a1"), SubResource("Skill_a2"), SubResource("Skill_a3"), SubResource("Skill_b1"), SubResource("Skill_b2"), SubResource("Skill_b3"), SubResource("Skill_c1"), SubResource("Skill_c2"), SubResource("Skill_c3")]

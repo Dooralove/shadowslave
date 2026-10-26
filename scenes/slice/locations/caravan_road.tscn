@@ -338,3 +338,5 @@ material = SubResource("Mat_rock")
 
 [node name="Chain" type="Marker3D" parent="Spawns"]
 position = Vector3(0, 0.02, 0)
+
+[node name="Triggers" type="Node3D" parent="Road"]

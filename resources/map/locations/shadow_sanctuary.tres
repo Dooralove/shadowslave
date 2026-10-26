@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_d4lxy"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_ywrn0"]
+
+[sub_resource type="Resource" id="Resource_rlbhk"]
+script = ExtResource("1_d4lxy")
+id = &"player"
+label = "Вы здесь"
+description = "Вход в святилище."
+position = Vector2(0.47, 0.74)
+kind = 4
+
+[sub_resource type="Resource" id="Resource_nbjkr"]
+script = ExtResource("1_d4lxy")
+id = &"altar"
+label = "Алтарь подношений"
+description = "Главный алтарь; место ритуала и испытания."
+position = Vector2(0.5, 0.4)
+kind = 3
+
+[sub_resource type="Resource" id="Resource_0w07d"]
+script = ExtResource("1_d4lxy")
+id = &"runes"
+label = "Круг рун"
+description = "Каменные плиты с вырезанными знаками."
+position = Vector2(0.3, 0.61)
+
+[sub_resource type="Resource" id="Resource_k2juj"]
+script = ExtResource("1_d4lxy")
+id = &"hands"
+label = "Тени-руки"
+description = "Тёмные руки поднимаются из трещин у восточной стены."
+position = Vector2(0.71, 0.64)
+kind = 2
+
+[sub_resource type="Resource" id="Resource_aaqor"]
+script = ExtResource("1_d4lxy")
+id = &"statue"
+label = "Статуя Тирана"
+description = "Разрушенная статуя над алтарём."
+position = Vector2(0.62, 0.25)
+kind = 2
+
+[resource]
+script = ExtResource("2_ywrn0")
+id = &"shadow_sanctuary"
+title = "ТЕНИСТОЕ СВЯТИЛИЩЕ"
+subtitle = "Алтарь подношений и круг рун"
+description = "Святилище под открытым небом. В центре — алтарь, вокруг — круг рун и тёмные руки, поднимающиеся из земли."
+background_color = Color(0.04, 0.048, 0.062, 1)
+land_color = Color(0.18, 0.19, 0.2, 1)
+accent_color = Color(0.58, 0.5, 0.36, 1)
+contour = PackedVector2Array(0.2, 0.22, 0.48, 0.12, 0.72, 0.22, 0.86, 0.46, 0.76, 0.72, 0.5, 0.88, 0.24, 0.74, 0.12, 0.46)
+markers = Array[ExtResource("1_d4lxy")]([SubResource("Resource_rlbhk"), SubResource("Resource_nbjkr"), SubResource("Resource_0w07d"), SubResource("Resource_k2juj"), SubResource("Resource_aaqor")])
+scene_paths = PackedStringArray("res://scenes/locations/shadow_sanctuary/shadow_sanctuary.tscn", "res://scenes/campaign/sanctuary_arrival.tscn")
+world_rect = Rect2(0.57, 0.56, 0.2, 0.15)

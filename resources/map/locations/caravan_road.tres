@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_m5w68"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_u708q"]
+
+[sub_resource type="Resource" id="Resource_fn3ov"]
+script = ExtResource("1_m5w68")
+id = &"player"
+label = "Колонна"
+description = "Текущая позиция каравана на марше."
+position = Vector2(0.43, 0.77)
+kind = 4
+
+[sub_resource type="Resource" id="Resource_2obh4"]
+script = ExtResource("1_m5w68")
+id = &"gate"
+label = "Северные ворота"
+description = "Каменная арка, отмечающая начало перевала."
+position = Vector2(0.26, 0.28)
+
+[sub_resource type="Resource" id="Resource_4wi7j"]
+script = ExtResource("1_m5w68")
+id = &"bend"
+label = "Опасный поворот"
+description = "Узкий участок дороги над обрывом."
+position = Vector2(0.58, 0.47)
+kind = 2
+
+[sub_resource type="Resource" id="Resource_aef52"]
+script = ExtResource("1_m5w68")
+id = &"halt"
+label = "Привал каравана"
+description = "Место короткой остановки перед последним подъёмом."
+position = Vector2(0.75, 0.25)
+kind = 1
+
+[sub_resource type="Resource" id="Resource_fng0t"]
+script = ExtResource("1_m5w68")
+id = &"ambush"
+label = "Засада"
+description = "Здесь дорога входит в ущелье — удобная точка для нападения."
+position = Vector2(0.8, 0.68)
+kind = 2
+
+[resource]
+script = ExtResource("2_u708q")
+id = &"caravan_road"
+title = "КАРАВАННЫЙ ПЕРЕВАЛ"
+subtitle = "Горная дорога Первого Кошмара"
+description = "Длинный подъём по перевалу. Колонна идёт вдоль обрыва; дорога ведёт к стоянке каравана у старого лагеря."
+background_color = Color(0.06, 0.072, 0.085, 1)
+land_color = Color(0.235, 0.24, 0.225, 1)
+accent_color = Color(0.64, 0.58, 0.42, 1)
+contour = PackedVector2Array(0.14, 0.48, 0.24, 0.22, 0.48, 0.12, 0.72, 0.22, 0.86, 0.44, 0.8, 0.7, 0.56, 0.88, 0.3, 0.8, 0.18, 0.66)
+markers = Array[ExtResource("1_m5w68")]([SubResource("Resource_fn3ov"), SubResource("Resource_2obh4"), SubResource("Resource_4wi7j"), SubResource("Resource_aef52"), SubResource("Resource_fng0t")])
+scene_paths = PackedStringArray("res://scenes/slice/locations/caravan_road.tscn", "res://scenes/campaign/first_nightmare_pass.tscn")
+world_rect = Rect2(0.34, 0.2, 0.2, 0.14)

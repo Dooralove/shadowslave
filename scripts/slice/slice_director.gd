@@ -233,8 +233,11 @@ func _run() -> void:
 	await _gate(&"open_status")
 	ui.show_hint("")
 
-	# Экран рун — конец сюжетного диапазона среза.
+	# Экран рун — конец сюжетного диапазона среза. Mark of Divinity —
+	# врождённый атрибут Санни, а не предмет; в срезе он впервые
+	# раскрывается именно здесь, на B16. Повторная установка безопасна.
 	_set_beat(Beat.B16_RUNES)
+	NightmareRunState.set_flag(&"mark_of_divinity")
 	await ui.rune_status.present(status_sheet)
 	set_mode(Mode.LOCKED)
 	location.stop_march()

@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_lh6r5"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_wag0n"]
+
+[sub_resource type="Resource" id="Resource_5t14e"]
+script = ExtResource("1_lh6r5")
+id = &"player"
+label = "Вы здесь"
+description = "Лагерь каравана; отсюда начинается исследование стоянки."
+position = Vector2(0.46, 0.62)
+kind = 4
+
+[sub_resource type="Resource" id="Resource_v8e0j"]
+script = ExtResource("1_lh6r5")
+id = &"campfire"
+label = "Костёр"
+description = "Центр стоянки, вокруг которого собираются выжившие."
+position = Vector2(0.5, 0.52)
+kind = 1
+
+[sub_resource type="Resource" id="Resource_l30em"]
+script = ExtResource("1_lh6r5")
+id = &"wagon"
+label = "Повозка"
+description = "Тяжёлая повозка у западного края лагеря."
+position = Vector2(0.32, 0.43)
+
+[sub_resource type="Resource" id="Resource_m313p"]
+script = ExtResource("1_lh6r5")
+id = &"tyrant"
+label = "Шатёр Тирана"
+description = "Большой шатёр предводителя каравана."
+position = Vector2(0.69, 0.34)
+kind = 2
+
+[sub_resource type="Resource" id="Resource_0vbeo"]
+script = ExtResource("1_lh6r5")
+id = &"bell"
+label = "Серебряный колокол"
+description = "Место, связанное с ночной находкой Санни."
+position = Vector2(0.28, 0.69)
+kind = 3
+
+[sub_resource type="Resource" id="Resource_npgp0"]
+script = ExtResource("1_lh6r5")
+id = &"cliff"
+label = "Край обрыва"
+description = "Обрыв над долиной; сильный ветер и плохая видимость."
+position = Vector2(0.78, 0.72)
+kind = 2
+
+[resource]
+script = ExtResource("2_wag0n")
+id = &"caravan_site"
+title = "СТОЯНКА КАРАВАНА"
+subtitle = "Костры, повозки и шатёр Тирана"
+description = "Ночная стоянка у подножия скалы. Здесь находятся повозки, костёр, шатёр предводителя и обрыв, с которого открывается вид на долину."
+background_color = Color(0.062, 0.065, 0.075, 1)
+land_color = Color(0.245, 0.23, 0.195, 1)
+accent_color = Color(0.72, 0.55, 0.31, 1)
+contour = PackedVector2Array(0.16, 0.32, 0.3, 0.14, 0.58, 0.11, 0.8, 0.24, 0.88, 0.5, 0.74, 0.76, 0.5, 0.88, 0.26, 0.78, 0.12, 0.56)
+markers = Array[ExtResource("1_lh6r5")]([SubResource("Resource_5t14e"), SubResource("Resource_v8e0j"), SubResource("Resource_l30em"), SubResource("Resource_m313p"), SubResource("Resource_0vbeo"), SubResource("Resource_npgp0")])
+scene_paths = PackedStringArray("res://scenes/locations/caravan_site/caravan_site.tscn", "res://scenes/campaign/caravan_site_arrival.tscn")
+world_rect = Rect2(0.34, 0.37, 0.19, 0.13)

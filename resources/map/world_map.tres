@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_frpgn"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_vnfkk"]
+
+[resource]
+script = ExtResource("2_vnfkk")
+id = &"world"
+title = "ИЗВЕСТНЫЕ ЗЕМЛИ"
+subtitle = "Общая карта мира · демонстрационный атлас"
+description = "Условная карта Первого Кошмара. Регионы — заглушки, которые позже можно заменить настоящей географией, не меняя экран карты. Выберите доступный регион, чтобы открыть его локальную карту."
+background_color = Color(0.045, 0.06, 0.075, 1)
+land_color = Color(0.205, 0.235, 0.225, 1)
+accent_color = Color(0.72, 0.58, 0.34, 1)
+contour = PackedVector2Array(0.08, 0.3, 0.18, 0.12, 0.42, 0.06, 0.62, 0.1, 0.82, 0.18, 0.94, 0.36, 0.92, 0.58, 0.96, 0.76, 0.82, 0.9, 0.58, 0.94, 0.36, 0.88, 0.16, 0.8, 0.06, 0.58, 0.1, 0.44)
+scene_paths = PackedStringArray()

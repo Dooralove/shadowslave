@@ -1,0 +1,307 @@
+[gd_scene load_steps=30 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/mountain_king.gd" id="1_ai"]
+[ext_resource type="Resource" path="res://resources/enemies/mountain_king_ai.tres" id="2_config"]
+[ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="3_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/melee_attack.gd" id="5_attack"]
+[ext_resource type="Resource" path="res://resources/enemies/mountain_king_attack.tres" id="6_attack_stats"]
+[ext_resource type="Script" path="res://scripts/combat/hit_flash.gd" id="7_flash"]
+[ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="8_spark"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurtbox"]
+radius = 1.1
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_attack"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_fur"]
+albedo_color = Color(0.42, 0.4, 0.34, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_dark"]
+albedo_color = Color(0.09, 0.075, 0.065, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_bone"]
+albedo_color = Color(0.72, 0.69, 0.6, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+shading_mode = 0
+albedo_color = Color(0.86, 0.86, 0.79, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_telegraph"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.24, 0.1, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="Mat_swing"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.12, 0.08, 0.28)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+material = SubResource("Mat_fur")
+radius = 1.1
+height = 2.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_hump"]
+material = SubResource("Mat_fur")
+radius = 0.85
+height = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+material = SubResource("Mat_fur")
+radius = 0.62
+height = 1.12
+
+[sub_resource type="SphereMesh" id="SphereMesh_eye"]
+material = SubResource("Mat_eye")
+radius = 0.07
+height = 0.14
+
+[sub_resource type="BoxMesh" id="BoxMesh_jaw"]
+material = SubResource("Mat_dark")
+size = Vector3(0.78, 0.2, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_leg"]
+material = SubResource("Mat_fur")
+top_radius = 0.28
+bottom_radius = 0.32
+height = 0.9
+radial_segments = 8
+
+[sub_resource type="BoxMesh" id="BoxMesh_foot"]
+material = SubResource("Mat_dark")
+size = Vector3(0.5, 0.22, 0.8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_upper_arm"]
+material = SubResource("Mat_fur")
+top_radius = 0.2
+bottom_radius = 0.24
+height = 2.2
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_forearm"]
+material = SubResource("Mat_fur")
+top_radius = 0.16
+bottom_radius = 0.2
+height = 1.5
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_claw"]
+material = SubResource("Mat_bone")
+top_radius = 0.0
+bottom_radius = 0.07
+height = 0.5
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_small_arm"]
+material = SubResource("Mat_fur")
+top_radius = 0.11
+bottom_radius = 0.13
+height = 0.95
+radial_segments = 8
+
+[sub_resource type="SphereMesh" id="SphereMesh_hand"]
+material = SubResource("Mat_bone")
+radius = 0.12
+height = 0.24
+
+[sub_resource type="TorusMesh" id="TorusMesh_telegraph"]
+material = SubResource("Mat_telegraph")
+inner_radius = 1.25
+outer_radius = 1.7
+rings = 32
+ring_segments = 8
+
+[sub_resource type="SphereMesh" id="SphereMesh_swing"]
+material = SubResource("Mat_swing")
+radius = 0.5
+height = 1.0
+
+[node name="MountainKing" type="CharacterBody3D" groups=["enemy", "mountain_king"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ai")
+config = ExtResource("2_config")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 2, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 2.2, 0)
+scale = Vector3(1, 1, 0.85)
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="Hump" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 2.85, 0.25)
+scale = Vector3(1.2, 0.95, 1.05)
+mesh = SubResource("SphereMesh_hump")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 3.35, -0.45)
+scale = Vector3(1, 0.9, 1.05)
+mesh = SubResource("SphereMesh_head")
+
+[node name="Jaw" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 3.04, -0.82)
+rotation = Vector3(0.12, 0, 0)
+mesh = SubResource("BoxMesh_jaw")
+
+[node name="Eye_01" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.32, 3.44, -1.02)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="Eye_02" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.16, 3.5, -1.06)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="Eye_03" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 3.52, -1.07)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="Eye_04" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.16, 3.5, -1.06)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="Eye_05" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.32, 3.44, -1.02)
+mesh = SubResource("SphereMesh_eye")
+
+[node name="LegLeft" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.55, 0.45, 0.1)
+mesh = SubResource("CylinderMesh_leg")
+
+[node name="LegRight" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.55, 0.45, 0.1)
+mesh = SubResource("CylinderMesh_leg")
+
+[node name="FootLeft" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.55, 0.11, -0.2)
+mesh = SubResource("BoxMesh_foot")
+
+[node name="FootRight" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.55, 0.11, -0.2)
+mesh = SubResource("BoxMesh_foot")
+
+[node name="ArmLeftUpper" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.28, 2.05, -0.1)
+rotation = Vector3(0.1, 0, -0.12)
+mesh = SubResource("CylinderMesh_upper_arm")
+
+[node name="ArmLeftForearm" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.48, 0.95, -0.42)
+rotation = Vector3(-0.32, 0, -0.06)
+mesh = SubResource("CylinderMesh_forearm")
+
+[node name="ClawLeft_01" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.62, 0.26, -0.58)
+rotation = Vector3(3.1416, 0, 0)
+mesh = SubResource("CylinderMesh_claw")
+
+[node name="ClawLeft_02" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.45, 0.24, -0.68)
+rotation = Vector3(3.1416, 0, 0.18)
+mesh = SubResource("CylinderMesh_claw")
+
+[node name="ClawLeft_03" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.3, 0.26, -0.5)
+rotation = Vector3(3.1416, 0, -0.15)
+mesh = SubResource("CylinderMesh_claw")
+
+[node name="ArmRightUpper" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.28, 2.05, -0.1)
+rotation = Vector3(0.1, 0, 0.12)
+mesh = SubResource("CylinderMesh_upper_arm")
+
+[node name="ArmRightForearm" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.48, 0.95, -0.42)
+rotation = Vector3(-0.32, 0, 0.06)
+mesh = SubResource("CylinderMesh_forearm")
+
+[node name="ClawRight_01" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.62, 0.26, -0.58)
+rotation = Vector3(3.1416, 0, 0)
+mesh = SubResource("CylinderMesh_claw")
+
+[node name="ClawRight_02" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.45, 0.24, -0.68)
+rotation = Vector3(3.1416, 0, -0.18)
+mesh = SubResource("CylinderMesh_claw")
+
+[node name="ClawRight_03" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.3, 0.26, -0.5)
+rotation = Vector3(3.1416, 0, 0.15)
+mesh = SubResource("CylinderMesh_claw")
+
+[node name="ArmSmallLeft" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.62, 2.45, -0.95)
+rotation = Vector3(-0.8, 0, -0.18)
+mesh = SubResource("CylinderMesh_small_arm")
+
+[node name="HandSmallLeft" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.68, 2.05, -1.3)
+mesh = SubResource("SphereMesh_hand")
+
+[node name="ArmSmallRight" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.62, 2.45, -0.95)
+rotation = Vector3(-0.8, 0, 0.18)
+mesh = SubResource("CylinderMesh_small_arm")
+
+[node name="HandSmallRight" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.68, 2.05, -1.3)
+mesh = SubResource("SphereMesh_hand")
+
+[node name="TelegraphVisual" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.06, -1.7)
+visible = false
+cast_shadow = 0
+mesh = SubResource("TorusMesh_telegraph")
+
+[node name="MeleeAttack" type="Area3D" parent="Visual" node_paths=PackedStringArray("swing_visual")]
+position = Vector3(0, 1.7, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_attack")
+stats = ExtResource("6_attack_stats")
+swing_visual = NodePath("SwingVisual")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/MeleeAttack"]
+shape = SubResource("SphereShape3D_attack")
+
+[node name="SwingVisual" type="MeshInstance3D" parent="Visual/MeleeAttack"]
+visible = false
+cast_shadow = 0
+mesh = SubResource("SphereMesh_swing")
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_hurtbox")
+health = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+position = Vector3(0, 2, 0)
+shape = SubResource("CapsuleShape3D_hurtbox")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")
+max_health = 600.0
+
+[node name="HitFlash" type="Node" parent="." node_paths=PackedStringArray("health", "mesh_root")]
+script = ExtResource("7_flash")
+health = NodePath("../Health")
+mesh_root = NodePath("../Visual")
+
+[node name="HitSpark" type="Node" parent="." node_paths=PackedStringArray("attack")]
+script = ExtResource("8_spark")
+attack = NodePath("../Visual/MeleeAttack")

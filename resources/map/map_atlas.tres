@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MapAtlas" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="1_xmv52"]
+[ext_resource type="Resource" path="res://resources/map/locations/forgotten_shore.tres" id="2_c47sh"]
+[ext_resource type="Resource" path="res://resources/map/locations/caravan_road.tres" id="3_0223h"]
+[ext_resource type="Resource" path="res://resources/map/locations/caravan_site.tres" id="4_ce4iv"]
+[ext_resource type="Resource" path="res://resources/map/locations/ambush_site.tres" id="5_u3t1b"]
+[ext_resource type="Resource" path="res://resources/map/locations/pilgrim_path.tres" id="6_lq6v5"]
+[ext_resource type="Resource" path="res://resources/map/locations/shadow_sanctuary.tres" id="7_1fejr"]
+[ext_resource type="Resource" path="res://resources/map/locations/drowned_city.tres" id="8_17wtf"]
+[ext_resource type="Script" path="res://scripts/map/map_atlas.gd" id="9_kqa6a"]
+[ext_resource type="Resource" path="res://resources/map/world_map.tres" id="10_jlrt2"]
+
+[resource]
+script = ExtResource("9_kqa6a")
+world_map = ExtResource("10_jlrt2")
+locations = Array[ExtResource("1_xmv52")]([ExtResource("2_c47sh"), ExtResource("3_0223h"), ExtResource("4_ce4iv"), ExtResource("5_u3t1b"), ExtResource("6_lq6v5"), ExtResource("7_1fejr"), ExtResource("8_17wtf")])

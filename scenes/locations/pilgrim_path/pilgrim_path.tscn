@@ -1,0 +1,703 @@
+[gd_scene format=3 uid="uid://ctptuvldvexmm"]
+
+[ext_resource type="Script" uid="uid://dp8boljda2g52" path="res://scripts/slice/locations/pilgrim_path.gd" id="1_path"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+[ext_resource type="Script" uid="uid://6fxn77ug1dtb" path="res://scripts/interaction/interactable.gd" id="3_interactable"]
+[ext_resource type="Script" uid="uid://cg74bimshho8n" path="res://scripts/interaction/trigger_zone.gd" id="4_trigger"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_ascent"]
+sky_top_color = Color(0.008, 0.012, 0.03, 1)
+sky_horizon_color = Color(0.075, 0.095, 0.14, 1)
+ground_bottom_color = Color(0.004, 0.006, 0.012, 1)
+ground_horizon_color = Color(0.055, 0.065, 0.09, 1)
+sun_angle_max = 6.0
+
+[sub_resource type="Sky" id="Sky_ascent"]
+sky_material = SubResource("SkyMat_ascent")
+
+[sub_resource type="Environment" id="Env_ascent"]
+background_mode = 2
+sky = SubResource("Sky_ascent")
+ambient_light_source = 2
+ambient_light_color = Color(0.21, 0.25, 0.34, 1)
+ambient_light_energy = 0.55
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 0.95
+fog_enabled = true
+fog_light_color = Color(0.105, 0.13, 0.19, 1)
+fog_light_energy = 0.55
+fog_density = 0.008
+fog_sky_affect = 0.75
+fog_height = -3.0
+fog_height_density = 0.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_rock"]
+albedo_color = Color(0.17, 0.18, 0.21, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Mat_snow"]
+albedo_color = Color(0.72, 0.78, 0.86, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Mat_ice"]
+albedo_color = Color(0.38, 0.52, 0.62, 1)
+metallic = 0.05
+roughness = 0.16
+
+[sub_resource type="StandardMaterial3D" id="Mat_rock_dark"]
+albedo_color = Color(0.07, 0.075, 0.09, 1)
+roughness = 0.98
+
+[sub_resource type="StandardMaterial3D" id="Mat_marble"]
+albedo_color = Color(0.025, 0.026, 0.035, 1)
+roughness = 0.38
+
+[sub_resource type="StandardMaterial3D" id="Mat_bone"]
+albedo_color = Color(0.66, 0.63, 0.55, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_fire"]
+albedo_color = Color(1, 0.46, 0.12, 1)
+emission_enabled = true
+emission = Color(1, 0.34, 0.06, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_blood"]
+albedo_color = Color(0.22, 0.015, 0.02, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_temple"]
+albedo_color = Color(0.018, 0.02, 0.03, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_temple_glow"]
+albedo_color = Color(0.18, 0.34, 0.4, 1)
+emission_enabled = true
+emission = Color(0.1, 0.52, 0.48, 1)
+emission_energy_multiplier = 2.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uh8u0"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.55, 0.8, 0.9, 0.08)
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(0.9, 0.86, 0.62, 1)
+emission_enabled = true
+emission = Color(0.95, 0.85, 0.48, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="Shape_temple"]
+size = Vector3(5, 3, 2)
+
+[node name="PilgrimPath" type="Node3D" unique_id=823240785]
+script = ExtResource("1_path")
+
+[node name="Environment" type="Node3D" parent="." unique_id=1011961264]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=900774266]
+environment = SubResource("Env_ascent")
+
+[node name="Moon" type="DirectionalLight3D" parent="Environment" unique_id=1235525822]
+transform = Transform3D(0.8138785, -0.4248214, 0.39639452, 0, 0.68222123, 0.7311458, -0.58103514, -0.5950638, 0.55524516, 0, 30, 0)
+light_color = Color(0.66, 0.74, 0.95, 1)
+light_energy = 0.85
+shadow_enabled = true
+directional_shadow_max_distance = 90.0
+
+[node name="DawnLight" type="DirectionalLight3D" parent="Environment" unique_id=82654304]
+transform = Transform3D(0.3623577, 0.310823, -0.8786842, 0, 0.9427547, 0.3334871, 0.9320391, -0.120841615, 0.34161443, 0, 0, 0)
+visible = false
+light_color = Color(1, 0.76, 0.58, 1)
+light_energy = 0.0
+shadow_enabled = true
+directional_shadow_max_distance = 90.0
+
+[node name="Geometry" type="Node3D" parent="." unique_id=827673931]
+
+[node name="StartRoad" type="CSGBox3D" parent="Geometry" unique_id=941314509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 3)
+use_collision = true
+size = Vector3(5, 0.6, 14)
+material = SubResource("Mat_rock")
+
+[node name="StartSnow" type="CSGBox3D" parent="Geometry" unique_id=686696263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 3)
+size = Vector3(4.7, 0.03, 13.7)
+material = SubResource("Mat_snow")
+
+[node name="RampEast" type="CSGBox3D" parent="Geometry" unique_id=1217204059]
+transform = Transform3D(0.9805798, -0.19612049, 0, 0.19612049, 0.9805798, 0, 0, 0, 1, 4, 0.65, -4.5)
+use_collision = true
+size = Vector3(8.2, 0.3, 3)
+material = SubResource("Mat_ice")
+
+[node name="EastLanding" type="CSGBox3D" parent="Geometry" unique_id=315169464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.3, -8)
+use_collision = true
+size = Vector3(3.6, 0.6, 7)
+material = SubResource("Mat_rock")
+
+[node name="EastSnow" type="CSGBox3D" parent="Geometry" unique_id=1342330709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.62, -8)
+size = Vector3(3.3, 0.04, 6.7)
+material = SubResource("Mat_snow")
+
+[node name="RampWest" type="CSGBox3D" parent="Geometry" unique_id=1157191817]
+transform = Transform3D(0.9682409, 0.25001913, 0, -0.25001913, 0.9682409, 0, 0, 0, 1, 4.5, 2.35, -9)
+use_collision = true
+size = Vector3(7.2, 0.3, 3)
+material = SubResource("Mat_ice")
+
+[node name="WestLanding" type="CSGBox3D" parent="Geometry" unique_id=2106233056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.1, -13.5)
+use_collision = true
+size = Vector3(4, 0.6, 9)
+material = SubResource("Mat_rock")
+
+[node name="WestSnow" type="CSGBox3D" parent="Geometry" unique_id=2135145165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.42, -13.5)
+size = Vector3(3.7, 0.04, 8.7)
+material = SubResource("Mat_snow")
+
+[node name="RampNorth" type="CSGBox3D" parent="Geometry" unique_id=700295002]
+transform = Transform3D(1, 0, 0, 0, 0.9969906, -0.07752214, 0, 0.07752214, 0.9969906, 1, 3.65, -23)
+use_collision = true
+size = Vector3(3, 0.3, 10.4)
+material = SubResource("Mat_ice")
+
+[node name="Alcove" type="CSGBox3D" parent="Geometry" unique_id=944134020]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.8, -32)
+use_collision = true
+size = Vector3(8, 0.6, 8)
+material = SubResource("Mat_rock")
+
+[node name="AlcoveSnow" type="CSGBox3D" parent="Geometry" unique_id=286442946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.12, -33)
+size = Vector3(7.6, 0.04, 5.5)
+material = SubResource("Mat_snow")
+
+[node name="NarrowLedge" type="CSGBox3D" parent="Geometry" unique_id=1263009920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.8, -41.5)
+use_collision = true
+size = Vector3(2.2, 0.6, 11)
+material = SubResource("Mat_ice")
+
+[node name="LedgeSnow" type="CSGBox3D" parent="Geometry" unique_id=2133956096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.12, -41.5)
+size = Vector3(1.9, 0.03, 10.7)
+material = SubResource("Mat_snow")
+
+[node name="CaveFloor" type="CSGBox3D" parent="Geometry" unique_id=948508357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.8, -51)
+use_collision = true
+size = Vector3(5, 0.6, 8)
+material = SubResource("Mat_rock_dark")
+
+[node name="CaveWallWest" type="CSGBox3D" parent="Geometry" unique_id=1813328065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 5.2, -51)
+use_collision = true
+size = Vector3(0.6, 2.8, 8)
+material = SubResource("Mat_rock_dark")
+
+[node name="CaveWallEast" type="CSGBox3D" parent="Geometry" unique_id=1097374977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 5.2, -51)
+use_collision = true
+size = Vector3(0.6, 2.8, 8)
+material = SubResource("Mat_rock_dark")
+
+[node name="CaveCeiling" type="CSGBox3D" parent="Geometry" unique_id=32762999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6.7, -51)
+use_collision = true
+size = Vector3(5.6, 0.5, 8.2)
+material = SubResource("Mat_rock_dark")
+
+[node name="HeroLedge" type="CSGBox3D" parent="Geometry" unique_id=54303658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.8, -60.5)
+use_collision = true
+size = Vector3(4, 0.6, 11)
+material = SubResource("Mat_rock")
+
+[node name="HeroSnow" type="CSGBox3D" parent="Geometry" unique_id=1110643722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.12, -60.5)
+size = Vector3(3.7, 0.03, 10.7)
+material = SubResource("Mat_snow")
+
+[node name="TempleStair" type="CSGBox3D" parent="Geometry" unique_id=443880993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.75, -69.5)
+use_collision = true
+size = Vector3(6, 0.5, 7)
+material = SubResource("Mat_marble")
+
+[node name="TempleStairSnow" type="CSGBox3D" parent="Geometry" unique_id=2062932329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.02, -69.5)
+size = Vector3(5.7, 0.03, 6.7)
+material = SubResource("Mat_snow")
+
+[node name="AlcoveOverhang" type="CSGBox3D" parent="Geometry" unique_id=1706401441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6.15, -32)
+size = Vector3(8.2, 0.55, 7)
+material = SubResource("Mat_rock")
+
+[node name="CliffWest" type="CSGBox3D" parent="Geometry" unique_id=1956645846]
+transform = Transform3D(0.99680173, 0, 0.07991469, 0, 1, 0, -0.07991469, 0, 0.99680173, -7.2, 1.2, -30)
+use_collision = true
+size = Vector3(6, 17, 58)
+material = SubResource("Mat_rock_dark")
+
+[node name="CliffEast" type="CSGBox3D" parent="Geometry" unique_id=1713545082]
+transform = Transform3D(0.99280864, 0, -0.119712204, 0, 1, 0, 0.119712204, 0, 0.99280864, 11, 1.4, -26)
+use_collision = true
+size = Vector3(6, 18, 50)
+material = SubResource("Mat_rock_dark")
+
+[node name="GapAbyss" type="CSGBox3D" parent="Geometry" unique_id=805328956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, -6)
+size = Vector3(8, 0.3, 4.5)
+material = SubResource("Mat_rock_dark")
+
+[node name="BrokenRoadSlab" type="CSGBox3D" parent="Geometry" unique_id=1573738031]
+transform = Transform3D(0.9077733, 0.24505863, 0.3404319, -0.21666026, 0.9688794, -0.119712204, -0.35917395, 0.03491348, 0.93261737, -3.2, 0.35, -5)
+use_collision = true
+size = Vector3(2.2, 0.5, 3)
+material = SubResource("Mat_rock")
+
+[node name="BrokenRoadSlab2" type="CSGBox3D" parent="Geometry" unique_id=1048963356]
+transform = Transform3D(0.90278625, -0.1982821, -0.3816559, 0.2896295, 0.9362934, 0.19866933, 0.31794932, -0.28989473, 0.9027011, 3, -1.4, -6.7)
+size = Vector3(1.8, 0.4, 2.6)
+material = SubResource("Mat_rock")
+
+[node name="Props" type="Node3D" parent="." unique_id=969495616]
+
+[node name="Sword" type="Node3D" parent="Props" unique_id=228261683]
+transform = Transform3D(0.76239604, -0.061122127, 0.64421767, 0.07991469, 0.99680173, 0, -0.6421573, 0.051482454, 0.7648422, 7, 1.85, -8.4)
+
+[node name="Blade" type="CSGBox3D" parent="Props/Sword" unique_id=460983832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.32)
+size = Vector3(0.06, 0.035, 0.85)
+material = SubResource("Mat_ice")
+
+[node name="Hilt" type="CSGBox3D" parent="Props/Sword" unique_id=117001337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.16)
+size = Vector3(0.24, 0.06, 0.08)
+material = SubResource("Mat_bone")
+
+[node name="StoneMarker" type="CSGBox3D" parent="Props" unique_id=288260013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.7, -8.4)
+size = Vector3(0.5, 0.25, 0.7)
+material = SubResource("Mat_rock")
+
+[node name="AlcoveFire" type="Node3D" parent="Props" unique_id=48261588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.1, -31)
+
+[node name="Ring" type="CSGCylinder3D" parent="Props/AlcoveFire" unique_id=1010845797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+radius = 0.55
+height = 0.08
+sides = 12
+material = SubResource("Mat_rock_dark")
+
+[node name="Flame" type="CSGCylinder3D" parent="Props/AlcoveFire" unique_id=1697657257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
+radius = 0.16
+height = 0.65
+sides = 6
+material = SubResource("Mat_fire")
+
+[node name="FireLight" type="OmniLight3D" parent="Props/AlcoveFire" unique_id=631282292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(1, 0.52, 0.22, 1)
+light_energy = 2.2
+shadow_enabled = true
+omni_range = 7.0
+
+[node name="BedrollA" type="CSGBox3D" parent="Props" unique_id=1149024554]
+transform = Transform3D(0.9800666, 0, 0.19866933, 0, 1, 0, -0.19866933, 0, 0.9800666, 2.8, 4.16, -31.6)
+size = Vector3(0.7, 0.08, 1.8)
+material = SubResource("Mat_rock_dark")
+
+[node name="BedrollB" type="CSGBox3D" parent="Props" unique_id=374266801]
+transform = Transform3D(0.9689124, 0, -0.24740396, 0, 1, 0, 0.24740396, 0, 0.9689124, -0.6, 4.16, -32.4)
+size = Vector3(0.7, 0.08, 1.8)
+material = SubResource("Mat_rock_dark")
+
+[node name="BloodStain" type="CSGBox3D" parent="Props" unique_id=1686624568]
+transform = Transform3D(0.9553365, 0, 0.29552022, 0, 1, 0, -0.29552022, 0, 0.9553365, 2.25, 4.135, -34.55)
+visible = false
+size = Vector3(1.5, 0.02, 1.2)
+material = SubResource("Mat_blood")
+
+[node name="CaveBlood" type="CSGBox3D" parent="Props" unique_id=1590431350]
+transform = Transform3D(0.921061, 0, -0.38941833, 0, 1, 0, 0.38941833, 0, 0.921061, 2.4, 4.125, -54.1)
+size = Vector3(0.9, 0.02, 0.7)
+material = SubResource("Mat_blood")
+
+[node name="Bones" type="Node3D" parent="Props" unique_id=2101109469]
+
+[node name="Bone01" type="CSGCylinder3D" parent="Props/Bones" unique_id=1218781125]
+transform = Transform3D(0.0007804018, -0.9800663, 0.19866933, 0.9999997, 0.0007962743, 0, -0.00015819528, 0.19866927, 0.9800666, -1.3, 0.12, 1.5)
+radius = 0.045
+height = 0.7
+sides = 5
+material = SubResource("Mat_bone")
+
+[node name="Bone02" type="CSGCylinder3D" parent="Props/Bones" unique_id=245589817]
+transform = Transform3D(0.00073341717, -0.9210607, -0.38941833, 0.9999997, 0.0007962743, 0, 0.0003100838, -0.3894182, 0.921061, -0.9, 0.1, 1.7)
+radius = 0.035
+height = 0.5
+sides = 5
+material = SubResource("Mat_bone")
+
+[node name="Bone03" type="CSGCylinder3D" parent="Props/Bones" unique_id=864021694]
+transform = Transform3D(0.03961037, -0.92102975, 0.38747287, 0.9950039, 0.00079229625, -0.09983342, 0.09164255, 0.38949144, 0.9164595, 3, 4.2, -63)
+radius = 0.05
+height = 0.85
+sides = 5
+material = SubResource("Mat_bone")
+
+[node name="Bone04" type="CSGCylinder3D" parent="Props/Bones" unique_id=600277422]
+transform = Transform3D(0.020614235, -0.9800505, -0.19767681, 0.9950039, 0.00079229625, 0.09983342, -0.09768517, -0.19874717, 0.9751704, 2.5, 4.2, -64)
+radius = 0.04
+height = 0.6
+sides = 5
+material = SubResource("Mat_bone")
+
+[node name="ClusterWest" type="Node3D" parent="Props/Bones" unique_id=1477107244]
+
+[node name="B1" type="CSGCylinder3D" parent="Props/Bones/ClusterWest" unique_id=653903362]
+transform = Transform3D(0.11099036, -0.9143492, 0.38941833, 0.992713, 0.120502725, 0, -0.04692597, 0.38658065, 0.921061, -1.7, 4.1, -67.6)
+radius = 0.08
+height = 0.6
+
+[node name="B2" type="CSGCylinder3D" parent="Props/Bones/ClusterWest" unique_id=1713778221]
+transform = Transform3D(0.09693028, -0.34915274, 0.9320391, 0.9635582, 0.26749888, 0, -0.2493194, 0.8980739, 0.3623577, -1.4, 4.1, -68.9)
+radius = 0.08
+height = 0.5
+
+[node name="B3" type="CSGCylinder3D" parent="Props/Bones/ClusterWest" unique_id=463244121]
+transform = Transform3D(0.27488002, -0.603678, 0.7483408, 0.9529434, 0.06757783, -0.29552022, 0.1278278, 0.79435897, 0.59384674, -1.9, 4.1, -70.2)
+radius = 0.07
+height = 0.55
+
+[node name="B4" type="CSGCylinder3D" parent="Props/Bones/ClusterWest" unique_id=765578283]
+transform = Transform3D(-0.18293485, 0.47053623, 0.8632094, 0.9320391, 0.3623577, 0, -0.31279057, 0.8045449, -0.50484604, -1.5, 4.1, -71.6)
+radius = 0.08
+height = 0.45
+
+[node name="B5" type="CSGCylinder3D" parent="Props/Bones/ClusterWest" unique_id=529045956]
+transform = Transform3D(0.20547435, -0.95909786, 0.19470917, 0.96580637, 0.16657914, -0.19866933, 0.15810883, 0.2288728, 0.9605305, -1.8, 4.1, -72.4)
+radius = 0.08
+height = 0.6
+
+[node name="ClusterEast" type="Node3D" parent="Props/Bones" unique_id=1236707856]
+
+[node name="B1" type="CSGCylinder3D" parent="Props/Bones/ClusterEast" unique_id=231792871]
+transform = Transform3D(0.12999806, -0.75371355, 0.64421767, 0.98544973, 0.16996716, 0, -0.10949585, 0.6348441, 0.7648422, 3.4, 4.1, -67.8)
+radius = 0.08
+height = 0.6
+
+[node name="B2" type="CSGCylinder3D" parent="Props/Bones/ClusterEast" unique_id=1265536073]
+transform = Transform3D(0.2349, 0.08265069, 0.96849924, 0.9453905, 0.21219827, -0.24740396, -0.22596198, 0.9737252, -0.028291803, 3.7, 4.1, -69.6)
+radius = 0.08
+height = 0.5
+
+[node name="B3" type="CSGCylinder3D" parent="Props/Bones/ClusterEast" unique_id=1925643596]
+transform = Transform3D(-0.052161172, 0.73554665, 0.67546314, 0.997495, 0.0707372, 0, -0.04778037, 0.6737711, -0.7373938, 3.2, 4.1, -71.1)
+radius = 0.07
+height = 0.55
+
+[node name="B4" type="CSGCylinder3D" parent="Props/Bones/ClusterEast" unique_id=1496476665]
+transform = Transform3D(0.41117352, -0.7881375, 0.45801273, 0.90659964, 0.30123898, -0.29552022, 0.09493928, 0.53674424, 0.83838665, 3.6, 4.1, -72.3)
+radius = 0.08
+height = 0.5
+
+[node name="ClusterFront" type="Node3D" parent="Props/Bones" unique_id=1982394587]
+
+[node name="B1" type="CSGCylinder3D" parent="Props/Bones/ClusterFront" unique_id=1690804352]
+transform = Transform3D(0.06757783, -0.9529434, 0.29552022, 0.997495, 0.0707372, 0, -0.020904273, 0.29477993, 0.9553365, 0.2, 4.6, -76.6)
+radius = 0.08
+height = 0.6
+
+[node name="B2" type="CSGCylinder3D" parent="Props/Bones/ClusterFront" unique_id=1364667990]
+transform = Transform3D(0.2919398, -0.38970405, 0.8734426, 0.9443512, 0.2621667, -0.19866933, -0.15156534, 0.88283604, 0.44455436, 1.1, 4.6, -77.2)
+radius = 0.07
+height = 0.5
+
+[node name="TempleGlow" type="Node3D" parent="Props" unique_id=1102407788]
+visible = false
+
+[node name="TempleBody" type="CSGBox3D" parent="Props/TempleGlow" unique_id=719927128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 10, -84)
+size = Vector3(18, 12, 9)
+material = SubResource("Mat_temple")
+
+[node name="Step1" type="CSGBox3D" parent="Props/TempleGlow" unique_id=872025511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.3, -76)
+size = Vector3(14, 0.5, 4)
+material = SubResource("Mat_temple")
+
+[node name="Step2" type="CSGBox3D" parent="Props/TempleGlow" unique_id=222251124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.8, -78)
+size = Vector3(12, 0.5, 3)
+material = SubResource("Mat_temple")
+
+[node name="ColumnA" type="CSGCylinder3D" parent="Props/TempleGlow" unique_id=313275898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 8.2, -79)
+radius = 0.7
+height = 8.0
+material = SubResource("Mat_temple")
+
+[node name="ColumnB" type="CSGCylinder3D" parent="Props/TempleGlow" unique_id=1970896034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8.2, -79)
+radius = 0.7
+height = 8.0
+material = SubResource("Mat_temple")
+
+[node name="ColumnC" type="CSGCylinder3D" parent="Props/TempleGlow" unique_id=1197474552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 7.2, -81.5)
+radius = 0.55
+height = 6.0
+material = SubResource("Mat_temple")
+
+[node name="ColumnD" type="CSGCylinder3D" parent="Props/TempleGlow" unique_id=568663975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.2, -81.5)
+radius = 0.55
+height = 6.0
+material = SubResource("Mat_temple")
+
+[node name="DoorGlow" type="CSGBox3D" parent="Props/TempleGlow" unique_id=2077610324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 7, -79.4)
+size = Vector3(4.5, 4.5, 0.2)
+material = SubResource("Mat_temple_glow")
+
+[node name="BrokenGate" type="Node3D" parent="Props/TempleGlow" unique_id=2041241545]
+
+[node name="FragmentWest" type="CSGBox3D" parent="Props/TempleGlow/BrokenGate" unique_id=1371388994]
+transform = Transform3D(0.990216, -0.13954312, 0, 0.13954312, 0.990216, 0, 0, 0, 1, -1.6, 5.5, -79.6)
+size = Vector3(1.2, 6, 1)
+
+[node name="FragmentEast" type="CSGBox3D" parent="Props/TempleGlow/BrokenGate" unique_id=349594707]
+transform = Transform3D(0.97589743, 0.21822962, 0, -0.21822962, 0.97589743, 0, 0, 0, 1, 3.8, 4.6, -79.6)
+size = Vector3(1, 4.4, 1)
+
+[node name="FallenLintel" type="CSGBox3D" parent="Props/TempleGlow/BrokenGate" unique_id=526790561]
+transform = Transform3D(0.8714916, -0.11809969, 0.47597784, 0.19724062, 0.9730186, -0.119712204, -0.4489973, 0.19821034, 0.87127155, 1, 4.4, -72.4)
+size = Vector3(3.6, 0.6, 1.1)
+
+[node name="GraveStones" type="Node3D" parent="Props" unique_id=1426591490]
+
+[node name="Grave01" type="CSGBox3D" parent="Props/GraveStones" unique_id=122477524]
+transform = Transform3D(0.978303, -0.05876872, 0.19866933, 0.059964005, 0.99820054, 0, -0.19831184, 0.011913009, 0.9800666, -2.1, 4.45, -58)
+size = Vector3(0.45, 0.8, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Grave02" type="CSGBox3D" parent="Props/GraveStones" unique_id=2137235126]
+transform = Transform3D(0.9522811, 0.07634542, -0.29552022, -0.07991469, 0.99680173, 0, 0.29457507, 0.023616407, 0.9553365, 3.8, 4.35, -64)
+size = Vector3(0.4, 0.6, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="TempleGuard" type="Node3D" parent="Props" unique_id=1891594692]
+transform = Transform3D(2, 0, 0, 0, 0.22, 0, 0, 0, 1.2, 1, 4.2, -71)
+visible = false
+
+[node name="Distortion" type="CSGSphere3D" parent="Props/TempleGuard" unique_id=335003014]
+material = SubResource("StandardMaterial3D_uh8u0")
+
+[node name="NPCs" type="Node3D" parent="." unique_id=787395578]
+
+[node name="Hero" parent="NPCs" unique_id=511072400 instance=ExtResource("2_mannequin")]
+transform = Transform3D(-0.99999875, 0, 0.001592548, 0, 1, 0, -0.001592548, 0, -0.99999875, 0.8, 0.05, 6.5)
+body_color = Color(0.22, 0.24, 0.3, 1)
+head_color = Color(0.7, 0.61, 0.53, 1)
+height_scale = 1.08
+width_scale = 1.08
+
+[node name="Shifty" parent="NPCs" unique_id=148496649 instance=ExtResource("2_mannequin")]
+transform = Transform3D(-0.90407217, 0, 0.42737985, 0, 1, 0, -0.42737985, 0, -0.90407217, 1.6, 0.05, 7.2)
+body_color = Color(0.36, 0.3, 0.24, 1)
+head_color = Color(0.64, 0.55, 0.46, 1)
+height_scale = 0.92
+
+[node name="Scholar" parent="NPCs" unique_id=582801847 instance=ExtResource("2_mannequin")]
+transform = Transform3D(-0.9874798, 0, -0.15774564, 0, 1, 0, 0.15774564, 0, -0.9874798, -0.5, 0.05, 6.7)
+body_color = Color(0.28, 0.3, 0.28, 1)
+head_color = Color(0.68, 0.6, 0.52, 1)
+height_scale = 0.98
+
+[node name="ShiftyBody" type="Node3D" parent="NPCs" unique_id=314717787]
+visible = false
+
+[node name="Body" type="CSGCylinder3D" parent="NPCs/ShiftyBody" unique_id=168935100]
+transform = Transform3D(0.120502725, -0.992713, 0, 0.992713, 0.120502725, 0, 0, 0, 1, 0, 0.22, 0)
+radius = 0.2
+height = 1.3
+material = SubResource("Mat_rock_dark")
+
+[node name="Head" type="CSGSphere3D" parent="NPCs/ShiftyBody" unique_id=373114377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72, 0.28, 0)
+radius = 0.12
+material = SubResource("Mat_rock_dark")
+
+[node name="TyrantSighting" type="Node3D" parent="NPCs" unique_id=998969450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, -5, -45)
+visible = false
+
+[node name="Body" type="CSGBox3D" parent="NPCs/TyrantSighting" unique_id=1507432649]
+transform = Transform3D(0.9393727, 0, 0.3428978, 0, 1, 0, -0.3428978, 0, 0.9393727, 0, 4, 0)
+size = Vector3(7, 8, 4)
+material = SubResource("Mat_rock_dark")
+
+[node name="Eye1" type="CSGSphere3D" parent="NPCs/TyrantSighting" unique_id=1799186476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 5.2, -2.1)
+radius = 0.16
+material = SubResource("Mat_eye")
+
+[node name="Eye2" type="CSGSphere3D" parent="NPCs/TyrantSighting" unique_id=523242095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 5.4, -2.2)
+radius = 0.14
+material = SubResource("Mat_eye")
+
+[node name="Eye3" type="CSGSphere3D" parent="NPCs/TyrantSighting" unique_id=300634835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -2.2)
+radius = 0.14
+material = SubResource("Mat_eye")
+
+[node name="Eye4" type="CSGSphere3D" parent="NPCs/TyrantSighting" unique_id=1539579781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 5.4, -2.2)
+radius = 0.14
+material = SubResource("Mat_eye")
+
+[node name="Eye5" type="CSGSphere3D" parent="NPCs/TyrantSighting" unique_id=103866664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 5.2, -2.1)
+radius = 0.16
+material = SubResource("Mat_eye")
+
+[node name="TyrantAtHero" type="Node3D" parent="NPCs" unique_id=1470963907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 4.1, -60)
+visible = false
+
+[node name="Body" type="CSGBox3D" parent="NPCs/TyrantAtHero" unique_id=952054788]
+transform = Transform3D(0.921061, 0, -0.38941833, 0, 1, 0, 0.38941833, 0, 0.921061, 0, 4.2, 0)
+size = Vector3(6, 8.4, 4.5)
+material = SubResource("Mat_rock_dark")
+
+[node name="Arm" type="CSGBox3D" parent="NPCs/TyrantAtHero" unique_id=639627024]
+transform = Transform3D(0.7737985, -0.6258295, 0.0978434, 0.6313762, 0.7495963, -0.19866933, 0.050990075, 0.21550602, 0.9751704, -2.4, 4.6, -0.4)
+size = Vector3(0.9, 5.2, 0.9)
+material = SubResource("Mat_rock_dark")
+
+[node name="Eye1" type="CSGSphere3D" parent="NPCs/TyrantAtHero" unique_id=803156019]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 6, -2.3)
+radius = 0.18
+material = SubResource("Mat_eye")
+
+[node name="Eye2" type="CSGSphere3D" parent="NPCs/TyrantAtHero" unique_id=1977744597]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 6.2, -2.4)
+radius = 0.16
+material = SubResource("Mat_eye")
+
+[node name="Eye3" type="CSGSphere3D" parent="NPCs/TyrantAtHero" unique_id=256056683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.3, -2.4)
+radius = 0.16
+material = SubResource("Mat_eye")
+
+[node name="Eye4" type="CSGSphere3D" parent="NPCs/TyrantAtHero" unique_id=212250978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 6.2, -2.4)
+radius = 0.16
+material = SubResource("Mat_eye")
+
+[node name="Eye5" type="CSGSphere3D" parent="NPCs/TyrantAtHero" unique_id=334100652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 6, -2.3)
+radius = 0.18
+material = SubResource("Mat_eye")
+
+[node name="Interactables" type="Node3D" parent="." unique_id=620026832]
+
+[node name="RoadGap" type="Node3D" parent="Interactables" unique_id=1397804976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -2.8)
+script = ExtResource("3_interactable")
+interaction_id = &"road_gap"
+prompt = "Осмотреть провал"
+radius = 2.2
+enabled = true
+
+[node name="Sword" type="Node3D" parent="Interactables" unique_id=233607956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.85, -8.4)
+script = ExtResource("3_interactable")
+interaction_id = &"sword"
+prompt = "Оставить короткий меч"
+radius = 1.8
+
+[node name="Rest" type="Node3D" parent="Interactables" unique_id=1571285542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -31)
+script = ExtResource("3_interactable")
+interaction_id = &"rest"
+prompt = "Сесть у огня"
+radius = 2.2
+
+[node name="Scholar" type="Node3D" parent="Interactables" unique_id=772730303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 4.25, -40.5)
+script = ExtResource("3_interactable")
+interaction_id = &"scholar"
+prompt = "Догнать Учёного"
+radius = 2.2
+
+[node name="Cave" type="Node3D" parent="Interactables" unique_id=1706980623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -48)
+script = ExtResource("3_interactable")
+interaction_id = &"cave"
+prompt = "Войти в пещеру"
+radius = 2.2
+
+[node name="CaveExit" type="Node3D" parent="Interactables" unique_id=1893288405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -54.4)
+script = ExtResource("3_interactable")
+interaction_id = &"cave_exit"
+prompt = "Выбраться на тропу"
+radius = 2.0
+
+[node name="Hero" type="Node3D" parent="Interactables" unique_id=1720755904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -59)
+script = ExtResource("3_interactable")
+interaction_id = &"hero"
+prompt = "Посмотреть на Героя"
+radius = 2.4
+
+[node name="Bell" type="Node3D" parent="Interactables" unique_id=336145208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -61.5)
+script = ExtResource("3_interactable")
+interaction_id = &"bell"
+prompt = "Позвонить в Серебряный Колокольчик"
+radius = 2.0
+
+[node name="Temple" type="Area3D" parent="Interactables" unique_id=1080880815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, -69)
+script = ExtResource("4_trigger")
+trigger_id = &"temple"
+
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Temple" unique_id=364522321]
+shape = SubResource("Shape_temple")
+
+[node name="Spawns" type="Node3D" parent="." unique_id=1047606296]
+
+[node name="Start" type="Marker3D" parent="Spawns" unique_id=965541336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 8.5)
+
+[node name="AlcoveSeat" type="Marker3D" parent="Spawns" unique_id=779147980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -30)
+
+[node name="ShiftyLedge" type="Marker3D" parent="Spawns" unique_id=536249536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 4.15, -34.7)
+
+[node name="ScholarAhead" type="Marker3D" parent="Spawns" unique_id=1872730101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 4.15, -40.5)
+
+[node name="CaveInside" type="Marker3D" parent="Spawns" unique_id=597840061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -52)
+
+[node name="HeroStand" type="Marker3D" parent="Spawns" unique_id=1181251319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -59)
+
+[node name="TempleApproach" type="Marker3D" parent="Spawns" unique_id=56741827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -67)

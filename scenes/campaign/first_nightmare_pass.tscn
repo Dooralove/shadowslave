@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/first_nightmare_pass.gd" id="1_pass"]
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/caravan_road.tscn" id="2_road"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
+[ext_resource type="PackedScene" path="res://scenes/ui/prologue_ui.tscn" id="4_ui"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_runner.gd" id="5_dialogue"]
+
+[sub_resource type="BoxShape3D" id="Shape_exit"]
+size = Vector3(4, 3.2, 2.5)
+
+[node name="FirstNightmarePass" type="Node3D"]
+script = ExtResource("1_pass")
+
+[node name="CaravanRoad" parent="." instance=ExtResource("2_road")]
+
+[node name="Sunny" parent="." instance=ExtResource("3_sunny")]
+position = Vector3(0, 0.1, 0)
+
+[node name="UI" parent="." instance=ExtResource("4_ui")]
+
+[node name="DialogueRunner" type="Node" parent="."]
+script = ExtResource("5_dialogue")
+
+[node name="WhipFlashLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="WhipFlash" type="ColorRect" parent="WhipFlashLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.55, 0.03, 0.02, 0)
+
+[node name="PrototypeNote" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="Root" type="Control" parent="PrototypeNote"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Note" type="Label" parent="PrototypeNote/Root"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 66.0
+offset_right = 720.0
+offset_bottom = 138.0
+theme_override_colors/font_color = Color(0.82, 0.73, 0.56, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 14
+text = "S01 · МАРШ И ЗНАКОМСТВА
+Впереди — стоянка каравана. Нападение и личинка — в следующей сцене."
+autowrap_mode = 3
+
+[node name="CampArrival" type="Area3D" parent="CaravanRoad/Road/Triggers"]
+position = Vector3(0, 1.5, -36)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CaravanRoad/Road/Triggers/CampArrival"]
+shape = SubResource("Shape_exit")

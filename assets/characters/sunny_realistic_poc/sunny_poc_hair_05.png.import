@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2xhhbjoxvdfj"
-path="res://.godot/imported/sunny_poc_hair_05.png-ec6b94731a0a47e51a82b40c0f35ce0a.ctex"
+path.s3tc="res://.godot/imported/sunny_poc_hair_05.png-ec6b94731a0a47e51a82b40c0f35ce0a.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "1ad6fd46c000f97a8ae0fef066e15b8c"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/characters/sunny_realistic_poc/sunny_poc_hair_05.png"
-dest_files=["res://.godot/imported/sunny_poc_hair_05.png-ec6b94731a0a47e51a82b40c0f35ce0a.ctex"]
+dest_files=["res://.godot/imported/sunny_poc_hair_05.png-ec6b94731a0a47e51a82b40c0f35ce0a.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_orbjb"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_6umsi"]
+
+[sub_resource type="Resource" id="Resource_eiyrl"]
+script = ExtResource("1_orbjb")
+id = &"player"
+label = "Тропа"
+description = "Начало подъёма к храму."
+position = Vector2(0.3, 0.74)
+kind = 4
+
+[sub_resource type="Resource" id="Resource_fxeyr"]
+script = ExtResource("1_orbjb")
+id = &"scholar_camp"
+label = "Лагерь учёного"
+description = "Одинокий лагерь на нижнем уступе."
+position = Vector2(0.39, 0.39)
+kind = 1
+
+[sub_resource type="Resource" id="Resource_6offr"]
+script = ExtResource("1_orbjb")
+id = &"shrine"
+label = "Алтарь у скалы"
+description = "Каменный алтарь на развилке тропы."
+position = Vector2(0.52, 0.53)
+
+[sub_resource type="Resource" id="Resource_to5vm"]
+script = ExtResource("1_orbjb")
+id = &"cave"
+label = "Пещера"
+description = "Тёмный вход в скале; внутри слышны шаги."
+position = Vector2(0.71, 0.62)
+kind = 2
+
+[sub_resource type="Resource" id="Resource_qefvt"]
+script = ExtResource("1_orbjb")
+id = &"temple"
+label = "Храм"
+description = "Вершина тропы и цель паломников."
+position = Vector2(0.76, 0.24)
+kind = 3
+
+[resource]
+script = ExtResource("2_6umsi")
+id = &"pilgrim_path"
+title = "ТРОПА ПАЛОМНИКОВ"
+subtitle = "Скалы, пещера и путь к храму"
+description = "Подъём к храму по старой тропе. Внизу остаётся лагерь учёного, выше — пещера и каменный алтарь у развилки."
+background_color = Color(0.052, 0.065, 0.078, 1)
+land_color = Color(0.215, 0.235, 0.22, 1)
+accent_color = Color(0.62, 0.6, 0.44, 1)
+contour = PackedVector2Array(0.12, 0.42, 0.22, 0.18, 0.48, 0.1, 0.72, 0.2, 0.86, 0.4, 0.82, 0.66, 0.62, 0.86, 0.34, 0.82, 0.14, 0.64)
+markers = Array[ExtResource("1_orbjb")]([SubResource("Resource_eiyrl"), SubResource("Resource_fxeyr"), SubResource("Resource_6offr"), SubResource("Resource_to5vm"), SubResource("Resource_qefvt")])
+scene_paths = PackedStringArray("res://scenes/locations/pilgrim_path/pilgrim_path.tscn", "res://scenes/campaign/pilgrim_path_arrival.tscn")
+world_rect = Rect2(0.53, 0.38, 0.2, 0.14)

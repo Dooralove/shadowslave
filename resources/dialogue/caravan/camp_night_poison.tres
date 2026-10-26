@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Шифти тянется к общей фляге. Пьёт жадно, до дна, и снова тянется."
+duration = 3.4
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"shifty"
+text = "Ещё глоток... горько, но пить хочется."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Руки у Шифти дрожат. Он прячет их под плащ."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Меня мутит. Вода у костра отдаёт железом."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Учёный прижимает ладонь к животу и отворачивается к огню."
+duration = 3.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5")]

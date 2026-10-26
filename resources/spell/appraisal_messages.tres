@@ -1,0 +1,127 @@
+[gd_resource type="Resource" script_class="SpellMessageCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/spell/spell_message.gd" id="1_message"]
+[ext_resource type="Script" path="res://scripts/spell/spell_message_catalog.gd" id="2_catalog"]
+
+[sub_resource type="Resource" id="M1"]
+script = ExtResource("1_message")
+id = &"appraisal_memory_shroud"
+text = "Ты получил Память: Puppeteer's Shroud."
+duration = 2.6
+presentation = 1
+
+[sub_resource type="Resource" id="M2"]
+script = ExtResource("1_message")
+id = &"appraisal_trial_over"
+text = "Претендент! Твоё испытание завершено."
+duration = 2.4
+presentation = 1
+
+[sub_resource type="Resource" id="M3"]
+script = ExtResource("1_message")
+id = &"appraisal_deed_larva"
+text = "Деяние: убита личинка Горного Короля."
+duration = 2.2
+
+[sub_resource type="Resource" id="M4"]
+script = ExtResource("1_message")
+id = &"appraisal_deed_humans"
+text = "Деяние: убиты три дремлющих человека."
+duration = 2.2
+
+[sub_resource type="Resource" id="M5"]
+script = ExtResource("1_message")
+id = &"appraisal_deed_auro"
+text = "Деяние: смерть Auro of the Nine."
+duration = 2.2
+
+[sub_resource type="Resource" id="M6"]
+script = ExtResource("1_message")
+id = &"appraisal_deed_tyrant"
+text = "Деяние: убит Горный Король."
+duration = 2.2
+
+[sub_resource type="Resource" id="M7"]
+script = ExtResource("1_message")
+id = &"appraisal_deed_blessing"
+text = "Деяние: получено благословение Бога Тени."
+duration = 2.4
+
+[sub_resource type="Resource" id="M8"]
+script = ExtResource("1_message")
+id = &"appraisal_deed_impossible"
+text = "Деяние: невозможное."
+duration = 2.0
+
+[sub_resource type="Resource" id="M9"]
+script = ExtResource("1_message")
+id = &"appraisal_final"
+text = "Итоговая оценка: glorious. Your treachery truly knows no bounds."
+duration = 3.8
+presentation = 1
+
+[sub_resource type="Resource" id="M10"]
+script = ExtResource("1_message")
+id = &"appraisal_boon"
+text = "Dreamer Sunless, receive your boon!"
+duration = 2.6
+presentation = 1
+
+[sub_resource type="Resource" id="M11"]
+script = ExtResource("1_message")
+id = &"appraisal_true_name"
+text = "Ты получил True Name: Lost from Light."
+duration = 3.0
+presentation = 1
+
+[sub_resource type="Resource" id="M12"]
+script = ExtResource("1_message")
+id = &"appraisal_evolve_question"
+text = "Твой Аспект готов к эволюции. Evolve Aspect?"
+duration = 2.8
+
+[sub_resource type="Resource" id="M13"]
+script = ExtResource("1_message")
+id = &"appraisal_evolve"
+text = "Dormant Aspect Temple Slave is evolving…"
+duration = 2.8
+
+[sub_resource type="Resource" id="M14"]
+script = ExtResource("1_message")
+id = &"appraisal_new_aspect"
+text = "Получен новый Аспект."
+duration = 2.2
+
+[sub_resource type="Resource" id="M15"]
+script = ExtResource("1_message")
+id = &"appraisal_rank"
+text = "Aspect Rank: Divine."
+duration = 2.8
+
+[sub_resource type="Resource" id="M16"]
+script = ExtResource("1_message")
+id = &"appraisal_name"
+text = "Aspect Name: Shadow Slave."
+duration = 3.0
+
+[sub_resource type="Resource" id="M17"]
+script = ExtResource("1_message")
+id = &"appraisal_shadow_bond"
+text = "Shadow Bond связывает тебя с тем, кто услышит True Name. Это не свобода."
+duration = 3.6
+
+[sub_resource type="Resource" id="M18"]
+script = ExtResource("1_message")
+id = &"appraisal_seal"
+text = "The First Seal is broken."
+duration = 2.6
+
+[sub_resource type="Resource" id="M19"]
+script = ExtResource("1_message")
+id = &"appraisal_awakening"
+text = "Пробуждение спящих сил…"
+duration = 2.4
+
+[resource]
+script = ExtResource("2_catalog")
+messages = [SubResource("M1"), SubResource("M2"), SubResource("M3"), SubResource("M4"), SubResource("M5"), SubResource("M6"), SubResource("M7"), SubResource("M8"), SubResource("M9"), SubResource("M10"), SubResource("M11"), SubResource("M12"), SubResource("M13"), SubResource("M14"), SubResource("M15"), SubResource("M16"), SubResource("M17"), SubResource("M18"), SubResource("M19")]

@@ -1,0 +1,363 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_aspect_screen.gd" id="1_screen"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="2_decor"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_skill_graph.gd" id="3_graph"]
+
+[node name="AspectScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_screen")
+
+[node name="Columns" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="LeftPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(252, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="LeftColumn" type="VBoxContainer" parent="Columns/LeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTop" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "РАЗДЕЛ 03 · DEMO-СХЕМА"
+
+[node name="SectionTitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "АСПЕКТ"
+
+[node name="SectionSubtitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ДЕРЕВО НАВЫКОВ · ЧЕРНОВИК"
+autowrap_mode = 3
+
+[node name="RuleTop" type="ColorRect" parent="Columns/LeftPanel/LeftColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="PointsBlock" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="PointsBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/PointsBlock"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PointsCaption" type="Label" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "DEMO-ОЧКИ РАЗВИТИЯ"
+
+[node name="PointsLine" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PointsValue" type="Label" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox/PointsLine"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DisplayValue"
+theme_override_font_sizes/font_size = 34
+text = "3"
+
+[node name="PointsMeta" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox/PointsLine"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Available" type="Label" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox/PointsLine/PointsMeta"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "ДОСТУПНО"
+
+[node name="SpentValue" type="Label" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox/PointsLine/PointsMeta"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ИЗРАСХОДОВАНО: 0"
+
+[node name="LearnedBar" type="ProgressBar" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+show_percentage = false
+max_value = 10.0
+step = 1.0
+value = 1.0
+
+[node name="LearnedLabel" type="Label" parent="Columns/LeftPanel/LeftColumn/PointsBlock/PointsBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ИЗУЧЕНО 1 ИЗ 10 УЗЛОВ"
+
+[node name="LegendTitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "СОСТОЯНИЯ"
+
+[node name="LegendRows" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="LegendHint" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Выбор узла не меняет состояние. Изучение выполняется кнопкой справа."
+autowrap_mode = 3
+
+[node name="LeftSpacer" type="Control" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="DemoBlock" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="DemoBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/DemoBlock"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="DemoCaption" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoBlock/DemoBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "DEMO-МОДЕЛЬ"
+
+[node name="DemoNote" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoBlock/DemoBox"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Временная схема. Не канон. Не связано с сохранениями, боем или характеристиками персонажа."
+autowrap_mode = 3
+
+[node name="ResetButton" type="Button" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_type_variation = &"ChipButton"
+text = "СБРОСИТЬ DEMO-ДЕРЕВО"
+
+[node name="BackButton" type="Button" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+text = "← В ИНВЕНТАРЬ"
+
+[node name="CenterPanel" type="PanelContainer" parent="Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+
+[node name="CenterColumn" type="VBoxContainer" parent="Columns/CenterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CenterHeader" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Titles" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="CategoryTitle" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitle"
+text = "ДЕРЕВО НАВЫКОВ"
+clip_text = true
+
+[node name="CategoryCaption" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "DEMO-СХЕМА · ВРЕМЕННЫЕ УЗЛЫ · НЕ КАНОН"
+
+[node name="NodeCountLabel" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "10 УЗЛОВ · 3 ВЕТВИ"
+vertical_alignment = 2
+
+[node name="RuleCenter" type="ColorRect" parent="Columns/CenterPanel/CenterColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="GraphPanel" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_type_variation = &"SubPanel"
+
+[node name="SkillGraph" type="Control" parent="Columns/CenterPanel/CenterColumn/GraphPanel"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("3_graph")
+
+[node name="CenterFooter" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+
+[node name="Controls" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ЛКМ — ВЫБРАТЬ УЗЕЛ · КНОПКА СПРАВА — ИЗУЧИТЬ"
+
+[node name="StateNote" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "СОСТОЯНИЯ ТОЛЬКО В DEMO-СЕССИИ"
+
+[node name="RightPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(398, 0)
+layout_mode = 2
+theme_type_variation = &"DeepPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="RightColumn" type="VBoxContainer" parent="Columns/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DetailScroll" type="ScrollContainer" parent="Columns/RightPanel/RightColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="DetailContent" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="NodeOverline" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ВЫБРАННЫЙ УЗЕЛ · DEMO"
+
+[node name="NodeTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "DEMO · ИСХОДНЫЙ УЗЕЛ"
+autowrap_mode = 3
+
+[node name="NodeStatus" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "◆ ИЗУЧЕН"
+
+[node name="NodeMeta" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "A0 · DEMO · СТАРТ · 0 DEMO-ОЧ."
+autowrap_mode = 3
+
+[node name="RuleDetail" type="ColorRect" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.6)
+
+[node name="NodeDescription" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLargeLabel"
+text = "Описание демонстрационного узла."
+autowrap_mode = 3
+
+[node name="EffectSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="EffectTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent/EffectSection"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ЭФФЕКТ · DEMO"
+
+[node name="EffectValue" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent/EffectSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Эффект не назначен."
+autowrap_mode = 3
+
+[node name="RequirementsSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RequirementsTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent/RequirementsSection"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ТРЕБОВАНИЯ К ОТКРЫТИЮ"
+
+[node name="RequirementRows" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent/RequirementsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="RequirementSummary" type="Label" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent/RequirementsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Требования появятся здесь."
+autowrap_mode = 3
+
+[node name="DetailBottomSpacer" type="Control" parent="Columns/RightPanel/RightColumn/DetailScroll/DetailContent"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ActionsSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="RuleActions" type="ColorRect" parent="Columns/RightPanel/RightColumn/ActionsSection"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.6)
+
+[node name="LearnButton" type="Button" parent="Columns/RightPanel/RightColumn/ActionsSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "ИЗУЧИТЬ · 1 DEMO-ОЧКО"
+
+[node name="ActionHint" type="Label" parent="Columns/RightPanel/RightColumn/ActionsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MicroLabel"
+text = "Изучение меняет только DEMO-модель."
+autowrap_mode = 3

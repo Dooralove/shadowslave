@@ -1,0 +1,122 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/finale.gd" id="1_finale"]
+[ext_resource type="Script" path="res://scripts/campaign/starfield.gd" id="2_stars"]
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="3_fade"]
+
+[sub_resource type="StyleBoxFlat" id="Style_card"]
+bg_color = Color(0.012, 0.018, 0.032, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.64, 0.86, 0.42)
+content_margin_left = 58.0
+content_margin_top = 40.0
+content_margin_right = 58.0
+content_margin_bottom = 40.0
+
+[node name="FinaleArrival" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_finale")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.002, 0.004, 0.01, 1)
+
+[node name="Starfield" type="Node2D" parent="."]
+script = ExtResource("2_stars")
+seed_value = 16042026
+star_count = 180
+thread_count = 6
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Column" type="VBoxContainer" parent="Center"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Kicker" type="Label" parent="Center/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.7, 0.92, 0.8)
+theme_override_font_sizes/font_size = 15
+text = "ПЕРВЫЙ КОШМАР"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Center/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.9, 1.0, 1)
+theme_override_font_sizes/font_size = 42
+text = "ЗАВЕРШЁН"
+horizontal_alignment = 1
+
+[node name="Line" type="Label" parent="Center/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(760, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.92, 0.92)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Card" type="PanelContainer" parent="Center/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(760, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("Style_card")
+
+[node name="Text" type="VBoxContainer" parent="Center/Column/Card"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Body" type="Label" parent="Center/Column/Card/Text"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.88, 0.94, 1)
+theme_override_font_sizes/font_size = 19
+text = "Санлесс пробуждается в реальном мире. Divine Aspect и True Name остаются при нём — как сила и как новая несвобода."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Restart" type="Label" parent="Center/Column/Card/Text"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56, 0.7, 0.88, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "R — начать заново"
+horizontal_alignment = 1
+
+[node name="Prototype" type="Label" parent="Center/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.44, 0.36, 0.8)
+theme_override_font_sizes/font_size = 13
+text = "Прототип вертикального среза · First Nightmare"
+horizontal_alignment = 1
+
+[node name="Fade" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("3_fade")

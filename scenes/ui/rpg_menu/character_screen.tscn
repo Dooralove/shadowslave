@@ -1,0 +1,599 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_character_screen.gd" id="1_character"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="2_decor"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_sigil.gd" id="3_sigil"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/sunny_preview_stage.tscn" id="5_stage"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/equipment_slot.tscn" id="6_slot"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/sword.svg" id="7_sword"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/armor.svg" id="8_armor"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/cloak.svg" id="9_cloak"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/gloves.svg" id="10_gloves"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/boots.svg" id="11_boots"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/ring.svg" id="12_ring"]
+
+[sub_resource type="StyleBoxFlat" id="Style_overlay_top"]
+bg_color = Color(0.012, 0.014, 0.015, 0.52)
+
+[sub_resource type="StyleBoxFlat" id="Style_overlay_bottom"]
+bg_color = Color(0.012, 0.014, 0.015, 0.68)
+border_width_top = 1
+border_color = Color(0.27, 0.25, 0.21, 0.45)
+
+[sub_resource type="StyleBoxFlat" id="Style_badge"]
+content_margin_left = 9.0
+content_margin_top = 4.0
+content_margin_right = 9.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.09, 0.07, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.39, 0.26, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="CharacterScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_character")
+
+[node name="Columns" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="LeftPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(354, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="LeftColumn" type="VBoxContainer" parent="Columns/LeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="SectionTop" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "РАЗДЕЛ 02 · ПРОФИЛЬ"
+
+[node name="TitleRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Columns/LeftPanel/LeftColumn/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ScreenTitle"
+text = "ПЕРСОНАЖ"
+clip_text = true
+
+[node name="SourceBadge" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn/TitleRow"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("Style_badge")
+
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/TitleRow/SourceBadge"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.816, 0.659, 0.435, 1)
+text = "STATUS SHEET"
+
+[node name="RuleTop" type="ColorRect" parent="Columns/LeftPanel/LeftColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="IdentityRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="IdentitySigil" type="Control" parent="Columns/LeftPanel/LeftColumn/IdentityRow"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("3_sigil")
+rotation_speed = 0.01
+tick_count = 20
+
+[node name="IdentityText" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/IdentityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CharacterName" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityRow/IdentityText"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "САННИ"
+
+[node name="NameRune" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityRow/IdentityText"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "РУНА · SUNLESS"
+
+[node name="TrueName" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityRow/IdentityText"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ИСТИННОЕ ИМЯ · —"
+
+[node name="CanonicalNote" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Идентификаторы персонажа взяты из существующего StatusSheet. Числовые показатели и экипировка ниже — только демо-данные."
+autowrap_mode = 3
+
+[node name="IdentityCards" type="GridContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 7
+columns = 2
+
+[node name="RankCard" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn/IdentityCards"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SubPanel"
+
+[node name="Content" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/IdentityCards/RankCard"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityCards/RankCard/Content"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "РАНГ · КАНОН"
+
+[node name="RankValue" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityCards/RankCard/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "ASPIRANT"
+clip_text = true
+
+[node name="SoulCoreCard" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn/IdentityCards"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SubPanel"
+
+[node name="Content" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/IdentityCards/SoulCoreCard"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityCards/SoulCoreCard/Content"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ЯДРО ДУШИ · КАНОН"
+
+[node name="SoulCoreValue" type="Label" parent="Columns/LeftPanel/LeftColumn/IdentityCards/SoulCoreCard/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "DORMANT"
+clip_text = true
+
+[node name="AspectCard" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="Content" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/AspectCard"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TopLine" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/AspectCard/Content"]
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/AspectCard/Content/TopLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SectionLabel"
+text = "АСПЕКТ · КАНОН"
+
+[node name="AspectValue" type="Label" parent="Columns/LeftPanel/LeftColumn/AspectCard/Content/TopLine"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "TEMPLE SLAVE"
+
+[node name="AspectDescription" type="Label" parent="Columns/LeftPanel/LeftColumn/AspectCard/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.62, 0.59, 0.53, 1)
+text = "Описание Аспекта из StatusSheet."
+autowrap_mode = 3
+
+[node name="AttributesCaption" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ЧЕРТЫ · КАНОН"
+
+[node name="AttributesValue" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "FATED · MARK OF DIVINITY · CHILD OF SHADOWS"
+autowrap_mode = 3
+
+[node name="MemoriesEchoes" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПАМЯТИ · —    ОТГОЛОСКИ · —"
+
+[node name="RuleMiddle" type="ColorRect" parent="Columns/LeftPanel/LeftColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.22, 0.21, 0.19, 0.5)
+
+[node name="DemoHeader" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SectionLabel"
+text = "ДЕМО-ПОКАЗАТЕЛИ"
+
+[node name="Badge" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoHeader"]
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "НЕ КАНОН"
+
+[node name="DemoStatsNote" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Условные числа. Только проверка шкал и компоновки."
+
+[node name="DemoStats" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LeftSpacer" type="Control" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LeftFooter" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПРОФИЛЬ ТОЛЬКО ДЛЯ ПРОСМОТРА · ИЗМЕНЕНИЯ НЕ СОХРАНЯЮТСЯ"
+autowrap_mode = 3
+
+[node name="CenterPanel" type="PanelContainer" parent="Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+
+[node name="CenterColumn" type="VBoxContainer" parent="Columns/CenterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="CenterHeader" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Titles" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Overline" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "3D-ПРОСМОТР · СУЩЕСТВУЮЩАЯ POC-МОДЕЛЬ"
+
+[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "САННИ"
+
+[node name="ViewBadge" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("Style_badge")
+
+[node name="Label" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/ViewBadge"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.816, 0.659, 0.435, 1)
+text = "POC"
+
+[node name="PreviewFrame" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"DeepPanel"
+script = ExtResource("2_decor")
+accent = true
+line_color = Color(0.6, 0.48, 0.31, 0.35)
+
+[node name="PreviewContent" type="Control" parent="Columns/CenterPanel/CenterColumn/PreviewFrame"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 6
+stretch = true
+
+[node name="PreviewViewport" type="SubViewport" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/PreviewContainer"]
+own_world_3d = true
+handle_input_locally = false
+msaa_3d = 2
+screen_space_aa = 1
+use_hdr_2d = true
+size = Vector2i(640, 590)
+render_target_update_mode = 4
+
+[node name="PreviewStage" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/PreviewContainer/PreviewViewport" instance=ExtResource("5_stage")]
+unique_name_in_owner = true
+
+[node name="Overlay" type="Control" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopShade" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 63.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_overlay_top")
+
+[node name="TopMargin" type="MarginContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 58.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+
+[node name="TopLine" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay/TopMargin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Hint" type="Label" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay/TopMargin/TopLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "POC-МОДЕЛЬ · НЕ ПЕРЕОДЕВАЕТСЯ ПОД ДЕМО-ЭКИПИРОВКУ"
+
+[node name="RotateHint" type="Label" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay/TopMargin/TopLine"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.7, 0.62, 0.48, 1)
+text = "ЛКМ + ПРОТЯЖКА · ВРАЩЕНИЕ"
+
+[node name="BottomShade" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_overlay_bottom")
+
+[node name="BottomMargin" type="MarginContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+
+[node name="BottomLine" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay/BottomMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ModelNote" type="Label" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay/BottomMargin/BottomLine"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "POC-МОДЕЛЬ БЕЗ ПЕРЕОДЕВАНИЯ · ЭКИПИРОВКА 0 / 6"
+
+[node name="ResetPreview" type="Button" parent="Columns/CenterPanel/CenterColumn/PreviewFrame/PreviewContent/Overlay/BottomMargin/BottomLine"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(132, 28)
+layout_mode = 2
+theme_type_variation = &"ChipButton"
+text = "СБРОСИТЬ РАКУРС"
+
+[node name="CenterFooter" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "Модель: assets/characters/sunny_realistic_poc/sunny_poc_model.tscn"
+
+[node name="CameraHint" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "КАМЕРА · ПРЕЗЕНТАЦИОННАЯ"
+
+[node name="RightPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(456, 0)
+layout_mode = 2
+theme_type_variation = &"DeepPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="RightColumn" type="VBoxContainer" parent="Columns/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTop" type="Label" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "РАЗДЕЛ 02 · СНАРЯЖЕНИЕ"
+
+[node name="TitleRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ScreenTitleSmall"
+text = "ЭКИПИРОВКА"
+
+[node name="SlotCount" type="Label" parent="Columns/RightPanel/RightColumn/TitleRow"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "6 СЛОТОВ"
+vertical_alignment = 2
+
+[node name="RuleTop" type="ColorRect" parent="Columns/RightPanel/RightColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="SlotSummary" type="PanelContainer" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="Row" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/SlotSummary"]
+layout_mode = 2
+
+[node name="EquippedCount" type="Label" parent="Columns/RightPanel/RightColumn/SlotSummary/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"BronzeLabel"
+text = "ЭКИПИРОВАНО 0 / 6"
+
+[node name="EquippedWeight" type="Label" parent="Columns/RightPanel/RightColumn/SlotSummary/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ВЕС: 0,0 ДЕМО-ЕД."
+vertical_alignment = 1
+
+[node name="SlotsGrid" type="GridContainer" parent="Columns/RightPanel/RightColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 9
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="WeaponSlot" parent="Columns/RightPanel/RightColumn/SlotsGrid" instance=ExtResource("6_slot")]
+layout_mode = 2
+slot_id = &"weapon"
+slot_label = "ОРУЖИЕ"
+slot_index = "01"
+empty_icon = ExtResource("7_sword")
+
+[node name="ChestSlot" parent="Columns/RightPanel/RightColumn/SlotsGrid" instance=ExtResource("6_slot")]
+layout_mode = 2
+slot_id = &"chest"
+slot_label = "ДОСПЕХ"
+slot_index = "02"
+empty_icon = ExtResource("8_armor")
+
+[node name="CloakSlot" parent="Columns/RightPanel/RightColumn/SlotsGrid" instance=ExtResource("6_slot")]
+layout_mode = 2
+slot_id = &"cloak"
+slot_label = "ПЛАЩ"
+slot_index = "03"
+empty_icon = ExtResource("9_cloak")
+
+[node name="HandsSlot" parent="Columns/RightPanel/RightColumn/SlotsGrid" instance=ExtResource("6_slot")]
+layout_mode = 2
+slot_id = &"hands"
+slot_label = "ПЕРЧАТКИ"
+slot_index = "04"
+empty_icon = ExtResource("10_gloves")
+
+[node name="FeetSlot" parent="Columns/RightPanel/RightColumn/SlotsGrid" instance=ExtResource("6_slot")]
+layout_mode = 2
+slot_id = &"feet"
+slot_label = "ОБУВЬ"
+slot_index = "05"
+empty_icon = ExtResource("11_boots")
+
+[node name="AccessorySlot" parent="Columns/RightPanel/RightColumn/SlotsGrid" instance=ExtResource("6_slot")]
+layout_mode = 2
+slot_id = &"accessory"
+slot_label = "АКСЕССУАР"
+slot_index = "06"
+empty_icon = ExtResource("12_ring")
+
+[node name="RightSpacer" type="Control" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="HintPanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="Content" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/HintPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/HintPanel/Content"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "КАК ЧИТАТЬ СЛОТЫ"
+
+[node name="EmptySlotsHint" type="Label" parent="Columns/RightPanel/RightColumn/HintPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 11
+text = "Нажмите на заполненный слот, чтобы открыть предмет в инвентаре."
+autowrap_mode = 3
+
+[node name="RuleBottom" type="ColorRect" parent="Columns/RightPanel/RightColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.22, 0.21, 0.19, 0.5)
+
+[node name="RightFooter" type="Label" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ЭКИПИРОВКА МЕНЯЕТ ТОЛЬКО ДЕМО-СОСТОЯНИЕ"
+autowrap_mode = 3

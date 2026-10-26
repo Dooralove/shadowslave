@@ -1,0 +1,143 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_item_tile.gd" id="1_tile"]
+
+[sub_resource type="StyleBoxFlat" id="Style_icon"]
+content_margin_left = 9.0
+content_margin_top = 9.0
+content_margin_right = 9.0
+content_margin_bottom = 9.0
+bg_color = Color(0.05, 0.054, 0.056, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.205, 0.18, 0.7)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="RpgItemTile" type="Button"]
+custom_minimum_size = Vector2(154, 170)
+size_flags_horizontal = 3
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ItemTile"
+toggle_mode = true
+script = ExtResource("1_tile")
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 9
+
+[node name="Column" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="TopRow" type="HBoxContainer" parent="Content/Column"]
+custom_minimum_size = Vector2(0, 13)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="EquippedLabel" type="Label" parent="Content/Column/TopRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.816, 0.659, 0.435, 1)
+text = "ЭКИП."
+
+[node name="Spacer" type="Control" parent="Content/Column/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="NewLabel" type="Label" parent="Content/Column/TopRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.867, 0.843, 0.792, 1)
+text = "• НОВОЕ"
+
+[node name="IconCenter" type="CenterContainer" parent="Content/Column"]
+custom_minimum_size = Vector2(0, 66)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="IconPanel" type="PanelContainer" parent="Content/Column/IconCenter"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_icon")
+
+[node name="Icon" type="TextureRect" parent="Content/Column/IconCenter/IconPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Content/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 13
+text = "Название"
+autowrap_mode = 3
+max_lines_visible = 2
+clip_text = true
+
+[node name="BottomSpacer" type="Control" parent="Content/Column"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="Content/Column"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="RarityLabel" type="Label" parent="Content/Column/BottomRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ОБЫЧНЫЙ"
+clip_text = true
+
+[node name="QuantityLabel" type="Label" parent="Content/Column/BottomRow"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"MicroLabel"
+text = "1"
+
+[node name="RarityStrip" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.62, 0.6, 0.55, 1)

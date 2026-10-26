@@ -1,0 +1,83 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/pilgrim_path_arrival.gd" id="1_arrival"]
+[ext_resource type="PackedScene" path="res://scenes/locations/pilgrim_path/pilgrim_path.tscn" id="2_path"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
+[ext_resource type="PackedScene" path="res://scenes/ui/prologue_ui.tscn" id="4_ui"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_runner.gd" id="5_dialogue"]
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="6_fade"]
+
+[node name="PilgrimPathArrival" type="Node3D"]
+script = ExtResource("1_arrival")
+
+[node name="PilgrimPath" parent="." instance=ExtResource("2_path")]
+
+[node name="Sunny" parent="." instance=ExtResource("3_sunny")]
+position = Vector3(0, 0.05, 8.5)
+groups = ["player"]
+
+[node name="UI" parent="." instance=ExtResource("4_ui")]
+
+[node name="DialogueRunner" type="Node" parent="."]
+script = ExtResource("5_dialogue")
+
+[node name="PrototypeNote" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="Root" type="Control" parent="PrototypeNote"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Note" type="Label" parent="PrototypeNote/Root"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 66.0
+offset_right = 760.0
+offset_bottom = 132.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.82, 0.73, 0.56, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 14
+text = "ОТЛАДОЧНЫЙ ЗАПУСК · S07–S12"
+autowrap_mode = 3
+
+[node name="NightTint" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Tint" type="ColorRect" parent="NightTint"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.02, 0.05, 0)
+
+[node name="Transition" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="Fade" type="ColorRect" parent="Transition"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("6_fade")
+
+[node name="Flash" type="ColorRect" parent="Transition"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)

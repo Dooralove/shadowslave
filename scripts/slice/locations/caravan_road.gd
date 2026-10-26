@@ -10,6 +10,8 @@ extends SliceLocation
 @onready var chain: Node3D = $Road/Chain
 
 var marching := false
+var auto_barks := false
+var _march_follower: Node3D = null
 
 
 func _ready() -> void:
@@ -28,6 +30,10 @@ func start_march() -> void:
 
 func stop_march() -> void:
 	marching = false
+
+
+func set_march_follower(player: Node3D) -> void:
+	_march_follower = player
 
 
 func _physics_process(_delta: float) -> void:

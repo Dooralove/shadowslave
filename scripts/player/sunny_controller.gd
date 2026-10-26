@@ -23,6 +23,11 @@ var controls_enabled := true
 var input_enabled := true
 ## Ненулевой вектор — персонаж идёт в заданном темпе и направлении без участия игрока (цепь каравана).
 var forced_velocity := Vector3.ZERO
+var _camp_tether_active := false
+var _camp_tether_anchor := Vector3.ZERO
+var _camp_tether_radius := 0.0
+var _chain_restraint_active := false
+var _chain_restraint_width := 0.0
 
 @onready var visual: Node3D = $Visual
 @onready var camera_rig: ThirdPersonCamera = $CameraRig
@@ -49,6 +54,54 @@ func try_attack() -> bool:
 
 func is_dead() -> bool:
 	return health.is_dead()
+
+
+## Цепь каравана: проверка, активация и сброс ограничений
+var chain_restrained: bool:
+	get:
+		return _camp_tether_active or _chain_restraint_active or forced_velocity != Vector3.ZERO
+
+
+func enable_camp_tether(anchor_position: Vector3, radius: float) -> void:
+	_camp_tether_active = true
+	_camp_tether_anchor = anchor_position
+	_camp_tether_radius = radius
+
+
+func is_camp_tethered() -> bool:
+	return _camp_tether_active
+
+
+func clear_chain_restraint() -> void:
+	_camp_tether_active = false
+	_chain_restraint_active = false
+	_chain_restraint_width = 0.0
+	forced_velocity = Vector3.ZERO
+
+
+func enable_chain_restraint(restraint: Vector3) -> void:
+	# Вектор задаёт направление колонны; боковая ширина может быть нулевой
+	# (дорога идёт строго по -Z), поэтому активность храним отдельно.
+	_chain_restraint_active = restraint.length_squared() > 0.0001
+	_chain_restraint_width = absf(restraint.x)
+
+
+func get_chain_restraint_width() -> float:
+	return _chain_restraint_width
+
+
+func _clamp_to_camp_tether() -> void:
+	var horizontal_pos := Vector3(global_position.x, 0.0, global_position.z)
+	var anchor_horizontal := Vector3(_camp_tether_anchor.x, 0.0, _camp_tether_anchor.z)
+	var to_anchor := horizontal_pos - anchor_horizontal
+	if to_anchor.length() > _camp_tether_radius:
+		var clamped := anchor_horizontal + to_anchor.normalized() * _camp_tether_radius
+		global_position.x = clamped.x
+		global_position.z = clamped.z
+
+
+func get_chain_route() -> Vector3:
+	return forced_velocity if forced_velocity != Vector3.ZERO else Vector3(0, 0, -1)
 
 
 func _on_died() -> void:
@@ -79,6 +132,8 @@ func _physics_process(delta: float) -> void:
 	velocity.z = horizontal.z
 
 	move_and_slide()
+	if _camp_tether_active:
+		_clamp_to_camp_tether()
 
 	# Во время атаки модель не разворачивается: видимый удар совпадает с зафиксированной зоной поражения.
 	if direction.length_squared() > 0.001 and not attack.is_attacking():

@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="SpellMessageCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/spell/spell_message_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/spell/spell_message.gd" id="2_message"]
+
+[sub_resource type="Resource" id="Message_greeting"]
+script = ExtResource("2_message")
+id = &"greeting"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Претендент! Добро пожаловать в Кошмарное Заклятие. Приготовься к своему Первому испытанию..."
+duration = 4.5
+presentation = 1
+
+[sub_resource type="Resource" id="Message_trial_over"]
+script = ExtResource("2_message")
+id = &"trial_over"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Претендент! Твоё испытание завершено."
+duration = 4.0
+presentation = 1
+
+[sub_resource type="Resource" id="Message_mountain_king"]
+script = ExtResource("2_message")
+id = &"mountain_king_defeated"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Вы одолели Пробуждённого тирана: Горного Короля."
+duration = 3.4
+presentation = 0
+
+[sub_resource type="Resource" id="Message_shadow_blessing"]
+script = ExtResource("2_message")
+id = &"shadow_blessing"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Вы получили благословение Бога Тени."
+duration = 3.0
+presentation = 0
+
+[sub_resource type="Resource" id="Message_final_appraisal"]
+script = ExtResource("2_message")
+id = &"final_appraisal"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Итоговая оценка: Славная."
+duration = 3.2
+presentation = 1
+
+[sub_resource type="Resource" id="Message_true_name"]
+script = ExtResource("2_message")
+id = &"true_name"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Тебе даровано Истинное Имя: Lost from Light."
+duration = 3.5
+presentation = 0
+
+[resource]
+script = ExtResource("1_catalog")
+messages = [SubResource("Message_greeting"), SubResource("Message_trial_over"), SubResource("Message_mountain_king"), SubResource("Message_shadow_blessing"), SubResource("Message_final_appraisal"), SubResource("Message_true_name")]

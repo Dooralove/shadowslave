@@ -10,12 +10,17 @@ var beats: Array = []
 
 
 func before_each() -> void:
+	NightmareRunState.reset()
 	beats.clear()
 	director = (load(PROLOGUE) as PackedScene).instantiate() as SliceDirector
 	director.autostart = false
 	director.fast_mode = true
 	director.beat_changed.connect(func(beat: SliceDirector.Beat) -> void: beats.append(beat))
 	add_child_autofree(director)
+
+
+func after_each() -> void:
+	NightmareRunState.reset()
 
 
 ## Один шаг «игрока»: пролистать реплику, закрыть руны или выполнить ожидаемое действие.
@@ -147,9 +152,16 @@ func test_status_opens_only_after_caravan_lines() -> void:
 	await _run_until(SliceDirector.Beat.B15_CARAVAN)
 	assert_eq(director.awaiting, &"open_status")
 	assert_false(director.runner.running)
+	assert_false(NightmareRunState.has_flag(&"mark_of_divinity"),
+		"Mark of Divinity не раскрыт до экрана рун B16")
 	var caravan := load(SliceDirector.DIALOGUE_DIR + "caravan.tres") as DialogueSequence
 	assert_eq(caravan_lines.size(), caravan.lines.size(), "статус ждёт, пока Санни осознает, где он")
 	assert_true(director.ui.hint.visible, "подсказка, как вызвать статус")
 	await _run_until(SliceDirector.Beat.B16_RUNES)
 	assert_true(director.ui.rune_status.showing, "руны на экране")
+	assert_true(NightmareRunState.has_flag(&"mark_of_divinity"),
+		"B16 устанавливает Mark of Divinity как флаг-атрибут")
+	assert_false(NightmareRunState.has_item(&"mark_of_divinity"),
+		"Mark of Divinity не попадает в инвентарь")
+	assert_string_contains("\n".join(director.ui.rune_status.row_texts()), "Mark of Divinity")
 	assert_string_contains("\n".join(director.ui.rune_status.row_texts()), "Temple Slave")

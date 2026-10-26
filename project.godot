@@ -17,6 +17,9 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 [autoload]
 
 MCPRuntime="*res://addons/godot_mcp/runtime/mcp_runtime.gd"
+NightmareRunState="*res://scripts/campaign/nightmare_run_state.gd"
+DialogueManager="*res://scripts/systems/dialogue_manager.gd"
+MapSystem="*res://scripts/map/map_system.gd"
 
 [editor_plugins]
 
@@ -89,6 +92,11 @@ advance_dialogue={
 open_status={
 "deadzone": 0.5,
 "events": Array[InputEvent]([Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+])
+}
+open_map={
+"deadzone": 0.5,
+"events": Array[InputEvent]([Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":77,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ])
 }
 
