@@ -98,6 +98,8 @@ func _ready() -> void:
 	if start:
 		_player.global_position = start.global_position
 	_player.allow_sprint = false
+	# Прыжок в Первом Кошмаре не нужен: с ним Санни выходит за границы тропы на скалы.
+	_player.allow_jump = false
 	_player.camera_rig.yaw = 0.0
 	_player.camera_rig.pitch = deg_to_rad(-18.0)
 	# Дочерняя локация эмитит стартовую подсказку до подключения сигналов,

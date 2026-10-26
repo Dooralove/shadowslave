@@ -7,6 +7,7 @@ const DAY_SKY := Color(0.55, 0.62, 0.72)
 
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var sun: DirectionalLight3D = $Sun
+@onready var road: Node3D = $Road
 @onready var snow: Node3D = $Road/SnowCover
 @onready var bones: Node3D = $Road/Bones
 @onready var caravan: Node3D = $Road/Caravan
@@ -51,6 +52,7 @@ func _orbit(fast: bool) -> void:
 	use_shot(&"Orbit")
 	if fast:
 		return
+	set_orbit_mode(true)
 	var center := (camera.get_node(^"LookAt") as Node3D).global_position
 	var offset := camera.global_position - center
 	var start := atan2(offset.x, offset.z)
@@ -60,6 +62,13 @@ func _orbit(fast: bool) -> void:
 		camera.global_position = center + Vector3(sin(angle) * radius, offset.y, cos(angle) * radius)
 		camera.look_at(center), start, start + 1.3, 6.0)
 	await tween.finished
+	set_orbit_mode(false)
+
+
+## Декорация дороги стоит у начала координат, в двух километрах от горы: с орбиты она
+## висела бы обломком над облаками. На время облёта она скрыта, к ракурсу RoadShot — снова видна.
+func set_orbit_mode(on: bool) -> void:
+	road.visible = not on
 
 
 ## Дни в обратную сторону: вспышка дня, затем снова ночь.
