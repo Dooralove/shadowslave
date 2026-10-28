@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/environments/nightmare/materials/nm_cloud_sea.gdshader" id="1_shader"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/shadow_color = Color(0.065, 0.08, 0.115, 1)
+shader_parameter/lit_color = Color(0.3, 0.335, 0.41, 1)
+shader_parameter/brightness = 1.0
+shader_parameter/scale = 0.0065
+shader_parameter/wind = Vector2(0.6, 0.25)
+shader_parameter/coverage = 0.55
+shader_parameter/softness = 0.6

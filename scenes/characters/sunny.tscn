@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d0neuu3gowxgh" path="res://assets/characters/sunny_placeholder/Rogue_Hooded.glb" id="8_model"]
 [ext_resource type="Script" path="res://scripts/player/sunny_animator.gd" id="9_animator"]
 [ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="10_spark"]
+[ext_resource type="Script" path="res://scripts/player/fall_recovery.gd" id="11_fall"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.35
@@ -34,7 +35,7 @@ radius = 0.2
 
 [node name="Sunny" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 37
 script = ExtResource("1_controller")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -90,6 +91,9 @@ body = NodePath("..")
 animation_player = NodePath("../Visual/Model/AnimationPlayer")
 attack = NodePath("../Visual/MeleeAttack")
 health = NodePath("../Health")
+
+[node name="FallRecovery" type="Node" parent="."]
+script = ExtResource("11_fall")
 
 [node name="CameraRig" type="Node3D" parent="."]
 position = Vector3(0, 1.5, 0)

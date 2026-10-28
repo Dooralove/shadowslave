@@ -1,0 +1,272 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/containment_room.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_floor.glb" id="2_floor"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_ceiling.glb" id="3_ceiling"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_panel_a.glb" id="4_wall_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_panel_b.glb" id="5_wall_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_panel_c.glb" id="6_wall_c"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_window.glb" id="7_window"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_corner.glb" id="8_corner"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_door_frame.glb" id="9_frame"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/vault_door_inward.glb" id="10_door"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/restraint_chair_upright.glb" id="11_chair"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/restraint_chair_upright_straps.glb" id="12_straps"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_terminal.glb" id="13_terminal"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/vent_grille.glb" id="14_vent"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/ceiling_light_cell.glb" id="15_light"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_power_box.glb" id="16_power"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_ceiling_hatch.glb" id="17_hatch"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_camera.glb" id="18_camera"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_floor_tri.tres" id="19_floor_tri"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_wall_tri.tres" id="20_wall_tri"]
+
+[node name="ContainmentRoom" instance=ExtResource("1_base")]
+
+[node name="Floor" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="Ceiling" parent="Geometry"]
+visible = false
+
+[node name="WallNorthL" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="WallNorthR" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="Lintel" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="WallSouth" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="WallWest" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="WallEast" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="CorridorFloor" parent="Geometry"]
+position = Vector3(0, -0.5, -4.5)
+material = ExtResource("19_floor_tri")
+
+[node name="CorridorWallL" parent="Geometry"]
+position = Vector3(-0.95, 1.4, -4.5)
+material = ExtResource("20_wall_tri")
+
+[node name="CorridorWallR" parent="Geometry"]
+position = Vector3(0.95, 1.4, -4.5)
+material = ExtResource("20_wall_tri")
+
+[node name="CorridorEnd" parent="Geometry"]
+position = Vector3(0, 1.4, -7.6)
+material = ExtResource("20_wall_tri")
+
+[node name="CorridorCeiling" parent="Geometry"]
+position = Vector3(0, 2.6, -4.5)
+material = ExtResource("20_wall_tri")
+
+[node name="DoorPivot" parent="Geometry"]
+position = Vector3(-0.575, 0, -1.09)
+
+[node name="VaultDoor" parent="Geometry/DoorPivot"]
+visible = false
+
+[node name="VaultDoorModel" parent="Geometry/DoorPivot" instance=ExtResource("10_door")]
+position = Vector3(0.02, 0.01, -0.17)
+
+[node name="Seat" parent="Chair"]
+visible = false
+
+[node name="Back" parent="Chair"]
+visible = false
+
+[node name="ArmL" parent="Chair"]
+visible = false
+
+[node name="ArmR" parent="Chair"]
+visible = false
+
+[node name="LegFL" parent="Chair"]
+visible = false
+
+[node name="LegFR" parent="Chair"]
+visible = false
+
+[node name="LegBL" parent="Chair"]
+visible = false
+
+[node name="LegBR" parent="Chair"]
+visible = false
+
+[node name="WristL" parent="Chair/Restraints"]
+visible = false
+
+[node name="WristR" parent="Chair/Restraints"]
+visible = false
+
+[node name="AnkleL" parent="Chair/Restraints"]
+visible = false
+
+[node name="AnkleR" parent="Chair/Restraints"]
+visible = false
+
+[node name="ChestStrap" parent="Chair/Restraints"]
+visible = false
+
+[node name="StrapsModel" parent="Chair/Restraints" instance=ExtResource("12_straps")]
+position = Vector3(0, 0, 0.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="ChairModel" parent="Chair" instance=ExtResource("11_chair")]
+position = Vector3(0, 0, 0.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="Overhead" parent="Lights"]
+position = Vector3(0, 2.35, 1.3)
+
+[node name="Fill" parent="Lights"]
+position = Vector3(0, 2.3, -0.6)
+
+[node name="CorridorLight" parent="Lights"]
+position = Vector3(0, 2.3, -4.5)
+
+[node name="GuardA" parent="Guards"]
+position = Vector3(-1.45, 0, -0.65)
+
+[node name="GuardB" parent="Guards"]
+position = Vector3(1.35, 0, -0.65)
+
+[node name="Policeman" parent="."]
+position = Vector3(0, 0, -6.5)
+
+[node name="ChairFront" parent="Markers"]
+position = Vector3(0.45, 0, -0.4)
+
+[node name="RoomShot" parent="Shots"]
+position = Vector3(1.42, 2.2, 2.8)
+
+[node name="LookAt" parent="Shots/RoomShot"]
+position = Vector3(-1.62, -1.3, -2.6)
+
+[node name="Art" type="Node3D" parent="."]
+
+[node name="Floor" parent="Art" instance=ExtResource("2_floor")]
+position = Vector3(0, 0, 0.95)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="Ceiling" parent="Art" instance=ExtResource("3_ceiling")]
+position = Vector3(0, 0, 0.95)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="FarPanelA" parent="Art" instance=ExtResource("4_wall_a")]
+position = Vector3(1.25, 0, 3.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="FarWindow" parent="Art" instance=ExtResource("7_window")]
+position = Vector3(0, 0, 3.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="FarPanelB" parent="Art" instance=ExtResource("5_wall_b")]
+position = Vector3(-1.25, 0, 3.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="East0" parent="Art" instance=ExtResource("4_wall_a")]
+position = Vector3(1.8, 0, -0.7)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="East1" parent="Art" instance=ExtResource("6_wall_c")]
+position = Vector3(1.8, 0, 0.4)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="East2" parent="Art" instance=ExtResource("4_wall_a")]
+position = Vector3(1.8, 0, 1.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="East3" parent="Art" instance=ExtResource("5_wall_b")]
+position = Vector3(1.8, 0, 2.6)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="West0" parent="Art" instance=ExtResource("6_wall_c")]
+position = Vector3(-1.8, 0, -0.7)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="West1" parent="Art" instance=ExtResource("4_wall_a")]
+position = Vector3(-1.8, 0, 0.4)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="West2" parent="Art" instance=ExtResource("6_wall_c")]
+position = Vector3(-1.8, 0, 1.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="West3" parent="Art" instance=ExtResource("4_wall_a")]
+position = Vector3(-1.8, 0, 2.6)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CornerFarEast" parent="Art" instance=ExtResource("8_corner")]
+position = Vector3(1.8, 0, 3.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="CornerFarWest" parent="Art" instance=ExtResource("8_corner")]
+position = Vector3(-1.8, 0, 3.15)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CornerDoorWest" parent="Art" instance=ExtResource("8_corner")]
+position = Vector3(-1.8, 0, -1.25)
+
+[node name="CornerDoorEast" parent="Art" instance=ExtResource("8_corner")]
+position = Vector3(1.8, 0, -1.25)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="DoorPanelEast" parent="Art" instance=ExtResource("4_wall_a")]
+position = Vector3(1.25, 0, -1.25)
+
+[node name="DoorFrame" parent="Art" instance=ExtResource("9_frame")]
+position = Vector3(0, 0, -1.25)
+
+[node name="DoorPanelWest" parent="Art" instance=ExtResource("6_wall_c")]
+position = Vector3(-1.25, 0, -1.25)
+
+[node name="Terminal" parent="Art" instance=ExtResource("13_terminal")]
+position = Vector3(-1.78, 0, -0.4)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Vent" parent="Art" instance=ExtResource("14_vent")]
+position = Vector3(-1.25, 2.16, 3.13)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="CeilingLight" parent="Art" instance=ExtResource("15_light")]
+position = Vector3(0, 2.45, 1.3)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="PowerBox" parent="Art" instance=ExtResource("16_power")]
+position = Vector3(1.78, 0, -0.7)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="CeilingHatch" parent="Art" instance=ExtResource("17_hatch")]
+position = Vector3(-0.7, 2.45, 2.35)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="DomeCamera" parent="Art" instance=ExtResource("18_camera")]
+position = Vector3(1.5, 2.45, 2.85)
+rotation = Vector3(0, 0.785398, 0)
+
+[node name="ObservationPost" type="CSGBox3D" parent="Art"]
+position = Vector3(0, 1.225, 4.5)
+flip_faces = true
+size = Vector3(3.6, 2.45, 2.2)
+material = ExtResource("20_wall_tri")
+
+[node name="PostLight" type="OmniLight3D" parent="Art/ObservationPost"]
+position = Vector3(0.6, 0.8, 0.3)
+light_color = Color(0.72, 0.8, 0.9, 1)
+light_energy = 0.35
+omni_range = 3.0

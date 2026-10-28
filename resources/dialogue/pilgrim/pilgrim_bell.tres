@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Серебряный Колокольчик появляется в ладони."
+duration = 2.2
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Чистый звон уходит вдаль. Герой оборачивается."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Прекрати."
+duration = 1.4
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Колокольчик исчезает. Тиран уже рядом."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Санни!"
+duration = 1.4
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Когти рвут броню. Герой бьёт мечом по руке — без эффекта."
+duration = 3.2
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Тиран тащит его назад. Санни бежит вверх, не оглядываясь."
+duration = 3.4
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Обещание смотреть, как Герой умрёт, остаётся ложью."
+duration = 3.2
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Рана в боку. Каждый вдох — боль. Храм уже виден."
+duration = 3.4
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9")]

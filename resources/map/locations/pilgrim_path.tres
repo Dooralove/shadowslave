@@ -1,0 +1,198 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-10, -59, -4, -59, -4, -1, -10, -1)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(8, -51, 12, -51, 12, -1, 8, -1)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2.5, -4, 2.5, -4, 2.5, 10, -2.5, 10)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-4, -8.25, 4, -8.25, 4, -3.75, -4, -3.75)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(0, -6, 8, -6, 8, -3, 0, -3)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(6.2, -11.5, 9.8, -11.5, 9.8, -4.5, 6.2, -4.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(1, -10.5, 8, -10.5, 8, -7.5, 1, -7.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-1, -18, 3, -18, 3, -9, -1, -9)
+closed = true
+
+[sub_resource type="Resource" id="Feature_8"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-0.5, -28.2, 2.5, -28.2, 2.5, -17.8, -0.5, -17.8)
+closed = true
+
+[sub_resource type="Resource" id="Feature_9"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-3, -36, 5, -36, 5, -28, -3, -28)
+closed = true
+
+[sub_resource type="Resource" id="Feature_10"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-0.1, -47, 2.1, -47, 2.1, -36, -0.1, -36)
+closed = true
+
+[sub_resource type="Resource" id="Feature_11"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-1.5, -55, 3.5, -55, 3.5, -47, -1.5, -47)
+closed = true
+
+[sub_resource type="Resource" id="Feature_12"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-2, -55, -1.5, -55, -1.5, -47, -2, -47)
+closed = true
+
+[sub_resource type="Resource" id="Feature_13"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(3.5, -55, 4, -55, 4, -47, 3.5, -47)
+closed = true
+
+[sub_resource type="Resource" id="Feature_14"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-1, -66, 3, -66, 3, -55, -1, -55)
+closed = true
+
+[sub_resource type="Resource" id="Feature_15"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2, -73, 4, -73, 4, -66, -2, -66)
+closed = true
+
+[sub_resource type="Resource" id="Feature_16"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-6, -78, 8, -78, 8, -74, -6, -74)
+closed = true
+
+[sub_resource type="Resource" id="Feature_17"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-5, -79.5, 7, -79.5, 7, -76.5, -5, -76.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_18"]
+script = ExtResource("3_feature")
+kind = 5
+points = PackedVector2Array(-8, -88.5, 10, -88.5, 10, -79.5, -8, -79.5)
+closed = true
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"gap"
+label = "Разрыв дороги"
+description = "Старая дорога обрушена; путь обходит провал справа, по восточному пандусу."
+use_world_position = true
+world_position = Vector2(0, -5.5)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"sword"
+label = "Брошенный меч"
+description = "Восточная площадка; здесь Санни оставляет меч."
+use_world_position = true
+world_position = Vector2(7, -8.4)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"alcove"
+label = "Альков с огнём"
+description = "Место привала у скалы, огонь в алькове."
+use_world_position = true
+world_position = Vector2(1, -31)
+kind = 1
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"scholar"
+label = "Выступ Учёного"
+description = "Узкий выступ; здесь проходит встреча с Учёным."
+use_world_position = true
+world_position = Vector2(1.2, -40.5)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"cave"
+label = "Пещера"
+description = "Тёмный проход в скале. Концы пещеры в геометрии не уточнены."
+use_world_position = true
+world_position = Vector2(1, -50)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"hero"
+label = "Выступ героя"
+description = "Выступ, где проходит встреча с Героем."
+use_world_position = true
+world_position = Vector2(1, -59)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"temple_gate"
+label = "Врата храма"
+description = "Свечение у входа в храм; проход открывается по ходу сюжета."
+use_world_position = true
+world_position = Vector2(1, -79.4)
+kind = 3
+
+[resource]
+script = ExtResource("2_def")
+id = &"pilgrim_path"
+title = "ТРОПА ПАЛОМНИКОВ"
+subtitle = "Скалы, пещера и путь к храму"
+description = "Подъём к храму по узкой тропе. От стартовой площадки путь обходит разрыв дороги по восточному пандусу, затем идёт по уступам вверх, через альков и пещеру, к вратам храма."
+background_color = Color(0.052, 0.065, 0.078, 1)
+land_color = Color(0.215, 0.235, 0.22, 1)
+accent_color = Color(0.62, 0.6, 0.44, 1)
+terrain_style = &"snow"
+world_bounds = Rect2(-12, -90, 24, 102)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9"), SubResource("Feature_10"), SubResource("Feature_11"), SubResource("Feature_12"), SubResource("Feature_13"), SubResource("Feature_14"), SubResource("Feature_15"), SubResource("Feature_16"), SubResource("Feature_17"), SubResource("Feature_18")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6")])
+scene_paths = PackedStringArray("res://scenes/locations/pilgrim_path/pilgrim_path.tscn", "res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn", "res://scenes/campaign/pilgrim_path_arrival.tscn")
+world_rect = Rect2(0.53, 0.38, 0.2, 0.14)

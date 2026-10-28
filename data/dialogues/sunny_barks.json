@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "barks": [
+    {
+      "id": "CARAVAN_CHAIN_01",
+      "speaker": "sunny",
+      "context": "march_start",
+      "aliases": ["caravan_chain"],
+      "text": "Так. Железо крепкое, руки уже испорчены. Начало путешествия обещает быть отвратительным."
+    },
+    {
+      "id": "CARAVAN_CHAIN_02",
+      "speaker": "sunny",
+      "context": "caravan_chain",
+      "text": "Отлично. Цепь не заметила, что я боролся за свободу. Зато запястья всё запомнили."
+    },
+    {
+      "id": "CARAVAN_CHAIN_03",
+      "speaker": "sunny",
+      "context": "caravan_chain",
+      "text": "Если бы у меня была проволока, две минуты и сухие пальцы… Нет, ладно. С сухими пальцами я бы уже считал это роскошью."
+    },
+    {
+      "id": "CARAVAN_CHAIN_04",
+      "speaker": "sunny",
+      "context": "escape",
+      "aliases": ["caravan_chain"],
+      "text": "Бежать можно. Вопрос только, что первым меня остановит: цепь, солдат или гора. Ставлю на гору."
+    },
+    {
+      "id": "CARAVAN_CHAIN_05",
+      "speaker": "sunny",
+      "context": "caravan_chain",
+      "text": "Прекрасно. Теперь меня ненавидят ещё и те, кто тоже прикован. Удивительно, как быстро тут заводятся знакомства."
+    },
+    {
+      "id": "CARAVAN_GUARD_01",
+      "speaker": "sunny",
+      "context": "danger",
+      "aliases": ["caravan_guard"],
+      "text": "Он смотрит так, будто выбирает лопату. Надеюсь, хотя бы хоронить нас будут не его руками."
+    },
+    {
+      "id": "CARAVAN_GUARD_02",
+      "speaker": "sunny",
+      "context": "ambush",
+      "aliases": ["caravan_guard"],
+      "text": "Больно. Значит, живой. Какая удобная система учёта."
+    },
+    {
+      "id": "CARAVAN_GUARD_03",
+      "speaker": "sunny",
+      "context": "caravan_guard",
+      "text": "Один почти человек, второй старательно исправляет эту ошибку. Неужели у них там тоже цепочка начальников?"
+    },
+    {
+      "id": "CARAVAN_GUARD_04",
+      "speaker": "sunny",
+      "context": "danger",
+      "aliases": ["caravan_guard"],
+      "text": "Для них мы не люди, а груз. Груз хотя бы не жалуется, когда его бросают в снег."
+    },
+    {
+      "id": "CARAVAN_GUARD_05",
+      "speaker": "sunny",
+      "context": "caravan_guard",
+      "text": "Копьё, меч, лошадь и тёплая одежда. У него четыре преимущества. У меня — желание жить. Придётся надеяться, что желание соображает быстрее."
+    },
+    {
+      "id": "CARAVAN_AURO_01",
+      "speaker": "sunny",
+      "context": "caravan_auro",
+      "text": "Ну конечно. Белый конь, ровная спина, правильное лицо. Даже в кошмаре кому-то досталась роль главного героя."
+    },
+    {
+      "id": "CARAVAN_AURO_02",
+      "speaker": "sunny",
+      "context": "caravan_auro",
+      "text": "Он правда собирается помочь. Это мило. И, судя по всему, крайне опасно для его здоровья."
+    },
+    {
+      "id": "CARAVAN_AURO_03",
+      "speaker": "sunny",
+      "context": "caravan_auro",
+      "text": "Вот и всё. Доброта продержалась меньше, чем фляга у его пояса. Запомню: здесь за неё бьют."
+    },
+    {
+      "id": "CARAVAN_AURO_04",
+      "speaker": "sunny",
+      "context": "caravan_auro",
+      "text": "Не смотрите на него так. Один хороший человек не отменяет целую систему, которая нас сюда загнала."
+    },
+    {
+      "id": "CARAVAN_AURO_05",
+      "speaker": "sunny",
+      "context": "caravan_auro",
+      "text": "Если он решит спасти всех, я постараюсь оказаться не в центре его благородного плана. Обычно там самое неудобное место."
+    },
+    {
+      "id": "CARAVAN_COLD_01",
+      "speaker": "sunny",
+      "context": "march_start",
+      "aliases": ["caravan_cold"],
+      "text": "Пальцы перестают слушаться. Ещё немного — и я смогу считать их отдельными, очень бесполезными пассажирами."
+    },
+    {
+      "id": "CARAVAN_COLD_02",
+      "speaker": "sunny",
+      "context": "caravan_cold",
+      "text": "Каждый шаг как маленькая личная месть. Если гора хочет, чтобы я остановился, она могла бы хотя бы прислать записку."
+    },
+    {
+      "id": "CARAVAN_COLD_03",
+      "speaker": "sunny",
+      "context": "caravan_cold",
+      "text": "Эта тряпка греет примерно как доброе намерение. То есть никак."
+    },
+    {
+      "id": "CARAVAN_COLD_04",
+      "speaker": "sunny",
+      "context": "caravan_cold",
+      "text": "Надо дотянуть до остановки. Не потому, что там станет хорошо. Просто умирать на ходу неудобно."
+    },
+    {
+      "id": "CARAVAN_COLD_05",
+      "speaker": "sunny",
+      "context": "danger",
+      "aliases": ["caravan_cold"],
+      "text": "Он больше не дрожит. Не уверен, что это тот вид покоя, которому стоит завидовать."
+    },
+    {
+      "id": "CARAVAN_THREAT_01",
+      "speaker": "sunny",
+      "context": "danger",
+      "aliases": ["caravan_threat"],
+      "text": "Это был ветер. Наверное. Очень хотелось бы, чтобы ветер научился звучать менее голодно."
+    },
+    {
+      "id": "CARAVAN_THREAT_02",
+      "speaker": "sunny",
+      "context": "danger",
+      "aliases": ["caravan_threat"],
+      "text": "Красный на белом. Даже я понял, что это плохой знак, а у меня сегодня с умными решениями туго."
+    },
+    {
+      "id": "CARAVAN_THREAT_03",
+      "speaker": "sunny",
+      "context": "cover",
+      "aliases": ["caravan_threat"],
+      "text": "Не двигайся. Не дыши громко. Не думай о том, как громко ты дышишь. Великолепно, теперь я думаю только об этом."
+    },
+    {
+      "id": "CARAVAN_THREAT_04",
+      "speaker": "sunny",
+      "context": "ambush",
+      "aliases": ["caravan_threat"],
+      "text": "Я могу помочь ему или остаться живым. Удивительно, как быстро мир превращает очевидный выбор в отвратительный."
+    },
+    {
+      "id": "CARAVAN_THREAT_05",
+      "speaker": "sunny",
+      "context": "cover",
+      "aliases": ["caravan_threat", "ambush"],
+      "text": "Смотри на него. Только не на меня. Я мелкий, костлявый и совершенно невкусный. Продолжай проверять гипотезу."
+    },
+    {
+      "id": "CARAVAN_SURVIVAL_01",
+      "speaker": "sunny",
+      "context": "march_start",
+      "aliases": ["caravan_survival"],
+      "text": "Много людей, мало еды, ещё меньше шансов. Хорошо хоть конкуренция за звание самого несчастного здесь серьёзная."
+    },
+    {
+      "id": "CARAVAN_SURVIVAL_02",
+      "speaker": "sunny",
+      "context": "caravan_survival",
+      "text": "Старший бьёт, младший сомневается. Один опасен сразу, другой — если ему объяснят, что сомневаться вредно."
+    },
+    {
+      "id": "CARAVAN_SURVIVAL_03",
+      "speaker": "sunny",
+      "context": "escape",
+      "aliases": ["caravan_survival"],
+      "text": "Всё ломается. Вопрос в том, что сломается раньше: железо, мои руки или терпение тех, кто держит плеть."
+    },
+    {
+      "id": "CARAVAN_SURVIVAL_04",
+      "speaker": "sunny",
+      "context": "escape",
+      "aliases": ["caravan_survival", "ambush"],
+      "text": "План был плохой, но хотя бы существовал. Теперь нужен новый. Желательно такой, в котором я не становлюсь примером для остальных."
+    },
+    {
+      "id": "CARAVAN_SURVIVAL_05",
+      "speaker": "sunny",
+      "context": "escape",
+      "aliases": ["caravan_survival"],
+      "text": "Нет. Я не собираюсь умирать здесь, чтобы кто-то потом назвал это судьбой. Пусть судьба сама тащит эту цепь."
+    }
+  ]
+}

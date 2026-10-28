@@ -1,0 +1,107 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_equipment_slot.gd" id="1_slot"]
+
+[sub_resource type="StyleBoxFlat" id="Style_icon"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.035, 0.039, 0.041, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.205, 0.18, 0.72)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="RpgEquipmentSlot" type="Button"]
+custom_minimum_size = Vector2(0, 104)
+size_flags_horizontal = 3
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SlotButton"
+script = ExtResource("1_slot")
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="Row" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="IconPanel" type="PanelContainer" parent="Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(53, 53)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_icon")
+
+[node name="Icon" type="TextureRect" parent="Content/Row/IconPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="Content/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="SlotCode" type="Label" parent="Content/Row/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "01 · СЛОТ"
+clip_text = true
+
+[node name="ItemName" type="Label" parent="Content/Row/Info"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 13
+text = "Пустой слот"
+autowrap_mode = 3
+max_lines_visible = 2
+clip_text = true
+
+[node name="Meta" type="Label" parent="Content/Row/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "НЕТ ПРЕДМЕТА"
+clip_text = true
+
+[node name="OpenMark" type="Label" parent="Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(14, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "›"
+vertical_alignment = 1
+
+[node name="EmptyMark" type="Label" parent="Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(14, 0)
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "—"
+vertical_alignment = 1

@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Дорога вырублена в склоне. Справа стена, слева обрыв. Впереди — провал."
+duration = 3.8
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"shifty"
+text = "Мёртвый груз. Он даже меч бросить не может."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Он идёт. Значит, не груз."
+duration = 2.4
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Старая паломническая тропа. Империя расширила её для обозов. Можно подняться."
+duration = 4.2
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Справа. Я пойду первым."
+duration = 2.2
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Лёд, камни, ветер. Каждые полчаса — передышка."
+duration = 3.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6")]

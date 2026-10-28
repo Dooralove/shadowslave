@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_forgotten_shore"
+title = "ЗАБЫТЫЙ БЕРЕГ"
+subtitle = "Север · кратер"
+description = "Огромный кратер к северу от Полых гор. В центре — Багровый шпиль в кольце Лабиринта, на восточном краю кратера — Тёмный город, на западном — Пепельный курган."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.016, 0.02, 0.48, 0.02, 0.496, 0.12, 0.48, 0.28, 0.32, 0.31, 0.16, 0.3, 0.016, 0.27)
+label_position = Vector2(0.24, 0.285)
+location_ids = Array[StringName]([])

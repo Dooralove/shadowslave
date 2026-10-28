@@ -7,18 +7,25 @@ const DAY_SKY := Color(0.55, 0.62, 0.72)
 
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var sun: DirectionalLight3D = $Sun
+@onready var road: Node3D = $Road
 @onready var snow: Node3D = $Road/SnowCover
 @onready var bones: Node3D = $Road/Bones
 @onready var caravan: Node3D = $Road/Caravan
 @onready var caravan_end: Marker3D = $Road/CaravanEnd
 
 var environment: Environment
+## Небо-шейдер арт-варианта (параметр day_mix); у CSG-сцены неба нет — работает цвет фона.
+var sky_material: ShaderMaterial
 
 
 func _ready() -> void:
 	super._ready()
 	# Своя копия: постановка меняет небо, а ресурс сцены должен остаться прежним для следующего запуска.
 	environment = world_environment.environment.duplicate() as Environment
+	if environment.sky and environment.sky.sky_material is ShaderMaterial:
+		environment.sky = environment.sky.duplicate() as Sky
+		sky_material = environment.sky.sky_material.duplicate() as ShaderMaterial
+		environment.sky.sky_material = sky_material
 	world_environment.environment = environment
 
 
@@ -51,6 +58,7 @@ func _orbit(fast: bool) -> void:
 	use_shot(&"Orbit")
 	if fast:
 		return
+	set_orbit_mode(true)
 	var center := (camera.get_node(^"LookAt") as Node3D).global_position
 	var offset := camera.global_position - center
 	var start := atan2(offset.x, offset.z)
@@ -60,6 +68,13 @@ func _orbit(fast: bool) -> void:
 		camera.global_position = center + Vector3(sin(angle) * radius, offset.y, cos(angle) * radius)
 		camera.look_at(center), start, start + 1.3, 6.0)
 	await tween.finished
+	set_orbit_mode(false)
+
+
+## Декорация дороги стоит у начала координат, в двух километрах от горы: с орбиты она
+## висела бы обломком над облаками. На время облёта она скрыта, к ракурсу RoadShot — снова видна.
+func set_orbit_mode(on: bool) -> void:
+	road.visible = not on
 
 
 ## Дни в обратную сторону: вспышка дня, затем снова ночь.
@@ -67,11 +82,17 @@ func _rewind_days(count: int, period: float, fast: bool) -> void:
 	if fast:
 		environment.background_color = NIGHT_SKY
 		sun.light_energy = 0.0
+		if sky_material:
+			sky_material.set_shader_parameter(&"day_mix", 0.0)
 		return
 	for i in count:
 		var tween := create_tween().set_parallel()
 		tween.tween_property(environment, "background_color", DAY_SKY, period * 0.5)
 		tween.tween_property(sun, "light_energy", 1.4, period * 0.5)
+		if sky_material:
+			tween.tween_property(sky_material, "shader_parameter/day_mix", 1.0, period * 0.5)
 		tween.chain().tween_property(environment, "background_color", NIGHT_SKY, period * 0.5)
 		tween.tween_property(sun, "light_energy", 0.0, period * 0.5)
+		if sky_material:
+			tween.tween_property(sky_material, "shader_parameter/day_mix", 0.0, period * 0.5)
 		await tween.finished

@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_ny8qy"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_jfn8k"]
+
+[sub_resource type="Resource" id="Resource_q7q8f"]
+script = ExtResource("1_ny8qy")
+id = &"player"
+label = "Вы здесь"
+description = "Точка входа в ущелье."
+position = Vector2(0.5, 0.71)
+kind = 4
+
+[sub_resource type="Resource" id="Resource_scrqa"]
+script = ExtResource("1_ny8qy")
+id = &"bridge"
+label = "Мост"
+description = "Узкий каменный мост через провал."
+position = Vector2(0.4, 0.48)
+
+[sub_resource type="Resource" id="Resource_m1fgs"]
+script = ExtResource("1_ny8qy")
+id = &"king"
+label = "Горный Король"
+description = "Позиция противника на верхнем уступе."
+position = Vector2(0.66, 0.35)
+kind = 2
+
+[sub_resource type="Resource" id="Resource_22t3a"]
+script = ExtResource("1_ny8qy")
+id = &"collapse"
+label = "Обвал"
+description = "Камнепад перекрывает западный выход из ущелья."
+position = Vector2(0.22, 0.68)
+kind = 2
+
+[resource]
+script = ExtResource("2_jfn8k")
+id = &"ambush_site"
+title = "УЩЕЛЬЕ ЗАСАДЫ"
+subtitle = "Мост, обвал и позиция Горного Короля"
+description = "Неканоническая sandbox-локация нападения. Узкое ущелье с мостом, обвалом и удобной позицией для засады."
+background_color = Color(0.058, 0.062, 0.072, 1)
+land_color = Color(0.23, 0.215, 0.19, 1)
+accent_color = Color(0.66, 0.45, 0.32, 1)
+contour = PackedVector2Array(0.18, 0.24, 0.42, 0.12, 0.7, 0.18, 0.86, 0.42, 0.78, 0.72, 0.54, 0.86, 0.26, 0.76, 0.12, 0.5)
+markers = Array[ExtResource("1_ny8qy")]([SubResource("Resource_q7q8f"), SubResource("Resource_scrqa"), SubResource("Resource_m1fgs"), SubResource("Resource_22t3a")])
+scene_paths = PackedStringArray("res://scenes/locations/ambush_site/ambush_site.tscn", "res://scenes/campaign/caravan_ambush.tscn", "res://scenes/levels/ambush_site_demo.tscn")
+world_rect = Rect2(0.21, 0.52, 0.17, 0.12)

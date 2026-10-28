@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "pr_sensor"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0702, 0.0233, 0.0233, 1.0)
+roughness = 0.08
+emission_enabled = true
+emission = Color(0.7529, 0.1253, 0.0629, 1.0)
+emission_energy_multiplier = 0.8

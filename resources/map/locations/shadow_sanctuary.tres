@@ -1,0 +1,159 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-9.2, -6.7, 9.2, -6.7, 9.2, 6.7, -9.2, 6.7)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2, -6.5, 2, -6.5, 2, -3.5, -2, -3.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-10, -7.5, -9.2, -7.5, -9.2, 7.5, -10, 7.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(9.2, -7.5, 10, -7.5, 10, 7.5, 9.2, 7.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-10, -7.5, 10, -7.5, 10, -6.7, -10, -6.7)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-10, 6.7, -2.5, 6.7, -2.5, 7.5, -10, 7.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(2.5, 6.7, 10, 6.7, 10, 7.5, 2.5, 7.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-6.85, -5.65, -5.15, -5.65, -5.15, -3.95, -6.85, -3.95)
+closed = true
+
+[sub_resource type="Resource" id="Feature_8"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-6.85, -0.85, -5.15, -0.85, -5.15, 0.85, -6.85, 0.85)
+closed = true
+
+[sub_resource type="Resource" id="Feature_9"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-6.85, 3.95, -5.15, 3.95, -5.15, 5.65, -6.85, 5.65)
+closed = true
+
+[sub_resource type="Resource" id="Feature_10"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(5.15, -5.65, 6.85, -5.65, 6.85, -3.95, 5.15, -3.95)
+closed = true
+
+[sub_resource type="Resource" id="Feature_11"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(5.15, -0.85, 6.85, -0.85, 6.85, 0.85, 5.15, 0.85)
+closed = true
+
+[sub_resource type="Resource" id="Feature_12"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(5.15, 3.95, 6.85, 3.95, 6.85, 5.65, 5.15, 5.65)
+closed = true
+
+[sub_resource type="Resource" id="Feature_13"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(6.6, 2.05, 9.2, 2.05, 9.2, 3.75, 6.6, 3.75)
+closed = true
+
+[sub_resource type="Resource" id="Feature_14"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-8.6, -1.6, -7.4, -1.6, -7.4, 3.2, -8.6, 3.2)
+closed = true
+
+[sub_resource type="Resource" id="Feature_15"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-0.75, -5.5, 0.75, -5.5, 0.75, -4.5, -0.75, -4.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_16"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 7, 0, -3.5)
+closed = false
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"entrance"
+label = "Южный вход"
+description = "Единственный проход в святилище; отсюда начинается путь к алтарю."
+use_world_position = true
+world_position = Vector2(0, 7)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"altar"
+label = "Алтарь подношений"
+description = "Главный алтарь на ступенях; место ритуала."
+use_world_position = true
+world_position = Vector2(0, -5)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"crevice"
+label = "Укрытие у стены"
+description = "Укрытие за павшей колонной у западной стены."
+use_world_position = true
+world_position = Vector2(-8.7, 3.9)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"hands"
+label = "Тени-руки"
+description = "Место появления теней-рук в центре зала."
+use_world_position = true
+world_position = Vector2(0, 1.8)
+kind = 2
+
+[resource]
+script = ExtResource("2_def")
+id = &"shadow_sanctuary"
+title = "ТЕНИСТОЕ СВЯТИЛИЩЕ"
+subtitle = "Зал с алтарём"
+description = "Замкнутый зал с южным входом. Алтарь стоит в северном конце, на двух ступенях; колонны и обломки разделяют пространство."
+background_color = Color(0.04, 0.048, 0.062, 1)
+land_color = Color(0.18, 0.19, 0.2, 1)
+accent_color = Color(0.58, 0.5, 0.36, 1)
+terrain_style = &"temple"
+world_bounds = Rect2(-10, -7.5, 20, 15)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9"), SubResource("Feature_10"), SubResource("Feature_11"), SubResource("Feature_12"), SubResource("Feature_13"), SubResource("Feature_14"), SubResource("Feature_15"), SubResource("Feature_16")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3")])
+scene_paths = PackedStringArray("res://scenes/locations/shadow_sanctuary/shadow_sanctuary.tscn", "res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn", "res://scenes/campaign/sanctuary_arrival.tscn")
+world_rect = Rect2(0.57, 0.56, 0.2, 0.15)

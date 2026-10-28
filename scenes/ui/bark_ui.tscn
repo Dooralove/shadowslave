@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/bark_ui.gd" id="1_bark"]
+[ext_resource type="Script" path="res://scripts/ui/subtitle_ui.gd" id="2_sub"]
+
+[sub_resource type="StyleBoxFlat" id="Style_bark"]
+bg_color = Color(0.025, 0.035, 0.055, 0.62)
+border_width_left = 3
+border_color = Color(0.58, 0.74, 0.92, 0.75)
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="BarkUI" type="CanvasLayer"]
+layer = 11
+script = ExtResource("1_bark")
+
+[node name="BarkSubtitles" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -300.0
+offset_right = 380.0
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_bark")
+script = ExtResource("2_sub")
+
+[node name="Box" type="VBoxContainer" parent="BarkSubtitles"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="BarkSubtitles/Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="SpeakerLabel" type="Label" parent="BarkSubtitles/Box/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.82, 0.95, 1)
+theme_override_font_sizes/font_size = 15
+text = "Санни"
+
+[node name="KindLabel" type="Label" parent="BarkSubtitles/Box/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.55, 0.66, 1)
+theme_override_font_sizes/font_size = 12
+text = "внутренний голос"
+
+[node name="TextLabel" type="Label" parent="BarkSubtitles/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.87, 0.9, 0.96, 1)
+theme_override_font_sizes/font_size = 18
+autowrap_mode = 3
+
+[node name="ContinueHint" type="Label" parent="BarkSubtitles/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2

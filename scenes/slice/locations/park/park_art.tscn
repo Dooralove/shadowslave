@@ -1,0 +1,529 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/environments/park/park_blockout.glb" id="1_blockout"]
+[ext_resource type="Shader" path="res://scenes/slice/locations/park/screen_landscape.gdshader" id="2_screen"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/bench.glb" id="3_bench"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/bin.glb" id="4_bin"]
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/rust_stain.png" id="5_stain"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/tree_planter_a.glb" id="6_tree_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/tree_planter_b.glb" id="7_tree_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/tree_planter_c.glb" id="8_tree_c"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/lamp_street_a.glb" id="9_lamp"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/station_facade_bay.glb" id="10_bay"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/station_facade_slit.glb" id="11_slit"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/station_entrance.glb" id="12_entrance"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/bollard_a.glb" id="13_bollard"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/city_curtain_wall.tres" id="14_curtain"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/city_stone_windows.tres" id="15_stone"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/city_far_tower.tres" id="16_fartower"]
+
+[sub_resource type="ShaderMaterial" id="Mat_screen"]
+shader = ExtResource("2_screen")
+
+[node name="ParkArt" type="Node3D"]
+
+[node name="Blockout" parent="." instance=ExtResource("1_blockout")]
+
+[node name="Screen" parent="Blockout"]
+surface_material_override/0 = SubResource("Mat_screen")
+
+[node name="Bench" parent="." instance=ExtResource("3_bench")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Bin" parent="." instance=ExtResource("4_bin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 3.2)
+
+[node name="RustStains" type="Node3D" parent="."]
+
+[node name="LegFrontL" type="Decal" parent="RustStains"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78, 0, 3.8)
+size = Vector3(0.32, 0.2, 0.42)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="LegFrontR" type="Decal" parent="RustStains"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.78, 0, 3.8)
+size = Vector3(0.3, 0.2, 0.38)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="LegRearL" type="Decal" parent="RustStains"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -0.78, 0, 4.26)
+size = Vector3(0.36, 0.2, 0.3)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="LegRearR" type="Decal" parent="RustStains"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.78, 0, 4.26)
+size = Vector3(0.3, 0.2, 0.3)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="UnderSeat" type="Decal" parent="RustStains"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0)
+size = Vector3(1.9, 0.2, 0.7)
+texture_albedo = ExtResource("5_stain")
+modulate = Color(1, 1, 1, 0.55)
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="StationSign" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.55, -18.86)
+pixel_size = 0.006
+modulate = Color(0.82, 0.88, 0.98, 1)
+outline_modulate = Color(0.04, 0.05, 0.08, 1)
+text = "ПОЛИЦЕЙСКИЙ УЧАСТОК"
+font_size = 64
+outline_size = 8
+
+[node name="EntranceLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 3.3, -17.8)
+light_color = Color(0.74, 0.84, 1, 1)
+light_energy = 5.0
+spot_range = 6.0
+spot_angle = 55.0
+
+[node name="ScreenGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4.3, 8.6)
+light_color = Color(0.6, 0.72, 0.86, 1)
+light_energy = 1.0
+omni_range = 9.0
+
+
+[node name="Planter0" parent="Blockout"]
+visible = false
+
+[node name="Planter1" parent="Blockout"]
+visible = false
+
+[node name="Planter2" parent="Blockout"]
+visible = false
+
+[node name="Planter3" parent="Blockout"]
+visible = false
+
+[node name="Planter4" parent="Blockout"]
+visible = false
+
+[node name="Trunk0" parent="Blockout"]
+visible = false
+
+[node name="Trunk1" parent="Blockout"]
+visible = false
+
+[node name="Trunk2" parent="Blockout"]
+visible = false
+
+[node name="Trunk3" parent="Blockout"]
+visible = false
+
+[node name="Trunk4" parent="Blockout"]
+visible = false
+
+[node name="Crown0" parent="Blockout"]
+visible = false
+
+[node name="Crown1" parent="Blockout"]
+visible = false
+
+[node name="Crown2" parent="Blockout"]
+visible = false
+
+[node name="Crown3" parent="Blockout"]
+visible = false
+
+[node name="Crown4" parent="Blockout"]
+visible = false
+
+[node name="LampPole0" parent="Blockout"]
+visible = false
+
+[node name="LampPole1" parent="Blockout"]
+visible = false
+
+[node name="LampPole2" parent="Blockout"]
+visible = false
+
+[node name="LampPole3" parent="Blockout"]
+visible = false
+
+[node name="LampHead0" parent="Blockout"]
+visible = false
+
+[node name="LampHead1" parent="Blockout"]
+visible = false
+
+[node name="LampHead2" parent="Blockout"]
+visible = false
+
+[node name="LampHead3" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel00" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel01" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel02" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel30" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel31" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel32" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel40" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel41" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel42" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel50" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel51" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel52" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel60" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel61" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel62" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel70" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel71" parent="Blockout"]
+visible = false
+
+[node name="ArmorPanel72" parent="Blockout"]
+visible = false
+
+[node name="SlitWindow0" parent="Blockout"]
+visible = false
+
+[node name="SlitWindow1" parent="Blockout"]
+visible = false
+
+[node name="SlitWindow2" parent="Blockout"]
+visible = false
+
+[node name="SlitWindow3" parent="Blockout"]
+visible = false
+
+[node name="SlitWindow4" parent="Blockout"]
+visible = false
+
+[node name="SlitWindow5" parent="Blockout"]
+visible = false
+
+[node name="EntranceFrame" parent="Blockout"]
+visible = false
+
+[node name="EntranceRecess" parent="Blockout"]
+visible = false
+
+[node name="Door" parent="Blockout"]
+visible = false
+
+[node name="Canopy" parent="Blockout"]
+visible = false
+
+[node name="EntranceLightStrip" parent="Blockout"]
+visible = false
+
+[node name="Bollard00" parent="Blockout"]
+visible = false
+
+[node name="Bollard01" parent="Blockout"]
+visible = false
+
+[node name="Bollard02" parent="Blockout"]
+visible = false
+
+[node name="Bollard03" parent="Blockout"]
+visible = false
+
+[node name="Bollard07" parent="Blockout"]
+visible = false
+
+[node name="Bollard08" parent="Blockout"]
+visible = false
+
+[node name="Bollard09" parent="Blockout"]
+visible = false
+
+[node name="Bollard10" parent="Blockout"]
+visible = false
+
+[node name="Bollard11" parent="Blockout"]
+visible = false
+
+[node name="Bollard12" parent="Blockout"]
+visible = false
+
+[node name="Bollard13" parent="Blockout"]
+visible = false
+
+[node name="Upgrade" type="Node3D" parent="."]
+
+[node name="Tree0" parent="Upgrade" instance=ExtResource("6_tree_a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 0, 4.8)
+
+[node name="Tree1" parent="Upgrade" instance=ExtResource("7_tree_b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 0, 5.6)
+
+[node name="Tree2" parent="Upgrade" instance=ExtResource("8_tree_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0, 0, 6.2)
+
+[node name="Tree3" parent="Upgrade" instance=ExtResource("6_tree_a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, -2.6)
+
+[node name="Tree4" parent="Upgrade" instance=ExtResource("8_tree_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 0, -2.2)
+
+[node name="Lamp0" parent="Upgrade" instance=ExtResource("9_lamp")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6.5, 0, -7.25)
+
+[node name="Lamp1" parent="Upgrade" instance=ExtResource("9_lamp")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 6.5, 0, -7.25)
+
+[node name="Lamp2" parent="Upgrade" instance=ExtResource("9_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0, 0, -15.95)
+
+[node name="Lamp3" parent="Upgrade" instance=ExtResource("9_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0, 0, -15.95)
+
+[node name="Facade0" parent="Upgrade" instance=ExtResource("11_slit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.925, 0, -19.0)
+
+[node name="Facade1" parent="Upgrade" instance=ExtResource("10_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, -19.0)
+
+[node name="Facade2" parent="Upgrade" instance=ExtResource("11_slit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.425, 0, -19.0)
+
+[node name="Facade3" parent="Upgrade" instance=ExtResource("10_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 0, -19.0)
+
+[node name="Facade4" parent="Upgrade" instance=ExtResource("10_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 0, -19.0)
+
+[node name="Facade5" parent="Upgrade" instance=ExtResource("11_slit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.675, 0, -19.0)
+
+[node name="Facade6" parent="Upgrade" instance=ExtResource("10_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.55, 0, -19.0)
+
+[node name="Facade7" parent="Upgrade" instance=ExtResource("10_bay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.05, 0, -19.0)
+
+[node name="StationEntrance" parent="Upgrade" instance=ExtResource("12_entrance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.0)
+
+[node name="Bollard00" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.0, 0, -16.15)
+
+[node name="Bollard01" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4, 0, -16.15)
+
+[node name="Bollard02" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0, -16.15)
+
+[node name="Bollard03" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0, -16.15)
+
+[node name="Bollard04" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0, -16.15)
+
+[node name="Bollard05" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, -16.15)
+
+[node name="Bollard06" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4, 0, -16.15)
+
+[node name="Bollard07" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.0, 0, -16.15)
+
+[node name="Bollard08" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.6, 0, -16.15)
+
+[node name="Bollard09" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 0, -16.15)
+
+[node name="Bollard10" parent="Upgrade" instance=ExtResource("13_bollard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 0, -16.15)
+
+[editable path="Blockout"]
+
+[node name="RowNW00" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowNW01" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowNW02" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowNW03" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowNW04" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowNE00" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowNE01" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowNE02" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowNE03" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowNE04" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSW00" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSW01" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowSW02" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSW03" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowSW04" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSE00" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSE01" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowSE02" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSE03" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="RowSE04" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="RowSE05" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="BlockWest" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="BlockNorthWest" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="BlockNorthEast" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="TowerSouthWest" parent="Blockout"]
+surface_material_override/0 = ExtResource("15_stone")
+
+[node name="BlockWestGlass" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="BlockNorthWestGlass" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="TowerSouthWestGlass" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="TowerWest" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="PavilionEast" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="PodiumGlass" parent="Blockout"]
+surface_material_override/0 = ExtResource("14_curtain")
+
+[node name="FarTower00" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower01" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower02" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower03" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower04" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower05" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower06" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower07" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower08" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower09" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower10" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower11" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower12" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower13" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTower14" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTowerCap00" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTowerCap02" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTowerCap05" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")
+
+[node name="FarTowerCap11" parent="Blockout"]
+surface_material_override/0 = ExtResource("16_fartower")

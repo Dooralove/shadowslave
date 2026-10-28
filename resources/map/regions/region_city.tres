@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+[ext_resource type="Texture2D" path="res://assets/ui/map/city.png" id="6_tex"]
+
+[sub_resource type="Resource" id="RegionMap_F0"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(360, 680, 399.3982, 664.3055, 454.0741, 642.2222, 518.75, 616.25, 588.1481, 588.8889, 656.9907, 562.6389, 720, 540, 779.5602, 521.4815, 840.3704, 505.1852, 900.625, 490, 958.5185, 474.8148, 1012.2454, 458.5185, 1060, 440, 1102.5463, 417.3611, 1141.4814, 391.1111, 1176.25, 363.75, 1206.2963, 337.7778, 1231.0648, 315.6945, 1250, 300)
+closed = false
+
+[sub_resource type="Resource" id="RegionMap_M0"]
+script = ExtResource("1_marker")
+id = &"park"
+label = "Парк"
+description = "Скамейка в парке: кофе и утро пролога."
+use_world_position = true
+world_position = Vector2(360, 680)
+kind = 0
+
+[sub_resource type="Resource" id="RegionMap_M1"]
+script = ExtResource("1_marker")
+id = &"street"
+label = "Улица"
+description = "Переход от парка к участку."
+use_world_position = true
+world_position = Vector2(720, 540)
+kind = 0
+
+[sub_resource type="Resource" id="RegionMap_M2"]
+script = ExtResource("1_marker")
+id = &"station"
+label = "Участок"
+description = "Брифинг и Code Black."
+use_world_position = true
+world_position = Vector2(1060, 440)
+kind = 2
+
+[sub_resource type="Resource" id="RegionMap_M3"]
+script = ExtResource("1_marker")
+id = &"isolator"
+label = "Изолятор"
+description = "Засыпание перед переходом в Царство."
+use_world_position = true
+world_position = Vector2(1250, 300)
+kind = 3
+
+[sub_resource type="Resource" id="RegionMap"]
+script = ExtResource("2_def")
+id = &"region_city_map"
+title = "ГОРОД"
+subtitle = "Реальный мир · пролог"
+description = "Места пролога в порядке сюжета. Схема; локальные карты городских сцен ещё не созданы."
+background_color = Color(0.03, 0.035, 0.04, 1)
+land_color = Color(0.3, 0.3, 0.32, 1)
+accent_color = Color(0.6, 0.66, 0.7, 1)
+terrain_style = &"city"
+world_bounds = Rect2(0, 0, 1600, 1000)
+background_texture = ExtResource("6_tex")
+features = Array[ExtResource("3_feature")]([SubResource("RegionMap_F0")])
+markers = Array[ExtResource("1_marker")]([SubResource("RegionMap_M0"), SubResource("RegionMap_M1"), SubResource("RegionMap_M2"), SubResource("RegionMap_M3")])
+placements = Array[ExtResource("5_placement")]([])
+scene_paths = PackedStringArray()
+[resource]
+script = ExtResource("4_region")
+id = &"region_city"
+title = "ГОРОД"
+subtitle = "Реальный мир · пролог"
+description = "Город из пролога, за пределами Царства снов. Схема мест пролога: парк, улица, участок, изолятор."
+status = 0
+outside_realm = true
+outline = PackedVector2Array(0.815, 0.56, 0.99, 0.56, 0.99, 0.88, 0.815, 0.88)
+label_position = Vector2(0.9025, 0.925)
+location_ids = Array[StringName]([])
+region_map = SubResource("RegionMap")

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "godot": {
+        "type": "local",
+        "command": ["cmd", "/c", "npx", "-y", "godot-mcp-server@0.6.1"],
+        "cwd": ".",
+        "timeout": {
+          "startup": 60000
+        }
+      }
+    }
+  }
+}

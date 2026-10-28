@@ -10,6 +10,8 @@ extends SliceLocation
 @onready var chain: Node3D = $Road/Chain
 
 var marching := false
+var auto_barks := false
+var _march_follower: Node3D = null
 
 
 func _ready() -> void:
@@ -24,17 +26,31 @@ func march_velocity() -> Vector3:
 
 func start_march() -> void:
 	marching = true
+	_set_chain_pose("walk")
 
 
 func stop_march() -> void:
 	marching = false
+	_set_chain_pose("idle")
+
+
+func _set_chain_pose(pose: String) -> void:
+	for node in chain.get_children():
+		if node is Mannequin:
+			(node as Mannequin).pose = pose
+
+
+func set_march_follower(player: Node3D) -> void:
+	_march_follower = player
 
 
 func _physics_process(_delta: float) -> void:
 	# Цепь держится вровень с Санни вдоль дороги: физика тела на склоне чуть отстаёт от расчётного темпа,
-	# и без привязки звенья разошлись бы с персонажем.
-	if marching and director:
-		chain.position.z = road.to_local(director.player.global_position).z
+	# и без привязки звенья разошлись бы с персонажем. В прологе Санни — у режиссёра,
+	# в марше S01 его передаёт set_march_follower().
+	var follower: Node3D = _march_follower if _march_follower else (director.player if director else null)
+	if marching and follower:
+		chain.position.z = road.to_local(follower.global_position).z
 
 
 ## Всадник ездит вдоль колонны вперёд и назад (относительно цепи).

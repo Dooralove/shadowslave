@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://assets/environments/nightmare/materials/nm_cloud_sea.tres" id="1_mat"]
+
+[sub_resource type="PlaneMesh" id="Cloud_plane"]
+material = ExtResource("1_mat")
+size = Vector2(9000, 9000)
+
+[node name="CloudSea" type="MeshInstance3D"]
+cast_shadow = 0
+mesh = SubResource("Cloud_plane")
