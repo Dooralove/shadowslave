@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="MapAtlas" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_atlas.gd" id="1_atlas"]
+[ext_resource type="Resource" path="res://resources/map/world_map.tres" id="2_world"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="3_region"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="4_def"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_first_nightmare.tres" id="r0"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_city.tres" id="r1"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_forgotten_shore.tres" id="r2"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_nightmare_desert.tres" id="r3"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_hollow_mountains.tres" id="r4"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_song_domain.tres" id="r5"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_godgrave.tres" id="r6"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_chained_isles.tres" id="r7"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_sword_domain.tres" id="r8"]
+[ext_resource type="Resource" path="res://resources/map/regions/region_stormsea.tres" id="r9"]
+[ext_resource type="Resource" path="res://resources/map/locations/forgotten_shore.tres" id="l0"]
+[ext_resource type="Resource" path="res://resources/map/locations/caravan_road.tres" id="l1"]
+[ext_resource type="Resource" path="res://resources/map/locations/caravan_site.tres" id="l2"]
+[ext_resource type="Resource" path="res://resources/map/locations/ambush_site.tres" id="l3"]
+[ext_resource type="Resource" path="res://resources/map/locations/pilgrim_path.tres" id="l4"]
+[ext_resource type="Resource" path="res://resources/map/locations/shadow_sanctuary.tres" id="l5"]
+[ext_resource type="Resource" path="res://resources/map/locations/drowned_city.tres" id="l6"]
+
+[resource]
+script = ExtResource("1_atlas")
+world_map = ExtResource("2_world")
+regions = Array[ExtResource("3_region")]([ExtResource("r0"), ExtResource("r1"), ExtResource("r2"), ExtResource("r3"), ExtResource("r4"), ExtResource("r5"), ExtResource("r6"), ExtResource("r7"), ExtResource("r8"), ExtResource("r9")])
+locations = Array[ExtResource("4_def")]([ExtResource("l0"), ExtResource("l1"), ExtResource("l2"), ExtResource("l3"), ExtResource("l4"), ExtResource("l5"), ExtResource("l6")])

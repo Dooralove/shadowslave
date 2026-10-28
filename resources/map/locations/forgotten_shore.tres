@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_itpfy"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_v5jwh"]
+
+[sub_resource type="Resource" id="Resource_iobwn"]
+script = ExtResource("1_itpfy")
+id = &"player"
+label = "Вы здесь"
+description = "Точка появления игрока на берегу."
+position = Vector2(0.48, 0.64)
+kind = 4
+
+[sub_resource type="Resource" id="Resource_oj40x"]
+script = ExtResource("1_itpfy")
+id = &"altar"
+label = "Алтарь"
+description = "Каменный алтарь в глубине руин. Взаимодействие включает и выключает холодный свет."
+position = Vector2(0.62, 0.36)
+
+[sub_resource type="Resource" id="Resource_47x8d"]
+script = ExtResource("1_itpfy")
+id = &"ruins"
+label = "Разрушенные стены"
+description = "Остатки древнего укрепления; удобный ориентир у восточного края карты."
+position = Vector2(0.34, 0.3)
+
+[sub_resource type="Resource" id="Resource_86tqn"]
+script = ExtResource("1_itpfy")
+id = &"camp"
+label = "Старый лагерь"
+description = "Покинутая стоянка у воды. Здесь можно укрыться от ветра."
+position = Vector2(0.21, 0.57)
+kind = 1
+
+[sub_resource type="Resource" id="Resource_7ibk5"]
+script = ExtResource("1_itpfy")
+id = &"rift"
+label = "Провал"
+description = "Тёмная расщелина за руинами. Пока не исследована."
+position = Vector2(0.73, 0.71)
+kind = 2
+
+[resource]
+script = ExtResource("2_v5jwh")
+id = &"forgotten_shore"
+title = "ЗАБЫТЫЙ БЕРЕГ"
+subtitle = "Скалы, руины и ночной туман"
+description = "Демонстрационная локация главной сцены. Берег с остатками древних стен, алтарём и старым лагерем; отсюда начинается путь к перевалу."
+background_color = Color(0.05, 0.068, 0.085, 1)
+land_color = Color(0.225, 0.245, 0.23, 1)
+accent_color = Color(0.7, 0.61, 0.4, 1)
+contour = PackedVector2Array(0.1, 0.35, 0.2, 0.16, 0.4, 0.1, 0.64, 0.17, 0.86, 0.33, 0.9, 0.56, 0.76, 0.8, 0.52, 0.9, 0.27, 0.82, 0.12, 0.61)
+markers = Array[ExtResource("1_itpfy")]([SubResource("Resource_iobwn"), SubResource("Resource_oj40x"), SubResource("Resource_47x8d"), SubResource("Resource_86tqn"), SubResource("Resource_7ibk5")])
+scene_paths = PackedStringArray("res://scenes/levels/test_level.tscn", "res://scenes/main/main.tscn", "res://scenes/levels/combat_arena.tscn")
+world_rect = Rect2(0.12, 0.66, 0.21, 0.15)

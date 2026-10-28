@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_sword_domain"
+title = "ВЛАДЕНИЯ МЕЧА"
+subtitle = "Великий клан Доблести"
+description = "Земли клана Доблести. В их сердце — Бастион; на юге владения выходят к Штормовому морю."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.496, 0.75, 0.64, 0.74, 0.792, 0.72, 0.792, 0.97, 0.72, 0.965, 0.624, 0.955, 0.528, 0.945)
+label_position = Vector2(0.656, 0.8)
+location_ids = Array[StringName]([])

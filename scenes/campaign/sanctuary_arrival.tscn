@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/sanctuary_arrival.gd" id="1_arrival"]
+[ext_resource type="PackedScene" path="res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn" id="2_sanctuary"]
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="3_fade"]
+
+[node name="SanctuaryArrival" type="Node3D"]
+script = ExtResource("1_arrival")
+
+[node name="Sanctuary" parent="." instance=ExtResource("2_sanctuary")]
+
+[node name="Objective" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="Root" type="Control" parent="Objective"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Objective/Root"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 720.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.68, 0.8, 0.95, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Святилище Тени · Найдите алтарь в глубине зала."
+
+[node name="Transition" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="Fade" type="ColorRect" parent="Transition"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("3_fade")
+
+[node name="Card" type="Control" parent="Transition"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="Transition/Card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Box" type="VBoxContainer" parent="Transition/Card/Center"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="Transition/Card/Center/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.86, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 44
+text = "ПЕРВЫЙ КОШМАР ПРОЙДЕН"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Transition/Card/Center/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.84, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+text = "Конец прототипа Первого Кошмара"
+horizontal_alignment = 1
+
+[node name="Rule" type="ColorRect" parent="Transition/Card/Center/Box"]
+custom_minimum_size = Vector2(560, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.55, 0.75, 0.95, 0.3)
+
+[node name="Hint" type="Label" parent="Transition/Card/Center/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.67, 0.72, 1)
+theme_override_font_sizes/font_size = 16
+text = "R — начать заново"
+horizontal_alignment = 1

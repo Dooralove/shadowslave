@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/props/larva.gd" id="1_larva"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.56, 0.54, 0.48, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Mat_plate"]
+albedo_color = Color(0.34, 0.32, 0.29, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_maw"]
+albedo_color = Color(0.28, 0.08, 0.07, 1)
+roughness = 0.55
+
+[node name="Larva" type="Node3D"]
+script = ExtResource("1_larva")
+
+[node name="Body" type="CSGSphere3D" parent="."]
+position = Vector3(0, 0.34, 0)
+rotation = Vector3(1.5708, 0, 0)
+scale = Vector3(1, 1, 2.15)
+radius = 0.28
+radial_segments = 12
+rings = 8
+material = SubResource("Mat_body")
+
+[node name="PlateA" type="CSGBox3D" parent="."]
+position = Vector3(0, 0.62, -0.22)
+rotation = Vector3(0.35, 0, 0)
+size = Vector3(0.4, 0.12, 0.42)
+material = SubResource("Mat_plate")
+
+[node name="PlateB" type="CSGBox3D" parent="."]
+position = Vector3(0, 0.57, 0.16)
+rotation = Vector3(-0.28, 0, 0)
+size = Vector3(0.36, 0.1, 0.34)
+material = SubResource("Mat_plate")
+
+[node name="Head" type="CSGSphere3D" parent="."]
+position = Vector3(0, 0.38, -0.72)
+radius = 0.3
+radial_segments = 10
+rings = 6
+material = SubResource("Mat_body")
+
+[node name="Maw" type="CSGSphere3D" parent="."]
+position = Vector3(0, 0.34, -0.96)
+radius = 0.16
+radial_segments = 8
+rings = 4
+material = SubResource("Mat_maw")
+
+[node name="MandibleL" type="CSGCylinder3D" parent="."]
+position = Vector3(-0.22, 0.34, -0.9)
+rotation = Vector3(1.5708, 0, -0.5)
+radius = 0.06
+height = 0.45
+sides = 5
+cone = true
+material = SubResource("Mat_plate")
+
+[node name="MandibleR" type="CSGCylinder3D" parent="."]
+position = Vector3(0.22, 0.34, -0.9)
+rotation = Vector3(1.5708, 0, 0.5)
+radius = 0.06
+height = 0.45
+sides = 5
+cone = true
+material = SubResource("Mat_plate")
+
+[node name="SpikeBack" type="CSGCylinder3D" parent="."]
+position = Vector3(0, 0.64, 0.2)
+radius = 0.07
+height = 0.36
+sides = 5
+cone = true
+material = SubResource("Mat_plate")
+
+[node name="SpikeTail" type="CSGCylinder3D" parent="."]
+position = Vector3(0, 0.55, 0.64)
+rotation = Vector3(0.4, 0, 0)
+radius = 0.06
+height = 0.3
+sides = 5
+cone = true
+material = SubResource("Mat_plate")

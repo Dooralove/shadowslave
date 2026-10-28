@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_hollow_mountains"
+title = "ПОЛЫЕ ГОРЫ"
+subtitle = "Зона смерти"
+description = "Хребет длиной в тысячи километров. Отделяет Забытый берег от остального Царства и останавливает продвижение людей на север."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.016, 0.27, 0.16, 0.3, 0.32, 0.31, 0.48, 0.28, 0.64, 0.32, 0.792, 0.3, 0.792, 0.45, 0.64, 0.46, 0.48, 0.44, 0.32, 0.46, 0.16, 0.45, 0.016, 0.44)
+label_position = Vector2(0.4, 0.375)
+location_ids = Array[StringName]([])

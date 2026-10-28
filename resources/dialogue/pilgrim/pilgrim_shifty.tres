@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Серый свет. Шифти не встаёт. Глаза мутные, дышит поверхностно, еле держится."
+duration = 3.2
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Высотная болезнь. Он не дойдёт."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Вставай. Мы не можем тебя нести."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Шифти делает шаг. Лёд уходит из-под ног."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Он падает назад, катится, ударяется о выступ. Тишина."
+duration = 3.6
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Хорошо, что фляги у Санни..."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Учёный осекается. Никто не говорит соболезнований."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Идём. Тиран идёт по следу."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Тела Шифти нет. Только кровь на камне."
+duration = 3.2
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9")]

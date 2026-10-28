@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="SpellMessageCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/spell/spell_message_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/spell/spell_message.gd" id="2_message"]
+
+[sub_resource type="Resource" id="Message_larva"]
+script = ExtResource("2_message")
+id = &"larva_slain"
+text = "Ты убил дремлющую тварь — личинку Горного Короля."
+duration = 3.4
+presentation = 0
+
+[sub_resource type="Resource" id="Message_human"]
+script = ExtResource("2_message")
+id = &"dormant_human_slain"
+text = "Ты убил дремлющего человека. Имя неизвестно."
+duration = 3.6
+presentation = 1
+
+[sub_resource type="Resource" id="Message_memory"]
+script = ExtResource("2_message")
+id = &"memory_received"
+text = "Ты получил Память."
+duration = 2.6
+presentation = 1
+
+[sub_resource type="Resource" id="Message_bell"]
+script = ExtResource("2_message")
+id = &"silver_bell_received"
+text = "Ты получил Память: Серебряный Колокольчик."
+duration = 4.0
+presentation = 1
+
+[resource]
+script = ExtResource("1_catalog")
+messages = [SubResource("Message_larva"), SubResource("Message_human"), SubResource("Message_memory"), SubResource("Message_bell")]

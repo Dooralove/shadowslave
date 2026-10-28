@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://qkt67g7o1jw8" path="res://assets/characters/sunny_realistic_poc/sunny_poc.glb" id="1_model"]
+[ext_resource type="AnimationLibrary" uid="uid://cxvisss7noq0y" path="res://assets/characters/sunny_realistic_poc/animations/ual_standard.glb" id="2_ual"]
+[ext_resource type="AnimationLibrary" uid="uid://sqcj4a2lpd4g" path="res://assets/characters/sunny_realistic_poc/animations/sunny_idle_relaxed.glb" id="3_sunny"]
+[ext_resource type="Script" path="res://assets/characters/sunny_realistic_poc/posture_offset_modifier.gd" id="4_posture"]
+
+[node name="SunnyPocModel" type="Node3D"]
+
+[node name="Mesh" parent="." instance=ExtResource("1_model")]
+
+[node name="PostureOffset" type="SkeletonModifier3D" parent="Mesh/Sunny/GeneralSkeleton"]
+script = ExtResource("4_posture")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Mesh")
+libraries = {
+&"": ExtResource("2_ual"),
+&"sunny": ExtResource("3_sunny")
+}

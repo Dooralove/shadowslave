@@ -1,0 +1,428 @@
+[gd_resource type="Resource" script_class="RpgDemoCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_item.gd" id="2_item"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_stat.gd" id="3_stat"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_trade_offer.gd" id="4_offer"]
+[ext_resource type="Resource" path="res://resources/spell/sunny_status.tres" id="5_status"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/sword.svg" id="6_sword"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/dagger.svg" id="7_dagger"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/armor.svg" id="8_armor"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/cloak.svg" id="9_cloak"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/boots.svg" id="10_boots"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/ring.svg" id="11_ring"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/potion.svg" id="12_potion"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/ration.svg" id="13_ration"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/ore.svg" id="14_ore"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/herb.svg" id="15_herb"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/scroll.svg" id="16_scroll"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/map.svg" id="17_map"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/amulet.svg" id="18_amulet"]
+[ext_resource type="Texture2D" path="res://assets/ui/rpg_menu/icons/book.svg" id="19_book"]
+
+[sub_resource type="Resource" id="Stat_strength"]
+script = ExtResource("3_stat")
+label = "Сила"
+value = "4"
+fill = 0.4
+
+[sub_resource type="Resource" id="Stat_dexterity"]
+script = ExtResource("3_stat")
+label = "Ловкость"
+value = "5"
+fill = 0.5
+
+[sub_resource type="Resource" id="Stat_endurance"]
+script = ExtResource("3_stat")
+label = "Выносливость"
+value = "4"
+fill = 0.4
+
+[sub_resource type="Resource" id="Stat_will"]
+script = ExtResource("3_stat")
+label = "Воля"
+value = "6"
+fill = 0.6
+
+[sub_resource type="Resource" id="Stat_blade_damage"]
+script = ExtResource("3_stat")
+label = "Урон"
+value = "4 · демо"
+
+[sub_resource type="Resource" id="Stat_blade_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "1,1 · демо"
+
+[sub_resource type="Resource" id="Stat_dagger_damage"]
+script = ExtResource("3_stat")
+label = "Урон"
+value = "7 · демо"
+
+[sub_resource type="Resource" id="Stat_dagger_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "0,7 · демо"
+
+[sub_resource type="Resource" id="Stat_armor_guard"]
+script = ExtResource("3_stat")
+label = "Защита"
+value = "3 · демо"
+
+[sub_resource type="Resource" id="Stat_armor_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "2,8 · демо"
+
+[sub_resource type="Resource" id="Stat_cloak_guard"]
+script = ExtResource("3_stat")
+label = "Защита"
+value = "1 · демо"
+
+[sub_resource type="Resource" id="Stat_cloak_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "1,4 · демо"
+
+[sub_resource type="Resource" id="Stat_boots_guard"]
+script = ExtResource("3_stat")
+label = "Защита"
+value = "1 · демо"
+
+[sub_resource type="Resource" id="Stat_boots_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "1,2 · демо"
+
+[sub_resource type="Resource" id="Stat_ring_ward"]
+script = ExtResource("3_stat")
+label = "Сопротивление"
+value = "0 · демо"
+
+[sub_resource type="Resource" id="Stat_ring_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "0,1 · демо"
+
+[sub_resource type="Resource" id="Stat_potion_effect"]
+script = ExtResource("3_stat")
+label = "Эффект"
+value = "условный · демо"
+
+[sub_resource type="Resource" id="Stat_potion_weight"]
+script = ExtResource("3_stat")
+label = "Вес порции"
+value = "0,2 · демо"
+
+[sub_resource type="Resource" id="Stat_ration_effect"]
+script = ExtResource("3_stat")
+label = "Эффект"
+value = "условный · демо"
+
+[sub_resource type="Resource" id="Stat_ration_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "0,5 · демо"
+
+[sub_resource type="Resource" id="Stat_ore_weight"]
+script = ExtResource("3_stat")
+label = "Вес стака"
+value = "1,2 · демо"
+
+[sub_resource type="Resource" id="Stat_herb_weight"]
+script = ExtResource("3_stat")
+label = "Вес стака"
+value = "0,4 · демо"
+
+[sub_resource type="Resource" id="Stat_story_type"]
+script = ExtResource("3_stat")
+label = "Тип"
+value = "сюжетная заглушка · демо"
+
+[sub_resource type="Resource" id="Stat_story_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "0,1 · демо"
+
+[sub_resource type="Resource" id="Stat_amulet_ward"]
+script = ExtResource("3_stat")
+label = "Сопротивление"
+value = "2 · демо"
+
+[sub_resource type="Resource" id="Stat_amulet_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "0,1 · демо"
+
+[sub_resource type="Resource" id="Stat_book_type"]
+script = ExtResource("3_stat")
+label = "Тип"
+value = "ресурс · демо"
+
+[sub_resource type="Resource" id="Stat_book_weight"]
+script = ExtResource("3_stat")
+label = "Вес"
+value = "0,8 · демо"
+
+[sub_resource type="Resource" id="Item_blade"]
+script = ExtResource("2_item")
+id = &"demo_training_blade"
+display_name = "Учебный клинок"
+category = 0
+rarity = 0
+icon = ExtResource("6_sword")
+description = "Тупой тренировочный клинок без клейма. Демонстрационный предмет для проверки сетки, карточки и кнопок экипировки."
+flavor = "На гарде процарапан условный знак учебной площадки. К канону не относится."
+quantity = 1
+weight = 1.1
+equipped = true
+equip_slot = &"weapon"
+stats = [SubResource("Stat_blade_damage"), SubResource("Stat_blade_weight")]
+properties = PackedStringArray("Демонстрационное оружие", "Экипировано в тестовом наборе")
+demo_price = 12
+
+[sub_resource type="Resource" id="Item_dagger"]
+script = ExtResource("2_item")
+id = &"demo_nameless_dagger"
+display_name = "Кинжал без имени"
+category = 0
+rarity = 2
+icon = ExtResource("7_dagger")
+description = "Короткий кинжал с матовым лезвием. Придуман только для демонстрации редкости и недоступных действий."
+flavor = "На клинке нет ни имени мастера, ни владельца. Демонстрационный образец."
+quantity = 1
+weight = 0.7
+is_new = true
+equip_slot = &"weapon"
+stats = [SubResource("Stat_dagger_damage"), SubResource("Stat_dagger_weight")]
+properties = PackedStringArray("Демонстрационная редкость", "Не является каноничным предметом")
+demo_price = 28
+
+[sub_resource type="Resource" id="Item_jacket"]
+script = ExtResource("2_item")
+id = &"demo_quilted_jacket"
+display_name = "Стёганая куртка"
+category = 1
+rarity = 1
+icon = ExtResource("8_armor")
+description = "Плотная стёганая куртка с грубой прострочкой. Тестовый предмет экипировки, не связанный с гардеробом Санни."
+flavor = "Внутренний карман пуст. Все характеристики условны."
+quantity = 1
+weight = 2.8
+equipped = true
+equip_slot = &"chest"
+stats = [SubResource("Stat_armor_guard"), SubResource("Stat_armor_weight")]
+properties = PackedStringArray("Демонстрационная экипировка", "Занимает слот «Доспех»")
+demo_price = 20
+
+[sub_resource type="Resource" id="Item_cloak"]
+script = ExtResource("2_item")
+id = &"demo_road_cloak"
+display_name = "Дорожный плащ"
+category = 1
+rarity = 0
+icon = ExtResource("9_cloak")
+description = "Выцветший дорожный плащ из плотной ткани. Служит примером предмета, который можно экипировать или продать только в демо-витрине."
+flavor = "Край подола обтрёпан дальней дорогой. Демонстрационный предмет."
+quantity = 1
+weight = 1.4
+equip_slot = &"cloak"
+stats = [SubResource("Stat_cloak_guard"), SubResource("Stat_cloak_weight")]
+properties = PackedStringArray("Демонстрационная экипировка", "Слот «Плащ»")
+demo_price = 14
+
+[sub_resource type="Resource" id="Item_boots"]
+script = ExtResource("2_item")
+id = &"demo_worn_boots"
+display_name = "Поношенные сапоги"
+category = 1
+rarity = 0
+icon = ExtResource("10_boots")
+description = "Мягкие сапоги со стёртой подошвой. Пример заполненного слота обуви и обычной редкости."
+flavor = "На левом каблуке забился светлый песок. Демонстрационный предмет."
+quantity = 1
+weight = 1.2
+equipped = true
+equip_slot = &"feet"
+stats = [SubResource("Stat_boots_guard"), SubResource("Stat_boots_weight")]
+properties = PackedStringArray("Демонстрационная экипировка", "Экипировано в тестовом наборе")
+demo_price = 10
+
+[sub_resource type="Resource" id="Item_ring"]
+script = ExtResource("2_item")
+id = &"demo_dull_stone_ring"
+display_name = "Кольцо с тусклым камнем"
+category = 1
+rarity = 2
+icon = ExtResource("11_ring")
+description = "Простое кольцо с матовым камнем. Нужно для проверки слота аксессуара и визуального акцента редкости."
+flavor = "Камень почти не отражает свет. Демонстрационный предмет."
+quantity = 1
+weight = 0.1
+equipped = true
+equip_slot = &"accessory"
+stats = [SubResource("Stat_ring_ward"), SubResource("Stat_ring_weight")]
+properties = PackedStringArray("Демонстрационный аксессуар", "Слот «Аксессуар»")
+demo_price = 35
+
+[sub_resource type="Resource" id="Item_potion"]
+script = ExtResource("2_item")
+id = &"demo_pale_herb_draught"
+display_name = "Отвар из бледных трав"
+category = 2
+rarity = 1
+icon = ExtResource("12_potion")
+description = "Мутный отвар с травяным запахом. Демонстрационный расходник: кнопка «Использовать» уменьшает количество, но не влияет на игру."
+flavor = "Осадок оседает на дне медленно, как пепел. Демонстрационный предмет."
+quantity = 3
+weight = 0.2
+is_new = true
+stats = [SubResource("Stat_potion_effect"), SubResource("Stat_potion_weight")]
+properties = PackedStringArray("Демонстрационный расходник", "Не влияет на здоровье и статусы")
+demo_price = 8
+
+[sub_resource type="Resource" id="Item_ration"]
+script = ExtResource("2_item")
+id = &"demo_dry_ration"
+display_name = "Сухой паёк"
+category = 2
+rarity = 0
+icon = ExtResource("13_ration")
+description = "Плотно упакованный паёк без маркировки. Используется только для демонстрации стопки расходников и обратной связи."
+flavor = "Запах сухаря и сушёных кореньев. Демонстрационный предмет."
+quantity = 2
+weight = 0.5
+stats = [SubResource("Stat_ration_effect"), SubResource("Stat_ration_weight")]
+properties = PackedStringArray("Демонстрационный расходник", "Не связан с выживанием")
+demo_price = 3
+
+[sub_resource type="Resource" id="Item_ore"]
+script = ExtResource("2_item")
+id = &"demo_dull_stone_shards"
+display_name = "Осколки тусклого камня"
+category = 3
+rarity = 0
+icon = ExtResource("14_ore")
+description = "Несколько осколков серого камня. Пример стака ресурсов и отключённого действия «Использовать»."
+flavor = "На изломе нет ни прожилок, ни блеска. Демонстрационный ресурс."
+quantity = 12
+weight = 0.1
+stats = [SubResource("Stat_ore_weight")]
+properties = PackedStringArray("Демонстрационный ресурс", "Не используется в крафте")
+demo_price = 1
+
+[sub_resource type="Resource" id="Item_herb"]
+script = ExtResource("2_item")
+id = &"demo_gray_herb"
+display_name = "Пучок серой травы"
+category = 3
+rarity = 0
+icon = ExtResource("15_herb")
+description = "Сушёный пучок серой травы. Ещё один демонстрационный ресурс для проверки фильтра и стопки."
+flavor = "Стебли шелестят сухо и глухо. Демонстрационный предмет."
+quantity = 7
+weight = 0.05
+stats = [SubResource("Stat_herb_weight")]
+properties = PackedStringArray("Демонстрационный ресурс", "Не используется в алхимии")
+demo_price = 2
+
+[sub_resource type="Resource" id="Item_letter"]
+script = ExtResource("2_item")
+id = &"demo_sealless_letter"
+display_name = "Письмо без печати"
+category = 4
+rarity = 3
+icon = ExtResource("16_scroll")
+description = "Сложенный лист без адреса и печати. Сюжетная заглушка: такой предмет нельзя выбросить или использовать в прототипе."
+flavor = "Внутри — только пустые строки. Демонстрационный предмет, не связанный с сюжетом игры."
+quantity = 1
+weight = 0.1
+stats = [SubResource("Stat_story_type"), SubResource("Stat_story_weight")]
+properties = PackedStringArray("Демонстрационный сюжетный предмет", "Не связан с квестами и сценами")
+
+[sub_resource type="Resource" id="Item_map"]
+script = ExtResource("2_item")
+id = &"demo_torn_map"
+display_name = "Обрывок карты"
+category = 4
+rarity = 2
+icon = ExtResource("17_map")
+description = "Обрывок карты с нечитаемыми пометками. Проверяет уникальную редкость, сюжетную категорию и запрет на уничтожение."
+flavor = "За краем обрыва угадывается чужой маршрут. Это только тестовая иллюстрация."
+quantity = 1
+weight = 0.1
+is_new = true
+stats = [SubResource("Stat_story_type"), SubResource("Stat_story_weight")]
+properties = PackedStringArray("Демонстрационный сюжетный предмет", "Не является картой игрового мира")
+
+[sub_resource type="Resource" id="Item_amulet"]
+script = ExtResource("2_item")
+id = &"demo_dull_amulet"
+display_name = "Амулет из тусклого металла"
+category = 1
+rarity = 2
+icon = ExtResource("18_amulet")
+description = "Амулет на короткой цепочке. Появляется только на демонстрационной витрине и после покупки попадает в локальный демо-инвентарь."
+flavor = "Металл амулета тёплый на ощупь. К канону не относится."
+quantity = 1
+weight = 0.1
+equip_slot = &"accessory"
+stats = [SubResource("Stat_amulet_ward"), SubResource("Stat_amulet_weight")]
+properties = PackedStringArray("Демонстрационный аксессуар", "Продаётся только в тестовой витрине")
+demo_price = 36
+
+[sub_resource type="Resource" id="Item_book"]
+script = ExtResource("2_item")
+id = &"demo_dusty_tome"
+display_name = "Пыльный фолиант"
+category = 3
+rarity = 1
+icon = ExtResource("19_book")
+description = "Толстая книга без названия на корешке. Демонстрационный товар, который проверяет пополнение локального набора после покупки."
+flavor = "Страницы пахнут старой бумагой. Содержание не определено и не связано с каноном."
+quantity = 1
+weight = 0.8
+stats = [SubResource("Stat_book_type"), SubResource("Stat_book_weight")]
+properties = PackedStringArray("Демонстрационный ресурс", "Появляется после покупки на витрине")
+demo_price = 22
+
+[sub_resource type="Resource" id="Offer_cloak"]
+script = ExtResource("4_offer")
+id = &"offer_road_cloak"
+item = SubResource("Item_cloak")
+price = 14
+stock = 2
+
+[sub_resource type="Resource" id="Offer_potion"]
+script = ExtResource("4_offer")
+id = &"offer_pale_draught"
+item = SubResource("Item_potion")
+price = 8
+stock = 5
+
+[sub_resource type="Resource" id="Offer_amulet"]
+script = ExtResource("4_offer")
+id = &"offer_dull_amulet"
+item = SubResource("Item_amulet")
+price = 36
+stock = 1
+
+[sub_resource type="Resource" id="Offer_book"]
+script = ExtResource("4_offer")
+id = &"offer_dusty_tome"
+item = SubResource("Item_book")
+price = 22
+stock = 1
+
+[resource]
+script = ExtResource("1_catalog")
+catalog_note = "Демонстрационные данные интерфейса. Не канон, не сохранения, не игровая экономика."
+character_name = "Санни"
+status_sheet = ExtResource("5_status")
+character_note = "Идентификаторы персонажа взяты из существующего StatusSheet. Числовые показатели и экипировка ниже — только тестовые данные интерфейса."
+demo_stats = [SubResource("Stat_strength"), SubResource("Stat_dexterity"), SubResource("Stat_endurance"), SubResource("Stat_will")]
+items = [SubResource("Item_blade"), SubResource("Item_dagger"), SubResource("Item_jacket"), SubResource("Item_cloak"), SubResource("Item_boots"), SubResource("Item_ring"), SubResource("Item_potion"), SubResource("Item_ration"), SubResource("Item_ore"), SubResource("Item_herb"), SubResource("Item_letter"), SubResource("Item_map")]
+merchant_name = "Странствующий скупщик"
+merchant_note = "Тестовая торговля интерфейса. Имя торговца, ассортимент, валюта и цены придуманы только для этой демонстрации."
+starting_demo_coins = 60
+trade_offers = [SubResource("Offer_cloak"), SubResource("Offer_potion"), SubResource("Offer_amulet"), SubResource("Offer_book")]

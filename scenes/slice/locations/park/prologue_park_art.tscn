@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/slice_director.gd" id="1_director"]
+[ext_resource type="Resource" path="res://resources/spell/sunny_status.tres" id="2_status"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_runner.gd" id="4_runner"]
+[ext_resource type="PackedScene" path="res://scenes/ui/prologue_ui.tscn" id="5_ui"]
+[ext_resource type="Script" path="res://scripts/debug/perf_probe.gd" id="6_perf"]
+
+[node name="Prologue" type="Node3D"]
+script = ExtResource("1_director")
+status_sheet = ExtResource("2_status")
+location_overrides = Dictionary[StringName, String]({
+&"park": "res://scenes/slice/locations/park/park_street_art.tscn",
+&"lobby": "res://scenes/slice/locations/station_lobby_art.tscn",
+&"containment": "res://scenes/slice/locations/containment_room_art.tscn",
+&"mountain": "res://scenes/slice/locations/mountain_vision_art.tscn",
+&"caravan": "res://scenes/slice/locations/caravan_road_art.tscn"
+})
+
+[node name="LocationSlot" type="Node3D" parent="."]
+
+[node name="Sunny" parent="." instance=ExtResource("3_sunny")]
+
+[node name="DialogueRunner" type="Node" parent="."]
+script = ExtResource("4_runner")
+
+[node name="UI" parent="." instance=ExtResource("5_ui")]
+
+[node name="PerfProbe" type="Node" parent="."]
+script = ExtResource("6_perf")

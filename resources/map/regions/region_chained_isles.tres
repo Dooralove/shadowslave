@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_chained_isles"
+title = "СКОВАННЫЕ ОСТРОВА"
+subtitle = "Север владений Доблести"
+description = "Парящие острова, связанные гигантскими железными цепями. Лежат у северного края земель клана Доблести, на границе с Полыми горами."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.48, 0.44, 0.64, 0.46, 0.792, 0.45, 0.792, 0.72, 0.64, 0.74, 0.496, 0.75, 0.48, 0.6)
+label_position = Vector2(0.64, 0.53)
+location_ids = Array[StringName]([])

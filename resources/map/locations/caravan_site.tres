@@ -1,0 +1,174 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-8.5, -5.8, -5.9, -5.8, -5.9, 9.5, -8.5, 9.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-5.9, -4.5, 5.6, -4.5, 5.6, 5.5, -5.9, 5.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(5.6, -4.8, 7.8, -4.8, 7.8, 5.2, 5.6, 5.2)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-5.9, -5.5, -0.7, -5.5, -0.7, -4.3, -5.9, -4.3)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(1.1, -5.8, 5.9, -5.8, 5.9, -4.4, 1.1, -4.4)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-0.7, -4.5, 1.1, -4.5, 1.1, -4, -0.7, -4)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 5
+points = PackedVector2Array(-0.7, -7, 1.1, -7, 1.1, -4.5, -0.7, -4.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-5.6, -3.3, -2.4, -3.3, -2.4, -1.5, -5.6, -1.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_8"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-6.25, -5.5, -5.75, -5.5, -5.75, 6.5, -6.25, 6.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_9"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-6, 5.5, -1.75, 5.5, -1.75, 6, -6, 6)
+closed = true
+
+[sub_resource type="Resource" id="Feature_10"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(1.75, 5.5, 6, 5.5, 6, 6, 1.75, 6)
+closed = true
+
+[sub_resource type="Resource" id="Feature_11"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-1.75, 5.5, 1.75, 5.5, 1.75, 9, -1.75, 9)
+closed = true
+
+[sub_resource type="Resource" id="Feature_12"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-2.25, 5.5, -1.75, 5.5, -1.75, 9, -2.25, 9)
+closed = true
+
+[sub_resource type="Resource" id="Feature_13"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(1.75, 5.5, 2.25, 5.5, 2.25, 9, 1.75, 9)
+closed = true
+
+[sub_resource type="Resource" id="Feature_14"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-2.25, 9, 2.25, 9, 2.25, 9.5, -2.25, 9.5)
+closed = true
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"fire"
+label = "Костёр"
+description = "Центр стоянки; вокруг него собираются выжившие."
+use_world_position = true
+world_position = Vector2(0.6, 0.5)
+kind = 1
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"wagon"
+label = "Повозка"
+description = "Тяжёлая повозка у западного края лагеря."
+use_world_position = true
+world_position = Vector2(-4, -2.4)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"veteran"
+label = "Ветеран"
+description = "Ветеран у восточной стены; его меч лежит рядом."
+use_world_position = true
+world_position = Vector2(4.35, -2.2)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"bloodbane"
+label = "Bloodbane"
+description = "Место у западного края стоянки, где лежит Bloodbane."
+use_world_position = true
+world_position = Vector2(-4, 2)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"cliff"
+label = "Обрыв"
+description = "Западный край стоянки обрывается в долину; нижний уступ отсюда недоступен."
+use_world_position = true
+world_position = Vector2(-7, 2)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"north_gap"
+label = "Закрытый проход"
+description = "Северный проход перекрыт барьером: пандус за ним в этой сцене не доступен."
+use_world_position = true
+world_position = Vector2(0.2, -6.2)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"exit"
+label = "Начать восхождение"
+description = "Выход со стоянки: южный проход, дальше путь на перевал."
+use_world_position = true
+world_position = Vector2(0, 6.2)
+kind = 3
+
+[resource]
+script = ExtResource("2_def")
+id = &"caravan_site"
+title = "СТОЯНКА КАРАВАНА"
+subtitle = "Костёр, повозка и обрыв"
+description = "Стоянка у подножия скалы. Единственный выход — южный проход к точке «Начать восхождение». Северный проход перекрыт барьером, западный край обрывается в долину."
+background_color = Color(0.062, 0.065, 0.075, 1)
+land_color = Color(0.245, 0.23, 0.195, 1)
+accent_color = Color(0.72, 0.55, 0.31, 1)
+terrain_style = &"snow"
+world_bounds = Rect2(-8.5, -8, 17, 18)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9"), SubResource("Feature_10"), SubResource("Feature_11"), SubResource("Feature_12"), SubResource("Feature_13"), SubResource("Feature_14")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6")])
+scene_paths = PackedStringArray("res://scenes/locations/caravan_site/caravan_site.tscn", "res://scenes/locations/caravan_site/caravan_site_art.tscn", "res://scenes/campaign/caravan_site_arrival.tscn")
+world_rect = Rect2(0.34, 0.37, 0.19, 0.13)

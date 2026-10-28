@@ -1,0 +1,91 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+[ext_resource type="Texture2D" path="res://assets/ui/map/first_nightmare.png" id="6_tex"]
+
+[sub_resource type="Resource" id="RegionMap_F0"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(402.1249, 576.3604, 417.581, 575.8236, 439.2393, 575.783, 464.7554, 575.386, 491.7853, 573.7802, 517.9848, 570.1132, 541.0097, 563.5325, 562.1662, 552.314, 583.5909, 536.7949, 604.1851, 519.2145, 622.8505, 501.8123, 638.4882, 486.8277, 650, 476.5)
+closed = false
+
+[sub_resource type="Resource" id="RegionMap_F1"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(650, 476.5, 672.1037, 475.572, 703.0339, 473.2128, 739.4946, 470.9529, 778.1901, 470.3225, 815.8244, 472.852, 849.1016, 480.0718, 879.9911, 494.4013, 911.5235, 515.1003, 941.9946, 538.9592, 969.7005, 562.7684, 992.937, 583.3185, 1010, 597.4)
+closed = false
+
+[sub_resource type="Resource" id="RegionMap_F2"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(1012.6, 364.96, 1029.5632, 363.1148, 1053.2136, 361.0975, 1081.1354, 358.442, 1110.9132, 354.6825, 1140.1312, 349.3531, 1166.3741, 341.9879, 1191.3577, 331.0905, 1217.3577, 316.7343, 1242.798, 300.8082, 1266.1025, 285.2012, 1285.6952, 271.8022, 1300, 262.5)
+closed = false
+
+[sub_resource type="Resource" id="RegionMap_P0"]
+script = ExtResource("5_placement")
+location_id = &"caravan_road"
+label = "КАРАВАННЫЙ ПЕРЕВАЛ"
+center = Vector2(330, 640)
+pixels_per_meter = 3
+rotation_degrees = 45
+label_offset = Vector2(-40, 150)
+
+[sub_resource type="Resource" id="RegionMap_P1"]
+script = ExtResource("5_placement")
+location_id = &"caravan_site"
+label = "СТОЯНКА КАРАВАНА"
+center = Vector2(650, 400)
+pixels_per_meter = 9
+rotation_degrees = 0
+label_offset = Vector2(0, -105)
+
+[sub_resource type="Resource" id="RegionMap_P2"]
+script = ExtResource("5_placement")
+location_id = &"pilgrim_path"
+label = "ТРОПА ПАЛОМНИКОВ"
+center = Vector2(1010, 470)
+pixels_per_meter = 2.6
+rotation_degrees = 0
+label_offset = Vector2(150, 40)
+
+[sub_resource type="Resource" id="RegionMap_P3"]
+script = ExtResource("5_placement")
+location_id = &"shadow_sanctuary"
+label = "ТЕНИСТОЕ СВЯТИЛИЩЕ"
+center = Vector2(1300, 210)
+pixels_per_meter = 7
+rotation_degrees = 0
+label_offset = Vector2(0, -80)
+
+[sub_resource type="Resource" id="RegionMap"]
+script = ExtResource("2_def")
+id = &"region_first_nightmare_map"
+title = "ПЕРВЫЙ КОШМАР"
+subtitle = "Горный перевал и храм"
+description = "Все локации маршрута на одной карте. Внутри каждой — реальная геометрия уровня; расстояния между локациями условные."
+background_color = Color(0.03, 0.035, 0.04, 1)
+land_color = Color(0.55, 0.56, 0.58, 1)
+accent_color = Color(0.78, 0.63, 0.38, 1)
+terrain_style = &"snow"
+world_bounds = Rect2(0, 0, 1600, 1000)
+background_texture = ExtResource("6_tex")
+features = Array[ExtResource("3_feature")]([SubResource("RegionMap_F0"), SubResource("RegionMap_F1"), SubResource("RegionMap_F2")])
+markers = Array[ExtResource("1_marker")]([])
+placements = Array[ExtResource("5_placement")]([SubResource("RegionMap_P0"), SubResource("RegionMap_P1"), SubResource("RegionMap_P2"), SubResource("RegionMap_P3")])
+scene_paths = PackedStringArray()
+[resource]
+script = ExtResource("4_region")
+id = &"region_first_nightmare"
+title = "ПЕРВЫЙ КОШМАР"
+subtitle = "Испытание Заклятия"
+description = "Кошмар — отдельное испытание Заклятия, а не часть карты Царства. Перевал, стоянка, тропа паломников и святилище на одной карте."
+status = 0
+outside_realm = true
+outline = PackedVector2Array(0.815, 0.12, 0.99, 0.12, 0.99, 0.44, 0.815, 0.44)
+label_position = Vector2(0.9025, 0.485)
+location_ids = Array[StringName]([&"caravan_road", &"caravan_site", &"pilgrim_path", &"shadow_sanctuary"])
+region_map = SubResource("RegionMap")

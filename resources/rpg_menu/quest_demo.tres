@@ -1,0 +1,157 @@
+[gd_resource type="Resource" script_class="RpgDemoQuestCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_quest_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_quest.gd" id="2_quest"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_demo_quest_objective.gd" id="3_objective"]
+
+[sub_resource type="Resource" id="Obj_inventory_open"]
+script = ExtResource("3_objective")
+text = "Открыть инвентарь"
+completed = true
+
+[sub_resource type="Resource" id="Obj_inventory_select"]
+script = ExtResource("3_objective")
+text = "Выбрать предмет в сетке"
+completed = true
+
+[sub_resource type="Resource" id="Obj_inventory_detail"]
+script = ExtResource("3_objective")
+text = "Проверить карточку и действия"
+completed = false
+
+[sub_resource type="Resource" id="Quest_inventory"]
+script = ExtResource("2_quest")
+id = &"demo_quest_inventory"
+code = "01"
+title = "DEMO · СВЕРКА ИНВЕНТАРЯ"
+category = "ИНТЕРФЕЙС"
+status = 0
+summary = "Проверить выбор предмета, сетку и правую карточку."
+description = "Демонстрационная запись для проверки интерфейса инвентаря. Она не связана с историей Санни и не выдаёт награды."
+objectives = [SubResource("Obj_inventory_open"), SubResource("Obj_inventory_select"), SubResource("Obj_inventory_detail")]
+note = "Прогресс зафиксирован в демо-данных."
+
+[sub_resource type="Resource" id="Obj_trade_open"]
+script = ExtResource("3_objective")
+text = "Открыть торговлю"
+completed = true
+
+[sub_resource type="Resource" id="Obj_trade_buy"]
+script = ExtResource("3_objective")
+text = "Купить один предмет"
+completed = false
+
+[sub_resource type="Resource" id="Obj_trade_sell"]
+script = ExtResource("3_objective")
+text = "Продать один предмет"
+completed = false
+
+[sub_resource type="Resource" id="Quest_trade"]
+script = ExtResource("2_quest")
+id = &"demo_quest_trade"
+code = "02"
+title = "DEMO · СДЕЛКА С ТОРГОВЦЕМ"
+category = "ТОРГОВЛЯ"
+status = 0
+summary = "Сверить покупку, продажу и остаток кошелька."
+description = "Проверка операций на отдельном торговом экране. Все цены, монеты и предметы существуют только в DEMO-сессии."
+objectives = [SubResource("Obj_trade_open"), SubResource("Obj_trade_buy"), SubResource("Obj_trade_sell")]
+note = "Награды и реальная экономика не подключены."
+
+[sub_resource type="Resource" id="Obj_aspect_open"]
+script = ExtResource("3_objective")
+text = "Открыть экран аспекта"
+completed = false
+
+[sub_resource type="Resource" id="Obj_aspect_select"]
+script = ExtResource("3_objective")
+text = "Выбрать узел дерева"
+completed = false
+
+[sub_resource type="Resource" id="Quest_aspect"]
+script = ExtResource("2_quest")
+id = &"demo_quest_aspect"
+code = "03"
+title = "DEMO · ПРОВЕРКА АСПЕКТА"
+category = "НАВЫКИ"
+status = 1
+summary = "Осмотреть дерево навыков и стоимость изучения."
+description = "Доступная демонстрационная запись. Она не открывает узлы, не меняет очки и не связана с развитием персонажа."
+objectives = [SubResource("Obj_aspect_open"), SubResource("Obj_aspect_select")]
+note = "Дерево навыков остаётся отдельным DEMO-ресурсом."
+
+[sub_resource type="Resource" id="Obj_character_open"]
+script = ExtResource("3_objective")
+text = "Открыть профиль"
+completed = false
+
+[sub_resource type="Resource" id="Obj_character_slot"]
+script = ExtResource("3_objective")
+text = "Выбрать слот снаряжения"
+completed = false
+
+[sub_resource type="Resource" id="Quest_character"]
+script = ExtResource("2_quest")
+id = &"demo_quest_character"
+code = "04"
+title = "DEMO · СВЕРКА ПЕРСОНАЖА"
+category = "ПЕРСОНАЖ"
+status = 1
+summary = "Проверить профиль и список снаряжения."
+description = "Доступная запись для проверки экрана персонажа. Числовые значения и экипировка остаются тестовыми."
+objectives = [SubResource("Obj_character_open"), SubResource("Obj_character_slot")]
+note = "Показатели не являются каноническими характеристиками."
+
+[sub_resource type="Resource" id="Obj_start_open"]
+script = ExtResource("3_objective")
+text = "Открыть стартовую страницу"
+completed = true
+
+[sub_resource type="Resource" id="Obj_start_menu"]
+script = ExtResource("3_objective")
+text = "Нажать «Открыть меню»"
+completed = true
+
+[sub_resource type="Resource" id="Obj_start_return"]
+script = ExtResource("3_objective")
+text = "Вернуться на стартовую страницу"
+completed = true
+
+[sub_resource type="Resource" id="Quest_start"]
+script = ExtResource("2_quest")
+id = &"demo_quest_start"
+code = "05"
+title = "DEMO · ЗАПУСК ПРОТОТИПА"
+category = "СИСТЕМА"
+status = 2
+summary = "Проверить стартовую страницу и переход в меню."
+description = "Завершённая демонстрационная запись. Она не является достижением игры и не влияет на сохранения."
+objectives = [SubResource("Obj_start_open"), SubResource("Obj_start_menu"), SubResource("Obj_start_return")]
+note = "Запись нужна только для демонстрации состояний."
+
+[sub_resource type="Resource" id="Obj_nav_sections"]
+script = ExtResource("3_objective")
+text = "Пройти по верхним разделам"
+completed = true
+
+[sub_resource type="Resource" id="Obj_nav_return"]
+script = ExtResource("3_objective")
+text = "Вернуться в инвентарь"
+completed = true
+
+[sub_resource type="Resource" id="Quest_navigation"]
+script = ExtResource("2_quest")
+id = &"demo_quest_navigation"
+code = "06"
+title = "DEMO · СВЕРКА НАВИГАЦИИ"
+category = "СИСТЕМА"
+status = 2
+summary = "Проверить верхние разделы и возврат в инвентарь."
+description = "Завершённая запись о проверке навигации прототипа. Все переходы локальны и сбрасываются при перезапуске."
+objectives = [SubResource("Obj_nav_sections"), SubResource("Obj_nav_return")]
+note = "Запись не связана с игровым журналом."
+
+[resource]
+script = ExtResource("1_catalog")
+note = "Демонстрационный журнал заданий. Не связан с сюжетом, квестами игры, сохранениями и наградами."
+quests = [SubResource("Quest_inventory"), SubResource("Quest_trade"), SubResource("Quest_aspect"), SubResource("Quest_character"), SubResource("Quest_start"), SubResource("Quest_navigation")]

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MountainKingConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/mountain_king_config.gd" id="1_config"]
+
+[resource]
+script = ExtResource("1_config")
+move_speed = 3.2
+acceleration = 10.0
+turn_speed = 5.0
+detection_range = 18.0
+lose_range = 26.0
+attack_distance = 3.6
+telegraph_time = 1.1
+recovery_time = 1.4
+time_between_attacks = 4.5
+blocked_detect_time = 0.6
+blocked_wait_time = 1.5
+blocked_retry_delay = 2.0
+retreat_speed = 3.6
+retreat_duration = 4.0
+retreat_arrival_distance = 0.8

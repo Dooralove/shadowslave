@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/slice/locations/mountain_vision.gd" id="1_loc"]
 [ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/horse.tscn" id="90_horse"]
 
 [sub_resource type="Environment" id="Env_night"]
 background_mode = 1
@@ -183,38 +184,45 @@ size = Vector3(0.04, 0.04, 8.4)
 material = SubResource("Mat_chain")
 
 [node name="SlaveA" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
-body_color = Color(0.45, 0.4, 0.33, 1)
+archetype = "slave"
+pose = "walk"
 
 [node name="SlaveB" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 1.6)
-body_color = Color(0.42, 0.38, 0.32, 1)
 width_scale = 1.3
+archetype = "slave"
+pose = "walk"
 
 [node name="SlaveC" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 3.2)
-body_color = Color(0.45, 0.4, 0.33, 1)
 height_scale = 0.94
+archetype = "slave"
+pose = "walk"
 
 [node name="SlaveD" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 4.8)
-body_color = Color(0.4, 0.36, 0.3, 1)
+archetype = "slave"
+pose = "walk"
 
 [node name="SlaveE" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 6.4)
-body_color = Color(0.45, 0.4, 0.33, 1)
+archetype = "slave"
+pose = "walk"
 
 [node name="SlaveF" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 8)
-body_color = Color(0.43, 0.39, 0.33, 1)
+archetype = "slave"
+pose = "walk"
 
 [node name="Rider" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(-1.1, 0.9, 10)
-body_color = Color(0.15, 0.12, 0.12, 1)
+archetype = "knight"
+pose = "ride"
 
-[node name="Horse" type="CSGBox3D" parent="Road/Caravan/Rider"]
-position = Vector3(0, -0.2, 0)
-size = Vector3(0.5, 0.9, 1.6)
-material = SubResource("Mat_road")
+[node name="Horse" parent="Road/Caravan/Rider" instance=ExtResource("90_horse")]
+position = Vector3(0, -0.9, 0)
+pose = "walk"
+coat_color = Color(0.3, 0.2, 0.14, 1)
 
 [node name="CaravanEnd" type="Marker3D" parent="Road"]
 position = Vector3(0, 0, -10)

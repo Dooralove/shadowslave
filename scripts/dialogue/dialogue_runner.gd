@@ -13,6 +13,12 @@ signal _advanced
 	&"policeman": "Седой полицейский",
 	&"narration": "",
 	&"slave": "Раб",
+	&"commander": "Командир",
+	&"shifty": "Шифти",
+	&"scholar": "Учёный",
+	&"broad_slave": "Широкоплечий раб",
+	&"hero": "Герой",
+	&"veteran": "Ветеран",
 }
 ## Реплики с таймером проходят мгновенно (для тестов).
 var fast_mode := false

@@ -21,6 +21,10 @@ addons/godot_mcp/cache/undo/*
 *.pem
 secrets/
 
+# Python bytecode from Blender build scripts
+__pycache__/
+*.pyc
+
 # Logs and temporary files
 *.log
 *.tmp
