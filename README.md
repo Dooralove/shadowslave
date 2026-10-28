@@ -98,7 +98,7 @@ assets/              исходные ассеты (через Git LFS для б
                      characters/sunny_placeholder/ — временная модель Санни (KayKit, CC0)
                      characters/enemy_placeholder/ — временная модель противника (KayKit, CC0)
 tests/               тесты GUT
-docs/                ASSET_LICENSES.md, DECISIONS.md, журналы решений
+docs/                документация проекта: README.md (навигация), DECISIONS.md, ASSET_LICENSES.md, разделы art/, story/, design/, production/
 addons/              сторонние плагины: godot_mcp, gut
 ```
 
