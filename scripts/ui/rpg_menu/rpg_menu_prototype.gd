@@ -4,6 +4,10 @@ extends Control
 ##
 ## Сцена не связана с прологом, ареной, сохранениями, экономикой или контроллером
 ## Санни. Все изменения живут в RpgDemoSession и исчезают при перезапуске.
+## В игре этот же экран показывает PlayerMenuSystem как модальный слой поверх
+## приостановленного игрового процесса.
+
+signal close_requested
 
 const DEMO_CATALOG := preload("res://resources/rpg_menu/demo_catalog.tres")
 const ASPECT_TREE := preload("res://resources/rpg_menu/aspect_demo.tres")
@@ -169,6 +173,7 @@ func close_menu() -> void:
 	feedback_timer.stop()
 	_reset_feedback()
 	start_button.grab_focus()
+	close_requested.emit()
 
 
 func show_section(section: StringName) -> void:

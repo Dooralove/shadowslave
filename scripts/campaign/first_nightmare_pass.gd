@@ -8,7 +8,10 @@ extends Node3D
 
 signal transition_started
 
+const SCENE_PATH := "res://scenes/campaign/first_nightmare_pass.tscn"
 const NEXT_SCENE := "res://scenes/campaign/caravan_site_arrival.tscn"
+const DEFAULT_SPAWN := &"Chain"
+const NEXT_SPAWN := &"Chain"
 const DEFAULT_EXIT_LOCAL_Z := -36.0
 ## Колонна должна остановиться чуть дальше CampArrival: иначе игрок внутри
 ## corridor (lead 1.2 м) не сможет дойти до порога z <= -36 и S01 зависнет.
@@ -67,10 +70,13 @@ func start() -> void:
 	if _started:
 		return
 	_started = true
+	# Служебная подпись сегмента — только при отладочном запуске сцены; в кампании игрок её не видит.
+	_note.visible = false
 	if not NightmareRunState.has_flag(&"prologue_completed"):
 		if debug_direct_scene:
 			NightmareRunState.set_flag(&"prologue_completed")
 			_note.text = "ОТЛАДОЧНЫЙ ЗАПУСК · пролог не пройден. S01 можно проверить отдельно; в кампании сюда ведёт только финал пролога."
+			_note.visible = true
 		else:
 			push_warning("FirstNightmarePass: нет prologue_completed; сцена запущена напрямую")
 	_caravan.set_march_follower(_player)
@@ -96,9 +102,10 @@ func get_convoy_local_z() -> float:
 
 
 func _place_player() -> void:
-	var spawn: Node3D = _caravan.get_spawn(&"Chain")
+	var requested := LevelPortal.take_pending_spawn(SCENE_PATH)
+	var spawn := LevelPortal.resolve_spawn(_caravan, requested, DEFAULT_SPAWN)
 	if spawn == null:
-		push_error("FirstNightmarePass: у дороги нет точки Spawns/Chain")
+		push_error("FirstNightmarePass: у дороги нет точки Spawns/%s" % requested)
 		return
 	_player.global_position = spawn.global_position + Vector3(0.0, 0.05, 0.0)
 	_player.velocity = Vector3.ZERO
@@ -245,4 +252,5 @@ func _begin_transition() -> void:
 	while _dialogue_busy or not _dialogue_queue.is_empty():
 		await get_tree().process_frame
 	await _ui.fade.fade_to(1.0, 1.0)
+	LevelPortal.set_pending_spawn(NEXT_SCENE, NEXT_SPAWN)
 	get_tree().change_scene_to_file(NEXT_SCENE)

@@ -48,7 +48,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.84, 0.9, 1)
 theme_override_font_sizes/font_size = 22
-text = "Перевал. Караван. Засада."
+text = "Чёрная гора. Караван рабов на старой дороге."
 horizontal_alignment = 1
 
 [node name="Rule" type="ColorRect" parent="Transition/Center/Card"]
@@ -62,7 +62,7 @@ custom_minimum_size = Vector2(780, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.67, 0.72, 1)
 theme_override_font_sizes/font_size = 16
-text = "ПРОТОТИП: подъём с попутчиками и бой с Героем/Ауро пока пропущены — эти сцены будут добавлены позже."
+text = "Приготовься к Первому испытанию…"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -70,5 +70,5 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 0.55, 0.66, 1)
 theme_override_font_sizes/font_size = 14
-text = "Загрузка перевала…"
+text = "Загрузка…"
 horizontal_alignment = 1

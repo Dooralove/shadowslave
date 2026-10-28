@@ -8,7 +8,10 @@ extends Node3D
 
 signal transition_started
 
+const SCENE_PATH := "res://scenes/campaign/pilgrim_path_arrival.tscn"
 const NEXT_SCENE := "res://scenes/campaign/sanctuary_arrival.tscn"
+const DEFAULT_SPAWN := &"Start"
+const NEXT_SPAWN := &"SanctuaryEntrance"
 ## Строка «Он падает назад...» в pilgrim_shifty.tres: с этого кадра
 ## живой Шифти скрывается, а на камне остаётся кровь.
 const SHIFTY_FALL_LINE_INDEX := 4
@@ -94,13 +97,17 @@ func _ready() -> void:
 	_path.bell_rung.connect(_handle_bell)
 	_path.temple_reached.connect(_handle_temple)
 
-	var start: Node3D = _path.get_spawn(&"Start")
-	if start:
-		_player.global_position = start.global_position
+	var requested := LevelPortal.take_pending_spawn(SCENE_PATH)
+	var spawn := LevelPortal.resolve_spawn(_path, requested, DEFAULT_SPAWN)
+	if spawn:
+		_player.global_position = spawn.global_position
+		_player.velocity = Vector3.ZERO
+		_player.camera_rig.yaw = spawn.global_rotation.y
+	else:
+		push_error("PilgrimPathArrival: нет стартовой точки Spawns/%s" % requested)
 	_player.allow_sprint = false
 	# Прыжок в Первом Кошмаре не нужен: с ним Санни выходит за границы тропы на скалы.
 	_player.allow_jump = false
-	_player.camera_rig.yaw = 0.0
 	_player.camera_rig.pitch = deg_to_rad(-18.0)
 	# Дочерняя локация эмитит стартовую подсказку до подключения сигналов,
 	# поэтому оболочка задаёт её сама.
@@ -287,6 +294,7 @@ func _handle_temple() -> void:
 		return
 	await _await_sequence(temple_sequence)
 	await _fade.fade_to(1.0, 1.4)
+	LevelPortal.set_pending_spawn(NEXT_SCENE, NEXT_SPAWN)
 	get_tree().change_scene_to_file(NEXT_SCENE)
 
 

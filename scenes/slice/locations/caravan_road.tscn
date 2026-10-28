@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/slice/locations/caravan_road.gd" id="1_loc"]
 [ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/horse.tscn" id="90_horse"]
 
 [sub_resource type="Environment" id="Env_mountain"]
 background_mode = 1
@@ -30,10 +31,6 @@ roughness = 0.9
 albedo_color = Color(0.3, 0.29, 0.27, 1)
 metallic = 0.8
 roughness = 0.5
-
-[sub_resource type="StandardMaterial3D" id="Mat_horse"]
-albedo_color = Color(0.22, 0.16, 0.12, 1)
-roughness = 0.9
 
 [sub_resource type="BoxShape3D" id="Shape_edge"]
 size = Vector3(0.5, 4, 600)
@@ -99,70 +96,80 @@ material = SubResource("Mat_chain")
 
 [node name="BroadSlave" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -1.6)
-body_color = Color(0.46, 0.41, 0.34, 1)
 height_scale = 1.08
 width_scale = 1.4
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveAhead2" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -3.2)
-body_color = Color(0.43, 0.39, 0.33, 1)
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveAhead3" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -4.8)
-body_color = Color(0.45, 0.4, 0.33, 1)
 height_scale = 0.96
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveAhead4" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -6.4)
-body_color = Color(0.41, 0.37, 0.31, 1)
 height_scale = 1.03
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveAhead5" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -8)
-body_color = Color(0.45, 0.4, 0.33, 1)
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveAhead6" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -9.6)
-body_color = Color(0.42, 0.38, 0.32, 1)
 width_scale = 1.1
+archetype = "slave"
+pose = "idle"
 
 [node name="ShiftySlave" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 1.6)
-body_color = Color(0.4, 0.36, 0.3, 1)
-head_color = Color(0.62, 0.52, 0.45, 1)
 height_scale = 0.95
 width_scale = 0.9
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveBehind2" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 3.2)
-body_color = Color(0.45, 0.4, 0.33, 1)
+archetype = "slave"
+pose = "idle"
 
 [node name="SlaveBehind3" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 4.8)
-body_color = Color(0.43, 0.39, 0.33, 1)
 height_scale = 1.04
+archetype = "slave"
+pose = "idle"
 
 [node name="Riders" type="Node3D" parent="Road/Chain"]
 
 [node name="RiderA" parent="Road/Chain/Riders" instance=ExtResource("2_mannequin")]
 position = Vector3(-1.5, 0.9, 6)
-body_color = Color(0.16, 0.13, 0.13, 1)
 height_scale = 1.1
+archetype = "knight"
+pose = "ride"
 
-[node name="Horse" type="CSGBox3D" parent="Road/Chain/Riders/RiderA"]
-position = Vector3(0, -0.2, 0)
-size = Vector3(0.5, 0.9, 1.6)
-material = SubResource("Mat_horse")
+[node name="Horse" parent="Road/Chain/Riders/RiderA" instance=ExtResource("90_horse")]
+position = Vector3(0, -0.9, 0)
+pose = "walk"
+coat_color = Color(0.3, 0.2, 0.14, 1)
 
 [node name="RiderB" parent="Road/Chain/Riders" instance=ExtResource("2_mannequin")]
 position = Vector3(-1.5, 0.9, -12)
-body_color = Color(0.16, 0.13, 0.13, 1)
 height_scale = 1.1
+archetype = "knight"
+pose = "ride"
 
-[node name="Horse" type="CSGBox3D" parent="Road/Chain/Riders/RiderB"]
-position = Vector3(0, -0.2, 0)
-size = Vector3(0.5, 0.9, 1.6)
-material = SubResource("Mat_horse")
+[node name="Horse" parent="Road/Chain/Riders/RiderB" instance=ExtResource("90_horse")]
+position = Vector3(0, -0.9, 0)
+pose = "walk"
+coat_color = Color(0.3, 0.2, 0.14, 1)
 
 [node name="Rocks" type="Node3D" parent="Road"]
 

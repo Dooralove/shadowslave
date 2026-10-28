@@ -14,12 +14,18 @@ const DAY_SKY := Color(0.55, 0.62, 0.72)
 @onready var caravan_end: Marker3D = $Road/CaravanEnd
 
 var environment: Environment
+## Небо-шейдер арт-варианта (параметр day_mix); у CSG-сцены неба нет — работает цвет фона.
+var sky_material: ShaderMaterial
 
 
 func _ready() -> void:
 	super._ready()
 	# Своя копия: постановка меняет небо, а ресурс сцены должен остаться прежним для следующего запуска.
 	environment = world_environment.environment.duplicate() as Environment
+	if environment.sky and environment.sky.sky_material is ShaderMaterial:
+		environment.sky = environment.sky.duplicate() as Sky
+		sky_material = environment.sky.sky_material.duplicate() as ShaderMaterial
+		environment.sky.sky_material = sky_material
 	world_environment.environment = environment
 
 
@@ -76,11 +82,17 @@ func _rewind_days(count: int, period: float, fast: bool) -> void:
 	if fast:
 		environment.background_color = NIGHT_SKY
 		sun.light_energy = 0.0
+		if sky_material:
+			sky_material.set_shader_parameter(&"day_mix", 0.0)
 		return
 	for i in count:
 		var tween := create_tween().set_parallel()
 		tween.tween_property(environment, "background_color", DAY_SKY, period * 0.5)
 		tween.tween_property(sun, "light_energy", 1.4, period * 0.5)
+		if sky_material:
+			tween.tween_property(sky_material, "shader_parameter/day_mix", 1.0, period * 0.5)
 		tween.chain().tween_property(environment, "background_color", NIGHT_SKY, period * 0.5)
 		tween.tween_property(sun, "light_energy", 0.0, period * 0.5)
+		if sky_material:
+			tween.tween_property(sky_material, "shader_parameter/day_mix", 0.0, period * 0.5)
 		await tween.finished

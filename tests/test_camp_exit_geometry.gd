@@ -1,5 +1,7 @@
 extends GutTest
-## Геометрия выхода из лагеря: южная дорога к DawnExit и края площадки.
+## Геометрия выхода из лагеря: проход на север к дороге вверх (DawnExit) и края площадки.
+## С арт-варианта стоянки выход на рассвете — на северном (верхнем) конце площадки, южная дорога —
+## та, по которой пришли (тупик у завала).
 ##
 ## Движение идёт через физику: Санни толкается forced_velocity на несколько кадров,
 ## как обычное управление. Точки не телепортируются, падение проверяется по высоте.
@@ -45,10 +47,12 @@ func test_road_to_exit_is_walkable_without_falling() -> void:
 	var exit_point := site.get_interactable(&"dawn_exit")
 	assert_not_null(exit_point, "точка выхода существует")
 
-	await _push(sunny, Vector3(0.0, 0.05, 4.2), Vector3(0.0, 0.0, 2.2), 90)
-	assert_gt(sunny.global_position.y, FLOOR_LIMIT_Y, "путь по дороге не ведёт в пустоту")
-	assert_gt(sunny.global_position.z, 6.0, "Санни доходит до дороги у выхода")
-	assert_lt(Vector2(sunny.global_position.x, sunny.global_position.z).distance_to(Vector2(0.0, 6.2)), EXIT_RADIUS,
+	var exit_xz := Vector2(exit_point.global_position.x, exit_point.global_position.z)
+	assert_lt(exit_xz.y, -6.0, "выход — на северном (верхнем) конце площадки")
+	await _push(sunny, Vector3(0.2, 0.05, -3.0), Vector3(0.0, 0.0, -2.2), 150)
+	assert_gt(sunny.global_position.y, FLOOR_LIMIT_Y, "путь через проход не ведёт в пустоту")
+	assert_lt(sunny.global_position.z, -6.0, "Санни проходит северный проход")
+	assert_lt(Vector2(sunny.global_position.x, sunny.global_position.z).distance_to(exit_xz), EXIT_RADIUS,
 		"точка выхода достижима обычным движением")
 
 

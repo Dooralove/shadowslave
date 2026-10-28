@@ -9,6 +9,7 @@ signal campaign_started
 signal transition_started
 
 const NEXT_SCENE := "res://scenes/campaign/first_nightmare_pass.tscn"
+const NEXT_SPAWN := &"Chain"
 const CARD_HOLD := 3.0
 
 @export var autostart := true
@@ -36,6 +37,8 @@ func start() -> void:
 	_started = true
 	# Новое прохождение начинается с чистого состояния, включая R-перезапуск.
 	NightmareRunState.reset()
+	LevelPortal.clear_pending_spawn()
+	LevelPortal.clear_active_transition()
 	campaign_started.emit()
 	_prologue.start()
 
@@ -65,4 +68,5 @@ func _on_slice_finished() -> void:
 	_leaving = true
 	transition_started.emit()
 	await get_tree().create_timer(card_hold).timeout
+	LevelPortal.set_pending_spawn(NEXT_SCENE, NEXT_SPAWN)
 	get_tree().change_scene_to_file(NEXT_SCENE)

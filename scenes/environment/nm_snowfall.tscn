@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/follow_camera.gd" id="1_follow"]
+
+[sub_resource type="ParticleProcessMaterial" id="Flakes_process"]
+emission_shape = 3
+emission_box_extents = Vector3(22, 3, 22)
+direction = Vector3(0.35, -1, 0.15)
+spread = 18.0
+initial_velocity_min = 1.2
+initial_velocity_max = 2.4
+gravity = Vector3(0.9, -1.4, 0.3)
+turbulence_enabled = true
+turbulence_noise_strength = 0.6
+turbulence_noise_scale = 3.0
+turbulence_influence_min = 0.05
+turbulence_influence_max = 0.15
+scale_min = 0.6
+scale_max = 1.4
+
+[sub_resource type="Gradient" id="Flake_grad"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.55, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="Flake_tex"]
+gradient = SubResource("Flake_grad")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Flake_mat"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.93, 1, 0.75)
+albedo_texture = SubResource("Flake_tex")
+proximity_fade_enabled = true
+proximity_fade_distance = 0.6
+distance_fade_mode = 1
+distance_fade_min_distance = 0.15
+distance_fade_max_distance = 0.6
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="Flake_mesh"]
+material = SubResource("Flake_mat")
+size = Vector2(0.035, 0.035)
+
+[node name="Snowfall" type="Node3D"]
+script = ExtResource("1_follow")
+
+[node name="Flakes" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 4000
+lifetime = 7.0
+preprocess = 7.0
+local_coords = false
+visibility_aabb = AABB(-40, -40, -40, 80, 60, 80)
+process_material = SubResource("Flakes_process")
+draw_pass_1 = SubResource("Flake_mesh")

@@ -420,6 +420,9 @@ func show_aftermath() -> void:
 	larva.visible = false
 	white_horse.visible = false
 	dark_horse.visible = false
+	# Без лошадей Герой и Ветеран стоят, а не сидят в воздухе.
+	(hero as Mannequin).pose = "idle"
+	(veteran as Mannequin).pose = "idle"
 	for node in [$NPCs/SoldierA, $NPCs/SoldierB, $NPCs/SlaveA, $NPCs/SlaveB, $NPCs/SlaveC]:
 		(node as Node3D).visible = false
 	hero.position = Vector3(1.2, 0.0, 1.5)

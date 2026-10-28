@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/campaign/caravan_site_arrival.gd" id="1_arrival"]
-[ext_resource type="PackedScene" path="res://scenes/locations/caravan_site/caravan_site.tscn" id="2_site"]
+[ext_resource type="PackedScene" path="res://scenes/locations/caravan_site/caravan_site_art.tscn" id="2_site"]
 [ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
 [ext_resource type="PackedScene" path="res://scenes/ui/prologue_ui.tscn" id="4_ui"]
 [ext_resource type="Script" path="res://scripts/dialogue/dialogue_runner.gd" id="5_dialogue"]

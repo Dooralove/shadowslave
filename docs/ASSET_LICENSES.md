@@ -77,8 +77,77 @@ Mixamo рассматривался как основной источник, н
 - `creaky_door_hinge.wav` (w.forster.1, CC0, OpenGameArt) — скрип петли, не камень; подмена каменному скрипу не принята.
 - `qubodup-DoorSet` (CC0, OpenGameArt) — дверные звуки дерева и металла; каменного нет.
 
+## Окружение Первого Кошмара (`assets/environments/nightmare/`, 2026-10-26)
+
+### CC0-текстуры Poly Haven (`materials/textures/`)
+
+Все наборы — Poly Haven, лицензия CC0 1.0 (https://polyhaven.com/license), загрузка 2026-10-26 по
+API `api.polyhaven.com/files/<набор>` (JPEG: `*_diff_*`, `*_nor_gl_*`, `*_arm_*`, `*_disp_*`).
+Использование Poly Haven подтверждено пользователем (S3.2; в этой сессии — «используй то, что даст
+лучшее качество»). Около 40 МБ.
+
+| Набор | Разрешение | Автор | URL | Использование |
+|---|---|---|---|---|
+| `dark_rock_02` | 2K | Amal Kumar | https://polyhaven.com/a/dark_rock_02 | Порода перевала: нормали, ARM, высота; альбедо → `nm_rock_albedo_2k.jpg` |
+| `snow_02` | 2K | Rob Tuytel | https://polyhaven.com/a/snow_02 | Снег и лёд: нормали, ARM; альбедо → `nm_snow_albedo_2k.jpg` |
+| `rock_surface` | 2K | Amal Kumar | https://polyhaven.com/a/rock_surface | Обработанный камень (плиты дороги) и кость: нормали, ARM; альбедо → `nm_stone_worked_albedo_2k.jpg`, `nm_bone_albedo_1k.jpg` |
+| `rough_wood` | 1K | Rob Tuytel | https://polyhaven.com/a/rough_wood | Дерево повозки, бочек, дров; кора и уголь (тонировка) |
+| `rust_coarse_01` | 1K | Dimitrios Savva, Rico Cilliers | https://polyhaven.com/a/rust_coarse_01 | Кованое железо: нормали, ARM; альбедо → `nm_iron_albedo_1k.jpg` |
+| `rough_linen` | 1K | colormass, Rico Cilliers | https://polyhaven.com/a/rough_linen | Мешковина, тент, верёвка: нормали, ARM; альбедо → `nm_linen_albedo_1k.jpg` |
+| `brown_leather` | 1K | Rob Tuytel | https://polyhaven.com/a/brown_leather | Кожа фляг, кнута, рукоятей (альбедо скачано как `brown_leather_albedo_1k` → `brown_leather_diff_1k.jpg`) |
+
+Скачаны и удалены как неподходящие (в проекте не остались): `dark_rock` (тёплый тон, светлые жилы
+не по палитре), `snow_01` (отпечатки современных подошв с протектором — противоречат миру).
+
+### Производные и собственные текстуры
+
+Скрипт `source/make_nm_textures.py` (numpy + Pillow): перекраска альбедо под палитру
+`docs/art/mountain_pass_environment_art.md` — `nm_rock_albedo_2k`, `nm_stone_worked_albedo_2k`,
+`nm_snow_albedo_2k`, `nm_linen_albedo_1k`, `nm_bone_albedo_1k`, `nm_iron_albedo_1k` (производные CC0);
+процедурный чёрный мрамор `nm_marble_black_{albedo,nor_gl,arm,disp}_2k` — собственный, без внешнего источника.
+
+### Модели
+
+Все `.glb` в `mountain/`, `caravan/`, `flora/`, `remains/`, `temple/`, `trail/` — собственные модели проекта,
+собраны скриптами `source/build_*.py` в Blender 5.1 (исходники `source/*_kit.blend`). Внешних моделей нет.
+Партия 6 (2026-10-27): `backdrop/` (высокие скальные массивы, средние отроги — `build_backdrop_kit.py`),
+`site/` (грунт стоянки, подстилка — `build_site_kit.py`), `path/` (рельеф серпантина и вершины, проходимый вариант
+пещеры — `build_path_kit.py`) — тоже собственные, без внешних источников.
+Шейдеры `materials/nm_night_sky.gdshader` (ночное небо: звёзды, луна) и `materials/nm_cloud_sea.gdshader`
+(слой облаков), сцены эффектов `scenes/environment/nm_snowfall.tscn`, `nm_cloud_sea.tscn`, `nm_fire_flame.tscn`
+(частицы, градиентные текстуры в самих сценах) — собственные.
+Шейдер `materials/nm_layered_triplanar.gdshader` — собственный (смешение нормалей «whiteout» по
+описанию Ben Golus, «Normal Mapping for a Triplanar Shader», алгоритм без заимствования кода).
+
+## Окружение пролога (`assets/environments/prologue/`, партия 5, 2026-10-26)
+
+- **Модели** `cell/*.glb`, `lobby/*.glb` и `park/props/tree_planter_a|b|c.glb`, `park/props/lamp_street_a.glb` —
+  собственные, собраны `prologue/source/build_prologue_kit.py` (исходник `prologue_kit.blend`). Внешних моделей нет.
+- **Текстуры** `prologue/materials/textures/pr_*` — процедурные (`prologue/source/make_pr_textures.py`, numpy):
+  краска, покрытие пола, ремень, шлифованная сталь, экраны интерфейса — без внешних источников.
+  `pr_vinyl_albedo_1k.jpg` — производная от **brown_leather** Poly Haven (CC0, уже в реестре выше: нормали и ARM
+  материала `pr_vinyl` берутся из того же набора в `nightmare/materials/textures/`).
+- **Материалы парка** `park/materials/foliage_plastic.tres`, `dark_metal.tres`, `lamp_lens.tres`, `station_glass.tres`,
+  `entrance_light.tres` — собственные, без текстур.
+- **Модели фасада** `park/props/station_facade_bay|slit.glb`, `station_entrance.glb`, `bollard_a.glb` и варианты
+  `prologue/cell/restraint_chair_upright(_straps).glb`, `vault_door_inward.glb` — собственные (`build_prologue_kit.py`).
+- **Фасады квартала** (2026-10-27): шейдер `park/materials/city_facade.gdshader` и материалы `city_curtain_wall.tres`,
+  `city_stone_windows.tres`, `city_far_tower.tres` — собственные, без текстур.
+
 ## Подложки карт (`assets/ui/map/`, 2026-10-27)
 
 - `dream_realm.png`, `first_nightmare.png`, `city.png` — собственные, процедурные: рисует `tools/map/build_maps.py`
   (numpy, scipy, Pillow; шум, карта высот, светотень). Внешних изображений нет. Фан-карта вики Shadow Slave
   использовалась только как текстовый ориентир по раскладке регионов (координаты меток), её изображение не копировалось.
+
+## Типовые NPC-заглушки (`assets/characters/placeholders/`, 2026-10-27)
+
+- **Люди** `humans/townsman|townswoman|police|slave|knight.glb` — собраны `source/build_placeholder_humans.py`
+  в MPFB 2 (Blender 5.1) из CC0-наборов MakeHuman (тело, кожа, волосы, одежда — те же наборы, что у прототипа
+  Санни, `LICENSE_MakeHuman_CC0.txt`). Одежда перекрашена скриптом. Кираса и шлем рыцаря — собственная геометрия
+  скрипта. PNG рядом — текстуры, извлечённые импортом Godot из GLB.
+- **Анимации людей** — Quaternius Universal Animation Library (CC0, уже в проекте:
+  `sunny_realistic_poc/animations/`), спокойная стойка — `sunny_idle_relaxed.glb` (собственная).
+- **Лошадь** `horse/horse.glb` — Quaternius «LowPoly Animated Farm Animal Pack», CC0
+  (https://opengameart.org/content/lowpoly-animated-farm-animal-pack, `LICENSE_Quaternius_FarmAnimals.txt`);
+  сконвертирована из FBX `source/convert_horse.py`, клипы переименованы.

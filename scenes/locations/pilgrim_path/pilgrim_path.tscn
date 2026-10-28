@@ -508,22 +508,22 @@ material = SubResource("StandardMaterial3D_uh8u0")
 
 [node name="Hero" parent="NPCs" unique_id=511072400 instance=ExtResource("2_mannequin")]
 transform = Transform3D(-0.99999875, 0, 0.001592548, 0, 1, 0, -0.001592548, 0, -0.99999875, 0.8, 0.05, 6.5)
-body_color = Color(0.22, 0.24, 0.3, 1)
-head_color = Color(0.7, 0.61, 0.53, 1)
 height_scale = 1.08
 width_scale = 1.08
+archetype = "knight"
+pose = "idle"
 
 [node name="Shifty" parent="NPCs" unique_id=148496649 instance=ExtResource("2_mannequin")]
 transform = Transform3D(-0.90407217, 0, 0.42737985, 0, 1, 0, -0.42737985, 0, -0.90407217, 1.6, 0.05, 7.2)
-body_color = Color(0.36, 0.3, 0.24, 1)
-head_color = Color(0.64, 0.55, 0.46, 1)
 height_scale = 0.92
+archetype = "slave"
+pose = "idle"
 
 [node name="Scholar" parent="NPCs" unique_id=582801847 instance=ExtResource("2_mannequin")]
 transform = Transform3D(-0.9874798, 0, -0.15774564, 0, 1, 0, 0.15774564, 0, -0.9874798, -0.5, 0.05, 6.7)
-body_color = Color(0.28, 0.3, 0.28, 1)
-head_color = Color(0.68, 0.6, 0.52, 1)
 height_scale = 0.98
+archetype = "slave"
+pose = "idle"
 
 [node name="ShiftyBody" type="Node3D" parent="NPCs" unique_id=314717787]
 visible = false

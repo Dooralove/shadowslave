@@ -52,6 +52,9 @@ campaign_entry
 | Взаимодействие | E | `interact` |
 | Следующая реплика | E / Space / Enter | `advance_dialogue` |
 | Статус Заклятия | Tab | `open_status` |
+| Карта и локации | M | `open_map` |
+| Меню персонажа (RPG) | C | `open_character` |
+| Закрыть карту или меню | Escape | `ui_cancel`, `release_mouse` |
 | Перезапуск кампании | R | `restart` |
 
 ## Структура
@@ -98,3 +101,13 @@ godot --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/test_app
 - `docs/design/first_nightmare_prototype_flow.md` — описание сквозного прототипа.
 - `docs/AI_HANDOFF_AFTER_S3_2.md` — handoff, backlog и известные проблемы.
 - `docs/DECISIONS.md` — архитектурные решения.
+
+## Исследование канона: после Первого Кошмара
+
+Статус: **главы 17–99 прочитаны по зеркалу WuxiaDreams (часть фрагментами), глава 100 — в начале**. Сверка с оригиналом на WebNovel не выполнена (там 403), поэтому статус текста — `TEXT` (по зеркалу), а не `VERIFIED`. Главы 1–16 по тексту не проверены.
+
+- Граница исследования: глава 16 «Rebirth» → глава 29 «The Last Day on Earth» (вход в Царство Снов) → глава 30 (прибытие) → главы 31–100 (Забытый берег, Древо Души, побег, одиночество в проклятом городе).
+- [`docs/research/post_first_nightmare_dream_realm/00_source_registry.md`](docs/research/post_first_nightmare_dream_realm/00_source_registry.md) — реестр источников и статусы.
+- [`docs/research/post_first_nightmare_dream_realm/01_canonical_timeline.md`](docs/research/post_first_nightmare_dream_realm/01_canonical_timeline.md) — хронология, границы и пробелы.
+
+Для перехода к `VERIFIED` нужен ручной проход по главам 17–29 на WebNovel или WuxiaDreams.

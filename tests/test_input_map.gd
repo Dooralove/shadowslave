@@ -16,6 +16,7 @@ const REQUIRED_ACTIONS := [
 	"advance_dialogue",
 	"open_status",
 	"open_map",
+	"open_character",
 ]
 
 const EXPECTED_KEYS := {
@@ -31,6 +32,7 @@ const EXPECTED_KEYS := {
 	"advance_dialogue": KEY_SPACE,
 	"open_status": KEY_TAB,
 	"open_map": KEY_M,
+	"open_character": KEY_C,
 }
 
 

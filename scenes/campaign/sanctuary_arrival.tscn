@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/campaign/sanctuary_arrival.gd" id="1_arrival"]
-[ext_resource type="PackedScene" path="res://scenes/locations/shadow_sanctuary/shadow_sanctuary.tscn" id="2_sanctuary"]
+[ext_resource type="PackedScene" path="res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn" id="2_sanctuary"]
 [ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="3_fade"]
 
 [node name="SanctuaryArrival" type="Node3D"]

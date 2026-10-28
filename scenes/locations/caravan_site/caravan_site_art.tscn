@@ -1,0 +1,801 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/locations/caravan_site/caravan_site.tscn" id="1_caravan_site"]
+[ext_resource type="Shader" path="res://assets/environments/nightmare/materials/nm_night_sky.gdshader" id="2_nm_night_sky"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/site/camp_site_ground.glb" id="3_camp_site_ground"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_wall_a.glb" id="4_rock_wall_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_overhang_b.glb" id="5_rock_overhang_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/backdrop/cliff_face_tall_a.glb" id="6_cliff_face_tall_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_wall_b.glb" id="7_rock_wall_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_wall_broken_c.glb" id="8_rock_wall_broken_c"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/backdrop/cliff_face_tall_b.glb" id="9_cliff_face_tall_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/cliff_edge_a1.glb" id="10_cliff_edge_a1"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/cliff_edge_a2.glb" id="11_cliff_edge_a2"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/road_old_01.glb" id="12_road_old_01"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/cliff_edge_collapsed_b.glb" id="13_cliff_edge_collaps"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_wall_b.glb" id="14_snow_drift_wall_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/scree_pile_a.glb" id="15_scree_pile_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_crest_c.glb" id="16_snow_drift_crest_c"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_low_a.glb" id="17_snow_drift_low_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_angular_a.glb" id="18_boulder_angular_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_fragments_set.glb" id="19_rock_fragments_set"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_slab_a.glb" id="20_boulder_slab_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_small_d.glb" id="21_snow_drift_small_d"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/trail/ice_flow_a.glb" id="22_ice_flow_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/trail/icicles_b.glb" id="23_icicles_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_rounded_a.glb" id="24_boulder_rounded_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_split_a.glb" id="25_boulder_split_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_outcrop_a.glb" id="26_rock_outcrop_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/campfire_large.glb" id="27_campfire_large"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nm_fire_flame.tscn" id="28_nm_fire_flame"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/bread_stale.glb" id="29_bread_stale"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/water_flask.glb" id="30_water_flask"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/chain_main_taut.glb" id="31_chain_main_taut"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/chain_main_slack.glb" id="32_chain_main_slack"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/shackles_pair.glb" id="33_shackles_pair"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/wagon_cargo.glb" id="34_wagon_cargo"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/wheel_chock.glb" id="35_wheel_chock"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/sword_broken.glb" id="36_sword_broken"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/flora/bloodbane_bush_a.glb" id="37_bloodbane_bush_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/flora/bloodbane_bush_c.glb" id="38_bloodbane_bush_c"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/flora/bloodbane_bush_b.glb" id="39_bloodbane_bush_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/firewood_bundle.glb" id="40_firewood_bundle"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/site/bedroll_a.glb" id="41_bedroll_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/crate_supplies_a.glb" id="42_crate_supplies_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/barrel_water_a.glb" id="43_barrel_water_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/sack_grain_a.glb" id="44_sack_grain_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/shackle_key.glb" id="45_shackle_key"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_shard_a.glb" id="46_boulder_shard_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/spear_soldier.glb" id="47_spear_soldier"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/whip_coiled.glb" id="48_whip_coiled"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nm_cloud_sea.tscn" id="49_nm_cloud_sea"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/backdrop/ridge_mid_a.glb" id="50_ridge_mid_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/backdrop/ridge_mid_b.glb" id="51_ridge_mid_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/black_mountain_far.glb" id="52_black_mountain_far"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nm_snowfall.tscn" id="53_nm_snowfall"]
+
+[sub_resource type="ShaderMaterial" id="Sky_art_mat"]
+shader = ExtResource("2_nm_night_sky")
+shader_parameter/moon_direction = Vector3(-0.86, 0.4, 0.1)
+
+[sub_resource type="Sky" id="Sky_art"]
+sky_material = SubResource("Sky_art_mat")
+
+[sub_resource type="Environment" id="Env_art"]
+background_mode = 2
+sky = SubResource("Sky_art")
+ambient_light_source = 2
+ambient_light_color = Color(0.24, 0.29, 0.42, 1)
+ambient_light_energy = 0.5
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.4
+glow_bloom = 0.05
+ssao_enabled = true
+ssao_radius = 2.0
+ssao_intensity = 1.5
+fog_enabled = true
+fog_light_color = Color(0.07, 0.085, 0.12, 1)
+fog_density = 0.0032
+fog_aerial_perspective = 0.35
+fog_sky_affect = 0.15
+fog_height = -14.0
+fog_height_density = 0.035
+
+[sub_resource type="BoxShape3D" id="Shape_north_w"]
+size = Vector3(5, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="Shape_north_e"]
+size = Vector3(4.6, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="Shape_exit_side"]
+size = Vector3(0.5, 4, 5.4)
+
+[sub_resource type="BoxShape3D" id="Shape_exit_end"]
+size = Vector3(3.4, 4, 0.5)
+
+[node name="CaravanSite" instance=ExtResource("1_caravan_site")]
+
+[node name="WorldEnvironment" parent="Environment"]
+environment = SubResource("Env_art")
+
+[node name="Moon" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+rotation = Vector3(-0.4328, -1.455, 0)
+light_color = Color(0.66, 0.73, 0.95, 1)
+light_energy = 0.95
+
+[node name="Blockout" parent="Geometry"]
+visible = false
+
+[node name="Ramp" parent="Geometry/Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -60, -5.9)
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="North" parent="Geometry/Boundary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2, -4.25)
+shape = SubResource("Shape_north_w")
+
+[node name="NorthEast" type="CollisionShape3D" parent="Geometry/Boundary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, 2, -4.25)
+shape = SubResource("Shape_north_e")
+
+[node name="ExitWest" type="CollisionShape3D" parent="Geometry/Boundary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 2, -6.95)
+shape = SubResource("Shape_exit_side")
+
+[node name="ExitEast" type="CollisionShape3D" parent="Geometry/Boundary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 2, -6.95)
+shape = SubResource("Shape_exit_side")
+
+[node name="ExitEnd" type="CollisionShape3D" parent="Geometry/Boundary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 2, -9.6)
+shape = SubResource("Shape_exit_end")
+
+[node name="DawnExit" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.2, -7.4)
+
+[node name="DawnExit" parent="Spawns"]
+position = Vector3(0.2, 0.05, -7.6)
+
+[node name="Art" type="Node3D" parent="."]
+
+[node name="Ground" parent="Art" instance=ExtResource("3_camp_site_ground")]
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0.5)
+
+[node name="EastWall" parent="Art" instance=ExtResource("4_rock_wall_a")]
+position = Vector3(5.9, 0, 5.7)
+
+[node name="EastOverhang" parent="Art" instance=ExtResource("5_rock_overhang_b")]
+position = Vector3(5.9, 0, -0.3)
+
+[node name="EastUpper" parent="Art" instance=ExtResource("6_cliff_face_tall_a")]
+position = Vector3(8.6, 9, 7)
+
+[node name="SouthCorner" parent="Art" instance=ExtResource("7_rock_wall_b")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1.3, 0, 6.3)
+
+[node name="NorthEastRock" parent="Art" instance=ExtResource("4_rock_wall_a")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 8.7, 0, -5)
+
+[node name="NorthWestRock" parent="Art" instance=ExtResource("8_rock_wall_broken_c")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1.1, 0, -4.9)
+
+[node name="NorthUpper" parent="Art" instance=ExtResource("9_cliff_face_tall_b")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 25, 8, -6.5)
+
+[node name="CampEdge0" parent="Art" instance=ExtResource("10_cliff_edge_a1")]
+position = Vector3(-4, 0, 5.7)
+
+[node name="CampEdge1" parent="Art" instance=ExtResource("11_cliff_edge_a2")]
+position = Vector3(-4, 0, 0.7)
+
+[node name="CampEdge2" parent="Art" instance=ExtResource("10_cliff_edge_a1")]
+position = Vector3(-4, 0, -4.3)
+
+[node name="CampDrop" parent="Art" instance=ExtResource("6_cliff_face_tall_a")]
+position = Vector3(-7.2, -40, 8)
+
+[node name="SouthRoad" type="Node3D" parent="Art"]
+
+[node name="Road00" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.5817, 0.0608, 0.8111, 0, 0.9972, -0.0748, -0.8134, 0.0435, 0.5801, 8.3663, -2.325, 39.9683)
+
+[node name="Road01" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.7317, 0.051, 0.6797, 0, 0.9972, -0.0748, -0.6816, 0.0547, 0.7296, 5.3662, -2.025, 37.3328)
+
+[node name="Road02" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.8525, 0.0391, 0.5212, 0, 0.9972, -0.0748, -0.5227, 0.0638, 0.8501, 2.9495, -1.725, 34.1537)
+
+[node name="Road03" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.9394, 0.0256, 0.3419, 0, 0.9972, -0.0748, -0.3429, 0.0703, 0.9367, 1.2125, -1.425, 30.558)
+
+[node name="Road04" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.9888, 0.0112, 0.149, 0, 0.9972, -0.0748, -0.1494, 0.074, 0.986, 0.2246, -1.125, 26.6888)
+
+[node name="Road05" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9972, -0.0748, 0, 0.0748, 0.9972, 0, -0.825, 22.7)
+
+[node name="Road06" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9972, -0.0748, 0, 0.0748, 0.9972, 0, -0.525, 18.7)
+
+[node name="Road07" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9984, -0.0562, 0, 0.0562, 0.9984, 0, -0.225, 14.7)
+
+[node name="Road08" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+position = Vector3(0, 0, 10.7)
+
+[node name="Road09" parent="Art/SouthRoad" instance=ExtResource("12_road_old_01")]
+position = Vector3(0, 0, 6.7)
+
+[node name="SWall00" parent="Art/SouthRoad" instance=ExtResource("4_rock_wall_a")]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, 10.65, -2.4708, 39.8947)
+
+[node name="SWall01" parent="Art/SouthRoad" instance=ExtResource("7_rock_wall_b")]
+transform = Transform3D(0.7336, 0, 0.6796, 0, 1, 0, -0.6796, 0, 0.7336, 6.2818, -2.0208, 36.4083)
+
+[node name="SWall02" parent="Art/SouthRoad" instance=ExtResource("4_rock_wall_a")]
+transform = Transform3D(0.9017, 0, 0.4324, 0, 1, 0, -0.4324, 0, 0.9017, 3.1389, -1.5708, 31.7866)
+
+[node name="SWall03" parent="Art/SouthRoad" instance=ExtResource("8_rock_wall_broken_c")]
+transform = Transform3D(0.9892, 0, 0.1467, 0, 1, 0, -0.1467, 0, 0.9892, 1.5022, -1.1208, 26.4427)
+
+[node name="SWall04" parent="Art/SouthRoad" instance=ExtResource("7_rock_wall_b")]
+position = Vector3(1.3, -0.6858, 20.844)
+
+[node name="SWall05" parent="Art/SouthRoad" instance=ExtResource("4_rock_wall_a")]
+position = Vector3(1.3, -0.2358, 14.844)
+
+[node name="SWall06" parent="Art/SouthRoad" instance=ExtResource("5_rock_overhang_b")]
+position = Vector3(1.3, 0, 8.844)
+
+[node name="SEdge00" parent="Art/SouthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, 10, -2.4708, 41.0205)
+
+[node name="SEdge01" parent="Art/SouthRoad" instance=ExtResource("11_cliff_edge_a2")]
+transform = Transform3D(0.6987, 0, 0.7154, 0, 1, 0, -0.7154, 0, 0.6987, 6.0257, -2.0958, 38.008)
+
+[node name="SEdge02" parent="Art/SouthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.854, 0, 0.5203, 0, 1, 0, -0.5203, 0, 0.854, 2.9203, -1.7208, 34.1059)
+
+[node name="SEdge03" parent="Art/SouthRoad" instance=ExtResource("13_cliff_edge_collaps")]
+transform = Transform3D(0.9562, 0, 0.2928, 0, 1, 0, -0.2928, 0, 0.9562, 0.8768, -1.3458, 29.5568)
+
+[node name="SEdge04" parent="Art/SouthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.9989, 0, 0.0472, 0, 1, 0, -0.0472, 0, 0.9989, 0.0223, -0.9708, 24.6436)
+
+[node name="SEdge05" parent="Art/SouthRoad" instance=ExtResource("11_cliff_edge_a2")]
+transform = Transform3D(1, 0, 0.0002, 0, 1, 0, -0.0002, 0, 1, 0, -0.5958, 19.644)
+
+[node name="SEdge06" parent="Art/SouthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.8013, 0, 0.5983, 0, 1, 0, -0.5983, 0, 0.8013, -0.001, -0.2208, 14.644)
+
+[node name="SEdge07" parent="Art/SouthRoad" instance=ExtResource("13_cliff_edge_collaps")]
+transform = Transform3D(0.9986, 0, 0.0531, 0, 1, 0, -0.0531, 0, 0.9986, -3.7341, 0, 9.644)
+
+[node name="SDrop00" parent="Art/SouthRoad" instance=ExtResource("6_cliff_face_tall_a")]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, 8.5, -42.4708, 43.6186)
+
+[node name="SUpper00" parent="Art/SouthRoad" instance=ExtResource("9_cliff_face_tall_b")]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, 12.3, 6.5292, 37.0368)
+
+[node name="SDrop01" parent="Art/SouthRoad" instance=ExtResource("9_cliff_face_tall_b")]
+position = Vector3(-3, -40.8208, 22.644)
+
+[node name="SUpper01" parent="Art/SouthRoad" instance=ExtResource("6_cliff_face_tall_a")]
+position = Vector3(4.6, 8.1792, 22.644)
+
+[node name="NorthRoad" type="Node3D" parent="Art"]
+
+[node name="Road00" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+position = Vector3(0.2, 0, -4.6)
+
+[node name="Road01" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9986, -0.0524, 0, 0.0524, 0.9986, 0.2, 0, -8.6)
+
+[node name="Road02" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9976, -0.0698, 0, 0.0698, 0.9976, 0.2, 0.21, -12.6)
+
+[node name="Road03" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9976, -0.0698, 0, 0.0698, 0.9976, 0.2, 0.49, -16.6)
+
+[node name="Road04" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9976, -0.0698, 0, 0.0698, 0.9976, 0.2, 0.77, -20.6)
+
+[node name="Road05" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 0.9976, -0.0698, 0, 0.0698, 0.9976, 0.2, 1.05, -24.6)
+
+[node name="Road06" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.9922, -0.0087, -0.1244, 0, 0.9976, -0.0698, 0.1247, 0.0693, 0.9898, 0.3248, 1.33, -28.5948)
+
+[node name="Road07" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.9305, -0.0256, -0.3654, 0, 0.9976, -0.0698, 0.3663, 0.065, 0.9282, 1.3119, 1.61, -32.4604)
+
+[node name="Road08" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.811, -0.0409, -0.5837, 0, 0.9976, -0.0698, 0.5851, 0.0566, 0.809, 3.2246, 1.89, -35.9616)
+
+[node name="Road09" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.641, -0.0536, -0.7657, 0, 0.9976, -0.0698, 0.7675, 0.0448, 0.6394, 5.9441, 2.17, -38.8807)
+
+[node name="Road10" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.4312, -0.063, -0.9001, 0, 0.9976, -0.0698, 0.9023, 0.0301, 0.4301, 9.3012, 2.45, -41.0363)
+
+[node name="Road11" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.2588, -0.0674, -0.9636, 0, 0.9976, -0.0698, 0.9659, 0.0181, 0.2582, 13.079, 2.73, -42.3281)
+
+[node name="Road12" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.2588, -0.0674, -0.9636, 0, 0.9976, -0.0698, 0.9659, 0.0181, 0.2582, 16.9427, 3.01, -43.3634)
+
+[node name="Road13" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.2588, -0.0674, -0.9636, 0, 0.9976, -0.0698, 0.9659, 0.0181, 0.2582, 20.8064, 3.29, -44.3987)
+
+[node name="Road14" parent="Art/NorthRoad" instance=ExtResource("12_road_old_01")]
+transform = Transform3D(0.2588, -0.0674, -0.9636, 0, 0.9976, -0.0698, 0.9659, 0.0181, 0.2582, 24.6701, 3.57, -45.434)
+
+[node name="NWall00" parent="Art/NorthRoad" instance=ExtResource("4_rock_wall_a")]
+position = Vector3(1.5, 0.042, -10.2)
+
+[node name="NWall01" parent="Art/NorthRoad" instance=ExtResource("8_rock_wall_broken_c")]
+position = Vector3(1.5, 0.462, -16.2)
+
+[node name="NWall02" parent="Art/NorthRoad" instance=ExtResource("7_rock_wall_b")]
+position = Vector3(1.5, 0.868, -22)
+
+[node name="NWall03" parent="Art/NorthRoad" instance=ExtResource("4_rock_wall_a")]
+transform = Transform3D(0.9962, 0, -0.0874, 0, 1, 0, 0.0874, 0, 0.9962, 1.5562, 1.288, -27.8846)
+
+[node name="NWall04" parent="Art/NorthRoad" instance=ExtResource("5_rock_overhang_b")]
+transform = Transform3D(0.8949, 0, -0.4462, 0, 1, 0, 0.4462, 0, 0.8949, 3.0444, 1.708, -33.1589)
+
+[node name="NWall05" parent="Art/NorthRoad" instance=ExtResource("7_rock_wall_b")]
+transform = Transform3D(0.7231, 0, -0.6907, 0, 1, 0, 0.6907, 0, 0.7231, 5.5703, 2.044, -36.7538)
+
+[node name="NWall06" parent="Art/NorthRoad" instance=ExtResource("4_rock_wall_a")]
+transform = Transform3D(0.4199, 0, -0.9076, 0, 1, 0, 0.9076, 0, 0.4199, 10.028, 2.464, -39.9415)
+
+[node name="NWall07" parent="Art/NorthRoad" instance=ExtResource("7_rock_wall_b")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 15.5405, 2.884, -41.6418)
+
+[node name="NWall08" parent="Art/NorthRoad" instance=ExtResource("4_rock_wall_a")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 21.336, 3.304, -43.1948)
+
+[node name="NEdge00" parent="Art/NorthRoad" instance=ExtResource("11_cliff_edge_a2")]
+position = Vector3(0.2, 0, -9.6)
+
+[node name="NEdge01" parent="Art/NorthRoad" instance=ExtResource("10_cliff_edge_a1")]
+position = Vector3(0.2, 0.35, -14.6)
+
+[node name="NEdge02" parent="Art/NorthRoad" instance=ExtResource("13_cliff_edge_collaps")]
+position = Vector3(0.2, 0.7, -19.6)
+
+[node name="NEdge03" parent="Art/NorthRoad" instance=ExtResource("10_cliff_edge_a1")]
+position = Vector3(0.2, 1.05, -24.6)
+
+[node name="NEdge04" parent="Art/NorthRoad" instance=ExtResource("11_cliff_edge_a2")]
+transform = Transform3D(0.9825, 0, -0.1864, 0, 1, 0, 0.1864, 0, 0.9825, 0.4804, 1.4, -29.5825)
+
+[node name="NEdge05" parent="Art/NorthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.8776, 0, -0.4794, 0, 1, 0, 0.4794, 0, 0.8776, 2.1587, 1.75, -34.2708)
+
+[node name="NEdge06" parent="Art/NorthRoad" instance=ExtResource("13_cliff_edge_collaps")]
+transform = Transform3D(0.6877, 0, -0.726, 0, 1, 0, 0.726, 0, 0.6877, 5.197, 2.1, -38.2161)
+
+[node name="NEdge07" parent="Art/NorthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.4312, 0, -0.9023, 0, 1, 0, 0.9023, 0, 0.4312, 9.3012, 2.45, -41.0363)
+
+[node name="NEdge08" parent="Art/NorthRoad" instance=ExtResource("11_cliff_edge_a2")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 14.0449, 2.8, -42.587)
+
+[node name="NEdge09" parent="Art/NorthRoad" instance=ExtResource("10_cliff_edge_a1")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 18.8745, 3.15, -43.8811)
+
+[node name="NEdge10" parent="Art/NorthRoad" instance=ExtResource("13_cliff_edge_collaps")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 23.7041, 3.5, -45.1751)
+
+[node name="NDrop00" parent="Art/NorthRoad" instance=ExtResource("6_cliff_face_tall_a")]
+position = Vector3(-2.8, -39.93, -10.6)
+
+[node name="NUpper00" parent="Art/NorthRoad" instance=ExtResource("9_cliff_face_tall_b")]
+position = Vector3(4.8, 9.07, -10.6)
+
+[node name="NDrop01" parent="Art/NorthRoad" instance=ExtResource("9_cliff_face_tall_b")]
+transform = Transform3D(0.9305, 0, -0.3663, 0, 1, 0, 0.3663, 0, 0.9305, -1.4796, -38.39, -33.5592)
+
+[node name="NUpper01" parent="Art/NorthRoad" instance=ExtResource("6_cliff_face_tall_a")]
+transform = Transform3D(0.9305, 0, -0.3663, 0, 1, 0, 0.3663, 0, 0.9305, 5.5922, 10.61, -30.7755)
+
+[node name="NDrop02" parent="Art/NorthRoad" instance=ExtResource("6_cliff_face_tall_a")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 18.0981, -36.85, -46.7788)
+
+[node name="NUpper02" parent="Art/NorthRoad" instance=ExtResource("9_cliff_face_tall_b")]
+transform = Transform3D(0.2588, 0, -0.9659, 0, 1, 0, 0.9659, 0, 0.2588, 20.0651, 12.15, -39.4378)
+
+[node name="Dress00" parent="Art" instance=ExtResource("14_snow_drift_wall_b")]
+transform = Transform3D(0.995, 0, 0.0998, 0, 1, 0, -0.0998, 0, 0.995, 4.9, 0, 4.2)
+
+[node name="Dress01" parent="Art" instance=ExtResource("14_snow_drift_wall_b")]
+transform = Transform3D(0.9801, 0, -0.1987, 0, 1, 0, 0.1987, 0, 0.9801, 5, 0, -3.6)
+
+[node name="Dress02" parent="Art" instance=ExtResource("15_scree_pile_a")]
+transform = Transform3D(0.9211, 0, 0.3894, 0, 1, 0, -0.3894, 0, 0.9211, 5.1, 0, 1.6)
+
+[node name="Dress03" parent="Art" instance=ExtResource("16_snow_drift_crest_c")]
+transform = Transform3D(0.17, 0, 0.9854, 0, 1, 0, -0.9854, 0, 0.17, -5, 0, -0.6)
+
+[node name="Dress04" parent="Art" instance=ExtResource("17_snow_drift_low_a")]
+transform = Transform3D(-0.0292, 0, 0.9996, 0, 1, 0, -0.9996, 0, -0.0292, -4.8, 0, 4.6)
+
+[node name="Dress05" parent="Art" instance=ExtResource("18_boulder_angular_a")]
+transform = Transform3D(0.6967, 0, 0.7174, 0, 1, 0, -0.7174, 0, 0.6967, 5.2, 0, -1.6)
+
+[node name="Dress06" parent="Art" instance=ExtResource("19_rock_fragments_set")]
+transform = Transform3D(0.9801, 0, 0.1987, 0, 1, 0, -0.1987, 0, 0.9801, 3, 0, -4)
+
+[node name="Dress07" parent="Art" instance=ExtResource("20_boulder_slab_a")]
+transform = Transform3D(0.9553, 0, 0.2955, 0, 1, 0, -0.2955, 0, 0.9553, -5.4, 0, -3.8)
+
+[node name="Dress08" parent="Art" instance=ExtResource("21_snow_drift_small_d")]
+position = Vector3(2.6, 0, 4.6)
+
+[node name="Dress09" parent="Art" instance=ExtResource("21_snow_drift_small_d")]
+transform = Transform3D(-0.4161, 0, 0.9093, 0, 1, 0, -0.9093, 0, -0.4161, -2.8, 0, -3.9)
+
+[node name="Dress10" parent="Art" instance=ExtResource("22_ice_flow_a")]
+position = Vector3(5.5, 0, 3)
+
+[node name="Dress11" parent="Art" instance=ExtResource("22_ice_flow_a")]
+position = Vector3(5.6, 0, -2.4)
+
+[node name="Dress12" parent="Art" instance=ExtResource("23_icicles_b")]
+position = Vector3(4.4, 4.6, 0.4)
+
+[node name="Dress13" parent="Art" instance=ExtResource("15_scree_pile_a")]
+transform = Transform3D(0.8253, 0, 0.5646, 0, 1, 0, -0.5646, 0, 0.8253, -1, -0.1, 9.9)
+
+[node name="Dress14" parent="Art" instance=ExtResource("24_boulder_rounded_a")]
+transform = Transform3D(0.3624, 0, 0.932, 0, 1, 0, -0.932, 0, 0.3624, 0.9, -0.15, 10.2)
+
+[node name="Dress15" parent="Art" instance=ExtResource("25_boulder_split_a")]
+transform = Transform3D(-0.4161, 0, 0.9093, 0, 1, 0, -0.9093, 0, -0.4161, -0.1, -0.15, 11.1)
+
+[node name="Dress16" parent="Art" instance=ExtResource("26_rock_outcrop_a")]
+transform = Transform3D(0.8776, 0, 0.4794, 0, 1, 0, -0.4794, 0, 0.8776, -4.6, -0.05, 6.4)
+
+[node name="Dress17" parent="Art" instance=ExtResource("16_snow_drift_crest_c")]
+transform = Transform3D(-0.5885, 0, 0.8085, 0, 1, 0, -0.8085, 0, -0.5885, -3.4, 0, 6.9)
+
+[node name="Dress18" parent="Art" instance=ExtResource("20_boulder_slab_a")]
+transform = Transform3D(0.4536, 0, 0.8912, 0, 1, 0, -0.8912, 0, 0.4536, -5.6, -0.1, 5.4)
+
+[node name="Dress19" parent="Art" instance=ExtResource("21_snow_drift_small_d")]
+transform = Transform3D(0.9211, 0, 0.3894, 0, 1, 0, -0.3894, 0, 0.9211, -2.4, 0, 6.3)
+
+[node name="Stone01" parent="Props/Fire"]
+visible = false
+
+[node name="Stone02" parent="Props/Fire"]
+visible = false
+
+[node name="Stone03" parent="Props/Fire"]
+visible = false
+
+[node name="Stone04" parent="Props/Fire"]
+visible = false
+
+[node name="Stone05" parent="Props/Fire"]
+visible = false
+
+[node name="Stone06" parent="Props/Fire"]
+visible = false
+
+[node name="Stone07" parent="Props/Fire"]
+visible = false
+
+[node name="Stone08" parent="Props/Fire"]
+visible = false
+
+[node name="LogA" parent="Props/Fire"]
+visible = false
+
+[node name="LogB" parent="Props/Fire"]
+visible = false
+
+[node name="FlameA" parent="Props/Fire"]
+visible = false
+
+[node name="FlameB" parent="Props/Fire"]
+visible = false
+
+[node name="Campfire" parent="Props/Fire" instance=ExtResource("27_campfire_large")]
+transform = Transform3D(0.9553, 0, 0.2955, 0, 1, 0, -0.2955, 0, 0.9553, 0, 0, 0)
+
+[node name="Flame" parent="Props/Fire" instance=ExtResource("28_nm_fire_flame")]
+position = Vector3(0, 0.12, 0)
+
+[node name="Light" parent="Props/Fire/Flame"]
+visible = false
+
+[node name="Basket" parent="Props/Rations"]
+visible = false
+
+[node name="Bread" parent="Props/Rations"]
+visible = false
+
+[node name="Flask" parent="Props/Rations"]
+visible = false
+
+[node name="BreadA" parent="Props/Rations" instance=ExtResource("29_bread_stale")]
+transform = Transform3D(0.9211, 0, 0.3894, 0, 1, 0, -0.3894, 0, 0.9211, 0, 0, 0)
+
+[node name="BreadB" parent="Props/Rations" instance=ExtResource("29_bread_stale")]
+transform = Transform3D(0.6216, 0, -0.7833, 0, 1, 0, 0.7833, 0, 0.6216, 0.13, 0, 0.07)
+
+[node name="Water" parent="Props/Rations" instance=ExtResource("30_water_flask")]
+transform = Transform3D(0.3624, 0, 0.932, 0, 1, 0, -0.932, 0, 0.3624, 0.24, -0.02, -0.04)
+
+[node name="ChainLine" parent="Props/Chain"]
+visible = false
+
+[node name="LinkA" parent="Props/Chain"]
+visible = false
+
+[node name="LinkB" parent="Props/Chain"]
+visible = false
+
+[node name="Shackle" parent="Props/Chain"]
+visible = false
+
+[node name="Main0" parent="Props/Chain" instance=ExtResource("31_chain_main_taut")]
+transform = Transform3D(0.5174, 0, 0.8557, 0, 1, 0, -0.8557, 0, 0.5174, -3.4002, -0.1, -1.9176)
+
+[node name="Main1" parent="Props/Chain" instance=ExtResource("31_chain_main_taut")]
+transform = Transform3D(0.5174, 0, 0.8557, 0, 1, 0, -0.8557, 0, 0.5174, -1.8, -0.1, -0.95)
+
+[node name="Main2" parent="Props/Chain" instance=ExtResource("31_chain_main_taut")]
+transform = Transform3D(0.5174, 0, 0.8557, 0, 1, 0, -0.8557, 0, 0.5174, -0.1998, -0.1, 0.0176)
+
+[node name="Slack" parent="Props/Chain" instance=ExtResource("32_chain_main_slack")]
+transform = Transform3D(0.8253, 0, -0.5646, 0, 1, 0, 0.5646, 0, 0.8253, 0.05, 0, 0.45)
+
+[node name="Shackles" parent="Props/Chain" instance=ExtResource("33_shackles_pair")]
+transform = Transform3D(0.9211, 0, 0.3894, 0, 1, 0, -0.3894, 0, 0.9211, 0.55, 0, 0.6)
+
+[node name="Blockout" parent="Props/Wagon"]
+visible = false
+
+[node name="Shaft" parent="Props/Wagon"]
+visible = false
+
+[node name="Model" parent="Props/Wagon" instance=ExtResource("34_wagon_cargo")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
+
+[node name="WedgeL" parent="Props/Wagon"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Chock" parent="Props/Wagon/WedgeL" instance=ExtResource("35_wheel_chock")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.05, -0.16, 0)
+
+[node name="WedgeR" parent="Props/Wagon"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Chock" parent="Props/Wagon/WedgeR" instance=ExtResource("35_wheel_chock")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.05, -0.16, 0)
+
+[node name="LinkA" parent="Props/ChainLoop"]
+visible = false
+
+[node name="LinkB" parent="Props/ChainLoop"]
+visible = false
+
+[node name="LinkC" parent="Props/ChainLoop"]
+visible = false
+
+[node name="LinkD" parent="Props/ChainLoop"]
+visible = false
+
+[node name="Loop" parent="Props/ChainLoop" instance=ExtResource("32_chain_main_slack")]
+transform = Transform3D(0.6143, 0, 0.3356, 0, 0.7, 0, -0.3356, 0, 0.6143, 0, -0.17, 0)
+
+[node name="Blade" parent="Props/VeteranSword"]
+visible = false
+
+[node name="Hilt" parent="Props/VeteranSword"]
+visible = false
+
+[node name="Model" parent="Props/VeteranSword" instance=ExtResource("36_sword_broken")]
+position = Vector3(0, 0, 0)
+
+[node name="StemA" parent="Props/Bloodbane"]
+visible = false
+
+[node name="StemB" parent="Props/Bloodbane"]
+visible = false
+
+[node name="StemC" parent="Props/Bloodbane"]
+visible = false
+
+[node name="BerryA" parent="Props/Bloodbane"]
+visible = false
+
+[node name="BerryB" parent="Props/Bloodbane"]
+visible = false
+
+[node name="BerryC" parent="Props/Bloodbane"]
+visible = false
+
+[node name="BerryD" parent="Props/Bloodbane"]
+visible = false
+
+[node name="BushA" parent="Props/Bloodbane" instance=ExtResource("37_bloodbane_bush_a")]
+transform = Transform3D(0.9553, 0, 0.2955, 0, 1, 0, -0.2955, 0, 0.9553, 0, -0.05, 0)
+
+[node name="BushC" parent="Props/Bloodbane" instance=ExtResource("38_bloodbane_bush_c")]
+transform = Transform3D(-0.3233, 0, 0.9463, 0, 1, 0, -0.9463, 0, -0.3233, 0.5, -0.05, 0.45)
+
+[node name="BushB" parent="Props/Bloodbane" instance=ExtResource("39_bloodbane_bush_b")]
+transform = Transform3D(0.7648, 0, -0.6442, 0, 1, 0, 0.6442, 0, 0.7648, -0.35, -0.05, -0.5)
+
+[node name="LogA" parent="Props/Dressing/Woodpile"]
+visible = false
+
+[node name="LogB" parent="Props/Dressing/Woodpile"]
+visible = false
+
+[node name="LogC" parent="Props/Dressing/Woodpile"]
+visible = false
+
+[node name="Stump" parent="Props/Dressing/Woodpile"]
+visible = false
+
+[node name="BundleA" parent="Props/Dressing/Woodpile" instance=ExtResource("40_firewood_bundle")]
+transform = Transform3D(0.17, 0, 0.9854, 0, 1, 0, -0.9854, 0, 0.17, 0, 0, 0)
+
+[node name="BundleB" parent="Props/Dressing/Woodpile" instance=ExtResource("40_firewood_bundle")]
+transform = Transform3D(-0.1288, 0, 0.9917, 0, 1, 0, -0.9917, 0, -0.1288, 0.1, 0.22, 0.05)
+
+[node name="Base" parent="Props/Dressing/BedrollA"]
+visible = false
+
+[node name="Pillow" parent="Props/Dressing/BedrollA"]
+visible = false
+
+[node name="Model" parent="Props/Dressing/BedrollA" instance=ExtResource("41_bedroll_a")]
+position = Vector3(0, 0, 0)
+
+[node name="Base" parent="Props/Dressing/BedrollB"]
+visible = false
+
+[node name="Pillow" parent="Props/Dressing/BedrollB"]
+visible = false
+
+[node name="Model" parent="Props/Dressing/BedrollB" instance=ExtResource("41_bedroll_a")]
+position = Vector3(0, 0, 0)
+
+[node name="Box" parent="Props/Dressing/Crate"]
+visible = false
+
+[node name="Band" parent="Props/Dressing/Crate"]
+visible = false
+
+[node name="Model" parent="Props/Dressing/Crate" instance=ExtResource("42_crate_supplies_a")]
+transform = Transform3D(0.9801, 0, 0.1987, 0, 1, 0, -0.1987, 0, 0.9801, 0, 0, 0)
+
+[node name="Barrel" parent="Props/Dressing"]
+visible = false
+
+[node name="BarrelModel" parent="Props/Dressing" instance=ExtResource("43_barrel_water_a")]
+position = Vector3(-0.55, 0, -1.85)
+
+[node name="SackModel" parent="Props/Dressing" instance=ExtResource("44_sack_grain_a")]
+transform = Transform3D(0.6216, 0, 0.7833, 0, 1, 0, -0.7833, 0, 0.6216, -2.2, 0, -2.9)
+
+[node name="Body" parent="Props/Flasks/FlaskA"]
+visible = false
+
+[node name="Neck" parent="Props/Flasks/FlaskA"]
+visible = false
+
+[node name="Model" parent="Props/Flasks/FlaskA" instance=ExtResource("30_water_flask")]
+transform = Transform3D(0.8253, 0.5646, 0, 0, 0, -1, -0.5646, 0.8253, 0, 0, 0.06, 0)
+
+[node name="Body" parent="Props/Flasks/FlaskB"]
+visible = false
+
+[node name="Neck" parent="Props/Flasks/FlaskB"]
+visible = false
+
+[node name="Model" parent="Props/Flasks/FlaskB" instance=ExtResource("30_water_flask")]
+transform = Transform3D(0.8253, 0.5646, 0, 0, 0, -1, -0.5646, 0.8253, 0, 0, 0.06, 0)
+
+[node name="Body" parent="Props/Flasks/FlaskC"]
+visible = false
+
+[node name="Neck" parent="Props/Flasks/FlaskC"]
+visible = false
+
+[node name="Model" parent="Props/Flasks/FlaskC" instance=ExtResource("30_water_flask")]
+transform = Transform3D(0.8253, 0.5646, 0, 0, 0, -1, -0.5646, 0.8253, 0, 0, 0.06, 0)
+
+[node name="Ring" parent="Props/Key"]
+visible = false
+
+[node name="Shaft" parent="Props/Key"]
+visible = false
+
+[node name="Bit" parent="Props/Key"]
+visible = false
+
+[node name="Model" parent="Props/Key" instance=ExtResource("45_shackle_key")]
+transform = Transform3D(0.8776, 0, 0.4794, 0, 1, 0, -0.4794, 0, 0.8776, 0, -0.08, 0)
+
+[node name="Rock01" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Rock01" instance=ExtResource("18_boulder_angular_a")]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, -0.195, 0)
+
+[node name="Rock02" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Rock02" instance=ExtResource("24_boulder_rounded_a")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.18, 0)
+
+[node name="Rock03" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Rock03" instance=ExtResource("18_boulder_angular_a")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, -0.135, 0)
+
+[node name="Rock04" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Rock04" instance=ExtResource("25_boulder_split_a")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, -0.135, 0)
+
+[node name="Rock05" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Rock05" instance=ExtResource("18_boulder_angular_a")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, -0.105, 0)
+
+[node name="Rock06" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Rock06" instance=ExtResource("20_boulder_slab_a")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, -0.135, 0)
+
+[node name="Ice01" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Ice01" instance=ExtResource("46_boulder_shard_a")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.21, 0)
+
+[node name="Ice02" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Ice02" instance=ExtResource("46_boulder_shard_a")]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, -0.255, 0)
+
+[node name="Ice03" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Ice03" instance=ExtResource("46_boulder_shard_a")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.18, 0)
+
+[node name="Ice04" parent="Props/Rocks"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[node name="Model" parent="Props/Rocks/Ice04" instance=ExtResource("46_boulder_shard_a")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, -0.165, 0)
+
+[node name="Spear" parent="NPCs/Hero"]
+visible = false
+
+[node name="SpearModel" parent="NPCs/Hero" instance=ExtResource("47_spear_soldier")]
+transform = Transform3D(0.995, 0.0998, 0, 0, 0, -1, -0.0998, 0.995, 0, 0.28, -0.72, -0.1)
+
+[node name="Whip" parent="NPCs/Veteran"]
+visible = false
+
+[node name="WhipModel" parent="NPCs/Veteran" instance=ExtResource("48_whip_coiled")]
+transform = Transform3D(0.1736, -0.9848, 0, 0.9848, 0.1736, 0, 0, 0, 1, 0.32, 0.12, -0.05)
+
+[node name="Backdrop" type="Node3D" parent="."]
+
+[node name="Clouds" parent="Backdrop" instance=ExtResource("49_nm_cloud_sea")]
+position = Vector3(0, -70, 0)
+
+[node name="RidgeWest" parent="Backdrop" instance=ExtResource("50_ridge_mid_a")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -420, -60, 40)
+
+[node name="RidgeNorthWest" parent="Backdrop" instance=ExtResource("51_ridge_mid_b")]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, -340, -70, -380)
+
+[node name="RidgeSouthWest" parent="Backdrop" instance=ExtResource("50_ridge_mid_a")]
+transform = Transform3D(-0.5, 0, 0.866, 0, 1, 0, -0.866, 0, -0.5, -330, -60, 420)
+
+[node name="BlackMountain" parent="Backdrop" instance=ExtResource("52_black_mountain_far")]
+transform = Transform3D(-0.9397, 0, -0.342, 0, 1, 0, 0.342, 0, -0.9397, 300, -620, -980)
+
+[node name="Snowfall" parent="." instance=ExtResource("53_nm_snowfall")]
+position = Vector3(0, 0, 0)

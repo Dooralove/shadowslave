@@ -53,7 +53,7 @@ autoplay = &"sunny/Idle_Relaxed"
 
 [node name="Commuter" parent="." instance=ExtResource("3_mannequin")]
 position = Vector3(1.8, 0, -0.4)
-body_color = Color(0.22, 0.24, 0.3, 1)
+archetype = "townsman"
 height_scale = 1.12
 
 [node name="Benches" type="Node3D" parent="."]

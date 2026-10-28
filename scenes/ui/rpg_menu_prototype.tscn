@@ -586,7 +586,7 @@ size_flags_vertical = 4
 focus_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"SecondaryButton"
-text = "ЗАКРЫТЬ · ESC"
+text = "ЗАКРЫТЬ · ESC / C"
 
 [node name="HeaderRule" type="ColorRect" parent="Content/MenuPage/MenuMargin/RootColumn"]
 custom_minimum_size = Vector2(0, 1)
@@ -694,7 +694,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
-text = "ЛКМ — ВЫБРАТЬ · КОЛЕСО — ПРОКРУТКА · ESC — ЗАКРЫТЬ МЕНЮ"
+text = "ЛКМ — ВЫБРАТЬ · КОЛЕСО — ПРОКРУТКА · ESC / C — ЗАКРЫТЬ · M — КАРТА"
 
 [node name="SessionIndex" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/FooterRow"]
 unique_name_in_owner = true

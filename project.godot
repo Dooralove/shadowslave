@@ -20,6 +20,7 @@ MCPRuntime="*res://addons/godot_mcp/runtime/mcp_runtime.gd"
 NightmareRunState="*res://scripts/campaign/nightmare_run_state.gd"
 DialogueManager="*res://scripts/systems/dialogue_manager.gd"
 MapSystem="*res://scripts/map/map_system.gd"
+PlayerMenuSystem="*res://scripts/ui/player_menu_system.gd"
 
 [editor_plugins]
 
@@ -97,6 +98,11 @@ open_status={
 open_map={
 "deadzone": 0.5,
 "events": Array[InputEvent]([Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":77,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+])
+}
+open_character={
+"deadzone": 0.5,
+"events": Array[InputEvent]([Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ])
 }
 

@@ -8,7 +8,9 @@ extends Node3D
 
 signal transition_started
 
+const SCENE_PATH := "res://scenes/campaign/sanctuary_arrival.tscn"
 const NEXT_SCENE := "res://scenes/campaign/appraisal_arrival.tscn"
+const DEFAULT_SPAWN := &"SanctuaryEntrance"
 
 @export var fade_in := true
 @export var transition_enabled := true
@@ -16,6 +18,7 @@ const NEXT_SCENE := "res://scenes/campaign/appraisal_arrival.tscn"
 
 @onready var _sanctuary: SanctuaryController = $Sanctuary
 @onready var _ritual: AltarRitual = $Sanctuary/AltarRitual
+@onready var _player: SunnyController = $Sanctuary/Sunny
 @onready var _fade: FadeLayer = $Transition/Fade
 @onready var _card: Control = $Transition/Card
 @onready var _objective: Control = $Objective/Root
@@ -25,6 +28,7 @@ var _completed := false
 
 func _ready() -> void:
 	_ritual.finished.connect(_on_trial_finished)
+	_place_player()
 	_card.visible = false
 	if fade_in:
 		_fade.color.a = 1.0
@@ -39,6 +43,23 @@ func is_completed() -> bool:
 
 func has_started_transition() -> bool:
 	return _completed
+
+
+func _place_player() -> void:
+	var requested := LevelPortal.take_pending_spawn(SCENE_PATH)
+	var spawn := LevelPortal.resolve_spawn(_sanctuary, requested, DEFAULT_SPAWN)
+	if spawn == null:
+		push_error("SanctuaryArrival: нет точки Spawns/%s" % requested)
+		return
+	# Сцена святилища содержит игрока внутри; оболочка только применяет
+	# именованную точку входа, не создавая второго Санни.
+	_player.global_position = spawn.global_position
+	_player.velocity = Vector3.ZERO
+	_player.allow_jump = false
+	var yaw := spawn.global_rotation.y
+	_player.visual.rotation.y = yaw
+	_player.camera_rig.yaw = yaw
+	_player.camera_rig.set_pitch(_player.camera_rig.pitch)
 
 
 func _on_trial_finished() -> void:

@@ -25,5 +25,12 @@ assets/characters/sunny_realistic_poc/**/*.png filter=lfs diff=lfs merge=lfs -te
 assets/environments/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 assets/environments/**/*.png filter=lfs diff=lfs merge=lfs -text
 
+# Превью-рендеры ассетов (docs/art/previews/): JPEG/PNG через LFS.
+docs/art/previews/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+docs/art/previews/**/*.png filter=lfs diff=lfs merge=lfs -text
+
 # Рисованные подложки карт (tools/map/build_maps.py) — PNG через LFS.
 assets/ui/map/**/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Текстуры типовых NPC-заглушек (извлечены импортом из GLB) — через LFS.
+assets/characters/placeholders/**/*.png filter=lfs diff=lfs merge=lfs -text

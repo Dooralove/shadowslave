@@ -192,8 +192,11 @@ func _run() -> void:
 	actor.begin()
 	actor.play(&"restrained_idle", 0.0)
 	ui.drowsiness.intensity = 0.25
+	# Переход оформлен подписью: путь в подвал канон не описывает (гл. 1, «несколько минут спустя»).
+	ui.show_hint("Несколько минут спустя. Изолятор в подвале участка.")
 	await _fade(0.0, 1.0)
 	await _cutscene(&"restrain")
+	ui.show_hint("")
 
 	_set_beat(Beat.B11_POLICEMAN)
 	await _cutscene(&"policeman_enters")

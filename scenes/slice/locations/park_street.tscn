@@ -394,22 +394,24 @@ shape = SubResource("Shape_end")
 [node name="CommuterA" parent="Commuters" instance=ExtResource("4_mannequin")]
 position = Vector3(-8, 0, 1)
 rotation = Vector3(0, -1.5708, 0)
-body_color = Color(0.22, 0.24, 0.3, 1)
 height_scale = 1.12
+archetype = "townsman"
+pose = "walk"
 
 [node name="CommuterB" parent="Commuters" instance=ExtResource("4_mannequin")]
 position = Vector3(8, 0, -6.6)
 rotation = Vector3(0, 1.5708, 0)
-body_color = Color(0.35, 0.3, 0.26, 1)
 height_scale = 1.18
+archetype = "townswoman"
+pose = "walk"
 
 [node name="CommuterC" parent="Commuters" instance=ExtResource("4_mannequin")]
 position = Vector3(-3, 0, -5.9)
 rotation = Vector3(0, -1.5708, 0)
-body_color = Color(0.28, 0.3, 0.28, 1)
-head_color = Color(0.6, 0.5, 0.44, 1)
 height_scale = 1.08
 width_scale = 1.1
+archetype = "townsman"
+pose = "idle"
 
 [node name="Spawns" type="Node3D" parent="."]
 

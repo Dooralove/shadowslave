@@ -1,0 +1,114 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/flicker_light.gd" id="1_flicker"]
+
+[sub_resource type="Gradient" id="Grad_soft"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.4, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_soft"]
+gradient = SubResource("Grad_soft")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Grad_flame"]
+offsets = PackedFloat32Array(0, 0.2, 0.55, 1)
+colors = PackedColorArray(1, 0.86, 0.5, 1, 1, 0.55, 0.16, 0.9, 0.8, 0.2, 0.05, 0.45, 0.25, 0.05, 0.02, 0)
+
+[sub_resource type="GradientTexture1D" id="Ramp_flame"]
+gradient = SubResource("Grad_flame")
+
+[sub_resource type="Curve" id="Curve_size"]
+_data = [Vector2(0, 0.55), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="Tex_size"]
+curve = SubResource("Curve_size")
+
+[sub_resource type="ParticleProcessMaterial" id="Flame_process"]
+emission_shape = 1
+emission_sphere_radius = 0.3
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0.15, 0.7, 0)
+scale_min = 0.6
+scale_max = 1.0
+scale_curve = SubResource("Tex_size")
+color_ramp = SubResource("Ramp_flame")
+turbulence_enabled = true
+turbulence_noise_strength = 0.5
+turbulence_noise_scale = 1.5
+
+[sub_resource type="StandardMaterial3D" id="Flame_mat"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("Tex_soft")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="Flame_mesh"]
+material = SubResource("Flame_mat")
+size = Vector2(0.5, 0.7)
+
+[sub_resource type="Gradient" id="Grad_spark"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(1, 0.8, 0.4, 1, 1, 0.45, 0.1, 0.8, 0.6, 0.15, 0.05, 0)
+
+[sub_resource type="GradientTexture1D" id="Ramp_spark"]
+gradient = SubResource("Grad_spark")
+
+[sub_resource type="ParticleProcessMaterial" id="Spark_process"]
+emission_shape = 1
+emission_sphere_radius = 0.35
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 1.2
+initial_velocity_max = 2.6
+gravity = Vector3(0.6, 0.4, 0.2)
+color_ramp = SubResource("Ramp_spark")
+turbulence_enabled = true
+turbulence_noise_strength = 1.5
+turbulence_noise_scale = 2.0
+
+[sub_resource type="QuadMesh" id="Spark_mesh"]
+material = SubResource("Flame_mat")
+size = Vector2(0.04, 0.04)
+
+[node name="FireFlame" type="Node3D"]
+
+[node name="Flames" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 48
+lifetime = 0.9
+preprocess = 1.0
+visibility_aabb = AABB(-1.5, -0.5, -1.5, 3, 4, 3)
+process_material = SubResource("Flame_process")
+draw_pass_1 = SubResource("Flame_mesh")
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 24
+lifetime = 2.2
+preprocess = 2.0
+visibility_aabb = AABB(-3, -0.5, -3, 6, 8, 6)
+process_material = SubResource("Spark_process")
+draw_pass_1 = SubResource("Spark_mesh")
+
+[node name="Light" type="OmniLight3D" parent="."]
+position = Vector3(0, 0.8, 0)
+light_color = Color(1, 0.56, 0.26, 1)
+light_energy = 2.4
+shadow_enabled = true
+omni_range = 10.0
+omni_attenuation = 1.4
+script = ExtResource("1_flicker")

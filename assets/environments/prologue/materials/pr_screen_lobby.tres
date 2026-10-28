@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/prologue/materials/textures/pr_screen_lobby.png" id="1_emission"]
+
+[resource]
+resource_name = "pr_screen_lobby"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0194, 0.0271, 0.0310, 1.0)
+roughness = 0.35
+emission_enabled = true
+emission = Color(1.0000, 1.0000, 1.0000, 1.0)
+emission_energy_multiplier = 1.2
+emission_operator = 1
+emission_texture = ExtResource("1_emission")

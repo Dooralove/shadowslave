@@ -7,7 +7,10 @@ extends Node3D
 
 signal transition_started
 
+const SCENE_PATH := "res://scenes/campaign/caravan_site_arrival.tscn"
 const NEXT_SCENE := "res://scenes/campaign/pilgrim_path_arrival.tscn"
+const DEFAULT_SPAWN := &"Chain"
+const NEXT_SPAWN := &"Start"
 const CAMP_ARRIVAL := preload("res://resources/dialogue/caravan/camp_arrival.tres")
 const HERO_GAZE := preload("res://resources/dialogue/caravan/camp_hero_gaze.tres")
 const ATTACK_SEQUENCE := preload("res://resources/dialogue/caravan/camp_attack.tres")
@@ -154,7 +157,8 @@ func get_phase() -> StringName:
 
 
 func _place_player() -> void:
-	var spawn: Node3D = _site.get_spawn(&"Chain")
+	var requested := LevelPortal.take_pending_spawn(SCENE_PATH)
+	var spawn := LevelPortal.resolve_spawn(_site, requested, DEFAULT_SPAWN)
 	var anchor: Node3D = _site.get_spawn(&"ChainAnchor")
 	if spawn:
 		_player.global_position = spawn.global_position + Vector3(0.0, 0.05, 0.0)
@@ -166,11 +170,14 @@ func _place_player() -> void:
 	_player.allow_jump = false
 	_player.combat_enabled = false
 
+	# Служебная подпись сегмента — только при отладочном запуске сцены; в кампании игрок её не видит.
+	_note.visible = false
 	if not NightmareRunState.has_flag(FLAG_CAMP_REACHED):
 		if debug_direct_scene:
 			NightmareRunState.set_flag(&"march_intro_seen")
 			NightmareRunState.set_flag(FLAG_CAMP_REACHED)
 			_note.text = "ОТЛАДОЧНЫЙ ЗАПУСК · S02–S06 можно проверить без перевала. В кампании сюда ведёт только CampArrival."
+			_note.visible = true
 		else:
 			push_warning("CaravanSiteArrival: нет camp_reached; сцена запущена напрямую")
 
@@ -398,7 +405,7 @@ func _handle_night() -> void:
 	await _await_sequence(dawn_sequence)
 	_player.input_enabled = true
 	_night_running = false
-	_ui.show_hint("Рассвет. Дорога вверх ждёт у южного края площадки.")
+	_ui.show_hint("Рассвет. Пора уходить вверх по дороге.")
 
 
 func _handle_dawn() -> void:
@@ -412,6 +419,7 @@ func _handle_dawn() -> void:
 	if not transition_enabled:
 		return
 	await _fade.fade_to(1.0, 1.2)
+	LevelPortal.set_pending_spawn(NEXT_SCENE, NEXT_SPAWN)
 	get_tree().change_scene_to_file(NEXT_SCENE)
 
 
