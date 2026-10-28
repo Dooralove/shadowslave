@@ -102,9 +102,24 @@ godot --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/test_app
 - `docs/AI_HANDOFF_AFTER_S3_2.md` — handoff, backlog и известные проблемы.
 - `docs/DECISIONS.md` — архитектурные решения.
 
-## Исследование канона: после Первого Кошмара
-
-Статус: **главы 17–99 прочитаны по зеркалу WuxiaDreams (часть фрагментами), глава 100 — в начале**. Сверка с оригиналом на WebNovel не выполнена (там 403), поэтому статус текста — `TEXT` (по зеркалу), а не `VERIFIED`. Главы 1–16 по тексту не проверены.
+```
+project.godot        конфигурация проекта
+scenes/              сцены: main/main.tscn (точка входа), characters/{sunny,sunny_waking,test_enemy}.tscn,
+                     levels/{test_level,combat_arena}.tscn, slice/ (срез: prologue.tscn, locations/, props/),
+                     ui/ (prologue_ui.tscn)
+scripts/             GDScript: player/ (передвижение, камера, аниматор), combat/ (здоровье, хёртбокс, атака,
+                     противник), slice/ (режиссёр среза, локации, CinematicActor), interaction/, dialogue/,
+                     spell/ (лист статуса), world/ (сцены-обвязки), ui/ (HUD и слои среза), debug/ (PerfProbe), quests
+resources/           типизированные Resource (.tres): characters/sunny_attack.tres,
+                     enemies/test_enemy_attack.tres, dialogue/prologue/ (реплики среза),
+                     spell/sunny_status.tres, slice/ (карты клипов), items, quests
+assets/              исходные ассеты (через Git LFS для бинарных форматов):
+                     characters/sunny_placeholder/ — временная модель Санни (KayKit, CC0)
+                     characters/enemy_placeholder/ — временная модель противника (KayKit, CC0)
+tests/               тесты GUT
+docs/                документация проекта: README.md (навигация), DECISIONS.md, ASSET_LICENSES.md, разделы art/, story/, design/, production/
+addons/              сторонние плагины: godot_mcp, gut
+```
 
 - Граница исследования: глава 16 «Rebirth» → глава 29 «The Last Day on Earth» (вход в Царство Снов) → глава 30 (прибытие) → главы 31–100 (Забытый берег, Древо Души, побег, одиночество в проклятом городе).
 - [`docs/research/post_first_nightmare_dream_realm/00_source_registry.md`](docs/research/post_first_nightmare_dream_realm/00_source_registry.md) — реестр источников и статусы.
