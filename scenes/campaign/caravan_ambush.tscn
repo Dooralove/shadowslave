@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/caravan_ambush.gd" id="1_ambush"]
+[ext_resource type="PackedScene" path="res://scenes/levels/ambush_site_demo.tscn" id="2_demo"]
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="3_fade"]
+
+[node name="CaravanAmbush" type="Node3D"]
+script = ExtResource("1_ambush")
+
+[node name="AmbushSiteDemo" parent="." instance=ExtResource("2_demo")]
+
+[node name="Transition" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="Fade" type="ColorRect" parent="Transition"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("3_fade")

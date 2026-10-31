@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "pr_glass"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.2942, 0.3490, 0.3803, 0.42)
+roughness = 0.04
+metallic = 0.25
+transparency = 1
+cull_mode = 2

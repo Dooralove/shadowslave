@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"shifty"
+text = "Повозка? Ты хочешь столкнуть её с обрыва?"
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Клинья под задними колёсами. Без них она пойдёт под уклон."
+duration = 3.2
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Клинья — прочь. Петля из цепи — на шею. Повозка — вниз."
+duration = 3.4
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Я отвлеку его. Делайте, пока он смотрит на меня."
+duration = 2.8
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4")]

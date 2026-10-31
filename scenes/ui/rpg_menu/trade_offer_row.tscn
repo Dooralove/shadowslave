@@ -1,0 +1,127 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_trade_offer_row.gd" id="1_row"]
+
+[sub_resource type="StyleBoxFlat" id="Style_icon"]
+content_margin_left = 9.0
+content_margin_top = 9.0
+content_margin_right = 9.0
+content_margin_bottom = 9.0
+bg_color = Color(0.035, 0.039, 0.041, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23, 0.21, 0.18, 0.7)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="RpgTradeOfferRow" type="Button"]
+custom_minimum_size = Vector2(0, 100)
+size_flags_horizontal = 3
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"OfferRow"
+toggle_mode = true
+script = ExtResource("1_row")
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Row" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="IconPanel" type="PanelContainer" parent="Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_icon")
+
+[node name="Icon" type="TextureRect" parent="Content/Row/IconPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="Content/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="CategoryRarity" type="Label" parent="Content/Row/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ЭКИПИРОВКА · ОБЫЧНЫЙ"
+clip_text = true
+
+[node name="ItemName" type="Label" parent="Content/Row/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 16
+text = "Название лота"
+clip_text = true
+
+[node name="Stock" type="Label" parent="Content/Row/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "В НАЛИЧИИ: 1"
+
+[node name="Divider" type="ColorRect" parent="Content/Row"]
+custom_minimum_size = Vector2(1, 54)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.23, 0.21, 0.18, 0.58)
+
+[node name="PriceBox" type="VBoxContainer" parent="Content/Row"]
+custom_minimum_size = Vector2(98, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Price" type="Label" parent="Content/Row/PriceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DisplayValue"
+theme_override_font_sizes/font_size = 24
+text = "14"
+horizontal_alignment = 2
+
+[node name="PriceUnit" type="Label" parent="Content/Row/PriceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ДЕМО-МОНЕТ"
+horizontal_alignment = 2
+
+[node name="OpenMark" type="Label" parent="Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(14, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "›"
+horizontal_alignment = 2
+vertical_alignment = 1

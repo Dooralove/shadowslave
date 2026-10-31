@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="SpellMessageCatalog" format=3 uid="uid://br1dyursanvji"]
+
+[ext_resource type="Script" uid="uid://x6u8csomxjvq" path="res://scripts/spell/spell_message.gd" id="1_message"]
+[ext_resource type="Script" uid="uid://l3upa540gc10" path="res://scripts/spell/spell_message_catalog.gd" id="2_catalog"]
+
+[sub_resource type="Resource" id="Message_sacrifice"]
+script = ExtResource("1_message")
+id = &"altar_sacrifice"
+text = "Ты предложил себя в жертву богам."
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_gods_dead"]
+script = ExtResource("1_message")
+id = &"altar_gods_dead"
+text = "Боги мертвы и не могут тебя услышать."
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_mark"]
+script = ExtResource("1_message")
+id = &"altar_mark_of_divinity"
+text = "Твоя душа несёт знак божественности."
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_slave"]
+script = ExtResource("1_message")
+id = &"altar_temple_slave"
+text = "Ты — храмовый раб."
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_stirs"]
+script = ExtResource("1_message")
+id = &"altar_shadow_god_stirs"
+text = "Бог Тени пробуждается в вечном сне."
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_blessing"]
+script = ExtResource("1_message")
+id = &"altar_blessing_beyond_grave"
+text = "Он посылает благословение из-за пределов смерти."
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_child"]
+script = ExtResource("1_message")
+id = &"altar_child_of_shadows"
+text = "Дитя Теней, прими своё благословение!"
+duration = 2.8
+presentation = 1
+
+[sub_resource type="Resource" id="Message_trial_over"]
+script = ExtResource("1_message")
+id = &"altar_trial_over"
+text = "Претендент! Твоё испытание завершено."
+duration = 3.2
+presentation = 1
+
+[sub_resource type="Resource" id="Message_tyrant_slain"]
+script = ExtResource("1_message")
+id = &"altar_tyrant_slain"
+text = "Ты убил пробуждённого тирана — Горного Короля."
+duration = 3.6
+presentation = 1
+
+[sub_resource type="Resource" id="Message_wake_up"]
+script = ExtResource("1_message")
+id = &"altar_wake_up"
+text = "Просыпайся, Санлесс! Твой кошмар окончен."
+duration = 3.2
+presentation = 1
+
+[sub_resource type="Resource" id="Message_appraisal"]
+script = ExtResource("1_message")
+id = &"altar_prepare_appraisal"
+text = "Приготовься к оценке…"
+duration = 3.0
+presentation = 1
+
+[resource]
+script = ExtResource("2_catalog")
+messages = [SubResource("Message_sacrifice"), SubResource("Message_gods_dead"), SubResource("Message_mark"), SubResource("Message_slave"), SubResource("Message_stirs"), SubResource("Message_blessing"), SubResource("Message_child"), SubResource("Message_trial_over"), SubResource("Message_tyrant_slain"), SubResource("Message_wake_up"), SubResource("Message_appraisal")]

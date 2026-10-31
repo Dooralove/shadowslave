@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_ehbjk"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_k20o1"]
+
+[sub_resource type="Resource" id="Resource_i7up3"]
+script = ExtResource("1_ehbjk")
+id = &"towers"
+label = "Затонувшие башни"
+description = "Каменные башни уходят под воду."
+position = Vector2(0.44, 0.4)
+
+[sub_resource type="Resource" id="Resource_djixo"]
+script = ExtResource("1_ehbjk")
+id = &"abyss"
+label = "Чёрный провал"
+description = "Глубина, в которой не видно дна."
+position = Vector2(0.66, 0.61)
+kind = 2
+
+[sub_resource type="Resource" id="Resource_txs4h"]
+script = ExtResource("1_ehbjk")
+id = &"unknown"
+label = "Неизвестная цель"
+description = "Будущая сюжетная точка региона."
+position = Vector2(0.52, 0.72)
+kind = 3
+
+[resource]
+script = ExtResource("2_k20o1")
+id = &"drowned_city"
+title = "ЗАТОНУВШИЙ ГОРОД"
+subtitle = "Регион закрыт до следующих глав"
+description = "Заглушка будущего региона. На общей карте он виден, но выбор закрыт: данные локации ещё не определены."
+background_color = Color(0.035, 0.055, 0.07, 1)
+land_color = Color(0.15, 0.18, 0.195, 1)
+accent_color = Color(0.47, 0.45, 0.38, 1)
+contour = PackedVector2Array(0.2, 0.34, 0.36, 0.18, 0.62, 0.14, 0.82, 0.3, 0.86, 0.58, 0.7, 0.8, 0.42, 0.84, 0.18, 0.64)
+markers = Array[ExtResource("1_ehbjk")]([SubResource("Resource_i7up3"), SubResource("Resource_djixo"), SubResource("Resource_txs4h")])
+scene_paths = PackedStringArray()
+world_rect = Rect2(0.78, 0.72, 0.16, 0.11)
+available = false

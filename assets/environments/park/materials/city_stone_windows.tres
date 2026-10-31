@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/environments/park/materials/city_facade.gdshader" id="1_shader"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/mode = 1
+shader_parameter/floor_h = 3.4
+shader_parameter/bay_w = 1.8
+shader_parameter/wall_color = Color(0.84, 0.83, 0.8, 1)
+shader_parameter/glass_color = Color(0.14, 0.19, 0.23, 1)
+shader_parameter/frame_color = Color(0.62, 0.62, 0.6, 1)
+shader_parameter/window_w = 0.5
+shader_parameter/window_h = 0.55
+shader_parameter/lit_ratio = 0.08
+shader_parameter/lit_energy = 0.0

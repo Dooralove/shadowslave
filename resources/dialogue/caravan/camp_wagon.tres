@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Повозка стоит боком: передок у стены, задние колёса — у обрыва."
+duration = 4.2
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Клинья под задними колёсами. Без них повозка поедет сама."
+duration = 3.8
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Тяжёлая. Если сдвинуть — потащит за собой всё, что привязано."
+duration = 4.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3")]

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_nightmare_desert"
+title = "ПУСТЫНЯ КОШМАРОВ"
+subtitle = "Северо-восток"
+description = "Выжженная пустыня белого песка к востоку от Забытого берега, вдоль Полых гор. По преданию — место великой битвы."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.48, 0.02, 0.792, 0.02, 0.792, 0.3, 0.64, 0.32, 0.48, 0.28, 0.496, 0.12)
+label_position = Vector2(0.64, 0.1)
+location_ids = Array[StringName]([])

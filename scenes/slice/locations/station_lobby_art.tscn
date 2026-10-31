@@ -1,0 +1,163 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/station_lobby.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/armor_plate_a.glb" id="2_plate_a"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/armor_plate_b.glb" id="3_plate_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/desk_counter.glb" id="4_counter"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/terminal_desk.glb" id="5_terminal"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/turret_nest_a.glb" id="6_turret"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/ceiling_light_lobby.glb" id="7_light"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/lobby/door_station_entrance.glb" id="8_door"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_lobby_floor_tri.tres" id="9_floor"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_lobby_wall_tri.tres" id="10_wall"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_lobby_ceiling_tri.tres" id="11_ceiling"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_wall_tri.tres" id="12_side_door"]
+
+[node name="StationLobby" instance=ExtResource("1_base")]
+
+[node name="Floor" parent="Geometry"]
+material = ExtResource("9_floor")
+
+[node name="Ceiling" parent="Geometry"]
+material = ExtResource("11_ceiling")
+
+[node name="WallNorth" parent="Geometry"]
+material = ExtResource("10_wall")
+
+[node name="WallSouth" parent="Geometry"]
+material = ExtResource("10_wall")
+
+[node name="EntranceCut" type="CSGBox3D" parent="Geometry/WallSouth"]
+position = Vector3(0, -0.8, 0)
+operation = 2
+size = Vector3(1.6, 2.4, 0.5)
+
+[node name="WallWest" parent="Geometry"]
+material = ExtResource("10_wall")
+
+[node name="WallEast" parent="Geometry"]
+material = ExtResource("10_wall")
+
+[node name="EntranceDoor" parent="Geometry"]
+visible = false
+
+[node name="SideDoorWest" parent="Geometry"]
+material = ExtResource("12_side_door")
+
+[node name="SideDoorEast" parent="Geometry"]
+material = ExtResource("12_side_door")
+
+[node name="ArmorW1" parent="Geometry"]
+visible = false
+
+[node name="ArmorW2" parent="Geometry"]
+visible = false
+
+[node name="ArmorE1" parent="Geometry"]
+visible = false
+
+[node name="ArmorE2" parent="Geometry"]
+visible = false
+
+[node name="ArmorN1" parent="Geometry"]
+visible = false
+
+[node name="ArmorN2" parent="Geometry"]
+visible = false
+
+[node name="Counter" parent="Geometry"]
+visible = false
+use_collision = false
+
+[node name="Terminal" parent="Geometry"]
+visible = false
+
+[node name="TurretNW" parent="Geometry"]
+visible = false
+
+[node name="TurretNE" parent="Geometry"]
+visible = false
+
+[node name="TurretSW" parent="Geometry"]
+visible = false
+
+[node name="TurretSE" parent="Geometry"]
+visible = false
+
+[node name="PanelA" parent="Geometry"]
+visible = false
+
+[node name="PanelB" parent="Geometry"]
+visible = false
+
+[node name="Art" type="Node3D" parent="."]
+
+[node name="PlateN1" parent="Art" instance=ExtResource("2_plate_a")]
+position = Vector3(-3.6, 0, -6)
+
+[node name="PlateN2" parent="Art" instance=ExtResource("3_plate_b")]
+position = Vector3(-1.55, 0, -6)
+
+[node name="PlateN3" parent="Art" instance=ExtResource("3_plate_b")]
+position = Vector3(0, 0, -6)
+
+[node name="PlateN4" parent="Art" instance=ExtResource("3_plate_b")]
+position = Vector3(1.55, 0, -6)
+
+[node name="PlateN5" parent="Art" instance=ExtResource("2_plate_a")]
+position = Vector3(3.6, 0, -6)
+
+[node name="PlateW1" parent="Art" instance=ExtResource("2_plate_a")]
+position = Vector3(-6, 0, -3.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="PlateW2" parent="Art" instance=ExtResource("2_plate_a")]
+position = Vector3(-6, 0, 0)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="PlateW3" parent="Art" instance=ExtResource("3_plate_b")]
+position = Vector3(-6, 0, 2.35)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="PlateE1" parent="Art" instance=ExtResource("2_plate_a")]
+position = Vector3(6, 0, -3.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="PlateE2" parent="Art" instance=ExtResource("2_plate_a")]
+position = Vector3(6, 0, 0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="PlateE3" parent="Art" instance=ExtResource("3_plate_b")]
+position = Vector3(6, 0, 2.35)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="Counter" parent="Art" instance=ExtResource("4_counter")]
+position = Vector3(0, 0, -3)
+
+[node name="Terminal" parent="Art" instance=ExtResource("5_terminal")]
+position = Vector3(0.9, 0.76, -3.15)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="TurretNW" parent="Art" instance=ExtResource("6_turret")]
+position = Vector3(-5.4, 4, -5.4)
+rotation = Vector3(0, 0.785398, 0)
+
+[node name="TurretNE" parent="Art" instance=ExtResource("6_turret")]
+position = Vector3(5.4, 4, -5.4)
+rotation = Vector3(0, -0.785398, 0)
+
+[node name="TurretSW" parent="Art" instance=ExtResource("6_turret")]
+position = Vector3(-5.4, 4, 5.4)
+rotation = Vector3(0, 2.35619, 0)
+
+[node name="LightA" parent="Art" instance=ExtResource("7_light")]
+position = Vector3(0, 4, -2)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LightB" parent="Art" instance=ExtResource("7_light")]
+position = Vector3(0, 4, 2.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Entrance" parent="Art" instance=ExtResource("8_door")]
+position = Vector3(0, 0, 6)
+rotation = Vector3(0, 3.14159, 0)

@@ -1,0 +1,508 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_quest_screen.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="2_decor"]
+
+[sub_resource type="StyleBoxFlat" id="Style_progress_bg"]
+bg_color = Color(0.06, 0.065, 0.066, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23, 0.21, 0.18, 0.55)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="Style_progress_fill"]
+bg_color = Color(0.816, 0.659, 0.435, 0.9)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="QuestScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_quest")
+
+[node name="Columns" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="LeftPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(252, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="LeftColumn" type="VBoxContainer" parent="Columns/LeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Overline" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "РАЗДЕЛ 05 · DEMO-ЖУРНАЛ"
+
+[node name="Title" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "ЗАДАНИЯ"
+
+[node name="Subtitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "КВЕСТЫ И ЦЕЛИ · ТОЛЬКО DEMO"
+
+[node name="RuleTop" type="ColorRect" parent="Columns/LeftPanel/LeftColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="SummaryPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="SummaryBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "СВОДКА"
+
+[node name="ActiveRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.816, 0.659, 0.435, 1)
+text = "◆"
+
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "АКТИВНЫЕ"
+
+[node name="ActiveCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "0"
+
+[node name="AvailableRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "◇"
+
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ДОСТУПНЫЕ"
+
+[node name="AvailableCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "0"
+
+[node name="CompletedRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_colors/font_color = Color(0.69, 0.64, 0.49, 1)
+text = "✓"
+
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ЗАВЕРШЁННЫЕ"
+
+[node name="CompletedCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "0"
+
+[node name="LegendNote" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Статусы и прогресс зафиксированы в демо-ресурсе и не меняются из интерфейса."
+autowrap_mode = 3
+
+[node name="DemoPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="DemoBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/DemoPanel"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoPanel/DemoBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "DEMO-ЖУРНАЛ"
+
+[node name="Note" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoPanel/DemoBox"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Записи не связаны с квестами игры, сохранениями, сюжетом и наградами. Это только демонстрация страницы."
+autowrap_mode = 3
+
+[node name="LeftSpacer" type="Control" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ReturnButton" type="Button" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+text = "← В ИНВЕНТАРЬ"
+
+[node name="CenterPanel" type="PanelContainer" parent="Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+
+[node name="CenterColumn" type="VBoxContainer" parent="Columns/CenterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="CenterHeader" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Titles" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="Overline" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "DEMO-КВЕСТЫ · НЕ СЮЖЕТ"
+
+[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitle"
+text = "ЖУРНАЛ ЗАДАНИЙ"
+clip_text = true
+
+[node name="RecordsCount" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "6 ЗАПИСЕЙ"
+vertical_alignment = 2
+
+[node name="RuleTop" type="ColorRect" parent="Columns/CenterPanel/CenterColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="QuestScroll" type="ScrollContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="QuestList" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/QuestScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="CenterFooter" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+
+[node name="Controls" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ЛКМ — ВЫБРАТЬ ЗАПИСЬ"
+
+[node name="StateNote" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПРОГРЕСС НЕ ИЗМЕНЯЕТСЯ"
+
+[node name="RightPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(398, 0)
+layout_mode = 2
+theme_type_variation = &"DeepPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="RightColumn" type="VBoxContainer" parent="Columns/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="DetailStack" type="Control" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="DetailScroll" type="ScrollContainer" parent="Columns/RightPanel/RightColumn/DetailStack"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="DetailContent" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="DetailSource" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ВЫБРАННАЯ ЗАПИСЬ · DEMO"
+
+[node name="CodeRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DetailCode" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/CodeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+theme_override_font_sizes/font_size = 11
+text = "ЗАПИСЬ 01"
+
+[node name="DetailStatus" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/CodeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "◆ АКТИВНО"
+horizontal_alignment = 2
+
+[node name="DetailTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+theme_override_font_sizes/font_size = 24
+text = "DEMO · НАЗВАНИЕ ЗАПИСИ"
+autowrap_mode = 3
+
+[node name="DetailCategory" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "КАТЕГОРИЯ · ИНТЕРФЕЙС"
+
+[node name="RuleDetail" type="ColorRect" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.6)
+
+[node name="DetailSummary" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLargeLabel"
+theme_override_font_sizes/font_size = 15
+text = "Краткое описание записи."
+autowrap_mode = 3
+
+[node name="DetailDescription" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+theme_override_font_sizes/font_size = 13
+text = "Пояснение демонстрационной записи."
+autowrap_mode = 3
+
+[node name="ProgressPanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="ProgressBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Top" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox"]
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SectionLabel"
+text = "ПРОГРЕСС · DEMO"
+
+[node name="ProgressValue" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "0 / 0"
+
+[node name="QuestProgress" type="ProgressBar" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/background = SubResource("Style_progress_bg")
+theme_override_styles/fill = SubResource("Style_progress_fill")
+max_value = 1.0
+step = 0.01
+value = 0.0
+show_percentage = false
+
+[node name="ObjectivesSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ObjectivesSection"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ЦЕЛИ · DEMO"
+
+[node name="ObjectivesRows" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ObjectivesSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="NotePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="NoteBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel/NoteBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "DEMO-ЗАМЕТКА"
+
+[node name="DetailNote" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel/NoteBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Запись не связана с квестами игры."
+autowrap_mode = 3
+
+[node name="StatePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="StateBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "СОСТОЯНИЕ DEMO"
+
+[node name="ProgressRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/ProgressRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ПРОГРЕСС"
+
+[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/ProgressRow"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+theme_override_font_sizes/font_size = 10
+text = "ФИКСИРОВАН"
+
+[node name="RewardsRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/RewardsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "НАГРАДЫ"
+
+[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/RewardsRow"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "НЕ ПОДКЛЮЧЕНЫ"
+
+[node name="LinkRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/LinkRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "СВЯЗЬ С ИГРОЙ"
+
+[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/LinkRow"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "НЕТ"
+
+[node name="DetailSpacer" type="Control" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EmptyDetail" type="CenterContainer" parent="Columns/RightPanel/RightColumn/DetailStack"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Box" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box"]
+layout_mode = 2
+theme_type_variation = &"DisplayValue"
+text = "ЗАПИСЬ НЕ ВЫБРАНА"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Выберите запись в журнале заданий."
+horizontal_alignment = 1

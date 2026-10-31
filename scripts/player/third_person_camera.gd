@@ -13,6 +13,9 @@ var yaw := 0.0
 var pitch := 0.0
 ## Ложь — мышь не вращает камеру (жёсткие постановки). Захват и освобождение мыши работают как обычно.
 var look_enabled := true
+## Ложь — камера полностью не реагирует на ввод и не перехватывает мышь.
+## Используется, пока активна камера Моря Души.
+var input_enabled := true
 
 @onready var spring_arm: SpringArm3D = $SpringArm3D
 @onready var camera: Camera3D = $SpringArm3D/Camera3D
@@ -24,10 +27,13 @@ func _ready() -> void:
 	var body := get_parent() as CollisionObject3D
 	if body:
 		spring_arm.add_excluded_object(body.get_rid())
-	capture_mouse()
+	if input_enabled:
+		capture_mouse()
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not input_enabled:
+		return
 	if event.is_action_pressed("release_mouse"):
 		release_mouse()
 	elif event.is_action_pressed("capture_mouse") and not is_mouse_captured():

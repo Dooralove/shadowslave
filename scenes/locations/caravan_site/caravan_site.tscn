@@ -1,0 +1,956 @@
+[gd_scene format=3 uid="uid://b3cp8q8rnl4uf"]
+
+[ext_resource type="Script" uid="uid://c10o3bhy7yen8" path="res://scripts/slice/locations/caravan_site.gd" id="1_site"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/horse.tscn" id="90_horse"]
+[ext_resource type="PackedScene" path="res://scenes/locations/caravan_site/larva.tscn" id="3_larva"]
+[ext_resource type="PackedScene" path="res://scenes/characters/mountain_king.tscn" id="4_tyrant"]
+[ext_resource type="Script" uid="uid://6fxn77ug1dtb" path="res://scripts/interaction/interactable.gd" id="5_interactable"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_night"]
+sky_top_color = Color(0.018, 0.026, 0.045, 1)
+sky_horizon_color = Color(0.14, 0.17, 0.22, 1)
+sky_curve = 0.12
+ground_bottom_color = Color(0.008, 0.01, 0.014, 1)
+ground_horizon_color = Color(0.12, 0.14, 0.18, 1)
+sun_angle_max = 10.0
+
+[sub_resource type="Sky" id="Sky_night"]
+sky_material = SubResource("SkyMat_night")
+
+[sub_resource type="Environment" id="Env_night"]
+background_mode = 2
+sky = SubResource("Sky_night")
+ambient_light_source = 2
+ambient_light_color = Color(0.24, 0.28, 0.38, 1)
+ambient_light_energy = 0.58
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.16, 0.19, 0.26, 1)
+fog_density = 0.028
+
+[sub_resource type="StandardMaterial3D" id="Mat_snow"]
+albedo_color = Color(0.68, 0.72, 0.77, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_rock"]
+albedo_color = Color(0.25, 0.27, 0.31, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="Shape_west_boundary"]
+size = Vector3(0.5, 4, 12)
+
+[sub_resource type="BoxShape3D" id="Shape_north_boundary"]
+size = Vector3(12, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bnb0b"]
+size = Vector3(4.25, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h0383"]
+size = Vector3(4.25, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2eclp"]
+size = Vector3(0.5, 4, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5fvfh"]
+size = Vector3(0.5, 4, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wwl7r"]
+size = Vector3(4.5, 4, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood_dark"]
+albedo_color = Color(0.19, 0.13, 0.09, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Mat_fire"]
+albedo_color = Color(1, 0.45, 0.08, 1)
+roughness = 0.4
+emission_enabled = true
+emission = Color(1, 0.38, 0.04, 1)
+emission_energy_multiplier = 3.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.34, 0.24, 0.16, 1)
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Mat_cloth"]
+albedo_color = Color(0.33, 0.29, 0.24, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_steel"]
+albedo_color = Color(0.58, 0.6, 0.64, 1)
+metallic = 0.78
+roughness = 0.32
+
+[sub_resource type="StandardMaterial3D" id="Mat_chain"]
+albedo_color = Color(0.3, 0.29, 0.27, 1)
+metallic = 0.82
+roughness = 0.46
+
+[sub_resource type="StandardMaterial3D" id="Mat_red"]
+albedo_color = Color(0.48, 0.04, 0.06, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.35, 0.01, 0.02, 1)
+emission_energy_multiplier = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_ice"]
+albedo_color = Color(0.62, 0.78, 0.9, 1)
+metallic = 0.15
+roughness = 0.18
+emission_enabled = true
+emission = Color(0.18, 0.32, 0.44, 1)
+emission_energy_multiplier = 0.35
+
+[node name="CaravanSite" type="Node3D" unique_id=882427101]
+script = ExtResource("1_site")
+
+[node name="Environment" type="Node3D" parent="." unique_id=1697988373]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=971320803]
+environment = SubResource("Env_night")
+
+[node name="Moon" type="DirectionalLight3D" parent="Environment" unique_id=1040984427]
+transform = Transform3D(0.90044713, -0.30590227, 0.30922288, 0, 0.71091354, 0.7032794, -0.43496552, -0.6332659, 0.64014006, 0, 24, 0)
+light_color = Color(0.72, 0.8, 0.95, 1)
+light_energy = 1.05
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="DawnLight" type="DirectionalLight3D" parent="Environment" unique_id=1149014141]
+transform = Transform3D(0.120502725, 0.4047891, -0.9064352, 0, 0.9130889, 0.40776044, 0.992713, -0.049136244, 0.110029705, 0, 0, 0)
+visible = false
+light_color = Color(1, 0.78, 0.62, 1)
+light_energy = 0.0
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="Geometry" type="Node3D" parent="." unique_id=959413987]
+
+[node name="Blockout" type="CSGCombiner3D" parent="Geometry" unique_id=1120756841]
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="Geometry/Blockout" unique_id=553821069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0.5)
+size = Vector3(12, 0.5, 10)
+material = SubResource("Mat_snow")
+
+[node name="RoadPatch" type="CSGBox3D" parent="Geometry/Blockout" unique_id=2036696577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 6.5)
+size = Vector3(3.5, 0.16, 5)
+material = SubResource("Mat_snow")
+
+[node name="EastWall" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1949289425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7, 3.4, 0.2)
+size = Vector3(2.2, 7, 10)
+material = SubResource("Mat_rock")
+
+[node name="NorthWallWest" type="CSGBox3D" parent="Geometry/Blockout" unique_id=540289819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 2.7, -4.9)
+size = Vector3(5.2, 6, 1.2)
+material = SubResource("Mat_rock")
+
+[node name="NorthWallEast" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1154099599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 3, -5.1)
+size = Vector3(4.8, 6.8, 1.4)
+material = SubResource("Mat_rock")
+
+[node name="Ramp" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1885140790]
+transform = Transform3D(1, 0, 0, 0, 0.98722726, 0.15931821, 0, -0.15931821, 0.98722726, 0.2, 0.34, -5.9)
+size = Vector3(3.2, 0.3, 3.4)
+material = SubResource("Mat_snow")
+
+[node name="SnowDriftWest" type="CSGBox3D" parent="Geometry/Blockout" unique_id=193095748]
+transform = Transform3D(0.99280864, 0, 0.119712204, 0, 1, 0, -0.119712204, 0, 0.99280864, -5.4, 0.32, 3.8)
+size = Vector3(1.8, 0.55, 3.4)
+material = SubResource("Mat_snow")
+
+[node name="SnowDriftNorth" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1368029495]
+transform = Transform3D(0.99680173, 0, -0.07991469, 0, 1, 0, 0.07991469, 0, 0.99680173, 2.7, 0.28, -3.9)
+size = Vector3(3.2, 0.45, 1.2)
+material = SubResource("Mat_snow")
+
+[node name="CliffLip" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1818099970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15, 0.05, 0.5)
+size = Vector3(0.5, 0.2, 10)
+material = SubResource("Mat_rock")
+
+[node name="CliffFace" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1718139885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9, -14.5, 0.5)
+size = Vector3(2, 29, 10)
+material = SubResource("Mat_rock")
+
+[node name="LowerLedge" type="CSGBox3D" parent="Geometry/Blockout" unique_id=1624604417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.8, -3.5, 0.5)
+size = Vector3(5, 0.6, 10)
+material = SubResource("Mat_rock")
+
+[node name="LowerSnow" type="CSGBox3D" parent="Geometry/Blockout" unique_id=290002159]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.8, -3.18, 0.5)
+size = Vector3(4.6, 0.06, 9.6)
+material = SubResource("Mat_snow")
+
+[node name="Boundary" type="StaticBody3D" parent="Geometry" unique_id=1597948942]
+collision_mask = 0
+
+[node name="West" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=418385464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0.5)
+shape = SubResource("Shape_west_boundary")
+
+[node name="North" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=2078592016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4.25)
+shape = SubResource("Shape_north_boundary")
+
+[node name="SouthWestEdge" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=1129708811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.875, 2, 5.75)
+shape = SubResource("BoxShape3D_bnb0b")
+
+[node name="SouthEastEdge" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=1861321108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.875, 2, 5.75)
+shape = SubResource("BoxShape3D_h0383")
+
+[node name="RoadWestWall" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=1189203426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 7.25)
+shape = SubResource("BoxShape3D_2eclp")
+
+[node name="RoadEastWall" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=1297741506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 7.25)
+shape = SubResource("BoxShape3D_5fvfh")
+
+[node name="RoadSouthEnd" type="CollisionShape3D" parent="Geometry/Boundary" unique_id=925286913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 9.25)
+shape = SubResource("BoxShape3D_wwl7r")
+
+[node name="Props" type="Node3D" parent="." unique_id=1310432314]
+
+[node name="Fire" type="Node3D" parent="Props" unique_id=1582098901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.5)
+
+[node name="Stone01" type="CSGBox3D" parent="Props/Fire" unique_id=578229765]
+transform = Transform3D(0.87758255, 0, 0.47942555, 0, 1, 0, -0.47942555, 0, 0.87758255, 0, 0.12, -1)
+size = Vector3(0.42, 0.24, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone02" type="CSGBox3D" parent="Props/Fire" unique_id=1924934964]
+transform = Transform3D(0.3623577, 0, 0.9320391, 0, 1, 0, -0.9320391, 0, 0.3623577, 0.72, 0.12, -0.72)
+size = Vector3(0.4, 0.22, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone03" type="CSGBox3D" parent="Props/Fire" unique_id=760945311]
+transform = Transform3D(-0.32328954, 0, 0.9463001, 0, 1, 0, -0.9463001, 0, -0.32328954, 1, 0.12, 0)
+size = Vector3(0.42, 0.24, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone04" type="CSGBox3D" parent="Props/Fire" unique_id=1467618622]
+transform = Transform3D(-0.8011436, 0, 0.5984721, 0, 1, 0, -0.5984721, 0, -0.8011436, 0.72, 0.12, 0.72)
+size = Vector3(0.4, 0.22, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone05" type="CSGBox3D" parent="Props/Fire" unique_id=969089000]
+transform = Transform3D(-0.99913514, 0, 0.04158076, 0, 1, 0, -0.04158076, 0, -0.99913514, 0, 0.12, 1)
+size = Vector3(0.42, 0.24, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone06" type="CSGBox3D" parent="Props/Fire" unique_id=1754842957]
+transform = Transform3D(-0.79096776, 0, -0.61185783, 0, 1, 0, 0.61185783, 0, -0.79096776, -0.72, 0.12, 0.72)
+size = Vector3(0.4, 0.22, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone07" type="CSGBox3D" parent="Props/Fire" unique_id=971729361]
+transform = Transform3D(-0.30733278, 0, -0.9516021, 0, 1, 0, 0.9516021, 0, -0.30733278, -1, 0.12, 0)
+size = Vector3(0.42, 0.24, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="Stone08" type="CSGBox3D" parent="Props/Fire" unique_id=1732227235]
+transform = Transform3D(0.37797767, 0, -0.92581475, 0, 1, 0, 0.92581475, 0, 0.37797767, -0.72, 0.12, -0.72)
+size = Vector3(0.4, 0.22, 0.3)
+material = SubResource("Mat_rock")
+
+[node name="LogA" type="CSGCylinder3D" parent="Props/Fire" unique_id=169011944]
+transform = Transform3D(0.921061, 0.38941833, -1.4096905e-06, 0, -3.6199901e-06, -1, -0.38941833, 0.921061, -3.3342317e-06, 0.05, 0.22, 0.1)
+radius = 0.12
+height = 1.4
+sides = 7
+material = SubResource("Mat_wood_dark")
+
+[node name="LogB" type="CSGCylinder3D" parent="Props/Fire" unique_id=779417179]
+transform = Transform3D(0.7648422, -0.6442177, 1.7355158e-06, -7.19181e-07, -3.5478315e-06, -1, 0.6442177, 0.7648422, -3.1768402e-06, -0.08, 0.3, 0.02)
+radius = 0.11
+height = 1.25
+sides = 7
+material = SubResource("Mat_wood_dark")
+
+[node name="FlameA" type="CSGCylinder3D" parent="Props/Fire" unique_id=616876606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.95, 0)
+radius = 0.3
+height = 1.1
+cone = true
+material = SubResource("Mat_fire")
+
+[node name="FlameB" type="CSGCylinder3D" parent="Props/Fire" unique_id=1890326419]
+transform = Transform3D(0.75248516, -0.13692938, 0.64421767, 0.17902958, 0.9838437, 0, -0.6338095, 0.11533402, 0.7648422, -0.18, 0.7, 0.1)
+radius = 0.18
+height = 0.72
+sides = 7
+cone = true
+material = SubResource("Mat_fire")
+
+[node name="FireLight" type="OmniLight3D" parent="Props/Fire" unique_id=1868432625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+light_color = Color(1, 0.55, 0.22, 1)
+light_energy = 2.2
+shadow_enabled = true
+omni_range = 11.0
+
+[node name="Rations" type="Node3D" parent="Props" unique_id=636076925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 0.05, 0.95)
+
+[node name="Basket" type="CSGBox3D" parent="Props/Rations" unique_id=301079529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+size = Vector3(0.45, 0.16, 0.32)
+material = SubResource("Mat_wood")
+
+[node name="Bread" type="CSGBox3D" parent="Props/Rations" unique_id=874853834]
+transform = Transform3D(0.9522811, -0.07634542, 0.29552022, 0.07991469, 0.99680173, 0, -0.29457507, 0.023616407, 0.9553365, -0.04, 0.2, 0.03)
+size = Vector3(0.22, 0.1, 0.14)
+material = SubResource("Mat_cloth")
+
+[node name="Flask" type="CSGCylinder3D" parent="Props/Rations" unique_id=207168897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.2, -0.02)
+radius = 0.07
+height = 0.22
+material = SubResource("Mat_steel")
+
+[node name="Chain" type="Node3D" parent="Props" unique_id=69104550]
+
+[node name="ChainLine" type="CSGBox3D" parent="Props/Chain" unique_id=1008902127]
+transform = Transform3D(0.51738846, 0, 0.8557507, 0, 1, 0, -0.8557507, 0, 0.51738846, -1.8, 0.82, -0.95)
+size = Vector3(0.055, 0.055, 5.62)
+material = SubResource("Mat_chain")
+
+[node name="LinkA" type="CSGBox3D" parent="Props/Chain" unique_id=1133937478]
+transform = Transform3D(0.65520895, 0.103379734, 0.7483408, 0.18979606, 0.9362934, -0.29552022, -0.7312173, 0.33565962, 0.59384674, -0.6, 0.2, 0.18)
+size = Vector3(0.28, 0.06, 0.14)
+material = SubResource("Mat_chain")
+
+[node name="LinkB" type="CSGBox3D" parent="Props/Chain" unique_id=774239997]
+transform = Transform3D(0.24705146, -0.21717845, 0.9443512, 0.0978434, 0.9751704, 0.19866933, -0.96404994, 0.043316986, 0.2621667, -0.2, 0.14, 0.42)
+size = Vector3(0.24, 0.06, 0.12)
+material = SubResource("Mat_chain")
+
+[node name="Shackle" type="CSGCylinder3D" parent="Props/Chain" unique_id=2096694297]
+transform = Transform3D(0.921061, -0.38941833, 0, -1.4096905e-06, -3.3342317e-06, -1, 0.38941833, 0.921061, -3.6199901e-06, 0.55, 0.18, 0.55)
+radius = 0.16
+height = 0.08
+sides = 10
+material = SubResource("Mat_chain")
+
+[node name="Wagon" type="Node3D" parent="Props" unique_id=479835627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2.4)
+
+[node name="Blockout" type="CSGCombiner3D" parent="Props/Wagon" unique_id=1471914757]
+use_collision = true
+
+[node name="Body" type="CSGBox3D" parent="Props/Wagon/Blockout" unique_id=1150686958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+size = Vector3(3.2, 1.2, 1.8)
+material = SubResource("Mat_wood")
+
+[node name="Floor" type="CSGBox3D" parent="Props/Wagon/Blockout" unique_id=2047974444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
+size = Vector3(3.5, 0.18, 2)
+material = SubResource("Mat_wood_dark")
+
+[node name="FrontBoard" type="CSGBox3D" parent="Props/Wagon/Blockout" unique_id=1638613533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 1.25, 0)
+size = Vector3(0.16, 0.8, 1.9)
+material = SubResource("Mat_wood_dark")
+
+[node name="RearBoard" type="CSGBox3D" parent="Props/Wagon/Blockout" unique_id=673737872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 1.25, 0)
+size = Vector3(0.16, 0.8, 1.9)
+material = SubResource("Mat_wood_dark")
+
+[node name="WheelFrontL" type="CSGCylinder3D" parent="Props/Wagon/Blockout" unique_id=1377475003]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 1.12, 0.55, -0.98)
+radius = 0.55
+height = 0.16
+sides = 12
+material = SubResource("Mat_wood_dark")
+
+[node name="WheelFrontR" type="CSGCylinder3D" parent="Props/Wagon/Blockout" unique_id=1262805682]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 1.12, 0.55, 0.98)
+radius = 0.55
+height = 0.16
+sides = 12
+material = SubResource("Mat_wood_dark")
+
+[node name="WheelRearL" type="CSGCylinder3D" parent="Props/Wagon/Blockout" unique_id=1508087651]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, -1.12, 0.55, -0.98)
+radius = 0.55
+height = 0.16
+sides = 12
+material = SubResource("Mat_wood_dark")
+
+[node name="WheelRearR" type="CSGCylinder3D" parent="Props/Wagon/Blockout" unique_id=1731418222]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, -1.12, 0.55, 0.98)
+radius = 0.55
+height = 0.16
+sides = 12
+material = SubResource("Mat_wood_dark")
+
+[node name="WedgeL" type="CSGBox3D" parent="Props/Wagon" unique_id=76921498]
+transform = Transform3D(0.94923544, -0.31456655, 0, 0.31456655, 0.94923544, 0, 0, 0, 1, -1.3, 0.16, -0.98)
+size = Vector3(0.35, 0.24, 0.24)
+material = SubResource("Mat_wood")
+
+[node name="WedgeR" type="CSGBox3D" parent="Props/Wagon" unique_id=1697208113]
+transform = Transform3D(0.94923544, -0.31456655, 0, 0.31456655, 0.94923544, 0, 0, 0, 1, -1.3, 0.16, 0.98)
+size = Vector3(0.35, 0.24, 0.24)
+material = SubResource("Mat_wood")
+
+[node name="Shaft" type="CSGBox3D" parent="Props/Wagon" unique_id=1066564023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 0.48, 0)
+size = Vector3(1.2, 0.12, 0.14)
+material = SubResource("Mat_wood_dark")
+
+[node name="ChainLoop" type="Node3D" parent="Props" unique_id=1067710412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 0.18, -1.2)
+visible = false
+
+[node name="LinkA" type="CSGBox3D" parent="Props/ChainLoop" unique_id=878274342]
+transform = Transform3D(0.9362934, -0.18979606, 0.29552022, 0.19866933, 0.9800666, 0, -0.2896295, 0.058710802, 0.9553365, -0.22, 0, 0)
+size = Vector3(0.18, 0.05, 0.08)
+material = SubResource("Mat_chain")
+
+[node name="LinkB" type="CSGBox3D" parent="Props/ChainLoop" unique_id=2049863260]
+transform = Transform3D(0.9800666, -0.039469503, -0.19470917, 0, 0.9800666, -0.19866933, 0.19866933, 0.19470917, 0.9605305, -0.08, 0.02, 0.11)
+size = Vector3(0.18, 0.05, 0.08)
+material = SubResource("Mat_chain")
+
+[node name="LinkC" type="CSGBox3D" parent="Props/ChainLoop" unique_id=350814859]
+transform = Transform3D(0.86772823, 0.1311443, 0.47942555, -0.14943814, 0.9887711, 0, -0.47404212, -0.07164446, 0.87758255, 0.08, 0, 0.02)
+size = Vector3(0.18, 0.05, 0.08)
+material = SubResource("Mat_chain")
+
+[node name="LinkD" type="CSGBox3D" parent="Props/ChainLoop" unique_id=622723759]
+transform = Transform3D(0.9222692, -0.03404944, -0.3850456, 0.0987124, 0.98383135, 0.14943814, 0.37373164, -0.17583098, 0.91071844, 0.2, 0.02, -0.1)
+size = Vector3(0.18, 0.05, 0.08)
+material = SubResource("Mat_chain")
+
+[node name="VeteranSword" type="Node3D" parent="Props" unique_id=2056795009]
+transform = Transform3D(0.8253356, 0, -0.5646425, 0, 1, 0, 0.5646425, 0, 0.8253356, 4.35, 0.05, -2.75)
+visible = false
+
+[node name="Blade" type="CSGBox3D" parent="Props/VeteranSword" unique_id=1604616496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.3)
+size = Vector3(0.06, 0.04, 0.8)
+material = SubResource("Mat_steel")
+
+[node name="Hilt" type="CSGBox3D" parent="Props/VeteranSword" unique_id=524206472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.16)
+size = Vector3(0.22, 0.06, 0.08)
+material = SubResource("Mat_wood_dark")
+
+[node name="Bloodbane" type="Node3D" parent="Props" unique_id=1246838632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.45, 0.05, 2.55)
+
+[node name="StemA" type="CSGCylinder3D" parent="Props/Bloodbane" unique_id=541326033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+radius = 0.025
+height = 0.44
+sides = 5
+material = SubResource("Mat_cloth")
+
+[node name="StemB" type="CSGCylinder3D" parent="Props/Bloodbane" unique_id=1409004962]
+transform = Transform3D(0.9800666, 0.19866933, 0, -0.19249319, 0.9495987, -0.24740396, -0.04915158, 0.24247237, 0.9689124, 0.18, 0.18, 0.1)
+radius = 0.022
+height = 0.36
+sides = 5
+material = SubResource("Mat_cloth")
+
+[node name="StemC" type="CSGCylinder3D" parent="Props/Bloodbane" unique_id=1782658892]
+transform = Transform3D(0.97589743, -0.21822962, 0, 0.21387956, 0.9564445, 0.19866933, -0.043355532, -0.19388089, 0.9800666, -0.15, 0.16, 0.14)
+radius = 0.02
+height = 0.32
+sides = 5
+material = SubResource("Mat_cloth")
+
+[node name="BerryA" type="CSGSphere3D" parent="Props/Bloodbane" unique_id=530400318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47, 0)
+radius = 0.07
+material = SubResource("Mat_red")
+
+[node name="BerryB" type="CSGSphere3D" parent="Props/Bloodbane" unique_id=1805848934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.38, 0.1)
+radius = 0.06
+material = SubResource("Mat_red")
+
+[node name="BerryC" type="CSGSphere3D" parent="Props/Bloodbane" unique_id=189269031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.34, 0.14)
+radius = 0.055
+material = SubResource("Mat_red")
+
+[node name="BerryD" type="CSGSphere3D" parent="Props/Bloodbane" unique_id=745874775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0.28, -0.12)
+radius = 0.05
+material = SubResource("Mat_red")
+
+[node name="Dressing" type="Node3D" parent="Props" unique_id=524648201]
+
+[node name="Woodpile" type="Node3D" parent="Props/Dressing" unique_id=311182136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 0, -0.55)
+
+[node name="LogA" type="CSGCylinder3D" parent="Props/Dressing/Woodpile" unique_id=1464666540]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 0, 0.11, 0)
+radius = 0.1
+height = 1.05
+sides = 7
+material = SubResource("Mat_wood_dark")
+
+[node name="LogB" type="CSGCylinder3D" parent="Props/Dressing/Woodpile" unique_id=1452645435]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 0.23, 0.11, 0.04)
+radius = 0.1
+height = 0.95
+sides = 7
+material = SubResource("Mat_wood_dark")
+
+[node name="LogC" type="CSGCylinder3D" parent="Props/Dressing/Woodpile" unique_id=3025924]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 0.11, 0.31, 0.02)
+radius = 0.1
+height = 0.9
+sides = 7
+material = SubResource("Mat_wood")
+
+[node name="Stump" type="CSGCylinder3D" parent="Props/Dressing/Woodpile" unique_id=369261611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.19, 0.05)
+radius = 0.24
+height = 0.38
+sides = 9
+material = SubResource("Mat_wood")
+
+[node name="BedrollA" type="Node3D" parent="Props/Dressing" unique_id=190793963]
+transform = Transform3D(0.9689124, 0, 0.24740396, 0, 1, 0, -0.24740396, 0, 0.9689124, -3.55, 0, 1.45)
+
+[node name="Base" type="CSGBox3D" parent="Props/Dressing/BedrollA" unique_id=576351653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+size = Vector3(0.68, 0.1, 1.42)
+material = SubResource("Mat_cloth")
+
+[node name="Pillow" type="CSGBox3D" parent="Props/Dressing/BedrollA" unique_id=935219744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, -0.52)
+size = Vector3(0.5, 0.12, 0.24)
+material = SubResource("Mat_cloth")
+
+[node name="BedrollB" type="Node3D" parent="Props/Dressing" unique_id=1815618850]
+transform = Transform3D(0.9887711, 0, -0.14943814, 0, 1, 0, 0.14943814, 0, 0.9887711, -2.75, 0, 2.05)
+
+[node name="Base" type="CSGBox3D" parent="Props/Dressing/BedrollB" unique_id=622628264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+size = Vector3(0.64, 0.1, 1.32)
+material = SubResource("Mat_cloth")
+
+[node name="Pillow" type="CSGBox3D" parent="Props/Dressing/BedrollB" unique_id=58282579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, -0.48)
+size = Vector3(0.48, 0.12, 0.22)
+material = SubResource("Mat_cloth")
+
+[node name="Crate" type="Node3D" parent="Props/Dressing" unique_id=247247612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0, -2.65)
+
+[node name="Box" type="CSGBox3D" parent="Props/Dressing/Crate" unique_id=2049322440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0)
+size = Vector3(0.58, 0.56, 0.58)
+material = SubResource("Mat_wood")
+
+[node name="Band" type="CSGBox3D" parent="Props/Dressing/Crate" unique_id=1805418729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0)
+size = Vector3(0.62, 0.08, 0.62)
+material = SubResource("Mat_wood_dark")
+
+[node name="Barrel" type="CSGCylinder3D" parent="Props/Dressing" unique_id=436085101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0.38, -1.85)
+radius = 0.3
+height = 0.76
+sides = 12
+material = SubResource("Mat_wood_dark")
+
+[node name="Flasks" type="Node3D" parent="Props" unique_id=372459023]
+
+[node name="FlaskA" type="Node3D" parent="Props/Flasks" unique_id=367794631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.03, 2.55)
+visible = false
+
+[node name="Body" type="CSGCylinder3D" parent="Props/Flasks/FlaskA" unique_id=606820525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+radius = 0.11
+height = 0.3
+material = SubResource("Mat_steel")
+
+[node name="Neck" type="CSGCylinder3D" parent="Props/Flasks/FlaskA" unique_id=1597377754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+radius = 0.045
+height = 0.12
+sides = 6
+material = SubResource("Mat_steel")
+
+[node name="FlaskB" type="Node3D" parent="Props/Flasks" unique_id=2038453835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25, 0.03, 3)
+visible = false
+
+[node name="Body" type="CSGCylinder3D" parent="Props/Flasks/FlaskB" unique_id=968205444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+radius = 0.11
+height = 0.3
+material = SubResource("Mat_steel")
+
+[node name="Neck" type="CSGCylinder3D" parent="Props/Flasks/FlaskB" unique_id=329505841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+radius = 0.045
+height = 0.12
+sides = 6
+material = SubResource("Mat_steel")
+
+[node name="FlaskC" type="Node3D" parent="Props/Flasks" unique_id=1866633462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.03, -2.3)
+visible = false
+
+[node name="Body" type="CSGCylinder3D" parent="Props/Flasks/FlaskC" unique_id=2026491622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+radius = 0.11
+height = 0.3
+material = SubResource("Mat_steel")
+
+[node name="Neck" type="CSGCylinder3D" parent="Props/Flasks/FlaskC" unique_id=1445531690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+radius = 0.045
+height = 0.12
+sides = 6
+material = SubResource("Mat_steel")
+
+[node name="Key" type="Node3D" parent="Props" unique_id=1954668215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.1, 1.3)
+
+[node name="Ring" type="CSGCylinder3D" parent="Props/Key" unique_id=1203526857]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 0, 0.05, 0)
+radius = 0.09
+height = 0.04
+sides = 10
+material = SubResource("Mat_steel")
+
+[node name="Shaft" type="CSGBox3D" parent="Props/Key" unique_id=1262879237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.16)
+size = Vector3(0.035, 0.035, 0.28)
+material = SubResource("Mat_steel")
+
+[node name="Bit" type="CSGBox3D" parent="Props/Key" unique_id=1904374760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0.28)
+size = Vector3(0.12, 0.04, 0.05)
+material = SubResource("Mat_steel")
+
+[node name="Larva" parent="Props" unique_id=1139256513 instance=ExtResource("3_larva")]
+transform = Transform3D(-0.666276, 0, 0.74570525, 0, 1, 0, -0.74570525, 0, -0.666276, 0.45, 0, -0.9)
+visible = false
+
+[node name="FourLarvae" type="Node3D" parent="Props" unique_id=882521266]
+visible = false
+
+[node name="LarvaA" parent="Props/FourLarvae" unique_id=1893065462 instance=ExtResource("3_larva")]
+transform = Transform3D(0.921061, 0, 0.38941833, 0, 1, 0, -0.38941833, 0, 0.921061, -4.4, 0, 2.8)
+
+[node name="LarvaB" parent="Props/FourLarvae" unique_id=626059827 instance=ExtResource("3_larva")]
+transform = Transform3D(0.3623577, 0, -0.9320391, 0, 1, 0, 0.9320391, 0, 0.3623577, 4.9, 0, 3.1)
+
+[node name="LarvaC" parent="Props/FourLarvae" unique_id=241335351 instance=ExtResource("3_larva")]
+transform = Transform3D(-0.22720204, 0, 0.9738476, 0, 1, 0, -0.9738476, 0, -0.22720204, -4.8, 0, -3.2)
+
+[node name="LarvaD" parent="Props/FourLarvae" unique_id=1173236141 instance=ExtResource("3_larva")]
+transform = Transform3D(-0.7373938, 0, -0.67546314, 0, 1, 0, 0.67546314, 0, -0.7373938, 4.6, 0, -3.2)
+
+[node name="Rocks" type="Node3D" parent="Props" unique_id=1865519071]
+
+[node name="Rock01" type="CSGBox3D" parent="Props/Rocks" unique_id=1371893903]
+transform = Transform3D(0.8827072, 0.0071592405, 0.46986896, 0.0978434, 0.9751704, -0.19866933, -0.4596246, 0.22134042, 0.86008936, 4.2, 0.4, -2.8)
+size = Vector3(0.7, 0.7, 0.9)
+material = SubResource("Mat_rock")
+
+[node name="Rock02" type="CSGBox3D" parent="Props/Rocks" unique_id=712478899]
+transform = Transform3D(0.62475556, -0.046851464, 0.7794136, 0.19767681, 0.9751704, -0.09983342, -0.7553836, 0.21644346, 0.6185045, 5.1, 0.5, -1.4)
+size = Vector3(0.9, 0.9, 1.1)
+material = SubResource("Mat_rock")
+
+[node name="Rock03" type="CSGBox3D" parent="Props/Rocks" unique_id=1576967658]
+transform = Transform3D(0.98103166, -0.039425906, 0.18979606, 0.09537451, 0.95056385, -0.29552022, -0.1687621, 0.3080164, 0.9362934, 3.4, 0.3, -3.5)
+size = Vector3(0.5, 0.5, 0.6)
+material = SubResource("Mat_rock")
+
+[node name="Rock04" type="CSGBox3D" parent="Props/Rocks" unique_id=1034253578]
+transform = Transform3D(0.4008943, 0.06981332, 0.9134604, 0.2896295, 0.9362934, -0.19866933, -0.86913663, 0.34421048, 0.3551347, 5.3, 0.35, -3.4)
+size = Vector3(0.65, 0.65, 0.8)
+material = SubResource("Mat_rock")
+
+[node name="Rock05" type="CSGBox3D" parent="Props/Rocks" unique_id=1416324541]
+transform = Transform3D(0.7623736, -0.08891824, 0.64099926, 0.19767681, 0.9751704, -0.09983342, -0.61620647, 0.20282106, 0.7610212, 2.8, 0.25, -1.9)
+size = Vector3(0.4, 0.4, 0.5)
+material = SubResource("Mat_rock")
+
+[node name="Rock06" type="CSGBox3D" parent="Props/Rocks" unique_id=1542553811]
+transform = Transform3D(0.9279484, 0.0225534, 0.37202555, 0.09537451, 0.95056385, -0.29552022, -0.360299, 0.3097093, 0.87992316, 4.6, 0.45, 0)
+size = Vector3(0.8, 0.8, 0.9)
+material = SubResource("Mat_rock")
+
+[node name="Ice01" type="CSGBox3D" parent="Props/Rocks" unique_id=454681739]
+transform = Transform3D(0.9687393, -0.09807, 0.22787414, 0.18298657, 0.9027011, -0.38941833, -0.167512, 0.41894272, 0.89242744, 3.9, 0.55, 0.8)
+size = Vector3(0.7, 1.1, 0.35)
+material = SubResource("Mat_ice")
+
+[node name="Ice02" type="CSGBox3D" parent="Props/Rocks" unique_id=890332854]
+transform = Transform3D(0.8570601, -0.3461022, -0.3816559, 0.2896295, 0.9362934, -0.19866933, 0.42610177, 0.059732758, 0.9027011, 4.8, 0.65, 2)
+size = Vector3(0.55, 1.35, 0.3)
+material = SubResource("Mat_ice")
+
+[node name="Ice03" type="CSGBox3D" parent="Props/Rocks" unique_id=552215025]
+transform = Transform3D(0.74824387, -0.20370372, 0.6313762, 0.0978434, 0.9751704, 0.19866933, -0.656169, -0.08687711, 0.7495963, 2.9, 0.45, 1.7)
+size = Vector3(0.45, 0.9, 0.28)
+material = SubResource("Mat_ice")
+
+[node name="Ice04" type="CSGBox3D" parent="Props/Rocks" unique_id=2045644536]
+transform = Transform3D(0.3838424, 0.38961717, 0.8371759, -0.18662454, 0.9206478, -0.3428978, -0.90434307, -0.024618864, 0.42609578, 5.2, 0.5, 0.7)
+size = Vector3(0.6, 0.8, 0.32)
+material = SubResource("Mat_ice")
+
+[node name="NPCs" type="Node3D" parent="." unique_id=1124663260]
+
+[node name="BroadSlave" parent="NPCs" unique_id=836164982 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.5)
+height_scale = 1.08
+width_scale = 1.4
+archetype = "slave"
+pose = "idle"
+
+[node name="BroadCorpse" parent="NPCs" unique_id=1359454729 instance=ExtResource("2_mannequin")]
+transform = Transform3D(0.9553365, 0, -0.29552022, 0, 1, 0, 0.29552022, 0, 0.9553365, 0.4, 0, 0.4)
+visible = false
+height_scale = 1.08
+width_scale = 1.35
+archetype = "slave"
+pose = "dead"
+
+[node name="ShiftySlave" parent="NPCs" unique_id=1758685587 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
+height_scale = 0.95
+width_scale = 0.9
+archetype = "slave"
+pose = "idle"
+
+[node name="Scholar" parent="NPCs" unique_id=340717595 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 1.2)
+height_scale = 1.04
+width_scale = 0.88
+archetype = "slave"
+pose = "talk"
+
+[node name="Hero" parent="NPCs" unique_id=1798104434 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.85, 1.2)
+height_scale = 1.05
+width_scale = 0.95
+archetype = "knight"
+pose = "ride"
+
+[node name="WhiteHorse" type="Node3D" parent="NPCs/Hero" unique_id=2007261172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+
+[node name="Model" parent="NPCs/Hero/WhiteHorse" instance=ExtResource("90_horse")]
+coat_color = Color(0.86, 0.84, 0.8, 1)
+
+[node name="Spear" type="CSGCylinder3D" parent="NPCs/Hero" unique_id=1887020775]
+transform = Transform3D(0.9950042, -0.09983342, 0, 0.09822048, 0.97892857, -0.17902958, 0.017873136, 0.17813519, 0.9838437, 0.28, 0.45, -0.1)
+radius = 0.025
+height = 2.8
+sides = 6
+material = SubResource("Mat_steel")
+
+[node name="Veteran" parent="NPCs" unique_id=813446438 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0.85, 2.2)
+height_scale = 1.02
+archetype = "knight"
+pose = "ride"
+
+[node name="DarkHorse" type="Node3D" parent="NPCs/Veteran" unique_id=623237817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+
+[node name="Model" parent="NPCs/Veteran/DarkHorse" instance=ExtResource("90_horse")]
+coat_color = Color(0.12, 0.1, 0.09, 1)
+
+[node name="Whip" type="CSGCylinder3D" parent="NPCs/Veteran" unique_id=1749310407]
+transform = Transform3D(0.9887711, -0.14943814, 0, 0.14645933, 0.9690615, -0.19866933, 0.029688776, 0.19643849, 0.9800666, 0.3, 0.55, -0.1)
+radius = 0.02
+height = 1.1
+sides = 5
+material = SubResource("Mat_wood_dark")
+
+[node name="SoldierA" parent="NPCs" unique_id=1598826419 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0, 3.2)
+archetype = "knight"
+pose = "guard"
+
+[node name="SoldierB" parent="NPCs" unique_id=418805501 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0, 3.7)
+height_scale = 0.98
+archetype = "knight"
+pose = "guard"
+
+[node name="SlaveA" parent="NPCs" unique_id=2090525422 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -2.8)
+height_scale = 0.93
+archetype = "slave"
+pose = "kneel"
+
+[node name="SlaveB" parent="NPCs" unique_id=1371385175 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 2.6)
+height_scale = 0.97
+archetype = "slave"
+pose = "idle"
+
+[node name="SlaveC" parent="NPCs" unique_id=1841584395 instance=ExtResource("2_mannequin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 0, 0.4)
+height_scale = 0.9
+width_scale = 1.1
+archetype = "slave"
+pose = "sit"
+
+[node name="Tyrant" parent="." unique_id=1442320918 instance=ExtResource("4_tyrant")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0.8, 6.15, -4.5)
+visible = false
+
+[node name="Interactables" type="Node3D" parent="." unique_id=1953482930]
+
+[node name="Rations" type="Node3D" parent="Interactables" unique_id=654756960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.1, 0.9)
+script = ExtResource("5_interactable")
+interaction_id = &"camp_rations"
+prompt = "Взять хлеб и воду"
+radius = 2.2
+
+[node name="Bloodbane" type="Node3D" parent="Interactables" unique_id=17689396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.2, 2)
+script = ExtResource("5_interactable")
+interaction_id = &"camp_bloodbane"
+prompt = "Рассмотреть ягоды"
+radius = 1.8
+
+[node name="Wagon" type="Node3D" parent="Interactables" unique_id=1188764253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.2, -1.2)
+script = ExtResource("5_interactable")
+interaction_id = &"camp_wagon"
+prompt = "Осмотреть повозку"
+radius = 2.4
+
+[node name="AttackTrigger" type="Node3D" parent="Interactables" unique_id=695088254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.2, 0.6)
+script = ExtResource("5_interactable")
+interaction_id = &"camp_attack"
+prompt = "Сесть у костра"
+radius = 2.4
+
+[node name="ChainLarva" type="Node3D" parent="Interactables" unique_id=102069820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.3, -0.9)
+script = ExtResource("5_interactable")
+interaction_id = &"chain_larva"
+prompt = "Набросить цепь"
+radius = 2.4
+
+[node name="HeroKey" type="Node3D" parent="Interactables" unique_id=495029239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.2, 1.3)
+script = ExtResource("5_interactable")
+interaction_id = &"hero_key"
+prompt = "Подобрать ключ"
+radius = 2.0
+
+[node name="WagonWedges" type="Node3D" parent="Interactables" unique_id=1777816266]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.2, -2.4)
+script = ExtResource("5_interactable")
+interaction_id = &"wagon_wedges"
+prompt = "Выбить клинья"
+radius = 2.2
+
+[node name="WagonLoop" type="Node3D" parent="Interactables" unique_id=1546068243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0.2, -1.2)
+script = ExtResource("5_interactable")
+interaction_id = &"wagon_loop"
+prompt = "Свить петлю"
+radius = 2.0
+
+[node name="WagonPush" type="Node3D" parent="Interactables" unique_id=1476354220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.2, -2.4)
+script = ExtResource("5_interactable")
+interaction_id = &"wagon_push"
+prompt = "Толкнуть повозку"
+radius = 2.2
+
+[node name="FlaskA" type="Node3D" parent="Interactables" unique_id=1574230941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.2, 2.55)
+script = ExtResource("5_interactable")
+interaction_id = &"flask_a"
+prompt = "Забрать флягу"
+
+[node name="FlaskB" type="Node3D" parent="Interactables" unique_id=81865210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25, 0.2, 3)
+script = ExtResource("5_interactable")
+interaction_id = &"flask_b"
+prompt = "Забрать флягу"
+
+[node name="FlaskC" type="Node3D" parent="Interactables" unique_id=1232063508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.2, -2.3)
+script = ExtResource("5_interactable")
+interaction_id = &"flask_c"
+prompt = "Забрать флягу"
+
+[node name="Veteran" type="Node3D" parent="Interactables" unique_id=77161754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.2, -2.2)
+script = ExtResource("5_interactable")
+interaction_id = &"veteran"
+prompt = "Подойти к раненому"
+radius = 2.2
+
+[node name="VeteranSword" type="Node3D" parent="Interactables" unique_id=309394466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.2, -2.75)
+script = ExtResource("5_interactable")
+interaction_id = &"veteran_sword"
+prompt = "Поднять сломанный меч"
+radius = 1.6
+
+[node name="NightFire" type="Node3D" parent="Interactables" unique_id=2084630340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.2, 0.5)
+script = ExtResource("5_interactable")
+interaction_id = &"night_fire"
+prompt = "Сесть у костра"
+radius = 2.2
+
+[node name="PoisonFlasks" type="Node3D" parent="Interactables" unique_id=1831943458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.2, 0.7)
+script = ExtResource("5_interactable")
+interaction_id = &"poison_flasks"
+prompt = "Отравить общие фляги"
+radius = 1.4
+
+[node name="DawnExit" type="Node3D" parent="Interactables" unique_id=1532371820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 6.2)
+script = ExtResource("5_interactable")
+interaction_id = &"dawn_exit"
+prompt = "Начать восхождение"
+radius = 2.4
+
+[node name="Spawns" type="Node3D" parent="." unique_id=295567306]
+
+[node name="Chain" type="Marker3D" parent="Spawns" unique_id=1217223999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.05, 1.8)
+
+[node name="ChainAnchor" type="Marker3D" parent="Spawns" unique_id=1905834371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.7)
+
+[node name="FireSeat" type="Marker3D" parent="Spawns" unique_id=805350302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.05, 2.1)
+
+[node name="DawnExit" type="Marker3D" parent="Spawns" unique_id=430080119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 6.4)

@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="SpellMessageCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/spell/spell_message.gd" id="1_message"]
+[ext_resource type="Script" path="res://scripts/spell/spell_message_catalog.gd" id="2_catalog"]
+
+[sub_resource type="Resource" id="M1"]
+script = ExtResource("1_message")
+id = &"awakening_body"
+text = "Твоё тело перестраивается."
+duration = 2.4
+presentation = 1
+
+[sub_resource type="Resource" id="M2"]
+script = ExtResource("1_message")
+id = &"awakening_core"
+text = "Появляется Shadow Core."
+duration = 2.4
+presentation = 1
+
+[sub_resource type="Resource" id="M3"]
+script = ExtResource("1_message")
+id = &"awakening_fragments"
+text = "Фрагменты: [12/1000]."
+duration = 2.2
+
+[sub_resource type="Resource" id="M4"]
+script = ExtResource("1_message")
+id = &"awakening_shadow_control"
+text = "Получена способность Shadow Control."
+duration = 2.6
+
+[sub_resource type="Resource" id="M5"]
+script = ExtResource("1_message")
+id = &"awakening_price"
+text = "У силы есть цена."
+duration = 2.2
+
+[sub_resource type="Resource" id="M6"]
+script = ExtResource("1_message")
+id = &"awakening_flaw"
+text = "Ты получил Flaw. Его имя пока скрыто."
+duration = 3.0
+
+[resource]
+script = ExtResource("2_catalog")
+messages = [SubResource("M1"), SubResource("M2"), SubResource("M3"), SubResource("M4"), SubResource("M5"), SubResource("M6")]

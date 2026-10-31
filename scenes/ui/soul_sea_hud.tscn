@@ -1,0 +1,192 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/soul_sea_hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="Style_health_bg"]
+bg_color = Color(0.025, 0.035, 0.055, 0.84)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.32, 0.45, 0.75)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+
+[sub_resource type="StyleBoxFlat" id="Style_health_fill"]
+bg_color = Color(0.33, 0.7, 0.85, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_left = 2
+corner_radius_bottom_right = 2
+
+[sub_resource type="StyleBoxFlat" id="Style_bar_bg"]
+bg_color = Color(0.03, 0.045, 0.065, 0.95)
+
+[node name="SoulSeaHud" type="CanvasLayer"]
+layer = 60
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Top" type="MarginContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 0
+
+[node name="Row" type="HBoxContainer" parent="Root/Top"]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="TitleBlock" type="VBoxContainer" parent="Root/Top/Row"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Top/Row/TitleBlock"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "МОРЕ ДУШИ"
+
+[node name="Subtitle" type="Label" parent="Root/Top/Row/TitleBlock"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ВНУТРЕННЕЕ ПРОСТРАНСТВО · ТЕЛО ОСТАЁТСЯ В МИРЕ"
+
+[node name="Spacer" type="Control" parent="Root/Top/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HealthPanel" type="PanelContainer" parent="Root/Top/Row"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("Style_health_bg")
+
+[node name="Padding" type="MarginContainer" parent="Root/Top/Row/HealthPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Column" type="VBoxContainer" parent="Root/Top/Row/HealthPanel/Padding"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Caption" type="Label" parent="Root/Top/Row/HealthPanel/Padding/Column"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ТЕЛО САННИ · УЯЗВИМО"
+
+[node name="HealthBar" type="ProgressBar" parent="Root/Top/Row/HealthPanel/Padding/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_styles/background = SubResource("Style_bar_bg")
+theme_override_styles/fill = SubResource("Style_health_fill")
+show_percentage = false
+
+[node name="HealthText" type="Label" parent="Root/Top/Row/HealthPanel/Padding/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "100 / 100"
+horizontal_alignment = 2
+
+[node name="Warning" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_top = 128.0
+offset_right = 320.0
+offset_bottom = 154.0
+grow_horizontal = 2
+theme_type_variation = &"OverlineLabel"
+text = "ТЕЛО ПОД АТАКОЙ"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -380.0
+offset_top = 96.0
+offset_right = 380.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 6
+text = "Мир продолжает жить."
+horizontal_alignment = 1
+
+[node name="Crosshair" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.66, 0.88, 1, 0.72)
+
+[node name="Prompt" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -152.0
+offset_right = 300.0
+offset_bottom = -126.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 6
+text = "E — коснуться Памяти"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Root"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"OverlineLabel"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.87)
+theme_override_constants/outline_size = 5
+text = "WASD — осмотреться · E — взаимодействовать · V / ESC — вернуться в мир"
+horizontal_alignment = 1

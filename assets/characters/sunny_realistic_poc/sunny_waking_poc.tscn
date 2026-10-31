@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/characters/sunny_waking.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_poc_model.tscn" id="2_model"]
+[ext_resource type="Resource" path="res://assets/characters/sunny_realistic_poc/sunny_poc_clips.tres" id="3_clips"]
+
+[node name="Sunny" instance=ExtResource("1_base")]
+
+[node name="Model" parent="Visual" index="0"]
+visible = false
+
+[node name="ModelPoc" parent="Visual" index="1" instance=ExtResource("2_model")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="Animator" parent="." node_paths=PackedStringArray("animation_player")]
+animation_player = NodePath("../Visual/ModelPoc/AnimationPlayer")
+idle_clip = &"sunny/Idle_Relaxed"
+walk_clip = &"Walk"
+run_clip = &"Sprint"
+jump_clip = &"Jump_Start"
+fall_clip = &"Jump"
+land_clip = &"Jump_Land"
+attack_clip = &"Punch_Jab"
+hit_clip = &"Hit_Chest"
+death_clip = &"Death01"
+
+[node name="CameraRig" parent="."]
+position = Vector3(0, 1.4, 0)
+
+[node name="SpringArm3D" parent="CameraRig"]
+spring_length = 3.0
+
+[node name="CinematicActor" parent="." node_paths=PackedStringArray("animation_player")]
+animation_player = NodePath("../Visual/ModelPoc/AnimationPlayer")
+clip_map = ExtResource("3_clips")
+hidden_parts = PackedStringArray()

@@ -1,0 +1,16 @@
+[gd_resource type="ORMMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/metal_plate_02_diff_1k.jpg" id="1_albedo"]
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/metal_plate_02_arm_1k.jpg" id="2_orm"]
+[ext_resource type="Texture2D" path="res://assets/environments/park/materials/textures/metal_plate_02_nor_gl_1k.jpg" id="3_normal"]
+
+[resource]
+resource_name = "station_panel"
+albedo_color = Color(0.46, 0.48, 0.52, 1)
+albedo_texture = ExtResource("1_albedo")
+orm_texture = ExtResource("2_orm")
+normal_enabled = true
+normal_texture = ExtResource("3_normal")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true

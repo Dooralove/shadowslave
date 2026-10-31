@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/environments/nightmare/materials/nm_layered_triplanar.gdshader" id="1_nm_layered_triplanar"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_snow_albedo_2k.jpg" id="2_nm_snow_albedo_2k"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/snow_02_nor_gl_2k.jpg" id="3_snow_02_nor_gl_2k"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/snow_02_arm_2k.jpg" id="4_snow_02_arm_2k"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_macro"]
+frequency = 0.012
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_macro"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_macro")
+
+[resource]
+resource_name = "nm_ice"
+shader = ExtResource("1_nm_layered_triplanar")
+shader_parameter/base_albedo = ExtResource("2_nm_snow_albedo_2k")
+shader_parameter/base_normal = ExtResource("3_snow_02_nor_gl_2k")
+shader_parameter/base_orm = ExtResource("4_snow_02_arm_2k")
+shader_parameter/base_tint = Color(0.6012, 0.6652, 0.7152, 1.0)
+shader_parameter/base_tile_m = 3.0
+shader_parameter/base_normal_strength = 0.35
+shader_parameter/base_roughness_scale = 0.3
+shader_parameter/base_roughness_offset = 0.0
+shader_parameter/base_metallic = 0.0
+shader_parameter/macro_noise = SubResource("NoiseTexture2D_macro")
+shader_parameter/macro_tile_m = 8.0
+shader_parameter/macro_strength = 0.25
+shader_parameter/snow_enabled = false
+shader_parameter/dirt_strength = 1.0
+shader_parameter/triplanar_sharpness = 6.0

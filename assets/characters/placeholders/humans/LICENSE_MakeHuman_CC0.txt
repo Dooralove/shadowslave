@@ -1,0 +1,3 @@
+Ассеты MakeHuman / MPFB 2, использованные в sunny_poc.glb, распространяются под CC0 1.0.
+Источник наборов: https://static.makehumancommunity.org/assets/assetpacks.html
+Полный список ассетов и авторов: docs/ASSET_LICENSES.md

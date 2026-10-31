@@ -1,0 +1,553 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/locations/shadow_sanctuary/sanctuary_controller.gd" id="1_controller"]
+[ext_resource type="PackedScene" path="res://scenes/ui/bark_ui.tscn" id="2_barks"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
+[ext_resource type="Script" path="res://scripts/interaction/interactable.gd" id="4_interactable"]
+[ext_resource type="Script" path="res://scripts/ui/interaction_prompt_ui.gd" id="5_prompt"]
+[ext_resource type="PackedScene" path="res://scenes/ui/spell_overlay/spell_overlay.tscn" id="6_overlay"]
+[ext_resource type="Script" path="res://scenes/locations/shadow_sanctuary/altar_ritual.gd" id="7_ritual"]
+[ext_resource type="Script" path="res://scripts/ui/sanctuary_ui.gd" id="8_hud"]
+[ext_resource type="Resource" path="res://resources/spell/altar_offering.tres" id="9_messages"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_night"]
+sky_top_color = Color(0.012, 0.016, 0.035, 1)
+sky_horizon_color = Color(0.035, 0.045, 0.075, 1)
+sky_curve = 0.12
+sky_energy_multiplier = 0.55
+ground_bottom_color = Color(0.004, 0.005, 0.009, 1)
+ground_horizon_color = Color(0.02, 0.024, 0.04, 1)
+ground_curve = 0.1
+sun_angle_max = 7.0
+sun_curve = 0.08
+use_debanding = true
+
+[sub_resource type="Sky" id="Sky_night"]
+sky_material = SubResource("SkyMat_night")
+
+[sub_resource type="Environment" id="Env_sanctuary"]
+background_mode = 2
+sky = SubResource("Sky_night")
+ambient_light_source = 2
+ambient_light_color = Color(0.35, 0.42, 0.6, 1)
+ambient_light_energy = 2.8
+reflected_light_source = 2
+tonemap_mode = 4
+tonemap_exposure = 1.7
+tonemap_white = 6.0
+ssao_enabled = true
+ssao_radius = 1.2
+ssao_intensity = 1.4
+ssao_power = 1.5
+glow_enabled = true
+glow_intensity = 0.35
+glow_bloom = 0.05
+glow_hdr_threshold = 1.0
+fog_enabled = true
+fog_light_color = Color(0.04, 0.05, 0.08, 1)
+fog_density = 0.0015
+fog_sky_affect = 0.4
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.34, 0.38, 0.48, 1)
+volumetric_fog_length = 48.0
+volumetric_fog_detail_spread = 1.5
+adjustment_enabled = true
+adjustment_contrast = 1.08
+adjustment_saturation = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.18, 0.185, 0.21, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_wall"]
+albedo_color = Color(0.13, 0.135, 0.155, 1)
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="Mat_pillar"]
+albedo_color = Color(0.15, 0.155, 0.18, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_altar"]
+albedo_color = Color(0.065, 0.07, 0.085, 1)
+metallic = 0.05
+roughness = 0.35
+clearcoat_enabled = true
+clearcoat = 0.35
+clearcoat_roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_ritual_glow"]
+shading_mode = 0
+albedo_color = Color(0.3, 0.58, 1, 1)
+emission_enabled = true
+emission = Color(0.35, 0.65, 1, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_shadow"]
+albedo_color = Color(0.006, 0.007, 0.012, 1)
+roughness = 0.98
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(0.86, 0.82, 0.58, 1)
+emission_enabled = true
+emission = Color(0.95, 0.84, 0.46, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="Shape_crevice"]
+size = Vector3(1.2, 2.2, 1.6)
+
+[sub_resource type="BoxShape3D" id="Shape_altar"]
+size = Vector3(5.0, 1.8, 2.0)
+
+[sub_resource type="BoxShape3D" id="Shape_evaluation"]
+size = Vector3(4.0, 3.0, 1.0)
+
+[sub_resource type="BoxMesh" id="Mesh_ritual_glow"]
+material = SubResource("Mat_ritual_glow")
+size = Vector3(1.15, 0.01, 0.08)
+
+[node name="ShadowSanctuary" type="Node3D"]
+script = ExtResource("1_controller")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Env_sanctuary")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="Environment"]
+rotation = Vector3(-0.9076, -0.6109, 0)
+light_color = Color(0.64, 0.72, 0.92, 1)
+light_energy = 0.75
+light_volumetric_fog_energy = 0.35
+shadow_enabled = true
+directional_shadow_max_distance = 80.0
+
+[node name="Beam_Main" type="SpotLight3D" parent="Environment"]
+position = Vector3(0.6, 8.8, -0.5)
+rotation = Vector3(-1.5708, 0, 0)
+light_color = Color(0.62, 0.72, 1, 1)
+light_energy = 55.0
+light_volumetric_fog_energy = 1.2
+shadow_enabled = true
+spot_range = 20.0
+spot_angle = 24.0
+spot_angle_attenuation = 1.1
+spot_attenuation = 1.0
+
+[node name="Beam_East" type="SpotLight3D" parent="Environment"]
+position = Vector3(6.4, 8.8, 4.4)
+rotation = Vector3(-1.5708, 0, 0.08)
+light_color = Color(0.6, 0.7, 1, 1)
+light_energy = 30.0
+light_volumetric_fog_energy = 0.8
+shadow_enabled = true
+spot_range = 18.0
+spot_angle = 18.0
+spot_angle_attenuation = 1.1
+spot_attenuation = 1.0
+
+[node name="Beam_North" type="SpotLight3D" parent="Environment"]
+position = Vector3(0.0, 8.8, -3.8)
+rotation = Vector3(-1.3963, 0, 0)
+light_color = Color(0.66, 0.74, 1, 1)
+light_energy = 40.0
+light_volumetric_fog_energy = 0.9
+shadow_enabled = true
+spot_range = 18.0
+spot_angle = 12.0
+spot_angle_attenuation = 1.1
+spot_attenuation = 1.0
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Blockout" type="CSGCombiner3D" parent="Geometry"]
+use_collision = true
+collision_layer = 1
+collision_mask = 0
+
+[node name="HallFloor" type="CSGBox3D" parent="Geometry/Blockout"]
+position = Vector3(0, -0.25, 0)
+size = Vector3(20, 0.5, 15)
+material = SubResource("Mat_floor")
+
+[node name="MegalithWalls" type="CSGCombiner3D" parent="Geometry/Blockout"]
+
+[node name="WallWest" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(-9.6, 3, 0)
+size = Vector3(0.8, 6, 15)
+material = SubResource("Mat_wall")
+
+[node name="WallEast" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(9.6, 3, 0)
+size = Vector3(0.8, 6, 15)
+material = SubResource("Mat_wall")
+
+[node name="WallNorth" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(0, 3, -7.1)
+size = Vector3(20, 6, 0.8)
+material = SubResource("Mat_wall")
+
+[node name="WallSouthWest" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(-6.25, 3, 7.1)
+size = Vector3(7.5, 6, 0.8)
+material = SubResource("Mat_wall")
+
+[node name="WallSouthEast" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(6.25, 3, 7.1)
+size = Vector3(7.5, 6, 0.8)
+material = SubResource("Mat_wall")
+
+[node name="GateLintelWest" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(-1.4, 5.75, 7.1)
+size = Vector3(2.2, 0.5, 0.8)
+material = SubResource("Mat_wall")
+
+[node name="GateLintelEast" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(1.9, 5.6, 7.1)
+size = Vector3(1.2, 0.8, 0.8)
+material = SubResource("Mat_wall")
+
+[node name="Roof" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(0, 6.25, 0)
+size = Vector3(20, 0.5, 15)
+material = SubResource("Mat_wall")
+
+[node name="CeilingBreach_Main" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(0.6, 6.25, -0.5)
+rotation = Vector3(0, 0.191986, 0)
+operation = 2
+size = Vector3(7.5, 2.0, 5.5)
+material = SubResource("Mat_wall")
+
+[node name="CeilingBreach_East" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(6.4, 6.25, 4.4)
+rotation = Vector3(0, -0.279253, 0)
+operation = 2
+size = Vector3(2.8, 2.0, 2.4)
+material = SubResource("Mat_wall")
+
+[node name="CeilingBreach_North" type="CSGBox3D" parent="Geometry/Blockout/MegalithWalls"]
+position = Vector3(0.0, 6.25, -4.9)
+rotation = Vector3(0, 0.122173, 0)
+operation = 2
+size = Vector3(2.2, 2.0, 2.6)
+material = SubResource("Mat_wall")
+
+[node name="Pillars" type="CSGCombiner3D" parent="Geometry/Blockout"]
+
+[node name="Pillar01" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(-6, 3, -4.8)
+radius = 0.85
+height = 6.0
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="Pillar02" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(-6, 3, 0)
+radius = 0.85
+height = 6.0
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="Pillar03" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(-6, 3, 4.8)
+radius = 0.85
+height = 6.0
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="Pillar04" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(6, 3, -4.8)
+radius = 0.85
+height = 6.0
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="Pillar05" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(6, 3, 0)
+radius = 0.85
+height = 6.0
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="Pillar06" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(6, 1.2, 4.8)
+radius = 0.85
+height = 2.4
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="FallenDrum" type="CSGCylinder3D" parent="Geometry/Blockout/Pillars"]
+position = Vector3(7.9, 0.85, 2.9)
+rotation = Vector3(0, 0, 1.5708)
+radius = 0.85
+height = 2.6
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="AltarDais" type="CSGCombiner3D" parent="Geometry/Blockout"]
+position = Vector3(0, 0, -5.0)
+
+[node name="StepLower" type="CSGBox3D" parent="Geometry/Blockout/AltarDais"]
+position = Vector3(0, 0.15, 0)
+size = Vector3(4, 0.3, 3)
+material = SubResource("Mat_wall")
+
+[node name="StepUpper" type="CSGBox3D" parent="Geometry/Blockout/AltarDais"]
+position = Vector3(0, 0.45, 0)
+size = Vector3(3.2, 0.3, 2.4)
+material = SubResource("Mat_wall")
+
+[node name="AltarStone" type="CSGCombiner3D" parent="Geometry/Blockout"]
+position = Vector3(0, 1.1, -5.0)
+
+[node name="Monolith" type="CSGBox3D" parent="Geometry/Blockout/AltarStone"]
+size = Vector3(1.5, 1, 1)
+material = SubResource("Mat_altar")
+
+[node name="Groove" type="CSGBox3D" parent="Geometry/Blockout/AltarStone"]
+position = Vector3(0, 0.48, 0.26)
+operation = 2
+size = Vector3(1.1, 0.06, 0.06)
+
+[node name="Drain" type="CSGBox3D" parent="Geometry/Blockout/AltarStone"]
+position = Vector3(0, 0.48, 0.3)
+operation = 2
+size = Vector3(0.06, 0.06, 0.16)
+
+[node name="SunnyCrevice" type="CSGCombiner3D" parent="Geometry/Blockout"]
+
+[node name="FallenColumn" type="CSGCylinder3D" parent="Geometry/Blockout/SunnyCrevice"]
+position = Vector3(-8, 0.6, 0.8)
+rotation = Vector3(1.5708, 0, 0)
+radius = 0.6
+height = 4.8
+sides = 8
+smooth_faces = false
+material = SubResource("Mat_pillar")
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="SanctuaryEntrance" type="Marker3D" parent="Spawns"]
+position = Vector3(0, 0.05, 7.0)
+
+[node name="AltarInteractionPoint" type="Marker3D" parent="Spawns"]
+position = Vector3(0, 1.65, -5.0)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="MonsterDoorBlocker" type="Marker3D" parent="Spawns"]
+position = Vector3(0, 0.05, 6.4)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="Sunny" parent="." instance=ExtResource("3_sunny")]
+position = Vector3(0, 0.05, 6.2)
+groups = ["player"]
+
+[node name="Tyrant" type="Node3D" parent="."]
+visible = false
+position = Vector3(0, 0.05, 6.2)
+
+[node name="Body" type="CSGBox3D" parent="Tyrant"]
+position = Vector3(0, 2.4, 0)
+size = Vector3(3.8, 4.8, 2.4)
+material = SubResource("Mat_shadow")
+
+[node name="ArmWest" type="CSGBox3D" parent="Tyrant"]
+position = Vector3(-2.2, 2.4, -0.2)
+rotation = Vector3(0.1, 0, 0.55)
+size = Vector3(0.7, 4.2, 0.7)
+material = SubResource("Mat_shadow")
+
+[node name="ArmEast" type="CSGBox3D" parent="Tyrant"]
+position = Vector3(2.2, 2.4, -0.2)
+rotation = Vector3(0.1, 0, -0.55)
+size = Vector3(0.7, 4.2, 0.7)
+material = SubResource("Mat_shadow")
+
+[node name="Eye1" type="CSGSphere3D" parent="Tyrant"]
+position = Vector3(-1.1, 3.6, -1.3)
+radius = 0.13
+material = SubResource("Mat_eye")
+
+[node name="Eye2" type="CSGSphere3D" parent="Tyrant"]
+position = Vector3(-0.55, 3.75, -1.35)
+radius = 0.12
+material = SubResource("Mat_eye")
+
+[node name="Eye3" type="CSGSphere3D" parent="Tyrant"]
+position = Vector3(0.0, 3.8, -1.35)
+radius = 0.12
+material = SubResource("Mat_eye")
+
+[node name="Eye4" type="CSGSphere3D" parent="Tyrant"]
+position = Vector3(0.55, 3.75, -1.35)
+radius = 0.12
+material = SubResource("Mat_eye")
+
+[node name="Eye5" type="CSGSphere3D" parent="Tyrant"]
+position = Vector3(1.1, 3.6, -1.3)
+radius = 0.13
+material = SubResource("Mat_eye")
+
+[node name="ShadowHands" type="Node3D" parent="."]
+visible = false
+position = Vector3(0, 0.05, 1.8)
+
+[node name="Hand1" type="CSGBox3D" parent="ShadowHands"]
+position = Vector3(-2.4, 2.2, 0.4)
+rotation = Vector3(0, 0.2, 1.05)
+size = Vector3(0.18, 4.2, 0.18)
+material = SubResource("Mat_shadow")
+
+[node name="Hand2" type="CSGBox3D" parent="ShadowHands"]
+position = Vector3(2.4, 2.2, 0.4)
+rotation = Vector3(0, -0.2, -1.05)
+size = Vector3(0.18, 4.2, 0.18)
+material = SubResource("Mat_shadow")
+
+[node name="Hand3" type="CSGBox3D" parent="ShadowHands"]
+position = Vector3(-1.2, 1.4, -0.8)
+rotation = Vector3(0.8, 0, 0.9)
+size = Vector3(0.16, 3.6, 0.16)
+material = SubResource("Mat_shadow")
+
+[node name="Hand4" type="CSGBox3D" parent="ShadowHands"]
+position = Vector3(1.2, 1.4, -0.8)
+rotation = Vector3(-0.8, 0, -0.9)
+size = Vector3(0.16, 3.6, 0.16)
+material = SubResource("Mat_shadow")
+
+[node name="Hand5" type="CSGBox3D" parent="ShadowHands"]
+position = Vector3(-0.6, 0.9, 1.2)
+rotation = Vector3(1.1, 0, 0.5)
+size = Vector3(0.14, 3.2, 0.14)
+material = SubResource("Mat_shadow")
+
+[node name="Hand6" type="CSGBox3D" parent="ShadowHands"]
+position = Vector3(0.6, 0.9, 1.2)
+rotation = Vector3(-1.1, 0, -0.5)
+size = Vector3(0.14, 3.2, 0.14)
+material = SubResource("Mat_shadow")
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="AltarOffering" type="Node3D" parent="Interactables"]
+position = Vector3(0, 1.65, -5.0)
+script = ExtResource("4_interactable")
+interaction_id = &"altar_offering"
+prompt = "Совершить подношение"
+radius = 2.2
+sight_height = 0.5
+enabled = true
+
+[node name="RitualLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 2.4, -4.85)
+visible = false
+light_color = Color(0.36, 0.58, 1, 1)
+light_energy = 1.1
+light_volumetric_fog_energy = 0.3
+shadow_enabled = true
+omni_range = 5.5
+
+[node name="RitualGlow" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.605, -4.74)
+visible = false
+mesh = SubResource("Mesh_ritual_glow")
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("interactor", "prompt", "status_label")]
+layer = 10
+script = ExtResource("8_hud")
+interactor = NodePath("../Sunny/Interactor")
+prompt = NodePath("Prompt")
+status_label = NodePath("Status")
+
+[node name="Prompt" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -200.0
+offset_right = 240.0
+offset_bottom = -170.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+script = ExtResource("5_prompt")
+
+[node name="Status" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 54.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.72, 0.86, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="SpellOverlay" parent="." instance=ExtResource("6_overlay")]
+
+[node name="Triggers" type="Node3D" parent="."]
+
+[node name="Trigger_CreviceHideout" type="Area3D" parent="Triggers"]
+position = Vector3(-8.7, 1.1, 3.9)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/Trigger_CreviceHideout"]
+shape = SubResource("Shape_crevice")
+
+[node name="Trigger_AltarInteract" type="Area3D" parent="Triggers"]
+position = Vector3(0, 0.9, -3.1)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/Trigger_AltarInteract"]
+shape = SubResource("Shape_altar")
+
+[node name="Trigger_SpellEvaluation" type="Area3D" parent="Triggers"]
+position = Vector3(0, 1.5, -5.9)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/Trigger_SpellEvaluation"]
+shape = SubResource("Shape_evaluation")
+
+[node name="BarkUI" parent="." instance=ExtResource("2_barks")]
+
+[node name="AltarRitual" type="Node" parent="." node_paths=PackedStringArray("controller", "altar", "spell_overlay", "hud", "ritual_light", "ritual_glow", "player", "tyrant", "shadow_hands")]
+script = ExtResource("7_ritual")
+controller = NodePath("..")
+altar = NodePath("../Interactables/AltarOffering")
+messages = ExtResource("9_messages")
+spell_overlay = NodePath("../SpellOverlay")
+hud = NodePath("../UI")
+ritual_light = NodePath("../RitualLight")
+ritual_glow = NodePath("../RitualGlow")
+player = NodePath("../Sunny")
+tyrant = NodePath("../Tyrant")
+shadow_hands = NodePath("../ShadowHands")

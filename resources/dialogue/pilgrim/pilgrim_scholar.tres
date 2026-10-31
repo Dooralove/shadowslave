@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_0a"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Учёный держится за живот. Лицо серое, шаг неровный."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_0b"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Мне нехорошо. Переживу, если не будем стоять."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "От Тирана можно избавиться. Приманка идёт по запаху крови."
+duration = 3.4
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Почему он?"
+duration = 1.8
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Рана от кнута. Кровь широкоплечего. Накидка мёртвого солдата."
+duration = 3.6
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Санни с трудом сдерживает улыбку."
+duration = 2.2
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Ты сам ближе к могиле, Учёный."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"scholar"
+text = "Я не..."
+duration = 1.4
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Я знаю, кто ты. Your Grace."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Герой бьёт плашмя по ноге. Кость ломается."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Второй удар. Крики стихают за скальным выступом."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Не чувствуй вины. Это правосудие."
+duration = 2.4
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "За что?"
+duration = 1.4
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Не твоё дело. Идём."
+duration = 2.0
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Герой возвращается один. Большая часть дров остаётся на тропе."
+duration = 3.2
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_0a"), SubResource("Line_0b"), SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13")]

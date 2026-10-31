@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_song_domain"
+title = "ВЛАДЕНИЯ ПЕСНИ"
+subtitle = "Великий клан Песни"
+description = "Обширный анклав клана Песни на северо-западе от Бастиона. Столица Вороново Сердце стоит на склонах горного хребта у северной границы владений."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.016, 0.44, 0.16, 0.45, 0.304, 0.46, 0.32, 0.6, 0.296, 0.75, 0.272, 0.885, 0.176, 0.86, 0.08, 0.83, 0.016, 0.8)
+label_position = Vector2(0.152, 0.7)
+location_ids = Array[StringName]([])

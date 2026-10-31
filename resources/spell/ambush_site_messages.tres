@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="SpellMessageCatalog" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/spell/spell_message_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/spell/spell_message.gd" id="2_message"]
+
+[sub_resource type="Resource" id="Message_ambush_started"]
+script = ExtResource("2_message")
+id = &"ambush_started"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Претендент! Караван уничтожен. Выживи и найди путь к руинам."
+duration = 4.0
+presentation = 0
+
+[sub_resource type="Resource" id="Message_escape_available"]
+script = ExtResource("2_message")
+id = &"escape_available"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Путь через каньон открыт. Покинь место бойни."
+duration = 3.6
+presentation = 0
+
+[sub_resource type="Resource" id="Message_escaped"]
+script = ExtResource("2_message")
+id = &"escaped"
+header = "КОШМАРНОЕ ЗАКЛЯТИЕ"
+text = "Ты вырвался из засады. Впереди — древние руины."
+duration = 4.4
+presentation = 1
+
+[resource]
+script = ExtResource("1_catalog")
+messages = [SubResource("Message_ambush_started"), SubResource("Message_escape_available"), SubResource("Message_escaped")]

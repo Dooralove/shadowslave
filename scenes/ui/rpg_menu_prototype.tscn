@@ -1,0 +1,708 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_menu_prototype.gd" id="1_root"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_menu_backdrop.gd" id="2_backdrop"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_sigil.gd" id="3_sigil"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="4_decor"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/inventory_screen.tscn" id="5_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/character_screen.tscn" id="6_character"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/aspect_screen.tscn" id="9_aspect"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/draft_screen.tscn" id="7_draft"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/trade_screen.tscn" id="8_trade"]
+[ext_resource type="PackedScene" path="res://scenes/ui/rpg_menu/quest_screen.tscn" id="10_quest"]
+
+[node name="RpgMenuPrototype" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_root")
+
+[node name="Backdrop" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_backdrop")
+
+[node name="Content" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+
+[node name="StartPage" type="Control" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartMargin" type="MarginContainer" parent="Content/StartPage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 42
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 28
+
+[node name="StartColumn" type="VBoxContainer" parent="Content/StartPage/StartMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StartHeader" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="Mark" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHeader"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("3_sigil")
+color = Color(0.7, 0.55, 0.35, 0.3)
+faint_color = Color(0.7, 0.67, 0.6, 0.12)
+accent_color = Color(0.83, 0.68, 0.46, 0.5)
+rotation_speed = 0.014
+tick_count = 18
+
+[node name="Wordmark" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHeader"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHeader/Wordmark"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+theme_override_font_sizes/font_size = 18
+text = "SHADOW SLAVE"
+
+[node name="Meta" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHeader/Wordmark"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+theme_override_font_sizes/font_size = 9
+text = "ИНТЕРФЕЙСНЫЙ ПРОТОТИП"
+
+[node name="Spacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RightMeta" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHeader"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Top" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHeader/RightMeta"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "RPG MENU / 01"
+horizontal_alignment = 2
+
+[node name="Bottom" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHeader/RightMeta"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "1600 × 900 · DEMO SESSION"
+horizontal_alignment = 2
+
+[node name="StartRule" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="StartHero" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 52
+
+[node name="Copy" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="TopSpacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Eyebrow" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ИНТЕРФЕЙСНЫЙ ПРОТОТИП · САННИ · ПЕРВЫЙ СРЕЗ"
+
+[node name="StartTitle" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_type_variation = &"BrandLabel"
+theme_override_font_sizes/font_size = 78
+text = "SHADOW\nSLAVE"
+autowrap_mode = 3
+
+[node name="TitleRule" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Line" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/TitleRule"]
+custom_minimum_size = Vector2(74, 1)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.7, 0.55, 0.35, 0.6)
+
+[node name="Caption" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/TitleRule"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "МЕНЮ СТРАННИКА · ДЕМО-ИНТЕРФЕЙС"
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_type_variation = &"BodyLargeLabel"
+theme_override_font_sizes/font_size = 17
+text = "Инвентарь, профиль, снаряжение, аспект, задания и демонстрационная торговля. Отдельный презентационный слой: он не связан с игровыми сценами, сохранениями, экономикой или контроллером Санни."
+autowrap_mode = 3
+
+[node name="DemoWarning" type="PanelContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="WarningLine" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/DemoWarning"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Marker" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/DemoWarning/WarningLine"]
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "◆"
+
+[node name="WarningText" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/DemoWarning/WarningLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"WarningLabel"
+text = "ВСЕ ПРЕДМЕТЫ, ЧИСЛА И ЦЕНЫ — ВЫМЫШЛЕННЫЕ. СЕССИЯ НЕ СОХРАНЯЕТСЯ."
+autowrap_mode = 3
+
+[node name="RouteGap" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="StartRoute" type="PanelContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="Content" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Header" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content"]
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"OverlineLabel"
+text = "МАРШРУТ ОСМОТРА"
+
+[node name="Note" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Header"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ТРИ БЫСТРЫХ ПРОВЕРКИ"
+
+[node name="Steps" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Step01" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Code" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step01"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+theme_override_font_sizes/font_size = 10
+text = "01 · ИНВЕНТАРЬ"
+
+[node name="Text" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step01"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 11
+text = "Фильтры, выбор предмета и доступные действия."
+autowrap_mode = 3
+
+[node name="Divider01" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
+custom_minimum_size = Vector2(1, 34)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.27, 0.25, 0.21, 0.5)
+
+[node name="Step02" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Code" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step02"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+theme_override_font_sizes/font_size = 10
+text = "02 · ПЕРСОНАЖ"
+
+[node name="Text" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step02"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 11
+text = "Шесть слотов снаряжения и 3D-превью модели."
+autowrap_mode = 3
+
+[node name="Divider02" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
+custom_minimum_size = Vector2(1, 34)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.27, 0.25, 0.21, 0.5)
+
+[node name="Step03" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Code" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step03"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+theme_override_font_sizes/font_size = 10
+text = "03 · ТОРГОВЛЯ"
+
+[node name="Text" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step03"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 11
+text = "Покупка, продажа, количество и нехватка монет."
+autowrap_mode = 3
+
+[node name="CopySpacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="StartActions" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="StartButton" type="Button" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(282, 54)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"PrimaryButton"
+text = "ОТКРЫТЬ МЕНЮ     →"
+
+[node name="ActionHint" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartActions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="Top" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartActions/ActionHint"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "МЫШЬ ОБЯЗАТЕЛЬНА · ENTER ДОПУСТИМ"
+
+[node name="Bottom" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartActions/ActionHint"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ESC ВНУТРИ МЕНЮ ВЕРНЁТ СЮДА"
+
+[node name="StartHint" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ЗАКРЫТИЕ МЕНЮ НЕ ЗАВЕРШАЕТ ПРИЛОЖЕНИЕ · ДАННЫЕ СБРАСЫВАЮТСЯ ТОЛЬКО ПРИ ПЕРЕЗАПУСКЕ"
+autowrap_mode = 3
+
+[node name="BottomSpacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Aside" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AsideSpacerTop" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AsidePanel" type="PanelContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside"]
+layout_mode = 2
+theme_type_variation = &"DeepPanel"
+script = ExtResource("4_decor")
+accent = true
+
+[node name="Content" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="TopLine" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content"]
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content/TopLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"OverlineLabel"
+text = "СОСТАВ ПРОТОТИПА"
+
+[node name="Count" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content/TopLine"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "5 РАЗДЕЛОВ + ТОРГОВЛЯ"
+
+[node name="Title" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+theme_override_font_sizes/font_size = 26
+text = "КАРТА ИНТЕРФЕЙСА"
+
+[node name="Rule" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="StartIndexRows" type="VBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Footnote" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/AsidePanel/Content"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "АСПЕКТ, ЗАДАНИЯ И ТОРГОВЛЯ — DEMO; ПАМЯТИ — ЗАГЛУШКА"
+autowrap_mode = 3
+
+[node name="MetricsHeader" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Caption" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/MetricsHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"OverlineLabel"
+text = "ДЕМО-СОСТОЯНИЕ"
+
+[node name="Note" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside/MetricsHeader"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "НЕ КАНОН"
+
+[node name="StartMetrics" type="GridContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 7
+columns = 2
+
+[node name="AsideSpacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="AsideNote" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Aside"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Рабочие экраны: инвентарь, профиль, снаряжение, аспект, задания и торговля. Раздел «Памяти» остаётся заглушкой."
+autowrap_mode = 3
+
+[node name="StartFooterRule" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.22, 0.21, 0.19, 0.5)
+
+[node name="StartFooter" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="Path" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartFooter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "СЦЕНА: res://scenes/ui/rpg_menu_prototype.tscn"
+
+[node name="Status" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartFooter"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ВЕРСИЯ 01 · ПРЕДПРОСМОТР · БЕЗ КОММИТА"
+
+[node name="MenuPage" type="Control" parent="Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuMargin" type="MarginContainer" parent="Content/MenuPage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 12
+
+[node name="RootColumn" type="VBoxContainer" parent="Content/MenuPage/MenuMargin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="HBoxContainer" parent="Content/MenuPage/MenuMargin/RootColumn"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="BrandMark" type="Control" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("3_sigil")
+color = Color(0.7, 0.55, 0.35, 0.28)
+faint_color = Color(0.7, 0.67, 0.6, 0.1)
+accent_color = Color(0.83, 0.68, 0.46, 0.46)
+rotation_speed = 0.012
+tick_count = 16
+
+[node name="Brand" type="VBoxContainer" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+custom_minimum_size = Vector2(196, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/Header/Brand"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+theme_override_font_sizes/font_size = 20
+text = "SHADOW SLAVE"
+
+[node name="Meta" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/Header/Brand"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+theme_override_font_sizes/font_size = 9
+text = "ПРОТОТИП МЕНЮ · ДЕМО"
+
+[node name="BrandDivider" type="ColorRect" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+custom_minimum_size = Vector2(1, 28)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.25, 0.23, 0.2, 0.55)
+
+[node name="NavBox" type="HBoxContainer" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 1
+
+[node name="NavInventory" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header/NavBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavButton"
+toggle_mode = true
+text = "ИНВЕНТАРЬ"
+
+[node name="NavCharacter" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header/NavBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavButton"
+toggle_mode = true
+text = "ПЕРСОНАЖ"
+
+[node name="NavAspect" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header/NavBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavButton"
+toggle_mode = true
+text = "АСПЕКТ / НАВЫКИ"
+
+[node name="NavMemories" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header/NavBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavButton"
+toggle_mode = true
+text = "ПАМЯТИ"
+
+[node name="NavJournal" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header/NavBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavButton"
+toggle_mode = true
+text = "ЗАДАНИЯ"
+
+[node name="TradeButton" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"TradeButton"
+toggle_mode = true
+text = "ТОРГОВЛЯ · ДЕМО"
+
+[node name="CloseButton" type="Button" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+text = "ЗАКРЫТЬ · ESC / C"
+
+[node name="HeaderRule" type="ColorRect" parent="Content/MenuPage/MenuMargin/RootColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="Workspace" type="Control" parent="Content/MenuPage/MenuMargin/RootColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InventoryScreen" parent="Content/MenuPage/MenuMargin/RootColumn/Workspace" instance=ExtResource("5_inventory")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterScreen" parent="Content/MenuPage/MenuMargin/RootColumn/Workspace" instance=ExtResource("6_character")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectScreen" parent="Content/MenuPage/MenuMargin/RootColumn/Workspace" instance=ExtResource("9_aspect")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuestScreen" parent="Content/MenuPage/MenuMargin/RootColumn/Workspace" instance=ExtResource("10_quest")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DraftScreen" parent="Content/MenuPage/MenuMargin/RootColumn/Workspace" instance=ExtResource("7_draft")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TradeScreen" parent="Content/MenuPage/MenuMargin/RootColumn/Workspace" instance=ExtResource("8_trade")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FeedbackRow" type="HBoxContainer" parent="Content/MenuPage/MenuMargin/RootColumn"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FeedbackMarker" type="ColorRect" parent="Content/MenuPage/MenuMargin/RootColumn/FeedbackRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(3, 16)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.435, 0.341, 0.231, 1)
+
+[node name="FeedbackLabel" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/FeedbackRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MicroLabel"
+text = "СЕССИЯ ДЕМО · ВСЁ ЛОКАЛЬНО · НЕ СОХРАНЯЕТСЯ"
+vertical_alignment = 1
+clip_text = true
+
+[node name="WalletLabel" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/FeedbackRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "КОШЕЛЁК · 120 ДЕМО-МОНЕТ"
+vertical_alignment = 1
+
+[node name="FooterRow" type="HBoxContainer" parent="Content/MenuPage/MenuMargin/RootColumn"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="Controls" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/FooterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ЛКМ — ВЫБРАТЬ · КОЛЕСО — ПРОКРУТКА · ESC / C — ЗАКРЫТЬ · M — КАРТА"
+
+[node name="SessionIndex" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/FooterRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "СЕАНС №01 · ДЕМО-ДАННЫЕ"
+
+[node name="FeedbackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 6.0
+one_shot = true

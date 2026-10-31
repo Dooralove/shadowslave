@@ -1,0 +1,134 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+[ext_resource type="Texture2D" path="res://assets/ui/map/dream_realm.png" id="6_tex"]
+
+[sub_resource type="Resource" id="World_M0"]
+script = ExtResource("1_marker")
+id = &"crimson_spire"
+label = "Багровый шпиль"
+description = "В центре Лабиринта, посреди кратера Забытого берега."
+use_world_position = true
+world_position = Vector2(0.24, 0.155)
+kind = 3
+
+[sub_resource type="Resource" id="World_M1"]
+script = ExtResource("1_marker")
+id = &"dark_city"
+label = "Тёмный город"
+description = "Руины на восточном краю кратера; над городом стоит замок."
+use_world_position = true
+world_position = Vector2(0.304, 0.155)
+kind = 0
+
+[sub_resource type="Resource" id="World_M2"]
+script = ExtResource("1_marker")
+id = &"ashen_barrow"
+label = "Пепельный курган"
+description = "Напротив Тёмного города, на западном краю кратера."
+use_world_position = true
+world_position = Vector2(0.176, 0.155)
+kind = 0
+
+[sub_resource type="Resource" id="World_M3"]
+script = ExtResource("1_marker")
+id = &"black_skull"
+label = "Цитадель Чёрного Черепа"
+description = "Цитадель в Пустыне Кошмаров."
+use_world_position = true
+world_position = Vector2(0.616, 0.19)
+kind = 0
+
+[sub_resource type="Resource" id="World_M4"]
+script = ExtResource("1_marker")
+id = &"tomb_of_ariel"
+label = "Гробница Ариэля"
+description = "Гробница в глубине пустыни."
+use_world_position = true
+world_position = Vector2(0.736, 0.17)
+kind = 2
+
+[sub_resource type="Resource" id="World_M5"]
+script = ExtResource("1_marker")
+id = &"ravenheart"
+label = "Вороново Сердце"
+description = "Столица владений Песни на склонах хребта."
+use_world_position = true
+world_position = Vector2(0.136, 0.51)
+kind = 1
+
+[sub_resource type="Resource" id="World_M6"]
+script = ExtResource("1_marker")
+id = &"moonriver"
+label = "Равнина Лунной Реки"
+description = "Равнина во владениях Песни."
+use_world_position = true
+world_position = Vector2(0.2, 0.64)
+kind = 0
+
+[sub_resource type="Resource" id="World_M7"]
+script = ExtResource("1_marker")
+id = &"nameless_temple"
+label = "Безымянный храм"
+description = "Храм в зоне смерти Могилы Бога."
+use_world_position = true
+world_position = Vector2(0.396, 0.53)
+kind = 2
+
+[sub_resource type="Resource" id="World_M8"]
+script = ExtResource("1_marker")
+id = &"night_temple"
+label = "Храм Ночи"
+description = "Храм на Скованных островах."
+use_world_position = true
+world_position = Vector2(0.544, 0.51)
+kind = 0
+
+[sub_resource type="Resource" id="World_M9"]
+script = ExtResource("1_marker")
+id = &"tower_of_longing"
+label = "Башня Тоски"
+description = "Башня на Скованных островах."
+use_world_position = true
+world_position = Vector2(0.652, 0.6)
+kind = 0
+
+[sub_resource type="Resource" id="World_M10"]
+script = ExtResource("1_marker")
+id = &"noctis"
+label = "Святилище Ноктиса"
+description = "Святилище на Скованных островах."
+use_world_position = true
+world_position = Vector2(0.588, 0.68)
+kind = 0
+
+[sub_resource type="Resource" id="World_M11"]
+script = ExtResource("1_marker")
+id = &"bastion"
+label = "Бастион"
+description = "Цитадель в сердце владений Доблести."
+use_world_position = true
+world_position = Vector2(0.632, 0.86)
+kind = 1
+
+[resource]
+script = ExtResource("2_def")
+id = &"world"
+title = "ЦАРСТВО СНОВ"
+subtitle = "Общая карта мира · схема"
+description = "Царство снов — весь мир истории. Расположение регионов — схема по описаниям из глав; регионы без карты пока в разработке."
+background_color = Color(0.03, 0.04, 0.05, 1)
+land_color = Color(0.2, 0.2, 0.17, 1)
+accent_color = Color(0.78, 0.63, 0.38, 1)
+terrain_style = &"kingdom"
+world_bounds = Rect2(0, 0, 1, 1)
+background_texture = ExtResource("6_tex")
+background_rect = Rect2(0, 0, 0.8, 1)
+features = Array[ExtResource("3_feature")]([])
+markers = Array[ExtResource("1_marker")]([SubResource("World_M0"), SubResource("World_M1"), SubResource("World_M2"), SubResource("World_M3"), SubResource("World_M4"), SubResource("World_M5"), SubResource("World_M6"), SubResource("World_M7"), SubResource("World_M8"), SubResource("World_M9"), SubResource("World_M10"), SubResource("World_M11")])
+placements = Array[ExtResource("5_placement")]([])
+scene_paths = PackedStringArray()

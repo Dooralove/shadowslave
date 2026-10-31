@@ -49,6 +49,8 @@ const SPELL_GREETING := "Аспирант! Добро пожаловать в З
 ## Мгновенные переходы и постановки (для тестов); диалоги с «далее» всё равно ждут нажатия.
 @export var fast_mode := false
 @export var status_sheet: StatusSheet
+## Подмена сцены локации по ключу из LOCATIONS (варианты художественных проходов); пусто — штатные сцены.
+@export var location_overrides: Dictionary[StringName, String] = {}
 
 var beat := Beat.NONE
 var mode := Mode.LOCKED
@@ -190,8 +192,11 @@ func _run() -> void:
 	actor.begin()
 	actor.play(&"restrained_idle", 0.0)
 	ui.drowsiness.intensity = 0.25
+	# Переход оформлен подписью: путь в подвал канон не описывает (гл. 1, «несколько минут спустя»).
+	ui.show_hint("Несколько минут спустя. Изолятор в подвале участка.")
 	await _fade(0.0, 1.0)
 	await _cutscene(&"restrain")
+	ui.show_hint("")
 
 	_set_beat(Beat.B11_POLICEMAN)
 	await _cutscene(&"policeman_enters")
@@ -231,8 +236,11 @@ func _run() -> void:
 	await _gate(&"open_status")
 	ui.show_hint("")
 
-	# Экран рун — конец сюжетного диапазона среза.
+	# Экран рун — конец сюжетного диапазона среза. Mark of Divinity —
+	# врождённый атрибут Санни, а не предмет; в срезе он впервые
+	# раскрывается именно здесь, на B16. Повторная установка безопасна.
 	_set_beat(Beat.B16_RUNES)
+	NightmareRunState.set_flag(&"mark_of_divinity")
 	await ui.rune_status.present(status_sheet)
 	set_mode(Mode.LOCKED)
 	location.stop_march()
@@ -252,7 +260,7 @@ func _load(key: StringName, spawn: StringName) -> void:
 	if location:
 		slot.remove_child(location)
 		location.queue_free()
-	location = (load(LOCATIONS[key]) as PackedScene).instantiate() as SliceLocation
+	location = (load(location_overrides.get(key, LOCATIONS[key])) as PackedScene).instantiate() as SliceLocation
 	slot.add_child(location)
 	location.interacted.connect(func(id: StringName) -> void: notify(StringName("interact:" + String(id))))
 	location.triggered.connect(func(id: StringName) -> void: notify(StringName("trigger:" + String(id))))

@@ -1,0 +1,104 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Узкая щель за высокими камнями. Внутри темно."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Огонь не разводим. Он близко."
+duration = 2.2
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Герой садится напротив. В темноте блестит меч."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Я собирался убить тебя во сне. Чтобы ты не мучился."
+duration = 3.4
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Не мучился? Или чтобы тебе было проще?"
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Моя жизнь не принадлежит мне одному."
+duration = 2.6
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Ты просто хочешь выжить. Как и все."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Запах крови слишком сильный. Лучше я, чем он."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Герой встаёт. Шатается. Кровь идёт горлом."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Bloodbane. Я отравил фляги после первой атаки."
+duration = 3.4
+
+[sub_resource type="Resource" id="Line_10b"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Шифти выпил больше всех. Учёный пил из той же фляги."
+duration = 3.0
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Моё ядро проснулось. Яд меня не убьёт."
+duration = 3.2
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Он смеётся. Санни понимает, что проиграл."
+duration = 2.8
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Тогда умри."
+duration = 1.6
+
+[sub_resource type="Resource" id="Line_14"]
+script = ExtResource("2_line")
+speaker = &"hero"
+text = "Нет."
+duration = 1.2
+
+[sub_resource type="Resource" id="Line_15"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Удар. Что-то рвёт левый бок Санни. Он падает и ползёт к выходу."
+duration = 4.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_10b"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13"), SubResource("Line_14"), SubResource("Line_15")]

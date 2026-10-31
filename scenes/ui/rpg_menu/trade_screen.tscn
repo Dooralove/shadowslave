@@ -1,0 +1,632 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_trade_screen.gd" id="1_trade"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="2_decor"]
+
+[sub_resource type="StyleBoxFlat" id="Style_detail_icon"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.045, 0.048, 0.05, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.29, 0.25, 0.19, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="TradeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_trade")
+
+[node name="Columns" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="LeftPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(252, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="LeftColumn" type="VBoxContainer" parent="Columns/LeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Overline" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "РАЗДЕЛ · DEMO-ТОРГОВЛЯ"
+
+[node name="Title" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+text = "СКУПЩИК"
+
+[node name="Subtitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПОКУПКА И ПРОДАЖА · DEMO"
+
+[node name="RuleTop" type="ColorRect" parent="Columns/LeftPanel/LeftColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="MerchantName" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DisplayValue"
+theme_override_font_sizes/font_size = 20
+text = "Странствующий скупщик"
+autowrap_mode = 3
+
+[node name="MerchantNote" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 10
+text = "Тестовая торговля. Имя торговца, ассортимент, валюта и цены придуманы только для демонстрации."
+autowrap_mode = 3
+
+[node name="WalletPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="WalletBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/WalletPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/WalletPanel/WalletBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "DEMO-КОШЕЛЁК"
+
+[node name="WalletRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/WalletPanel/WalletBox"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="WalletValue" type="Label" parent="Columns/LeftPanel/LeftColumn/WalletPanel/WalletBox/WalletRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DisplayValue"
+theme_override_font_sizes/font_size = 38
+text = "120"
+
+[node name="Unit" type="Label" parent="Columns/LeftPanel/LeftColumn/WalletPanel/WalletBox/WalletRow"]
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "DEMO-МОНЕТ"
+vertical_alignment = 1
+
+[node name="WalletFooter" type="Label" parent="Columns/LeftPanel/LeftColumn/WalletPanel/WalletBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ТОЛЬКО В ТЕКУЩЕЙ DEMO-СЕССИИ"
+autowrap_mode = 3
+
+[node name="SummaryPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="SummaryBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "СВОДКА"
+
+[node name="ShopCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ЛОТОВ У ТОРГОВЦА: 4"
+
+[node name="PlayerCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПРЕДМЕТОВ У ВАС: 12"
+
+[node name="RulesTitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "КАК РАБОТАЕТ DEMO"
+
+[node name="RulesText" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "◆  Покупка добавляет предмет в демо-инвентарь.\n◆  Продажа изымает выбранное количество.\n◆  Баланс и запас живут только в этой сессии."
+autowrap_mode = 3
+
+[node name="LeftSpacer" type="Control" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="DemoBlock" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="DemoBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/DemoBlock"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoBlock/DemoBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "DEMO-ЭКОНОМИКА"
+
+[node name="Note" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoBlock/DemoBox"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Не игровая валюта. Не связано с сохранениями, сюжетом или основным процессом."
+autowrap_mode = 3
+
+[node name="ReturnButton" type="Button" parent="Columns/LeftPanel/LeftColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+text = "← В ИНВЕНТАРЬ"
+
+[node name="CenterPanel" type="PanelContainer" parent="Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RpgPanel"
+script = ExtResource("2_decor")
+
+[node name="CenterColumn" type="VBoxContainer" parent="Columns/CenterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="CenterHeader" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Titles" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="Overline" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "DEMO-ЭКОНОМИКА · НЕ КАНОН"
+
+[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitle"
+text = "ТОРГОВЛЯ"
+clip_text = true
+
+[node name="HeaderStats" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "4 ЛОТА · 12 ПРЕДМЕТОВ"
+vertical_alignment = 2
+
+[node name="RuleTop" type="ColorRect" parent="Columns/CenterPanel/CenterColumn"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.65)
+
+[node name="Board" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="ShopSection" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn/Board"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SubPanel"
+
+[node name="ShopColumn" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Header" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SectionLabel"
+text = "ТОВАРЫ ТОРГОВЦА"
+
+[node name="ShopCountBadge" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "4"
+
+[node name="Hint" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ЦЕНА ПОКУПКИ · DEMO"
+
+[node name="ShopScroll" type="ScrollContainer" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="ShopList" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn/ShopScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="ShopNote" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/ShopSection/ShopColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Запас лота уменьшается после каждой покупки."
+autowrap_mode = 3
+
+[node name="PlayerSection" type="PanelContainer" parent="Columns/CenterPanel/CenterColumn/Board"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SubPanel"
+
+[node name="PlayerColumn" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Header" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SectionLabel"
+text = "ВАШ ИНВЕНТАРЬ"
+
+[node name="PlayerCountBadge" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "12"
+
+[node name="Hint" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ЦЕНА ПРОДАЖИ · DEMO"
+
+[node name="PlayerScroll" type="ScrollContainer" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+follow_focus = true
+
+[node name="PlayerList" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn/PlayerScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="PlayerNote" type="Label" parent="Columns/CenterPanel/CenterColumn/Board/PlayerSection/PlayerColumn"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Сюжетные заглушки нельзя продать в этой DEMO."
+autowrap_mode = 3
+
+[node name="CenterFooter" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+layout_mode = 2
+
+[node name="Controls" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "ЛКМ — ВЫБРАТЬ ТОВАР ИЛИ ПРЕДМЕТ"
+
+[node name="StateNote" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "СДЕЛКИ ТОЛЬКО В DEMO-СЕССИИ"
+
+[node name="RightPanel" type="PanelContainer" parent="Columns"]
+custom_minimum_size = Vector2(398, 0)
+layout_mode = 2
+theme_type_variation = &"DeepPanel"
+script = ExtResource("2_decor")
+accent = true
+
+[node name="RightColumn" type="VBoxContainer" parent="Columns/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="DetailStack" type="Control" parent="Columns/RightPanel/RightColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="DetailScroll" type="ScrollContainer" parent="Columns/RightPanel/RightColumn/DetailStack"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="DetailContent" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="DetailSource" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ВЫБРАНО У ТОРГОВЦА · DEMO"
+
+[node name="DetailHeader" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="DetailIconPanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/DetailHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 2
+theme_override_styles/panel = SubResource("Style_detail_icon")
+
+[node name="DetailIcon" type="TextureRect" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/DetailHeader/DetailIconPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Headings" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/DetailHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="DetailCategory" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/DetailHeader/Headings"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "КАТЕГОРИЯ · СЛОТ"
+autowrap_mode = 3
+
+[node name="DetailTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/DetailHeader/Headings"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+theme_override_font_sizes/font_size = 23
+text = "Название предмета"
+autowrap_mode = 3
+
+[node name="DetailRarity" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/DetailHeader/Headings"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ОБЫЧНЫЙ"
+
+[node name="RuleDetail" type="ColorRect" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.6)
+
+[node name="DetailDescription" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLargeLabel"
+theme_override_font_sizes/font_size = 15
+text = "Описание"
+autowrap_mode = 3
+
+[node name="DetailFlavor" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+theme_override_colors/font_color = Color(0.55, 0.51, 0.45, 1)
+text = "«Заметка»"
+autowrap_mode = 3
+
+[node name="StatsSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatsSection"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ХАРАКТЕРИСТИКИ · DEMO"
+
+[node name="StatsRows" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PropertiesSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/PropertiesSection"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "СВОЙСТВА"
+
+[node name="PropertiesRows" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/PropertiesSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="DetailSpacer" type="Control" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EmptyDetail" type="CenterContainer" parent="Columns/RightPanel/RightColumn/DetailStack"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Box" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box"]
+layout_mode = 2
+theme_type_variation = &"DisplayValue"
+text = "ПРЕДМЕТ НЕ ВЫБРАН"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Выберите товар или предмет в списках."
+horizontal_alignment = 1
+
+[node name="TradePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="TradeContent" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/TradePanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TradeTitle" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "СДЕЛКА · DEMO"
+
+[node name="QuantityRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/QuantityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MicroLabel"
+text = "КОЛИЧЕСТВО"
+vertical_alignment = 1
+
+[node name="QtyMinus" type="Button" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/QuantityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_type_variation = &"ChipButton"
+text = "−"
+
+[node name="QtyValue" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/QuantityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QtyPlus" type="Button" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/QuantityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_type_variation = &"ChipButton"
+text = "+"
+
+[node name="Rule" type="ColorRect" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.27, 0.25, 0.21, 0.5)
+
+[node name="BuyRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Info" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/BuyRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/BuyRow/Info"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "КУПИТЬ У ТОРГОВЦА"
+
+[node name="BuyLine" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/BuyRow/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 13
+text = "НЕТ В ПРОДАЖЕ"
+autowrap_mode = 3
+
+[node name="BuyButton" type="Button" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/BuyRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(104, 38)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "КУПИТЬ"
+
+[node name="SellRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Info" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/SellRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/SellRow/Info"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПРОДАТЬ ТОРГОВЦУ"
+
+[node name="SellLine" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/SellRow/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 13
+text = "НЕТ В ИНВЕНТАРЕ"
+autowrap_mode = 3
+
+[node name="SellButton" type="Button" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent/SellRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(104, 38)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+text = "ПРОДАТЬ"
+
+[node name="TradeHint" type="Label" parent="Columns/RightPanel/RightColumn/TradePanel/TradeContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "Сделки меняют только DEMO-данные."
+autowrap_mode = 3

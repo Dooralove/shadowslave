@@ -1,0 +1,17 @@
+[gd_resource type="ORMMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/prologue/materials/textures/pr_webbing_albedo_512.jpg" id="1_albedo"]
+[ext_resource type="Texture2D" path="res://assets/environments/prologue/materials/textures/pr_webbing_arm_512.jpg" id="2_arm"]
+[ext_resource type="Texture2D" path="res://assets/environments/prologue/materials/textures/pr_webbing_nor_gl_512.jpg" id="3_normal"]
+
+[resource]
+resource_name = "pr_webbing"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.2174, 0.2332, 0.2538, 1.0)
+albedo_texture = ExtResource("1_albedo")
+orm_texture = ExtResource("2_arm")
+metallic = 0.0
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource("3_normal")
+uv1_scale = Vector3(16.6667, 16.6667, 16.6667)

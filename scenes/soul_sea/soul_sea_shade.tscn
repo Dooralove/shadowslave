@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Shader" path="res://scenes/soul_sea/soul_sea_shade.gdshader" id="1_shade"]
+
+[sub_resource type="ShaderMaterial" id="Mat_shade"]
+shader = ExtResource("1_shade")
+shader_parameter/shadow_color = Color(0.008, 0.01, 0.015, 1)
+shader_parameter/rim_color = Color(0.18, 0.23, 0.32, 1)
+shader_parameter/rim_power = 2.2
+shader_parameter/rim_strength = 0.28
+shader_parameter/edge_noise = 0.3
+
+[sub_resource type="CapsuleMesh" id="Mesh_body"]
+radius = 0.28
+height = 1.55
+radial_segments = 12
+rings = 4
+
+[sub_resource type="CylinderMesh" id="Mesh_cloak"]
+top_radius = 0.18
+bottom_radius = 0.46
+height = 1.18
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_shoulders"]
+top_radius = 0.13
+bottom_radius = 0.4
+height = 0.44
+radial_segments = 8
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+radius = 0.21
+height = 0.42
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CapsuleMesh" id="Mesh_arm"]
+radius = 0.065
+height = 0.95
+radial_segments = 6
+rings = 3
+
+[node name="SoulSeaShade" type="Node3D"]
+
+[node name="Cloak" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = SubResource("Mesh_cloak")
+material_override = SubResource("Mat_shade")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.95, 0.03)
+scale = Vector3(1, 1, 0.78)
+layers = 2
+mesh = SubResource("Mesh_body")
+material_override = SubResource("Mat_shade")
+
+[node name="Shoulders" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.44, 0)
+layers = 2
+mesh = SubResource("Mesh_shoulders")
+material_override = SubResource("Mat_shade")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.94, 0.03)
+scale = Vector3(1, 1.05, 0.92)
+layers = 2
+mesh = SubResource("Mesh_head")
+material_override = SubResource("Mat_shade")
+
+[node name="LeftArm" type="MeshInstance3D" parent="."]
+position = Vector3(-0.33, 0.98, 0.07)
+rotation = Vector3(0, 0, -0.1)
+layers = 2
+mesh = SubResource("Mesh_arm")
+material_override = SubResource("Mat_shade")
+
+[node name="RightArm" type="MeshInstance3D" parent="."]
+position = Vector3(0.33, 0.98, 0.07)
+rotation = Vector3(0, 0, 0.1)
+layers = 2
+mesh = SubResource("Mesh_arm")
+material_override = SubResource("Mat_shade")
