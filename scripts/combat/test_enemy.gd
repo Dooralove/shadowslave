@@ -31,10 +31,28 @@ var _state_time := 0.0
 
 
 func _ready() -> void:
+	add_to_group(&"enemy")
 	if target == null:
 		target = get_tree().get_first_node_in_group("player") as Node3D
 	telegraph_visual.visible = false
 	health.died.connect(_on_died)
+
+
+## Наблюдаемое состояние для будущих систем опасности. Не влияет на AI.
+func is_alerted() -> bool:
+	return state == State.CHASE or state == State.TELEGRAPH or state == State.ATTACK or state == State.RECOVERY
+
+
+## Демонстрационный хук: разбудить противника, не меняя его обычный
+## detection_range. Нужен полигону, чтобы тело Санни оставалось уязвимым,
+## пока игрок находится в Море Души. Не влияет на штатный Idle-цикл.
+func alert_to(new_target: Node3D = null) -> void:
+	if state == State.DEAD:
+		return
+	if new_target != null:
+		target = new_target
+	if state == State.IDLE and _has_target():
+		_enter(State.CHASE)
 
 
 func _physics_process(delta: float) -> void:

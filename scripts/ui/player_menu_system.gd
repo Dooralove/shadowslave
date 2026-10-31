@@ -37,6 +37,11 @@ func open_menu(section: StringName = DEFAULT_SECTION) -> bool:
 			screen.show_section(section)
 		return false
 
+	# Прототипы инвентаря и Моря Души владеют своим модальным слоем.
+	# Пока они активны, меню персонажа не должно ставить мир на паузу поверх них.
+	if _prototype_modal_active():
+		return false
+
 	# Карта и меню — взаимоисключающие модальные слои.
 	var map_system := get_node_or_null("/root/MapSystem")
 	if map_system != null and map_system.has_method(&"is_open") and map_system.call(&"is_open"):
@@ -79,6 +84,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"open_character"):
 		toggle_menu(DEFAULT_SECTION)
 		get_viewport().set_input_as_handled()
+
+
+func _prototype_modal_active() -> bool:
+	var inventory := get_tree().get_first_node_in_group(&"inventory_modal")
+	if inventory != null and inventory.has_method(&"is_open") and bool(inventory.call(&"is_open")):
+		return true
+	var soul_sea := get_tree().get_first_node_in_group(&"soul_sea_modal")
+	if soul_sea != null and soul_sea.has_method(&"is_active") and bool(soul_sea.call(&"is_active")):
+		return true
+	return false
 
 
 func _ensure_screen() -> void:

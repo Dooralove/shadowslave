@@ -1,0 +1,455 @@
+[gd_scene load_steps=29 format=3]
+
+[ext_resource type="Script" path="res://scripts/soul_sea/soul_sea_scene.gd" id="1_scene"]
+[ext_resource type="Script" path="res://scripts/soul_sea/soul_sea_camera_rig.gd" id="2_camera"]
+[ext_resource type="Script" path="res://scripts/soul_sea/soul_sea_beacon.gd" id="3_beacon"]
+[ext_resource type="Shader" path="res://scenes/soul_sea/soul_sea_water.gdshader" id="4_water"]
+[ext_resource type="Shader" path="res://scenes/soul_sea/soul_sea_sky.gdshader" id="5_sky"]
+[ext_resource type="PackedScene" path="res://scenes/soul_sea/soul_sea_shade.tscn" id="7_shade"]
+[ext_resource type="Shader" path="res://scenes/soul_sea/soul_sea_memory.gdshader" id="8_memory"]
+
+[sub_resource type="ShaderMaterial" id="Mat_water"]
+shader = ExtResource("4_water")
+shader_parameter/deep_color = Color(0.055, 0.075, 0.1, 1)
+shader_parameter/horizon_color = Color(0.16, 0.2, 0.26, 1)
+shader_parameter/ripples_color = Color(0.38, 0.48, 0.58, 1)
+shader_parameter/memory_color = Color(0.95, 0.67, 0.35, 1)
+shader_parameter/memory_pool_center = Vector2(0, -0.9)
+shader_parameter/memory_pool_strength = 1.0
+shader_parameter/horizon_strength = 0.8
+
+[sub_resource type="ShaderMaterial" id="Mat_sky"]
+shader = ExtResource("5_sky")
+shader_parameter/zenith_color = Color(0.006, 0.009, 0.018, 1)
+shader_parameter/horizon_color = Color(0.055, 0.075, 0.11, 1)
+shader_parameter/nadir_color = Color(0.002, 0.003, 0.006, 1)
+shader_parameter/sun_direction = Vector3(0, 0.19, -1)
+shader_parameter/sun_disc_color = Color(0.0006, 0.0008, 0.0014, 1)
+shader_parameter/corona_color = Color(0.25, 0.34, 0.48, 1)
+shader_parameter/sun_radius = 0.082
+shader_parameter/corona_strength = 0.18
+shader_parameter/rim_strength = 0.24
+shader_parameter/horizon_glow = 0.04
+
+[sub_resource type="Sky" id="Sky_soul"]
+sky_material = SubResource("Mat_sky")
+
+[sub_resource type="Environment" id="Env_soul"]
+background_mode = 2
+sky = SubResource("Sky_soul")
+ambient_light_source = 2
+ambient_light_color = Color(0.095, 0.125, 0.18, 1)
+ambient_light_energy = 1.8
+reflected_light_source = 2
+tonemap_mode = 4
+tonemap_exposure = 1.8
+glow_enabled = true
+glow_intensity = 0.45
+glow_bloom = 0.06
+glow_blend_mode = 2
+glow_hdr_threshold = 1.0
+fog_enabled = true
+fog_light_color = Color(0.04, 0.065, 0.1, 1)
+fog_density = 0.011
+fog_aerial_perspective = 0.35
+fog_sky_affect = 0.3
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.12
+adjustment_saturation = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Mat_stone"]
+albedo_color = Color(0.11, 0.14, 0.18, 1)
+metallic = 0.15
+roughness = 0.48
+emission_enabled = true
+emission = Color(0.09, 0.12, 0.16, 1)
+emission_energy_multiplier = 1.1
+rim_enabled = true
+rim = 0.5
+rim_tint = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_stone_edge"]
+albedo_color = Color(0.14, 0.17, 0.21, 1)
+metallic = 0.15
+roughness = 0.42
+emission_enabled = true
+emission = Color(0.12, 0.15, 0.19, 1)
+emission_energy_multiplier = 1.2
+rim_enabled = true
+rim = 0.6
+rim_tint = 0.85
+
+[sub_resource type="ShaderMaterial" id="Mat_memory"]
+shader = ExtResource("8_memory")
+shader_parameter/core_color = Color(1, 0.84, 0.56, 1)
+shader_parameter/edge_color = Color(0.92, 0.38, 0.14, 1)
+shader_parameter/emission_color = Color(1, 0.55, 0.24, 1)
+shader_parameter/energy = 1.6
+shader_parameter/swirl = 0.45
+
+[sub_resource type="StandardMaterial3D" id="Mat_memory_ring"]
+albedo_color = Color(0.45, 0.35, 0.2, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(1, 0.72, 0.38, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_sigil"]
+albedo_color = Color(0.06, 0.05, 0.035, 1)
+roughness = 0.7
+emission_enabled = true
+emission = Color(0.85, 0.63, 0.35, 1)
+emission_energy_multiplier = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Mat_mote"]
+shading_mode = 0
+albedo_color = Color(1, 0.78, 0.45, 1)
+
+[sub_resource type="PlaneMesh" id="Mesh_sea"]
+size = Vector2(240, 240)
+
+[sub_resource type="CylinderMesh" id="Mesh_island"]
+top_radius = 2.9
+bottom_radius = 3.25
+height = 0.32
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_slab"]
+top_radius = 1.35
+bottom_radius = 1.5
+height = 0.18
+radial_segments = 7
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_boulder"]
+radius = 1.0
+height = 2.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="CylinderMesh" id="Mesh_dais"]
+top_radius = 1.65
+bottom_radius = 1.8
+height = 0.12
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_shard"]
+top_radius = 0.015
+bottom_radius = 0.36
+height = 3.2
+radial_segments = 5
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_spire"]
+top_radius = 0.03
+bottom_radius = 1.1
+height = 15.0
+radial_segments = 6
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_memory"]
+radius = 0.31
+height = 0.62
+radial_segments = 32
+rings = 16
+
+[sub_resource type="TorusMesh" id="Mesh_ring"]
+inner_radius = 0.45
+outer_radius = 0.47
+rings = 32
+ring_segments = 8
+
+[sub_resource type="TorusMesh" id="Mesh_sigil"]
+inner_radius = 1.34
+outer_radius = 1.36
+rings = 64
+ring_segments = 4
+
+[sub_resource type="SphereMesh" id="Mesh_mote"]
+material = SubResource("Mat_mote")
+radius = 0.014
+height = 0.028
+radial_segments = 4
+rings = 2
+
+[node name="SoulSea" type="Node3D"]
+script = ExtResource("1_scene")
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 0, 6.4)
+script = ExtResource("2_camera")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+position = Vector3(0, 1.65, 0)
+cull_mask = 2
+environment = SubResource("Env_soul")
+fov = 72.0
+near = 0.05
+far = 120.0
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Sea" type="MeshInstance3D" parent="World"]
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Mesh_sea")
+material_override = SubResource("Mat_water")
+
+[node name="IslandMain" type="MeshInstance3D" parent="World"]
+position = Vector3(0, 0.08, -1)
+layers = 2
+mesh = SubResource("Mesh_island")
+material_override = SubResource("Mat_stone")
+
+[node name="Dais" type="MeshInstance3D" parent="World"]
+position = Vector3(0, 0.28, -1)
+layers = 2
+mesh = SubResource("Mesh_dais")
+material_override = SubResource("Mat_stone_edge")
+
+[node name="IslandWest" type="MeshInstance3D" parent="World"]
+position = Vector3(-2, 0.03, -1.7)
+rotation = Vector3(0, 0.35, 0)
+scale = Vector3(0.85, 0.7, 0.9)
+layers = 2
+mesh = SubResource("Mesh_slab")
+material_override = SubResource("Mat_stone")
+
+[node name="IslandEast" type="MeshInstance3D" parent="World"]
+position = Vector3(2.3, 0.02, -2.5)
+rotation = Vector3(0, -0.2, 0)
+scale = Vector3(0.75, 0.6, 0.8)
+layers = 2
+mesh = SubResource("Mesh_slab")
+material_override = SubResource("Mat_stone")
+
+[node name="ShoalRockA" type="MeshInstance3D" parent="World"]
+position = Vector3(-2.7, 0.12, -0.4)
+rotation = Vector3(0, 0.4, 0)
+scale = Vector3(1.35, 0.32, 1.05)
+layers = 2
+mesh = SubResource("Mesh_boulder")
+material_override = SubResource("Mat_stone")
+
+[node name="ShoalRockB" type="MeshInstance3D" parent="World"]
+position = Vector3(2.65, 0.1, -1.7)
+rotation = Vector3(0, -0.2, 0)
+scale = Vector3(1.15, 0.28, 0.95)
+layers = 2
+mesh = SubResource("Mesh_boulder")
+material_override = SubResource("Mat_stone")
+
+[node name="ShoalRockC" type="MeshInstance3D" parent="World"]
+position = Vector3(-1.35, 0.14, -3.05)
+rotation = Vector3(0, 0.8, 0)
+scale = Vector3(1.0, 0.38, 0.8)
+layers = 2
+mesh = SubResource("Mesh_boulder")
+material_override = SubResource("Mat_stone")
+
+[node name="ShoalRockD" type="MeshInstance3D" parent="World"]
+position = Vector3(1.8, 0.08, 0.95)
+rotation = Vector3(0, -0.6, 0)
+scale = Vector3(0.9, 0.24, 0.7)
+layers = 2
+mesh = SubResource("Mesh_boulder")
+material_override = SubResource("Mat_stone")
+
+[node name="RitualRing" type="MeshInstance3D" parent="World"]
+position = Vector3(0, 0.345, -1)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Mesh_sigil")
+material_override = SubResource("Mat_sigil")
+
+[node name="ShardWest" type="MeshInstance3D" parent="World"]
+position = Vector3(-2.55, 1.15, -1.2)
+rotation = Vector3(0, 0.4, 0.12)
+scale = Vector3(0.9, 0.78, 0.9)
+layers = 2
+mesh = SubResource("Mesh_shard")
+material_override = SubResource("Mat_stone_edge")
+
+[node name="ShardEast" type="MeshInstance3D" parent="World"]
+position = Vector3(2.85, 0.95, -2.3)
+rotation = Vector3(0, -0.3, -0.15)
+scale = Vector3(0.75, 0.62, 0.75)
+layers = 2
+mesh = SubResource("Mesh_shard")
+material_override = SubResource("Mat_stone")
+
+[node name="ShardBack" type="MeshInstance3D" parent="World"]
+position = Vector3(-1.1, 0.75, -3.35)
+rotation = Vector3(0.1, 0.7, 0.28)
+scale = Vector3(0.62, 0.48, 0.62)
+layers = 2
+mesh = SubResource("Mesh_shard")
+material_override = SubResource("Mat_stone")
+
+[node name="DistantSpires" type="Node3D" parent="World"]
+
+[node name="SpireWest" type="MeshInstance3D" parent="World/DistantSpires"]
+position = Vector3(-18, 5.5, -31)
+rotation = Vector3(0, 0.4, 0.08)
+scale = Vector3(1, 0.78, 0.8)
+layers = 2
+mesh = SubResource("Mesh_spire")
+material_override = SubResource("Mat_stone")
+
+[node name="SpireEast" type="MeshInstance3D" parent="World/DistantSpires"]
+position = Vector3(23, 4.8, -39)
+rotation = Vector3(0, -0.3, -0.1)
+scale = Vector3(0.85, 0.68, 0.75)
+layers = 2
+mesh = SubResource("Mesh_spire")
+material_override = SubResource("Mat_stone")
+
+[node name="SpireRear" type="MeshInstance3D" parent="World/DistantSpires"]
+position = Vector3(-20, 4.2, 25)
+rotation = Vector3(0, 0.7, 0.14)
+scale = Vector3(0.9, 0.72, 0.8)
+layers = 2
+mesh = SubResource("Mesh_spire")
+material_override = SubResource("Mat_stone")
+
+[node name="SpireRearEast" type="MeshInstance3D" parent="World/DistantSpires"]
+position = Vector3(26, 3.8, 18)
+rotation = Vector3(0, -0.5, -0.18)
+scale = Vector3(0.7, 0.62, 0.65)
+layers = 2
+mesh = SubResource("Mesh_spire")
+material_override = SubResource("Mat_stone")
+
+[node name="Shades" type="Node3D" parent="World"]
+
+[node name="LeftForeground" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(-6.2, 0, 0.8)
+rotation = Vector3(0, 0.35, 0)
+scale = Vector3(1.2, 1.35, 1.2)
+
+[node name="RightForeground" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(7.3, 0, 0.4)
+rotation = Vector3(0, -0.45, 0)
+scale = Vector3(1.35, 1.5, 1.35)
+
+[node name="LeftMid" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(-10.5, 0, -8.5)
+rotation = Vector3(0, 0.65, 0)
+scale = Vector3(1.45, 1.65, 1.45)
+
+[node name="LeftFar" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(-16, 0, -17)
+rotation = Vector3(0, 0.55, 0)
+scale = Vector3(2.3, 2.5, 2.3)
+
+[node name="RightMid" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(11.5, 0, -10)
+rotation = Vector3(0, -0.7, 0)
+scale = Vector3(1.8, 2.0, 1.8)
+
+[node name="RightFar" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(18, 0, -21)
+rotation = Vector3(0, -0.35, 0)
+scale = Vector3(3.0, 3.25, 3.0)
+
+[node name="RearLeft" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(-11, 0, 14)
+rotation = Vector3(0, 2.45, 0)
+scale = Vector3(1.6, 1.8, 1.6)
+
+[node name="RearRight" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(12, 0, 18)
+rotation = Vector3(0, -2.3, 0)
+scale = Vector3(1.9, 2.1, 1.9)
+
+[node name="RearGiant" parent="World/Shades" instance=ExtResource("7_shade")]
+position = Vector3(-2, 0, 31)
+rotation = Vector3(0, 2.9, 0)
+scale = Vector3(3.0, 3.3, 3.0)
+
+[node name="MemoryBeacon" type="Node3D" parent="."]
+position = Vector3(0, 1.3, -0.9)
+script = ExtResource("3_beacon")
+
+[node name="Core" type="MeshInstance3D" parent="MemoryBeacon"]
+layers = 2
+mesh = SubResource("Mesh_memory")
+material_override = SubResource("Mat_memory")
+
+[node name="Rings" type="Node3D" parent="MemoryBeacon"]
+
+[node name="RingA" type="MeshInstance3D" parent="MemoryBeacon/Rings"]
+rotation = Vector3(1.15, 0.4, 0.2)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Mesh_ring")
+material_override = SubResource("Mat_memory_ring")
+
+[node name="RingB" type="MeshInstance3D" parent="MemoryBeacon/Rings"]
+rotation = Vector3(-0.8, 0.2, 0.6)
+scale = Vector3(1.3, 1.3, 1.3)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Mesh_ring")
+material_override = SubResource("Mat_memory_ring")
+
+[node name="Light" type="OmniLight3D" parent="MemoryBeacon"]
+light_color = Color(1, 0.72, 0.4, 1)
+light_energy = 1.8
+light_cull_mask = 2
+omni_range = 8.0
+omni_attenuation = 1.2
+
+[node name="Label" type="Label3D" parent="MemoryBeacon"]
+position = Vector3(0, 0.86, 0)
+layers = 2
+billboard = 1
+no_depth_test = true
+text = "ПАМЯТЬ"
+font_size = 22
+outline_size = 6
+modulate = Color(0.85, 0.74, 0.56, 0.9)
+outline_modulate = Color(0, 0, 0, 0.78)
+pixel_size = 0.0038
+
+[node name="Motes" type="CPUParticles3D" parent="MemoryBeacon"]
+position = Vector3(0, 0.2, 0)
+layers = 2
+cast_shadow = 0
+emitting = true
+amount = 20
+lifetime = 8.0
+preprocess = 4.0
+local_coords = true
+mesh = SubResource("Mesh_mote")
+emission_shape = 1
+emission_sphere_radius = 0.7
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0.012, 0)
+initial_velocity_min = 0.02
+initial_velocity_max = 0.09
+scale_amount_min = 0.45
+scale_amount_max = 1.2
+color = Color(1, 0.78, 0.45, 0.85)
+
+[node name="ColdBacklight" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.28, 3.1, 0)
+light_color = Color(0.38, 0.5, 0.72, 1)
+light_energy = 1.15
+light_cull_mask = 2
+shadow_enabled = true
+shadow_bias = 0.04
+shadow_normal_bias = 1.0
+directional_shadow_max_distance = 60.0
+
+[node name="FillLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 4.5, 3)
+light_color = Color(0.22, 0.32, 0.5, 1)
+light_energy = 2.0
+light_cull_mask = 2
+omni_range = 20.0
+omni_attenuation = 1.35

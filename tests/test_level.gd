@@ -23,8 +23,10 @@ func test_player_lands_on_floor() -> void:
 	assert_gt(sunny.global_position.y, -0.1, "не провалился сквозь пол")
 
 
-func test_main_scene_runs_level() -> void:
+func test_main_scene_runs_demo_arena() -> void:
 	assert_eq(ProjectSettings.get_setting("application/run/main_scene"), MAIN_SCENE)
 	var main := (load(MAIN_SCENE) as PackedScene).instantiate()
 	add_child_autofree(main)
-	assert_not_null(main.get_node_or_null("Level/Sunny"), "главная сцена запускает тестовую локацию")
+	assert_not_null(main.get_node_or_null("Level/Level/Sunny"), "главная сцена запускает демо-арену с Санни")
+	assert_not_null(main.get_node_or_null("Level/SoulSeaController"), "в главной сцене есть переход в Море Души")
+	assert_not_null(main.get_node_or_null("Level/InventoryLayer/InventoryPrototype"), "в главной сцене есть прототип инвентаря")

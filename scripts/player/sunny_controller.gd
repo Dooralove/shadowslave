@@ -28,6 +28,9 @@ var _camp_tether_anchor := Vector3.ZERO
 var _camp_tether_radius := 0.0
 var _chain_restraint_active := false
 var _chain_restraint_width := 0.0
+var _soul_sea_suspended := false
+var _saved_input_enabled := true
+var _saved_combat_enabled := true
 
 @onready var visual: Node3D = $Visual
 @onready var camera_rig: ThirdPersonCamera = $CameraRig
@@ -54,6 +57,23 @@ func try_attack() -> bool:
 
 func is_dead() -> bool:
 	return health.is_dead()
+
+
+## Временное отключение ввода и боя, пока игрок находится в Море Души.
+## Само тело, здоровье и физика продолжают работать в обычном мире.
+func set_soul_sea_suspended(value: bool) -> void:
+	if value == _soul_sea_suspended:
+		return
+	if value:
+		_saved_input_enabled = input_enabled
+		_saved_combat_enabled = combat_enabled
+		input_enabled = false
+		combat_enabled = false
+		_soul_sea_suspended = true
+	else:
+		input_enabled = _saved_input_enabled
+		combat_enabled = _saved_combat_enabled
+		_soul_sea_suspended = false
 
 
 ## Цепь каравана: проверка, активация и сброс ограничений

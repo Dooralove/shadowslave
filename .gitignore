@@ -43,3 +43,6 @@ temp/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Material Maker + MaterialPilot pilot (isolated, not committed)
+/experiments/

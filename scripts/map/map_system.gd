@@ -37,8 +37,21 @@ func is_open() -> bool:
 	return _open
 
 
+func _prototype_modal_active() -> bool:
+	var inventory := get_tree().get_first_node_in_group(&"inventory_modal")
+	if inventory != null and inventory.has_method(&"is_open") and bool(inventory.call(&"is_open")):
+		return true
+	var soul_sea := get_tree().get_first_node_in_group(&"soul_sea_modal")
+	if soul_sea != null and soul_sea.has_method(&"is_active") and bool(soul_sea.call(&"is_active")):
+		return true
+	return false
+
+
 func open_map() -> bool:
 	if _open or screen == null:
+		return false
+
+	if _prototype_modal_active():
 		return false
 
 	# Карта и меню персонажа — взаимоисключающие модальные слои.

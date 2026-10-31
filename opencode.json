@@ -9,6 +9,14 @@
         "timeout": {
           "startup": 60000
         }
+      },
+      "blender": {
+        "type": "local",
+        "command": ["uvx", "mcp-for-blender"],
+        "cwd": ".",
+        "timeout": {
+          "startup": 60000
+        }
       }
     }
   }

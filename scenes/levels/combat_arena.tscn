@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" path="res://scenes/levels/test_level.tscn" id="2_level"]
 [ext_resource type="PackedScene" path="res://scenes/characters/test_enemy.tscn" id="3_enemy"]
 [ext_resource type="Script" path="res://scripts/ui/combat_hud.gd" id="4_hud"]
+[ext_resource type="Script" path="res://scripts/systems/soul_sea_controller.gd" id="5_soul"]
+[ext_resource type="PackedScene" path="res://scenes/ui/soul_sea_hud.tscn" id="6_soul_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_prototype.tscn" id="7_inventory"]
 
 [sub_resource type="StyleBoxFlat" id="Style_bar_bg"]
 bg_color = Color(0.08, 0.08, 0.1, 0.85)
@@ -121,4 +124,20 @@ offset_right = 700.0
 offset_bottom = -16.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
-text = "ЛКМ — удар · Shift — бег · Space — прыжок · Esc — освободить мышь · R — заново"
+text = "I — инвентарь · V — Море Души · ЛКМ — удар · Shift — бег · Space — прыжок · Esc — курсор · R — заново"
+
+[node name="InventoryLayer" type="CanvasLayer" parent="."]
+layer = 70
+
+[node name="InventoryPrototype" parent="InventoryLayer" instance=ExtResource("7_inventory")]
+unique_name_in_owner = true
+
+[node name="SoulSeaController" type="Node" parent="."]
+script = ExtResource("5_soul")
+player_path = NodePath("../Level/Sunny")
+world_camera_path = NodePath("../Level/Sunny/CameraRig/SpringArm3D/Camera3D")
+world_hud_path = NodePath("../HUD")
+soul_hud_path = NodePath("SoulSeaHud")
+alert_enemies_on_entry = true
+
+[node name="SoulSeaHud" parent="SoulSeaController" instance=ExtResource("6_soul_hud")]
