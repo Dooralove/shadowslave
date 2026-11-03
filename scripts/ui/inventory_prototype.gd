@@ -34,6 +34,11 @@ func _ready() -> void:
 
 	session = RpgDemoSession.new()
 	session.initialize(DEMO_CATALOG)
+	var player := get_tree().get_first_node_in_group(&"player")
+	if player != null:
+		var equipment := player.get_node_or_null(^"Equipment") as EquipmentComponent
+		if equipment != null:
+			session.set_equipment_component(equipment)
 	inventory_screen.setup(session)
 	inventory_screen.feedback_requested.connect(_on_feedback_requested)
 	close_button.pressed.connect(close_inventory)
@@ -81,6 +86,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed(&"open_inventory"):
+		# Единое меню игрока владеет клавишей I: старый отдельный инвентарь
+		# остаётся сценой-витриной и запасным путём, но не открывает второе окно.
+		var player_menu := get_node_or_null("/root/PlayerMenuSystem")
+		if player_menu != null and player_menu.has_method(&"toggle_menu"):
+			player_menu.call(&"toggle_menu", &"inventory")
+			get_viewport().set_input_as_handled()
+			return
 		# Если открытие запрещено Морем Души, событие не помечаем обработанным:
 		# SoulSeaController покажет понятную подсказку.
 		if open_inventory():

@@ -93,7 +93,7 @@ text = "SHADOW SLAVE"
 layout_mode = 2
 theme_type_variation = &"OverlineLabel"
 theme_override_font_sizes/font_size = 9
-text = "ИНТЕРФЕЙСНЫЙ ПРОТОТИП"
+text = "МЕНЮ ПУТЕШЕСТВИЯ"
 
 [node name="Spacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHeader"]
 layout_mode = 2
@@ -171,7 +171,7 @@ custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 theme_type_variation = &"BodyLargeLabel"
 theme_override_font_sizes/font_size = 17
-text = "Инвентарь, профиль, снаряжение, аспект, задания и демонстрационная торговля. Отдельный презентационный слой: он не связан с игровыми сценами, сохранениями, экономикой или контроллером Санни."
+text = "Глоссарий и бестиарий, профиль, рюкзак, карта мира, задания, умения и медитация в одном окне. Демонстрационные предметы и торговля не связаны с сохранениями, экономикой или контроллером Санни."
 autowrap_mode = 3
 
 [node name="DemoWarning" type="PanelContainer" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
@@ -234,13 +234,13 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 theme_override_font_sizes/font_size = 10
-text = "01 · ИНВЕНТАРЬ"
+text = "01 · ГЛОССАРИЙ"
 
 [node name="Text" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step01"]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 theme_override_font_sizes/font_size = 11
-text = "Фильтры, выбор предмета и доступные действия."
+text = "Бестиарий, обучение, персонажи и места с закрытыми записями."
 autowrap_mode = 3
 
 [node name="Divider01" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
@@ -258,13 +258,13 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 theme_override_font_sizes/font_size = 10
-text = "02 · ПЕРСОНАЖ"
+text = "02 · РЮКЗАК"
 
 [node name="Text" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step02"]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 theme_override_font_sizes/font_size = 11
-text = "Шесть слотов снаряжения и 3D-превью модели."
+text = "Категории, сетка предметов и карточка выбранной вещи."
 autowrap_mode = 3
 
 [node name="Divider02" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps"]
@@ -282,13 +282,13 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 theme_override_font_sizes/font_size = 10
-text = "03 · ТОРГОВЛЯ"
+text = "03 · КАРТА МИРА"
 
 [node name="Text" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy/StartRoute/Content/Steps/Step03"]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 theme_override_font_sizes/font_size = 11
-text = "Покупка, продажа, количество и нехватка монет."
+text = "Регионы, места и живой маркер игрока внутри меню."
 autowrap_mode = 3
 
 [node name="CopySpacer" type="Control" parent="Content/StartPage/StartMargin/StartColumn/StartHero/Copy"]
@@ -424,26 +424,6 @@ theme_type_variation = &"TinyMutedLabel"
 text = "Рабочие экраны: инвентарь, профиль, снаряжение, аспект, задания и торговля. Раздел «Памяти» остаётся заглушкой."
 autowrap_mode = 3
 
-[node name="StartFooterRule" type="ColorRect" parent="Content/StartPage/StartMargin/StartColumn"]
-custom_minimum_size = Vector2(0, 1)
-layout_mode = 2
-color = Color(0.22, 0.21, 0.19, 0.5)
-
-[node name="StartFooter" type="HBoxContainer" parent="Content/StartPage/StartMargin/StartColumn"]
-custom_minimum_size = Vector2(0, 18)
-layout_mode = 2
-
-[node name="Path" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartFooter"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"TinyMutedLabel"
-text = "СЦЕНА: res://scenes/ui/rpg_menu_prototype.tscn"
-
-[node name="Status" type="Label" parent="Content/StartPage/StartMargin/StartColumn/StartFooter"]
-layout_mode = 2
-theme_type_variation = &"TinyMutedLabel"
-text = "ВЕРСИЯ 01 · ПРЕДПРОСМОТР · БЕЗ КОММИТА"
-
 [node name="MenuPage" type="Control" parent="Content"]
 unique_name_in_owner = true
 visible = false
@@ -503,7 +483,7 @@ text = "SHADOW SLAVE"
 layout_mode = 2
 theme_type_variation = &"OverlineLabel"
 theme_override_font_sizes/font_size = 9
-text = "ПРОТОТИП МЕНЮ · ДЕМО"
+text = "ПЕРВЫЙ КОШМАР · МЕНЮ"
 
 [node name="BrandDivider" type="ColorRect" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
 custom_minimum_size = Vector2(1, 28)
@@ -512,6 +492,7 @@ size_flags_vertical = 4
 color = Color(0.25, 0.23, 0.2, 0.55)
 
 [node name="NavBox" type="HBoxContainer" parent="Content/MenuPage/MenuMargin/RootColumn/Header"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -594,6 +575,7 @@ layout_mode = 2
 color = Color(0.27, 0.25, 0.21, 0.65)
 
 [node name="Workspace" type="Control" parent="Content/MenuPage/MenuMargin/RootColumn"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -694,7 +676,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
-text = "ЛКМ — ВЫБРАТЬ · КОЛЕСО — ПРОКРУТКА · ESC / C — ЗАКРЫТЬ · M — КАРТА"
+text = "ЛКМ — ВЫБРАТЬ · ESC — ЗАКРЫТЬ · C — ПЕРСОНАЖ · I — РЮКЗАК · M — КАРТА"
 
 [node name="SessionIndex" type="Label" parent="Content/MenuPage/MenuMargin/RootColumn/FooterRow"]
 unique_name_in_owner = true

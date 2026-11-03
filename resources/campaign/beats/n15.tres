@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N15"
+part = &"act_3"
+part_title = "Акт III «Подъём»"
+canonical_block = 13
+title = "Первый уровень тропы и оставленный меч"
+beat_type = 0
+format_label = "И"
+objective = "Подняться за Героем по старой тропе"
+idle_objectives = Array[String](["Иди по тропе, не теряя Героя из виду", "Когда силы кончатся, оставь меч на камне", "Дойди до алькова"])
+guide_beacon_id = &"sword"
+checkpoint_id = &"CP-N15a"
+checkpoint_ids = Array[StringName]([&"CP-N15a", &"CP-N15b", &"CP-N15c", &"CP-N15d"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N15a": Vector3(0, 0.05, 8.5),
+&"CP-N15b": Vector3(1, 1.8, -5),
+&"CP-N15c": Vector3(1, 3.2, -16),
+&"CP-N15d": Vector3(1, 4.15, -26)
+})
+entry_conditions = Array[StringName]([&"road_gap_seen"])
+exit_conditions = Array[StringName]([&"sword_discarded", &"alcove_reached"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 300.0
+estimated_time_text = "~5 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = true

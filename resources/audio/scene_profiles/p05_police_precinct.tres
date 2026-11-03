@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_6oeo2"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_vppxl"]
+
+[sub_resource type="Resource" id="Resource_gnqox"]
+script = ExtResource("1_6oeo2")
+cue_id = &"p05_cell_door"
+position = Vector3(0, 1.2, 15.4)
+volume_db = -7.0
+delay = 0.8
+
+[sub_resource type="Resource" id="Resource_162nw"]
+script = ExtResource("1_6oeo2")
+cue_id = &"p05_paper_rustle"
+position = Vector3(5, 1, -18.2)
+volume_db = -14.0
+delay = 1.4
+
+[sub_resource type="Resource" id="Resource_e7aps"]
+script = ExtResource("1_6oeo2")
+cue_id = &"p05_hvac"
+position = Vector3(0, 2.3, -2)
+volume_db = -2.0
+loop = true
+
+[sub_resource type="Resource" id="Resource_uxlj8"]
+script = ExtResource("1_6oeo2")
+cue_id = &"p05_radio_chatter"
+position = Vector3(1, 1.2, -2.8)
+volume_db = -5.0
+loop = true
+
+[sub_resource type="Resource" id="Resource_u264y"]
+script = ExtResource("1_6oeo2")
+cue_id = &"p05_cell_door"
+position = Vector3(0, 1.2, 15.4)
+volume_db = -5.0
+trigger = &"precinct_exit"
+
+[sub_resource type="Resource" id="Resource_ow6m1"]
+script = ExtResource("1_6oeo2")
+cue_id = &"p05_cell_door"
+position = Vector3(0, 1.2, 15.4)
+volume_db = -5.0
+trigger = &"p05_exit"
+
+[resource]
+script = ExtResource("2_vppxl")
+id = &"p05_police_precinct"
+scene_path = "res://scenes/locations/post_nightmare/police_precinct.tscn"
+location_id = &"police_precinct"
+music_id = &"m1_precinct"
+ambience_id = &"m1_precinct"
+music_intensity = 0.42
+reverb_profile = &"precinct_hall"
+loops = Array[ExtResource("1_6oeo2")]([SubResource("Resource_e7aps"), SubResource("Resource_uxlj8")])
+enter_events = Array[ExtResource("1_6oeo2")]([SubResource("Resource_gnqox"), SubResource("Resource_162nw")])
+trigger_events = Array[ExtResource("1_6oeo2")]([SubResource("Resource_u264y"), SubResource("Resource_ow6m1")])
+interactions = {
+&"desk_officer": &"ui_confirm",
+&"interrogation_officer": &"ui_confirm",
+&"jett": &"ui_confirm",
+&"p05_jett": &"ui_confirm",
+&"p05_mirror": &"p05_mirror_whisper",
+&"precinct_jett": &"ui_confirm",
+&"precinct_mirror": &"p05_mirror_whisper"
+}

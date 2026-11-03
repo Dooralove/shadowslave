@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/nightmare/decor/decor_no_collision.gd" id="1_decor"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_slab_a.glb" id="2_base"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/wagon_cargo.glb" id="3_wagon"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/crate_supplies_a.glb" id="4_crate"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/barrel_broken_b.glb" id="5_barrel"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/firewood_bundle.glb" id="6_wood"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/spear_soldier.glb" id="7_spear"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_small_d.glb" id="8_snow"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/site/bedroll_a.glb" id="9_bedroll"]
+
+[node name="CampPerimeterA" type="Node3D"]
+script = ExtResource("1_decor")
+
+[node name="Base" parent="." instance=ExtResource("2_base")]
+transform = Transform3D(10, 0, 0, 0, 2.5, 0, 0, 0, 10, 0, -1, 0)
+
+[node name="Wagon" parent="." instance=ExtResource("3_wagon")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 1.1, 0)
+
+[node name="CrateA" parent="." instance=ExtResource("4_crate")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.5, 1.3, 2.5)
+
+[node name="CrateB" parent="." instance=ExtResource("4_crate")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -3.2, 1.2, 2)
+
+[node name="Barrel" parent="." instance=ExtResource("5_barrel")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 2.7, 1.1, -2.4)
+
+[node name="Firewood" parent="." instance=ExtResource("6_wood")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -3, 1.1, -2.2)
+
+[node name="Spear" parent="." instance=ExtResource("7_spear")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 4.2, 1.1, 0.5)
+
+[node name="Bedroll" parent="." instance=ExtResource("9_bedroll")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -4.4, 1.1, 2.8)
+
+[node name="Snow" parent="." instance=ExtResource("8_snow")]
+transform = Transform3D(2.8, 0, 0, 0, 2.8, 0, 0, 0, 2.8, 3, 1.2, -3.2)

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="InspectableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inspect/inspectable_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"inspect_blood"
+display_name = "Кровь на камне"
+kind = 2
+highlight_color = Color(0.82, 0.28, 0.24, 1)
+highlight_strength = 0.8
+pulse_speed = 1.8
+detection_radius = 2.8
+auto_inspect = true
+beat_id = &"N18"
+required_flags = Array[StringName]([&"shifty_dead"])
+forbidden_flags = Array[StringName]([&"cave_entered"])
+completed_flag = &""
+completed_item = &""
+thought_id = &"thought_blood"
+thought_once = true
+suppress_beacon_id = &"cave"

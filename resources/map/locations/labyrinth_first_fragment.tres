@@ -1,0 +1,297 @@
+[gd_resource type="Resource" script_class="MapDefinition" load_steps=34 format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Z01"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(12, -12, 45, -12, 45, 12, 12, 12)
+closed = true
+
+[sub_resource type="Resource" id="Z02"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(8, 15, 30, 15, 30, 38, 8, 38)
+closed = true
+
+[sub_resource type="Resource" id="Z03"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+closed = true
+
+[sub_resource type="Resource" id="Z04"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-45, -55, -15, -55, -15, -30, -45, -30)
+closed = true
+
+[sub_resource type="Resource" id="Z05"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-45, 15, -15, 15, -15, 40, -45, 40)
+closed = true
+
+[sub_resource type="Resource" id="Z06"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-55, 40, -40, 40, -40, 52, -55, 52)
+closed = true
+
+[sub_resource type="Resource" id="Z07"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-55, -62, 5, -62, 5, -48, -55, -48)
+closed = true
+
+[sub_resource type="Resource" id="Z08"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-80, -18, -50, -18, -50, 18, -80, 18)
+closed = true
+
+[sub_resource type="Resource" id="Z09"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-85, 18, -55, 18, -55, 22, -85, 22)
+closed = true
+
+[sub_resource type="Resource" id="Z10"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-125, -30, -85, -30, -85, 20, -125, 20)
+closed = true
+
+[sub_resource type="Resource" id="Z11"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-150, -30, -125, -30, -125, 30, -150, 30)
+closed = true
+
+[sub_resource type="Resource" id="Z12"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-200, -25, -150, -25, -150, 25, -200, 25)
+closed = true
+
+[sub_resource type="Resource" id="Z13"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-550, -120, -200, -120, -200, 120, -550, 120)
+closed = true
+
+[sub_resource type="Resource" id="Z14"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-650, -40, -550, -40, -550, 40, -650, 40)
+closed = true
+
+[sub_resource type="Resource" id="Z15"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-750, -80, -650, -80, -650, 40, -750, 40)
+closed = true
+
+[sub_resource type="Resource" id="Z16"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-1050, -150, -750, -150, -750, 150, -1050, 150)
+closed = true
+
+[sub_resource type="Resource" id="Z17"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-1300, -80, -1050, -80, -1050, 80, -1300, 80)
+closed = true
+
+[sub_resource type="Resource" id="Z18"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-1450, -100, -1300, -100, -1300, 100, -1450, 100)
+closed = true
+
+[sub_resource type="Resource" id="Route"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(38, 0, 0, 0, -65, 0, -100, -5, -137.5, -20, -175, 0, -375, 0, -600, 0, -700, -20, -900, 60, -1200, 0, -1400, 0)
+closed = false
+
+[sub_resource type="Resource" id="M_start"]
+script = ExtResource("1_marker")
+id = &"start"
+label = "Порог статуи"
+description = "Вход в первый фрагмент Лабиринта. Отсюда маршрут ведёт на запад, к первой развилке."
+use_world_position = true
+world_position = Vector2(38, 0)
+kind = 0
+
+[sub_resource type="Resource" id="M_fork"]
+script = ExtResource("1_marker")
+id = &"first_fork"
+label = "Первая развилка"
+description = "Первый бой и выбор маршрута: низкая мутная низина, костяной проход или верхняя гряда."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 3
+
+[sub_resource type="Resource" id="M_carcass"]
+script = ExtResource("1_marker")
+id = &"carcass"
+label = "Туша"
+description = "Опасное ответвление к югу от порога."
+use_world_position = true
+world_position = Vector2(19, 26)
+kind = 2
+
+[sub_resource type="Resource" id="M_scavenger"]
+script = ExtResource("1_marker")
+id = &"wounded_scavenger"
+label = "Раненый карапакс"
+description = "Первый противник; медленный замах и уязвимость после промаха."
+use_world_position = true
+world_position = Vector2(0, 2)
+kind = 2
+hide_when_flag = &"wounded_scavenger_slain"
+
+[sub_resource type="Resource" id="M_blade"]
+script = ExtResource("1_marker")
+id = &"azure_blade"
+label = "Азурный клинок"
+description = "Память в панцире карапакса. Подбирается через E."
+use_world_position = true
+world_position = Vector2(0, 1)
+kind = 3
+hide_when_flag = &"azure_blade_picked"
+
+[sub_resource type="Resource" id="M_clearing"]
+script = ExtResource("1_marker")
+id = &"clearing"
+label = "Прогалина"
+description = "Здесь ждут Нефис и Кассия."
+use_world_position = true
+world_position = Vector2(-65, 0)
+kind = 0
+
+[sub_resource type="Resource" id="M_camp"]
+script = ExtResource("1_marker")
+id = &"camp"
+label = "Лагерь на холме"
+description = "Костёр, безопасная точка и передышка перед западным переходом."
+use_world_position = true
+world_position = Vector2(-100, -5)
+kind = 1
+
+[sub_resource type="Resource" id="M_dry_pocket"]
+script = ExtResource("1_marker")
+id = &"soul_shard_dry_pocket"
+label = "Сухой карман"
+description = "Осколок души в ответвлении костяного прохода."
+use_world_position = true
+world_position = Vector2(-45, 49)
+kind = 0
+hide_when_flag = &"soul_shard_dry_pocket"
+
+[sub_resource type="Resource" id="M_tunnel"]
+script = ExtResource("1_marker")
+id = &"soul_shard_tunnel"
+label = "Слепой туннель"
+description = "Короткий срез к холму; здесь спрятан второй осколок."
+use_world_position = true
+world_position = Vector2(-70, 20)
+kind = 0
+hide_when_flag = &"soul_shard_tunnel"
+
+[sub_resource type="Resource" id="M_channel"]
+script = ExtResource("1_marker")
+id = &"tide_channel"
+label = "Приливной канал"
+description = "Низкий проход закрывается водой. Верхний обход остаётся открытым."
+use_world_position = true
+world_position = Vector2(-137.5, -20)
+kind = 2
+
+[sub_resource type="Resource" id="M_isthmus"]
+script = ExtResource("1_marker")
+id = &"isthmus"
+label = "Западный перешеек"
+description = "Вход в охотничьи угодья."
+use_world_position = true
+world_position = Vector2(-175, 0)
+kind = 0
+
+[sub_resource type="Resource" id="M_hunting"]
+script = ExtResource("1_marker")
+id = &"hunting"
+label = "Охотничьи угодья"
+description = "Три падальщика патрулируют равнину. Можно обойти северным траверсом."
+use_world_position = true
+world_position = Vector2(-375, 0)
+kind = 2
+
+[sub_resource type="Resource" id="M_bridge"]
+script = ExtResource("1_marker")
+id = &"bone_bridge"
+label = "Костяной мост"
+description = "Узкий мост через провал; здесь можно найти осколок души."
+use_world_position = true
+world_position = Vector2(-600, 0)
+kind = 0
+hide_when_flag = &"soul_shard_bridge"
+
+[sub_resource type="Resource" id="M_refuge"]
+script = ExtResource("1_marker")
+id = &"refuge"
+label = "Высокое убежище"
+description = "Второй безопасный хаб и чекпоинт."
+use_world_position = true
+world_position = Vector2(-700, -20)
+kind = 1
+
+[sub_resource type="Resource" id="M_pack"]
+script = ExtResource("1_marker")
+id = &"pack"
+label = "Территория стаи"
+description = "Открытая низина под давлением стаи; высокий южный гребень остаётся путём обхода."
+use_world_position = true
+world_position = Vector2(-900, 60)
+kind = 2
+
+[sub_resource type="Resource" id="M_storm"]
+script = ExtResource("1_marker")
+id = &"storm"
+label = "Гроза"
+description = "Сценарный штормовой прилив. Бегите к утёсам по высокому краю."
+use_world_position = true
+world_position = Vector2(-1200, 0)
+kind = 2
+
+[sub_resource type="Resource" id="M_cliffs"]
+script = ExtResource("1_marker")
+id = &"cliffs"
+label = "Утёсы"
+description = "Финал первого фрагмента. Выход к следующему району пока закрыт."
+use_world_position = true
+world_position = Vector2(-1400, 0)
+kind = 3
+
+[resource]
+script = ExtResource("2_def")
+id = &"labyrinth_first_fragment"
+title = "ЛАБИРИНТ ЗАБЫТОГО БЕРЕГА"
+subtitle = "Первый фрагмент · зоны Z01–Z18"
+description = "Непрерывный участок Лабиринта от подножия статуи до утёсов. Карта собрана из реальных границ зон greybox-сцены и маркеров игрового слоя; длинная ось сжата для читаемости."
+background_color = Color(0.035, 0.03, 0.035, 1)
+land_color = Color(0.28, 0.2, 0.18, 1)
+accent_color = Color(0.78, 0.63, 0.38, 1)
+terrain_style = &"coral"
+world_bounds = Rect2(-1470, -160, 1520, 320)
+world_contour = PackedVector2Array()
+preserve_aspect = false
+features = Array[ExtResource("3_feature")]([SubResource("Z01"), SubResource("Z02"), SubResource("Z03"), SubResource("Z04"), SubResource("Z05"), SubResource("Z06"), SubResource("Z07"), SubResource("Z08"), SubResource("Z09"), SubResource("Z10"), SubResource("Z11"), SubResource("Z12"), SubResource("Z13"), SubResource("Z14"), SubResource("Z15"), SubResource("Z16"), SubResource("Z17"), SubResource("Z18"), SubResource("Route")])
+markers = Array[ExtResource("1_marker")]([SubResource("M_start"), SubResource("M_fork"), SubResource("M_carcass"), SubResource("M_scavenger"), SubResource("M_blade"), SubResource("M_clearing"), SubResource("M_camp"), SubResource("M_dry_pocket"), SubResource("M_tunnel"), SubResource("M_channel"), SubResource("M_isthmus"), SubResource("M_hunting"), SubResource("M_bridge"), SubResource("M_refuge"), SubResource("M_pack"), SubResource("M_storm"), SubResource("M_cliffs")])
+scene_paths = PackedStringArray("res://scenes/locations/forgotten_shore_labyrinth/labyrinth_first_fragment.tscn")
+campaign_stage = 0
+available = true
+world_rect = Rect2(0.08, 0.28, 0.84, 0.44)

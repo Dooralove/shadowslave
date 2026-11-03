@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="ArmorStats" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/armor_stats.gd" id="1_stats"]
+[ext_resource type="Script" path="res://scripts/stats/stat_modifier.gd" id="2_modifier"]
+
+[sub_resource type="Resource" id="StatModifier_merc_vitals"]
+script = ExtResource("2_modifier")
+stat = &"max_health"
+operation = 0
+value = 5.0
+label = "+5 к запасу здоровья"
+description = "Стальная кираса прикрывает жизненно важные органы."
+
+[sub_resource type="Resource" id="StatModifier_merc_stagger"]
+script = ExtResource("2_modifier")
+stat = &"stagger_resistance"
+operation = 0
+value = 0.05
+label = "+5% к стойкости"
+description = "Кольчуга гасит часть силы удара."
+
+[sub_resource type="Resource" id="StatModifier_merc_speed"]
+script = ExtResource("2_modifier")
+stat = &"move_speed"
+operation = 2
+value = 0.97
+label = "x0.97 к скорости"
+description = "Кольчуга и наплечники тяжелее кожаного доспеха."
+
+[sub_resource type="Resource" id="StatModifier_merc_stamina"]
+script = ExtResource("2_modifier")
+stat = &"stamina_regen"
+operation = 2
+value = 0.97
+label = "x0.97 к выносливости"
+description = "Постоянный вес ускоряет усталость."
+
+[resource]
+script = ExtResource("1_stats")
+armor_value = 32.0
+weight = 13.0
+impact_bonus = 2.0
+stagger_resistance = 0.18
+damage_resistances = {
+"physical": 0.1,
+"slash": 0.12,
+"pierce": 0.08,
+"fire": 0.03
+}
+move_speed_multiplier = 1.0
+stamina_regen_multiplier = 1.0
+passive_buffs = [SubResource("StatModifier_merc_vitals"), SubResource("StatModifier_merc_stagger")]
+passive_debuffs = [SubResource("StatModifier_merc_speed"), SubResource("StatModifier_merc_stamina")]
+modifiers = []

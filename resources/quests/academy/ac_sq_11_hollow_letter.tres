@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_km50v"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_cf4v0"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_tfsl2"]
+
+[sub_resource type="Resource" id="Resource_cpy16"]
+script = ExtResource("1_km50v")
+id = &"letter"
+text = "Найти письмо"
+kind = 2
+target_id = &"hollow_letter"
+
+[sub_resource type="Resource" id="Resource_pgtpy"]
+script = ExtResource("2_cf4v0")
+flag = &"ac_rep_cassia_2"
+text = "Доверие Кассии"
+
+[sub_resource type="Resource" id="Resource_c1ify"]
+script = ExtResource("2_cf4v0")
+flag = &"hollow_letter_resolved"
+text = "Письмо из галереи"
+
+[resource]
+script = ExtResource("3_tfsl2")
+id = &"ac_sq_11_hollow_letter"
+scope = &"academy"
+code = "AC-SQ-11"
+title = "Письмо из галереи"
+summary = "Найти письмо в галерее Hollow."
+description = "В руке одного из Hollow зажат конверт, адресованный матери. Кассия чувствует, что это важно."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_cpy16")]
+rewards = [SubResource("Resource_pgtpy"), SubResource("Resource_c1ify")]
+completion_flag = &"ac_sq_11_complete"

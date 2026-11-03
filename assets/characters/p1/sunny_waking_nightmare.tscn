@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/characters/sunny_waking.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://assets/characters/generated/sunny_nightmare_v2/sunny_nightmare_v2.tscn" id="2_model"]
+[ext_resource type="Resource" path="res://assets/characters/sunny_realistic_poc/sunny_poc_clips.tres" id="3_clips"]
+[ext_resource type="AnimationNodeStateMachine" path="res://resources/characters/sunny_v3_animation_tree.tres" id="4_tree"]
+[ext_resource type="Script" path="res://scripts/player/sunny_blood_spots.gd" id="5_blood_spots"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/sunny_light_armed.tres" id="6_armed"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/sunny_light_unarmed_p1.tres" id="7_unarmed"]
+
+[node name="Sunny" instance=ExtResource("1_base")]
+walk_speed = 2.5
+sprint_speed = 5.0
+
+[node name="Model" parent="Visual" index="0"]
+visible = false
+
+[node name="ModelPoc" parent="Visual" index="1" instance=ExtResource("2_model")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="BloodSpots" type="Node3D" parent="."]
+script = ExtResource("5_blood_spots")
+
+[node name="Animator" parent="." node_paths=PackedStringArray("animation_player", "animation_tree")]
+animation_player = NodePath("../Visual/ModelPoc/Model/AnimationPlayer")
+animation_tree = NodePath("../AnimationTree")
+idle_clip = &"HumanStandingIdle"
+walk_clip = &"WalkClean"
+run_clip = &"HumanSprintLoop"
+jump_clip = &"HumanInplaceJumpL"
+fall_clip = &"HumanInplaceJumpL"
+land_clip = &"HumanLandrollR"
+attack_clip = &"HumanSpBoxing"
+guard_clip = &"HumanStandingIdle"
+guard_hit_clip = &"HumanSpHeadHit"
+block_hit_clip = &"HumanSpHeadHit"
+guard_break_clip = &"HumanSpHeadHit"
+dodge_clip = &"HumanRoll"
+hit_clip = &"HumanSpHeadHit"
+death_clip = &"HumanDeath"
+interact_clip = &"HumanSit"
+special_clip = &"HumanSpBoxing"
+walk_authored_speed = 1.685
+run_authored_speed = 3.3
+walk_blend = 0.4
+attack_hold_time = 1.2
+dodge_hold_time = 0.8
+land_hold_time = 0.6
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+anim_player = NodePath("../Visual/ModelPoc/Model/AnimationPlayer")
+tree_root = ExtResource("4_tree")
+active = true
+
+[node name="CombatController" parent="."]
+armed_attack_clip = &"HumanSpBoxing"
+unarmed_attack_clip = &"HumanSpBoxing"
+guard_clip_armed = &"HumanStandingIdle"
+guard_clip_unarmed = &"HumanStandingIdle"
+block_hit_clip = &"HumanSpHeadHit"
+guard_break_clip = &"HumanSpHeadHit"
+dodge_clip = &"HumanRoll"
+armed_attack = ExtResource("6_armed")
+unarmed_attack = ExtResource("7_unarmed")
+start_unarmed = true
+
+[node name="CameraRig" parent="."]
+position = Vector3(0, 1.4, 0)
+
+[node name="SpringArm3D" parent="CameraRig"]
+spring_length = 3.0
+
+[node name="CinematicActor" parent="." node_paths=PackedStringArray("animation_player")]
+animation_player = NodePath("../Visual/ModelPoc/Model/AnimationPlayer")
+clip_map = ExtResource("3_clips")
+hidden_parts = PackedStringArray()

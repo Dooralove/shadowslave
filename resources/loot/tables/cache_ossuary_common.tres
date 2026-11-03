@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_t16wb"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="2_m6upy"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_plate.tres" id="3_0jbct"]
+[ext_resource type="Resource" path="res://resources/loot/items/bone_spear.tres" id="4_4but6"]
+[ext_resource type="Resource" path="res://resources/loot/items/torch.tres" id="5_ruvfs"]
+[ext_resource type="Resource" path="res://resources/loot/items/oil_flask.tres" id="6_ka6j3"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="7_i2mia"]
+[ext_resource type="Resource" path="res://resources/loot/items/ancient_coral_plate.tres" id="8_5emky"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="9_8sald"]
+
+[sub_resource type="Resource" id="Resource_1cfww"]
+script = ExtResource("1_t16wb")
+item = ExtResource("2_m6upy")
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_gow48"]
+script = ExtResource("1_t16wb")
+item = ExtResource("3_0jbct")
+max_count = 2
+weight = 25.0
+
+[sub_resource type="Resource" id="Resource_0pw7x"]
+script = ExtResource("1_t16wb")
+item = ExtResource("4_4but6")
+weight = 20.0
+condition_min = 0.5
+condition_max = 0.9
+
+[sub_resource type="Resource" id="Resource_vo1wi"]
+script = ExtResource("1_t16wb")
+item = ExtResource("5_ruvfs")
+weight = 15.0
+
+[sub_resource type="Resource" id="Resource_53d1a"]
+script = ExtResource("1_t16wb")
+item = ExtResource("6_ka6j3")
+weight = 10.0
+
+[sub_resource type="Resource" id="Resource_t7sl8"]
+script = ExtResource("1_t16wb")
+item = ExtResource("7_i2mia")
+min_count = 3
+max_count = 5
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_83ov5"]
+script = ExtResource("1_t16wb")
+item = ExtResource("8_5emky")
+weight = 100.0
+condition_min = 0.6
+notes = "Реликтовый материал, не Память."
+
+[resource]
+resource_name = "cache_ossuary_common"
+script = ExtResource("9_8sald")
+id = &"cache_ossuary_common"
+display_name = "Коралловый оссуарий"
+description = "Сухой карман с костяной кучей. Здесь хоронят то, что море не забрало."
+guaranteed = Array[ExtResource("1_t16wb")]([SubResource("Resource_t7sl8"), SubResource("Resource_83ov5")])
+entries = Array[ExtResource("1_t16wb")]([SubResource("Resource_1cfww"), SubResource("Resource_gow48"), SubResource("Resource_0pw7x"), SubResource("Resource_vo1wi"), SubResource("Resource_53d1a")])
+tags = PackedStringArray("ossuary", "z06")

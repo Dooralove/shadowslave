@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_memory.png" id="1_spjl2"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_7kx1x"]
+
+[resource]
+resource_name = "midnight_shard"
+script = ExtResource("2_7kx1x")
+id = &"midnight_shard"
+display_name = "Полуночный осколок"
+category = 5
+stack_max = 1
+description = "Память Карапакса-Демона: короткая тёмная тачи с [Unbroken]."
+canon_status = &"CANON"
+tags = PackedStringArray("memory", "weapon", "boss")
+icon = ExtResource("1_spjl2")

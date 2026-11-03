@@ -10,7 +10,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.48, 0.62, 0.86, 0.38)
+border_color = Color(0.55, 0.44, 0.28, 0.55)
 content_margin_left = 54.0
 content_margin_top = 38.0
 content_margin_right = 54.0
@@ -70,14 +70,14 @@ alignment = 1
 
 [node name="Kicker" type="Label" parent="Center/Panel/Margin/Column"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.52, 0.7, 0.92, 0.8)
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 0.9)
 theme_override_font_sizes/font_size = 15
 text = "ЗАКЛЯТИЕ · ОЦЕНКА"
 horizontal_alignment = 1
 
 [node name="Title" type="Label" parent="Center/Panel/Margin/Column"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.9, 1.0, 1)
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
 theme_override_font_sizes/font_size = 32
 text = "ЗВЁЗДНЫЙ СУД"
 horizontal_alignment = 1
@@ -96,7 +96,7 @@ scroll_active = false
 [node name="Counter" type="Label" parent="Center/Panel/Margin/Column"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.64, 0.82, 0.75)
+theme_override_colors/font_color = Color(0.62, 0.59, 0.53, 0.9)
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
 

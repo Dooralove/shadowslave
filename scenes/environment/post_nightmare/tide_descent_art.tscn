@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_overlay.gd" id="1_vpvuy"]
+[ext_resource type="Resource" path="res://assets/environments/post_nightmare/profiles/art_b02_profile.tres" id="2_vyj4k"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_coral_arch_a.tscn" id="3_hqn0j"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_coral_blade_a.tscn" id="4_ivvnb"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_coral_mass_c.tscn" id="5_v6v4b"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_boulder_rounded_a.tscn" id="6_p0rad"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_coral_mass_b.tscn" id="7_exn05"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_glow_dim.tres" id="8_7ebxb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_praek"]
+size = Vector3(4.6, 0.05, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yga84"]
+size = Vector3(4.6, 0.05, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_27dy3"]
+size = Vector3(4.6, 0.05, 0.12)
+
+[node name="ArtOverlay" type="Node3D" unique_id=224724005]
+script = ExtResource("1_vpvuy")
+profile = ExtResource("2_vyj4k")
+
+[node name="Props" type="Node3D" parent="." unique_id=1609454323]
+
+[node name="BottomCoralArch" type="Node3D" parent="Props" unique_id=1989260068 instance=ExtResource("3_hqn0j")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -5.7291403, -23.4)
+
+[node name="StairCoralWest" type="Node3D" parent="Props" unique_id=1941551393 instance=ExtResource("4_ivvnb")]
+transform = Transform3D(0.76426923, 0, 0.23641618, 0, 0.8, 0, -0.23641618, 0, 0.76426923, -4.1, -5.759111, -20)
+
+[node name="StairCoralEast" type="Node3D" parent="Props" unique_id=8616739 instance=ExtResource("5_v6v4b")]
+transform = Transform3D(0.12747537, 0, 0.7390873, 0, 0.75, 0, -0.7390873, 0, 0.12747537, 4.1, -5.78875, -20)
+
+[node name="TopWeatheredStone" type="Node3D" parent="Props" unique_id=1851465852 instance=ExtResource("6_p0rad")]
+transform = Transform3D(0.6602685, 0, 0.451714, 0, 0.8, 0, -0.451714, 0, 0.6602685, -2.4, 0.0768, 21.8)
+
+[node name="DescentCoral" type="Node3D" parent="Props" unique_id=1922379159 instance=ExtResource("7_exn05")]
+transform = Transform3D(0.45285934, 0, 0.46628144, 0, 0.65, 0, -0.46628144, 0, 0.45285934, 10.8, -1.1862663, 0)
+
+[node name="StairGuideHigh" type="MeshInstance3D" parent="Props" unique_id=1879942420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 12)
+material_override = ExtResource("8_7ebxb")
+mesh = SubResource("BoxMesh_praek")
+
+[node name="StairGuideMid" type="MeshInstance3D" parent="Props" unique_id=808860944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9, 0)
+material_override = ExtResource("8_7ebxb")
+mesh = SubResource("BoxMesh_yga84")
+
+[node name="StairGuideLow" type="MeshInstance3D" parent="Props" unique_id=511396606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.65, -12)
+material_override = ExtResource("8_7ebxb")
+mesh = SubResource("BoxMesh_27dy3")
+
+[node name="Lights" type="Node3D" parent="." unique_id=602100589]
+
+[node name="TopCoralWarm" type="OmniLight3D" parent="Lights" unique_id=393539535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 19)
+light_color = Color(1, 0.6, 0.34, 1)
+light_energy = 3.0
+omni_range = 20.0
+
+[node name="BottomCoralWarm" type="OmniLight3D" parent="Lights" unique_id=594365118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.4, -20.5)
+light_color = Color(1, 0.52, 0.26, 1)
+light_energy = 2.8
+omni_range = 15.0
+
+[node name="StairPathHigh" type="OmniLight3D" parent="Lights" unique_id=45780504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 10)
+light_color = Color(1, 0.58, 0.32, 1)
+light_energy = 1.8
+omni_range = 11.0
+
+[node name="StairPathMid" type="OmniLight3D" parent="Lights" unique_id=1626031157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
+light_color = Color(1, 0.55, 0.3, 1)
+light_energy = 1.7
+omni_range = 11.0
+
+[node name="StairPathLow" type="OmniLight3D" parent="Lights" unique_id=1556624265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.8, -11)
+light_color = Color(1, 0.52, 0.28, 1)
+light_energy = 1.8
+omni_range = 10.0
+
+[node name="StairWetKey" type="SpotLight3D" parent="Lights" unique_id=1891635824]
+transform = Transform3D(0.99227786, 0.043256238, -0.11624764, 0, 0.9372184, 0.34874293, 0.12403473, -0.3460499, 0.9299811, -3, 3, 6)
+light_color = Color(0.58, 0.74, 1, 1)
+light_energy = 2.6
+spot_range = 26.0
+spot_angle = 26.0
+
+[node name="Decals" type="Node3D" parent="." unique_id=414532796]

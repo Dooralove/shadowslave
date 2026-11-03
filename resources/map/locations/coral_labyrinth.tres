@@ -1,0 +1,182 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-4, 7, 4, 7, 4, 17, -4, 17)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2, -2, 2, -2, 2, 8, -2, 8)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-5, -10, 5, -10, 5, 0, -5, 0)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2, -17, 2, -17, 2, -9, -2, -9)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-7, -29, 7, -29, 7, -17, -7, -17)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(4, -7, 10, -7, 10, -3, 4, -3)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(10, -9, 18, -9, 18, -1, 10, -1)
+closed = true
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-10, -7, -4, -7, -4, -3, -10, -3)
+closed = true
+
+[sub_resource type="Resource" id="Feature_8"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-18, -9, -10, -9, -10, -1, -18, -1)
+closed = true
+
+[sub_resource type="Resource" id="Feature_9"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(5, -25, 11, -25, 11, -21, 5, -21)
+closed = true
+
+[sub_resource type="Resource" id="Feature_10"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(11, -26, 17, -26, 17, -20, 11, -20)
+closed = true
+
+[sub_resource type="Resource" id="Feature_11"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 17, 0, 7, 0, -2, 0, -10, 0, -17, 0, -23)
+closed = false
+
+[sub_resource type="Resource" id="Feature_12"]
+script = ExtResource("3_feature")
+kind = 2
+points = PackedVector2Array(-20, -31, 20, -31, 20, 17, -20, 17)
+closed = true
+
+[sub_resource type="Resource" id="Feature_13"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-4, 22, 4, 22, 4, 29, -4, 29)
+closed = true
+
+[sub_resource type="Resource" id="Feature_14"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 29, 0, 22, 0, 17)
+closed = false
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"start"
+label = "Вход в лабиринт"
+description = "Верхняя площадка у входа."
+use_world_position = true
+world_position = Vector2(0, 15)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"hub"
+label = "Развилка"
+description = "Центральный узел с тремя ответвлениями."
+use_world_position = true
+world_position = Vector2(0, -5)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"shrine"
+label = "Святилище"
+description = "Ритуальная площадка со звездой."
+use_world_position = true
+world_position = Vector2(0, -23)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"east_chamber"
+label = "Восточный грот"
+description = "Камера с пустыми креслами."
+use_world_position = true
+world_position = Vector2(14, -5)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"west_chamber"
+label = "Западный грот"
+description = "Камера с костями и тёмной водой."
+use_world_position = true
+world_position = Vector2(-14, -5)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"secret_chamber"
+label = "Потайная камера"
+description = "Ответвление за святилищем."
+use_world_position = true
+world_position = Vector2(14, -23)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"from_platform"
+label = "Спуск с платформы"
+description = "Точка появления на верхней площадке лабиринта."
+use_world_position = true
+world_position = Vector2(0, 26.5)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_7"]
+script = ExtResource("1_marker")
+id = &"tide_landing"
+label = "Площадка прилива"
+description = "Верхняя площадка у подножия лестницы."
+use_world_position = true
+world_position = Vector2(0, 24)
+kind = 0
+
+[resource]
+script = ExtResource("2_def")
+id = &"coral_labyrinth"
+title = "КОРАЛЛОВЫЙ ЛАБИРИНТ"
+subtitle = "Гроты, кости и святилище"
+description = "Прототип подводного лабиринта: верхняя площадка у лестницы, коралловые стены, развилка, восточный и западный гроты, потайная камера и святилище со звездой."
+background_color = Color(0.045, 0.025, 0.035, 1)
+land_color = Color(0.24, 0.13, 0.14, 1)
+accent_color = Color(0.85, 0.42, 0.4, 1)
+terrain_style = &"stone"
+world_bounds = Rect2(-20, -31, 40, 62)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9"), SubResource("Feature_10"), SubResource("Feature_11"), SubResource("Feature_12"), SubResource("Feature_13"), SubResource("Feature_14")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6"), SubResource("Marker_7")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/coral_labyrinth.tscn")

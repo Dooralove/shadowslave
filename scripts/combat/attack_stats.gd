@@ -3,6 +3,8 @@ extends Resource
 ## Балансные параметры одной атаки ближнего боя.
 
 @export var damage := 10.0
+## Тип урона для сопротивлений брони: physical, slash, pierce, blunt, fire, cold, shadow.
+@export var damage_type: StringName = &"physical"
 ## Время от начала одной атаки до возможности начать следующую, с.
 ## Восстановление длится остаток этого времени после окна попадания.
 @export var cooldown := 0.5
@@ -15,3 +17,7 @@ extends Resource
 @export var reach := 1.0
 ## Радиус сферической зоны поражения, м.
 @export var radius := 0.8
+## Момент контакта в клипе атаки, с. Ноль означает, что аниматор использует
+## собственный fallback (например, SunnyAnimator.attack_contact_time).
+## Измеряется по фактической позе кисти/клешни, а не подбирается на глаз.
+@export var contact_time := 0.0

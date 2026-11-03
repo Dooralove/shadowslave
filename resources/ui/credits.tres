@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CreditsData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/credits_data.gd" id="1_credits"]
+
+[resource]
+script = ExtResource("1_credits")
+text = "Stone Knight — mzee92, CC BY 4.0, via Sketchfab.\nhttps://sketchfab.com/3d-models/stone-knight-c3e3712fd5164e44abdab658981cb395\nhttps://creativecommons.org/licenses/by/4.0/\n\nМодель статуи и LOD1/LOD2 — производные Stone Knight. Атрибуция обязательна при распространении.\n\nlow_tide_rocks — Poly Haven, Rob Tuytel, CC0 1.0.\n\nПолный список лицензий: docs/ASSET_LICENSES.md."

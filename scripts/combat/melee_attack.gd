@@ -14,6 +14,8 @@ signal hit_landed(target: Hurtbox)
 enum Phase { READY, WINDUP, ACTIVE, RECOVERY }
 
 @export var stats: AttackStats
+## Плоский бонус к урону от экипировки/баффов. Выставляется CharacterStats.
+@export var damage_bonus := 0.0
 ## Отладочная визуализация зоны поражения.
 @export var swing_visual: Node3D
 ## Показывать зону поражения во время окна попадания. Только отладка: на физику и урон не влияет.
@@ -23,6 +25,9 @@ var enabled := true
 var phase := Phase.READY
 var _phase_left := 0.0
 var _hit_this_swing: Array[Hurtbox] = []
+## Один HealthComponent может иметь несколько hurtbox (body + weak spot).
+## Повторный урон по тому же здоровью в одном ударе запрещён.
+var _hit_health_this_swing: Array[HealthComponent] = []
 ## Направление удара фиксируется при его начале: родитель (модель) может поворачиваться
 ## во время атаки, но зона, визуализация и урон остаются в исходном направлении.
 var _rest_basis := Basis.IDENTITY
@@ -34,6 +39,25 @@ var _locked_basis := Basis.IDENTITY
 func _ready() -> void:
 	monitorable = false
 	_rest_basis = transform.basis
+	_refresh_shape()
+
+
+## Меняет данные атаки на лету: новые атаки и режим без оружия не требуют
+## пересоздания узла MeleeAttack.
+func configure(new_stats: AttackStats) -> void:
+	stats = new_stats
+	if is_inside_tree() and _shape != null:
+		_refresh_shape()
+
+
+## Вызывается CharacterStats при смене брони. Бонус не меняет тайминги.
+func set_damage_bonus(value: float) -> void:
+	damage_bonus = value
+
+
+func _refresh_shape() -> void:
+	if stats == null:
+		return
 	var sphere := SphereShape3D.new()
 	sphere.radius = stats.radius
 	_shape.shape = sphere
@@ -54,9 +78,8 @@ func tick(delta: float) -> void:
 		return
 	global_basis = _locked_basis
 	if phase == Phase.ACTIVE:
-		for area in get_overlapping_areas():
-			if area is Hurtbox:
-				apply_hit(area)
+		for target in select_hit_targets(get_overlapping_areas()):
+			apply_hit(target)
 	_phase_left -= delta
 	# Остаток времени переносится в следующую фазу; короткие фазы могут пройти за один вызов.
 	while phase != Phase.READY and _phase_left <= 0.0:
@@ -71,6 +94,7 @@ func try_attack() -> bool:
 	if not can_attack():
 		return false
 	_hit_this_swing.clear()
+	_hit_health_this_swing.clear()
 	_locked_basis = global_basis
 	attack_started.emit()
 	if stats.windup_time > 0.0:
@@ -91,12 +115,34 @@ func is_attacking() -> bool:
 	return phase != Phase.READY
 
 
+## Оставляет не более одного hurtbox на HealthComponent, выбирая weak spot.
+## Это защищает от двойного урона, когда капсула тела и сустав перекрываются.
+func select_hit_targets(areas: Array[Area3D]) -> Array[Hurtbox]:
+	var selected: Dictionary = {}
+	for area in areas:
+		if not (area is Hurtbox):
+			continue
+		var box := area as Hurtbox
+		var key: Variant = box.health if box.health != null else box
+		var current := selected.get(key) as Hurtbox
+		if current == null or box.damage_multiplier > current.damage_multiplier:
+			selected[key] = box
+	var result: Array[Hurtbox] = []
+	for box in selected.values():
+		result.append(box as Hurtbox)
+	return result
+
+
 ## Засчитывает попадание, если окно открыто и эта цель ещё не получила урон в этом ударе.
 func apply_hit(target: Hurtbox) -> bool:
 	if not enabled or not is_active() or target in _hit_this_swing:
 		return false
+	if target.health != null and target.health in _hit_health_this_swing:
+		return false
 	_hit_this_swing.append(target)
-	if target.receive_hit(stats.damage, self):
+	if target.health != null:
+		_hit_health_this_swing.append(target.health)
+	if target.receive_hit(stats.damage + damage_bonus, self, stats.damage_type):
 		hit_landed.emit(target)
 		return true
 	return false

@@ -6,6 +6,8 @@
 script = ExtResource("1_stats")
 damage = 25.0
 cooldown = 1.0
-active_time = 0.3
+windup_time = 0.35
+active_time = 0.2
 reach = 2.4
 radius = 1.4
+contact_time = 0.433

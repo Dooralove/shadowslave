@@ -37,6 +37,14 @@ func open_menu(section: StringName = DEFAULT_SECTION) -> bool:
 			screen.show_section(section)
 		return false
 
+	# Пауза — отдельный модальный слой. C/I не должны открывать меню поверх неё.
+	if _pause_menu_open():
+		return false
+
+	# Кат-сцена владеет вводом и HUD; меню персонажа не открывается поверх неё.
+	if _cutscene_locked():
+		return false
+
 	# Прототипы инвентаря и Моря Души владеют своим модальным слоем.
 	# Пока они активны, меню персонажа не должно ставить мир на паузу поверх них.
 	if _prototype_modal_active():
@@ -80,10 +88,36 @@ func toggle_menu(section: StringName = DEFAULT_SECTION) -> void:
 		open_menu(section)
 
 
+## Переключить уже открытое меню на другую категорию. Нужен MapSystem и
+## горячим клавишам, которые ведут в то же окно, а не создают второй слой.
+func show_section(section: StringName) -> bool:
+	if _open and screen != null:
+		screen.show_section(section)
+		return true
+	return open_menu(section)
+
+
 func _unhandled_input(event: InputEvent) -> void:
+	# C и I ведут в одно окно, но на разные его категории. M обрабатывает
+	# MapSystem, который передаёт открытие сюда, если меню доступно.
+	if _pause_menu_open() or _cutscene_locked():
+		return
 	if event.is_action_pressed(&"open_character"):
-		toggle_menu(DEFAULT_SECTION)
+		toggle_menu(&"character")
 		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(&"open_inventory"):
+		toggle_menu(&"inventory")
+		get_viewport().set_input_as_handled()
+
+
+func _pause_menu_open() -> bool:
+	var pause := get_node_or_null(^"/root/PauseMenuSystem")
+	return pause != null and pause.has_method(&"is_open") and bool(pause.call(&"is_open"))
+
+
+func _cutscene_locked() -> bool:
+	var director := get_node_or_null(^"/root/CutsceneDirector")
+	return director != null and director.has_method(&"is_locked") and bool(director.call(&"is_locked"))
 
 
 func _prototype_modal_active() -> bool:
@@ -92,6 +126,12 @@ func _prototype_modal_active() -> bool:
 		return true
 	var soul_sea := get_tree().get_first_node_in_group(&"soul_sea_modal")
 	if soul_sea != null and soul_sea.has_method(&"is_active") and bool(soul_sea.call(&"is_active")):
+		return true
+	var choice := get_tree().get_first_node_in_group(&"quest_choice_panel")
+	if choice != null and choice.has_method(&"is_open") and bool(choice.call(&"is_open")):
+		return true
+	var final_card := get_tree().get_first_node_in_group(&"final_card")
+	if final_card != null and final_card.has_method(&"is_open") and bool(final_card.call(&"is_open")):
 		return true
 	return false
 

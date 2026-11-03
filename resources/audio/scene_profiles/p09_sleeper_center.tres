@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_tpghh"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_34s6n"]
+
+[sub_resource type="Resource" id="Resource_qjhpv"]
+script = ExtResource("1_tpghh")
+cue_id = &"p09_induction_tone"
+position = Vector3(0, 1.2, -25.5)
+volume_db = -4.0
+flag = &"induction_seen"
+
+[sub_resource type="Resource" id="Resource_1jkow"]
+script = ExtResource("1_tpghh")
+cue_id = &"world_wind_gust"
+position = Vector3(0, 1.2, -16)
+volume_db = -7.0
+flag = &"academy_month_passed"
+
+[sub_resource type="Resource" id="Resource_of4jp"]
+script = ExtResource("1_tpghh")
+cue_id = &"p09_hvac"
+position = Vector3(0, 2.5, -10)
+volume_db = -3.0
+loop = true
+
+[sub_resource type="Resource" id="Resource_7npa8"]
+script = ExtResource("1_tpghh")
+cue_id = &"p09_capsule_hum"
+position = Vector3(0, 1, -25.5)
+volume_db = -5.0
+loop = true
+
+[resource]
+script = ExtResource("2_34s6n")
+id = &"p09_sleeper_center"
+scene_path = "res://scenes/locations/post_nightmare/academy_sleeper_center.tscn"
+location_id = &"academy_sleeper_center"
+music_id = &"m1_sleeper"
+ambience_id = &"m1_sleeper"
+music_intensity = 0.42
+reverb_profile = &"sleeper_hall"
+loops = Array[ExtResource("1_tpghh")]([SubResource("Resource_of4jp"), SubResource("Resource_7npa8")])
+flag_events = Array[ExtResource("1_tpghh")]([SubResource("Resource_qjhpv"), SubResource("Resource_1jkow")])
+interactions = {
+&"academy_julius": &"ui_confirm",
+&"cassia": &"ui_confirm",
+&"kasper": &"ui_confirm",
+&"medic": &"ui_confirm",
+&"p09_capsule": &"p09_capsule_hiss",
+&"rock": &"ui_confirm",
+&"sleeper_capsule": &"p09_capsule_hiss"
+}

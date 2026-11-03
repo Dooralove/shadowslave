@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://resources/locations/forgotten_shore_labyrinth/sky_labyrinth.gdshader" id="1_sky"]
+
+[resource]
+resource_name = "sky_labyrinth_material"
+shader = ExtResource("1_sky")
+shader_parameter/sky_top = Color(0.3, 0.36, 0.44, 1)
+shader_parameter/sky_horizon = Color(0.70, 0.71, 0.70, 1)
+shader_parameter/ground_color = Color(0.38, 0.40, 0.42, 1)
+shader_parameter/cloud_color = Color(0.78, 0.79, 0.80, 1)
+shader_parameter/sun_color = Color(1, 0.93, 0.82, 1)
+shader_parameter/cloud_cover = 0.30
+shader_parameter/cloud_scale = 1.15
+shader_parameter/cloud_speed = 0.004
+shader_parameter/sun_energy = 1.6

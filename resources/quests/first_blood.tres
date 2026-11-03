@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="3_reward"]
+
+[sub_resource type="Resource" id="Obj_kill"]
+script = ExtResource("2_objective")
+id = &"kill_scavenger"
+text = "Убить раненого карапакса у пня"
+kind = 0
+target_id = &"wounded_scavenger"
+required_count = 1
+
+[sub_resource type="Resource" id="Reward_blood"]
+script = ExtResource("3_reward")
+currency_id = &"soul_shard"
+currency_amount = 2
+text = "2 осколка души"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"first_blood"
+scope = &"forgotten_shore"
+code = "02"
+title = "Первая кровь"
+category = 1
+summary = "Раненый карапакс выползает из грязи у первой развилки."
+description = "Тварь медленная, но её удар читается по долгому замаху. Держите дистанцию и бейте после промаха."
+prerequisites = Array[StringName]([&"shore_fork_reached"])
+required_quests = Array[StringName]([])
+auto_start = true
+show_available = true
+objectives = [SubResource("Obj_kill")]
+rewards = [SubResource("Reward_blood")]
+completion_flag = &"wounded_scavenger_slain"

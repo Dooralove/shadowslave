@@ -201,7 +201,7 @@ text = "ЧЕРНОВИК"
 [node name="Badge" type="Label" parent="Columns/StatusPanel/StatusColumn/StatusHeader"]
 layout_mode = 2
 theme_type_variation = &"WarningLabel"
-text = "DRAFT"
+text = "ЧЕРНОВИК"
 vertical_alignment = 2
 
 [node name="Rule" type="ColorRect" parent="Columns/StatusPanel/StatusColumn"]

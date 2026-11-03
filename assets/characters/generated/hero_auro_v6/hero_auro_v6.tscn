@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/generated/hero_auro_v6/hero_auro_v6.glb" id="1_model"]
+[ext_resource type="Script" path="res://scripts/characters/character_lod_visibility.gd" id="2_lod"]
+
+[node name="HeroAuroV6" type="Node3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+position = Vector3(0, 0.9497, 0)
+
+[node name="LodVisibility" type="Node" parent="Model"]
+script = ExtResource("2_lod")
+lod1_distance = 10.0
+lod2_distance = 22.0

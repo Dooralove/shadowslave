@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N17"
+part = &"act_3"
+part_title = "Акт III «Подъём»"
+canonical_block = 14
+title = "Падение Шифти"
+beat_type = 0
+format_label = "И"
+objective = "Не отставать"
+idle_objectives = Array[String](["Не отставай от Героя", "Держись ближе к тропе"])
+guide_beacon_id = &"dawn"
+checkpoint_id = &"CP-N17"
+checkpoint_ids = Array[StringName]([&"CP-N17"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N17": Vector3(1, 4.15, -30)
+})
+entry_conditions = Array[StringName]([&"dawn_ascent"])
+exit_conditions = Array[StringName]([&"shifty_dead"])
+staging_flags = Array[StringName]([&"shifty_dead"])
+estimated_seconds = 90.0
+estimated_time_text = "~1,5 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = true

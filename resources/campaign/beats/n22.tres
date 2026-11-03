@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N22"
+part = &"act_4"
+part_title = "Акт IV «Охота»"
+canonical_block = 17
+title = "Звон Серебряного колокольчика и гибель Героя"
+beat_type = 2
+format_label = "С"
+objective = "Позвонить в колокольчик"
+idle_objectives = Array[String](["Достань Серебряный Колокольчик", "Позвони", "Не смотри на Тирана"])
+guide_beacon_id = &"bell"
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"hero_confrontation_seen"])
+exit_conditions = Array[StringName]([&"silver_bell_used", &"hero_taken", &"hero_dead"])
+staging_flags = Array[StringName]([&"silver_bell_used", &"hero_taken", &"hero_dead"])
+estimated_seconds = 60.0
+estimated_time_text = "~1 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = false

@@ -1,0 +1,176 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/lobby_counter_p2.glb" id="1_counter"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/lobby_locker_p2.glb" id="2_locker"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/lobby_chair_p2.glb" id="3_chair"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/lobby_duct_p2.glb" id="4_duct"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/lobby_vent_p2.glb" id="5_vent"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/alarm_beacon_p2.glb" id="6_alarm"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_marking.tres" id="7_marking"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_screen_lobby.tres" id="8_screen"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/p2_counter_screen.tres" id="9_counter_screen"]
+[ext_resource type="Script" path="res://scripts/world/alarm_beacons.gd" id="10_beacon"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_light.tres" id="11_light"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_steel_dark.tres" id="12_steel"]
+
+[sub_resource type="BoxMesh" id="Mesh_marking"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_light"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_cable"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_screen"]
+size = Vector3(0.44, 0.24, 0.012)
+
+[node name="LobbyP2Dressing" type="Node3D"]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+position = Vector3(0, 2.1, 0)
+size = Vector3(13.0, 4.1, 13.0)
+interior = true
+box_projection = true
+enable_shadows = true
+
+[node name="Counter" parent="." instance=ExtResource("1_counter")]
+position = Vector3(0, 0, -3)
+
+[node name="CounterScreen" type="MeshInstance3D" parent="Counter"]
+position = Vector3(0.9, 1.28, 0.62)
+mesh = SubResource("Mesh_screen")
+material_override = ExtResource("9_counter_screen")
+
+[node name="ScreenText" type="Label3D" parent="Counter"]
+position = Vector3(0.9, 1.30, 0.633)
+pixel_size = 0.0009
+modulate = Color(0.35, 0.95, 1, 1)
+text = "QUARANTINE\nSTABLE"
+font_size = 24
+outline_size = 0
+
+[node name="CounterLabel" type="Label3D" parent="Counter"]
+position = Vector3(0, 0.92, 0.58)
+pixel_size = 0.0016
+modulate = Color(0.72, 0.86, 1, 1)
+outline_modulate = Color(0.02, 0.03, 0.05, 1)
+text = "NQSC · 04"
+font_size = 30
+outline_size = 4
+
+[node name="LockersWest" type="Node3D" parent="."]
+
+[node name="LockerW0" parent="LockersWest" instance=ExtResource("2_locker")]
+position = Vector3(-5.66, 0, -1.2)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LockerW1" parent="LockersWest" instance=ExtResource("2_locker")]
+position = Vector3(-5.66, 0, 0.9)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LockerW2" parent="LockersWest" instance=ExtResource("2_locker")]
+position = Vector3(-5.66, 0, 3.0)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LockersEast" type="Node3D" parent="."]
+
+[node name="LockerE0" parent="LockersEast" instance=ExtResource("2_locker")]
+position = Vector3(5.66, 0, -1.2)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="LockerE1" parent="LockersEast" instance=ExtResource("2_locker")]
+position = Vector3(5.66, 0, 0.9)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="LockerE2" parent="LockersEast" instance=ExtResource("2_locker")]
+position = Vector3(5.66, 0, 3.0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="Waiting" type="Node3D" parent="."]
+
+[node name="ChairsWest" parent="Waiting" instance=ExtResource("3_chair")]
+position = Vector3(-3.5, 0, 2.1)
+rotation = Vector3(0, 0.15, 0)
+
+[node name="ChairsEast" parent="Waiting" instance=ExtResource("3_chair")]
+position = Vector3(3.5, 0, 2.1)
+rotation = Vector3(0, -0.15, 0)
+
+[node name="Ceiling" type="Node3D" parent="."]
+
+[node name="CeilingLightA" type="MeshInstance3D" parent="Ceiling"]
+position = Vector3(0, 4.02, -1.1)
+mesh = SubResource("Mesh_light")
+material_override = ExtResource("11_light")
+scale = Vector3(2.8, 0.03, 0.22)
+
+[node name="CeilingLightB" type="MeshInstance3D" parent="Ceiling"]
+position = Vector3(0, 4.02, 2.0)
+mesh = SubResource("Mesh_light")
+material_override = ExtResource("11_light")
+scale = Vector3(2.8, 0.03, 0.22)
+
+[node name="CableTrayA" type="MeshInstance3D" parent="Ceiling"]
+position = Vector3(0, 3.95, -4.4)
+mesh = SubResource("Mesh_cable")
+material_override = ExtResource("12_steel")
+scale = Vector3(5.8, 0.08, 0.16)
+
+[node name="CableTrayB" type="MeshInstance3D" parent="Ceiling"]
+position = Vector3(4.6, 3.55, -3.4)
+mesh = SubResource("Mesh_cable")
+material_override = ExtResource("12_steel")
+scale = Vector3(0.12, 0.10, 6.5)
+rotation = Vector3(0, 0, 0.08)
+
+[node name="Conduit" type="MeshInstance3D" parent="Ceiling"]
+position = Vector3(-5.45, 2.8, -4.9)
+mesh = SubResource("Mesh_cable")
+material_override = ExtResource("12_steel")
+scale = Vector3(0.10, 3.2, 0.10)
+
+[node name="DuctA" parent="Ceiling" instance=ExtResource("4_duct")]
+position = Vector3(0, 3.78, -1.2)
+rotation = Vector3(0, 0.08, 0)
+
+[node name="DuctB" parent="Ceiling" instance=ExtResource("4_duct")]
+position = Vector3(0, 3.78, 2.0)
+rotation = Vector3(0, -0.06, 0)
+
+[node name="VentN1" parent="Ceiling" instance=ExtResource("5_vent")]
+position = Vector3(-2.6, 3.0, -5.92)
+rotation = Vector3(0, 0, 0)
+
+[node name="VentN2" parent="Ceiling" instance=ExtResource("5_vent")]
+position = Vector3(2.6, 3.0, -5.92)
+rotation = Vector3(0, 0, 0)
+
+[node name="VentCeiling" parent="Ceiling" instance=ExtResource("5_vent")]
+position = Vector3(3.1, 4.02, 1.2)
+rotation = Vector3(1.5708, 0, 0)
+
+[node name="AlarmBeacons" type="Node3D" parent="."]
+visible = false
+script = ExtResource("10_beacon")
+alarm_lights_path = NodePath("../../AlarmLights")
+
+[node name="BeaconW" parent="AlarmBeacons" instance=ExtResource("6_alarm")]
+position = Vector3(-4.4, 3.75, -4.9)
+
+[node name="BeaconE" parent="AlarmBeacons" instance=ExtResource("6_alarm")]
+position = Vector3(4.4, 3.75, -4.9)
+
+[node name="Markings" type="Node3D" parent="."]
+
+[node name="GuideLine" type="MeshInstance3D" parent="Markings"]
+position = Vector3(2.7, 0.012, 1.0)
+mesh = SubResource("Mesh_marking")
+material_override = ExtResource("7_marking")
+scale = Vector3(0.10, 0.006, 5.8)
+
+[node name="EntryLine" type="MeshInstance3D" parent="Markings"]
+position = Vector3(0, 0.012, 4.5)
+mesh = SubResource("Mesh_marking")
+material_override = ExtResource("7_marking")
+scale = Vector3(2.4, 0.006, 0.10)

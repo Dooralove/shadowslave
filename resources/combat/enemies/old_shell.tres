@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_data.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/carapace_claw.tres" id="2_claw"]
+
+[resource]
+script = ExtResource("1_enemy")
+id = &"old_shell"
+display_name = "Старый Панцирь"
+max_health = 180.0
+detection_range = 12.0
+lose_range = 18.0
+attack_distance = 2.4
+move_speed = 1.5
+turn_speed = 2.8
+telegraph_time = 1.1
+recovery_time = 1.3
+attack = ExtResource("2_claw")

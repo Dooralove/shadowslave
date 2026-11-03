@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BestiaryEntry" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/bestiary_entry.gd" id="1_bestiary"]
+
+[resource]
+script = ExtResource("1_bestiary")
+id = &"mountain_king"
+title = "Горный Король (Тиран)"
+text = "Огромный тиран, который полагается на слух. Прямая схватка с ним смертельна."
+unlock_event = &"weakness_known"
+event_label = "Узнал слабость"
+category = "Первый Кошмар"
+weakness = "Слепой. Колокол и брошенный камень уводят его в сторону."

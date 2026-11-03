@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N20"
+part = &"act_4"
+part_title = "Акт IV «Охота»"
+canonical_block = 16
+title = "Пещера, признание в отравлении и бегство"
+beat_type = 2
+format_label = "С"
+objective = "Бежать"
+idle_objectives = Array[String](["Беги через щель к лунному свету", "Не останавливайся в темноте"])
+guide_beacon_id = &"cave"
+checkpoint_id = &"CP-N20"
+checkpoint_ids = Array[StringName]([&"CP-N20"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N20": Vector3(0.6, 4.2, -50.2)
+})
+entry_conditions = Array[StringName]([&"scholar_abandoned"])
+exit_conditions = Array[StringName]([&"cave_entered", &"scholar_confession_seen", &"wound_taken", &"cave_escaped"])
+staging_flags = Array[StringName]([&"cave_entered", &"scholar_confession_seen", &"wound_taken", &"cave_escaped"])
+estimated_seconds = 120.0
+estimated_time_text = "~2 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = false

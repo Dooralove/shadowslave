@@ -1,0 +1,365 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/facade_p2_balcony.glb" id="1_balcony"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/facade_p2_glass.glb" id="2_glass"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/facade_p2_stone.glb" id="3_stone"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/bus_shelter_p2.glb" id="4_shelter"]
+[ext_resource type="PackedScene" path="res://scenes/environment/park/island_tree.tscn" id="5_tree"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/bench.glb" id="6_bench"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/paving_park.tres" id="7_paving"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/asphalt.tres" id="8_asphalt"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/curb.tres" id="9_curb"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/city_far_tower.tres" id="10_far_tower"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/city_curtain_wall.tres" id="11_curtain"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/station_entrance_p2.glb" id="12_entrance"]
+[ext_resource type="Material" path="res://assets/environments/park/materials/p2_grass.tres" id="13_grass"]
+[ext_resource type="Texture2D" path="res://assets/environments/prologue/materials/textures/p2_wet_stain.png" id="14_wet"]
+[ext_resource type="Script" path="res://scripts/world/park_batch.gd" id="15_batch"]
+
+[sub_resource type="PlaneMesh" id="Mesh_path"]
+size = Vector2(20, 3.0)
+
+[sub_resource type="PlaneMesh" id="Mesh_bench_path"]
+size = Vector2(20, 3.2)
+
+[sub_resource type="PlaneMesh" id="Mesh_road"]
+size = Vector2(20, 8.0)
+
+[sub_resource type="PlaneMesh" id="Mesh_far_walk"]
+size = Vector2(20, 3.5)
+
+[sub_resource type="BoxMesh" id="Mesh_unit"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_marking"]
+albedo_color = Color(0.78, 0.79, 0.75, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_grass"]
+albedo_color = Color(0.17, 0.22, 0.16, 1)
+roughness = 0.95
+
+[sub_resource type="BoxOccluder3D" id="Occluder_station"]
+size = Vector3(42, 20, 2.5)
+
+[node name="P2ParkSet" type="Node3D"]
+
+[node name="Occlusion" type="Node3D" parent="."]
+
+[node name="StationBack" type="OccluderInstance3D" parent="Occlusion"]
+position = Vector3(0, 9, -21.0)
+occluder = SubResource("Occluder_station")
+
+[node name="P5Batch" type="Node3D" parent="."]
+script = ExtResource("15_batch")
+batch_roots = Array[NodePath]([NodePath("../DistantCity"), NodePath("../../Art/Upgrade")])
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+position = Vector3(0, 5.0, -11.0)
+size = Vector3(34, 14, 30)
+box_projection = true
+enable_shadows = true
+
+[node name="Puddles" type="Node3D" parent="."]
+
+[node name="PuddlePathA" type="Decal" parent="Puddles"]
+position = Vector3(1.8, 0.04, 1.0)
+size = Vector3(1.3, 0.04, 0.8)
+texture_albedo = ExtResource("14_wet")
+modulate = Color(0.68, 0.78, 0.9, 0.55)
+albedo_mix = 0.55
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="PuddlePathB" type="Decal" parent="Puddles"]
+position = Vector3(-2.4, 0.04, -3.2)
+size = Vector3(1.6, 0.04, 0.9)
+texture_albedo = ExtResource("14_wet")
+modulate = Color(0.62, 0.72, 0.86, 0.48)
+albedo_mix = 0.5
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="PuddleCurb" type="Decal" parent="Puddles"]
+position = Vector3(4.0, 0.04, -8.2)
+size = Vector3(1.4, 0.04, 0.7)
+texture_albedo = ExtResource("14_wet")
+modulate = Color(0.60, 0.70, 0.84, 0.42)
+albedo_mix = 0.45
+upper_fade = 0.1
+lower_fade = 0.1
+
+[node name="Benches" type="Node3D" parent="."]
+
+[node name="BenchWest" parent="Benches" instance=ExtResource("6_bench")]
+position = Vector3(-7.4, 0.04, 2.3)
+rotation = Vector3(0, 0.15, 0)
+
+[node name="BenchEast" parent="Benches" instance=ExtResource("6_bench")]
+position = Vector3(7.2, 0.04, 2.3)
+rotation = Vector3(0, -0.15, 0)
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="TreeA" parent="Trees" instance=ExtResource("5_tree")]
+position = Vector3(-6.2, 0, 4.8)
+scale = Vector3(1.12, 1.18, 1.12)
+
+[node name="TreeB" parent="Trees" instance=ExtResource("5_tree")]
+position = Vector3(5.9, 0, 5.6)
+scale = Vector3(1.08, 1.12, 1.08)
+rotation = Vector3(0, 0.7, 0)
+
+[node name="TreeC" parent="Trees" instance=ExtResource("5_tree")]
+position = Vector3(-4.0, 0, 6.2)
+scale = Vector3(1.0, 1.05, 1.0)
+rotation = Vector3(0, -0.45, 0)
+
+[node name="TreeD" parent="Trees" instance=ExtResource("5_tree")]
+position = Vector3(-6.6, 0, -2.6)
+scale = Vector3(1.18, 1.2, 1.18)
+rotation = Vector3(0, 1.2, 0)
+
+[node name="TreeE" parent="Trees" instance=ExtResource("5_tree")]
+position = Vector3(6.8, 0, -2.2)
+scale = Vector3(1.1, 1.15, 1.1)
+rotation = Vector3(0, -1.0, 0)
+
+[node name="FarTrees" type="Node3D" parent="."]
+
+[node name="FarTreeW" parent="FarTrees" instance=ExtResource("5_tree")]
+position = Vector3(-8.6, 0, -16.4)
+scale = Vector3(0.8, 0.82, 0.8)
+
+[node name="FarTreeE" parent="FarTrees" instance=ExtResource("5_tree")]
+position = Vector3(8.8, 0, -16.5)
+scale = Vector3(0.82, 0.84, 0.82)
+
+[node name="Facades" type="Node3D" parent="."]
+
+[node name="FacadeW1" parent="Facades" instance=ExtResource("3_stone")]
+position = Vector3(-18.0, 0, -19.4)
+
+[node name="FacadeW2" parent="Facades" instance=ExtResource("1_balcony")]
+position = Vector3(-12.0, 0, -19.4)
+
+[node name="FacadeW3" parent="Facades" instance=ExtResource("2_glass")]
+position = Vector3(-6.0, 0, -19.4)
+
+[node name="FacadeE1" parent="Facades" instance=ExtResource("2_glass")]
+position = Vector3(6.0, 0, -19.4)
+
+[node name="FacadeC1" parent="Facades" instance=ExtResource("3_stone")]
+visible = false
+position = Vector3(-3.0, 0, -20.5)
+
+[node name="FacadeC2" parent="Facades" instance=ExtResource("1_balcony")]
+visible = false
+position = Vector3(3.0, 0, -20.5)
+
+[node name="FacadeE2" parent="Facades" instance=ExtResource("1_balcony")]
+position = Vector3(12.0, 0, -19.4)
+
+[node name="FacadeE3" parent="Facades" instance=ExtResource("3_stone")]
+position = Vector3(18.0, 0, -19.4)
+
+[node name="FacadeSignW" type="Label3D" parent="Facades"]
+position = Vector3(-12.0, 4.4, -18.85)
+pixel_size = 0.007
+modulate = Color(0.78, 0.9, 1, 1)
+outline_modulate = Color(0.02, 0.04, 0.08, 1)
+text = "NQSC · NORTH QUARTER"
+font_size = 48
+outline_size = 8
+billboard = 1
+
+[node name="FacadeSignE" type="Label3D" parent="Facades"]
+position = Vector3(12.0, 4.3, -18.85)
+pixel_size = 0.007
+modulate = Color(0.88, 0.82, 0.7, 1)
+outline_modulate = Color(0.04, 0.03, 0.02, 1)
+text = "TRANSIT · LEVEL 2"
+font_size = 48
+outline_size = 8
+billboard = 1
+
+[node name="BusShelter" parent="." instance=ExtResource("4_shelter")]
+position = Vector3(-7.6, 0.02, -15.9)
+
+[node name="StationEntrance" parent="." instance=ExtResource("12_entrance")]
+position = Vector3(0, 0, -19.15)
+
+[node name="StationLabel" type="Label3D" parent="."]
+position = Vector3(0, 4.52, -18.18)
+pixel_size = 0.0064
+modulate = Color(0.035, 0.075, 0.14, 1)
+outline_modulate = Color(0.72, 0.88, 1, 1)
+text = "ПОЛИЦЕЙСКИЙ УЧАСТОК"
+font_size = 52
+outline_size = 8
+no_depth_test = true
+billboard = 1
+
+[node name="Street" type="Node3D" parent="."]
+
+[node name="Grass" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, -0.015, 0.4)
+mesh = SubResource("Mesh_path")
+material_override = ExtResource("13_grass")
+scale = Vector3(1, 1, 5.2)
+
+[node name="ParkPath" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.021, -6.3)
+mesh = SubResource("Mesh_path")
+material_override = ExtResource("7_paving")
+
+[node name="BenchPath" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.022, 2.2)
+mesh = SubResource("Mesh_bench_path")
+material_override = ExtResource("7_paving")
+
+[node name="Road" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.012, -11.5)
+mesh = SubResource("Mesh_road")
+material_override = ExtResource("8_asphalt")
+
+[node name="FarSidewalk" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.021, -17.25)
+mesh = SubResource("Mesh_far_walk")
+material_override = ExtResource("7_paving")
+
+[node name="CurbNear" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.06, -7.42)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("9_curb")
+scale = Vector3(20, 0.12, 0.28)
+
+[node name="CurbFar" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.06, -15.58)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("9_curb")
+scale = Vector3(20, 0.12, 0.28)
+
+[node name="LaneDashA" type="MeshInstance3D" parent="Street"]
+position = Vector3(-6, 0.035, -11.5)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(2.2, 0.012, 0.15)
+
+[node name="LaneDashB" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.035, -11.5)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(2.2, 0.012, 0.15)
+
+[node name="LaneDashC" type="MeshInstance3D" parent="Street"]
+position = Vector3(6, 0.035, -11.5)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(2.2, 0.012, 0.15)
+
+[node name="Crosswalk" type="Node3D" parent="Street"]
+
+[node name="Stripe0" type="MeshInstance3D" parent="Street/Crosswalk"]
+position = Vector3(-2.4, 0.036, -9.3)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(0.5, 0.012, 2.8)
+
+[node name="Stripe1" type="MeshInstance3D" parent="Street/Crosswalk"]
+position = Vector3(-1.2, 0.036, -9.3)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(0.5, 0.012, 2.8)
+
+[node name="Stripe2" type="MeshInstance3D" parent="Street/Crosswalk"]
+position = Vector3(0.0, 0.036, -9.3)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(0.5, 0.012, 2.8)
+
+[node name="Stripe3" type="MeshInstance3D" parent="Street/Crosswalk"]
+position = Vector3(1.2, 0.036, -9.3)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(0.5, 0.012, 2.8)
+
+[node name="Stripe4" type="MeshInstance3D" parent="Street/Crosswalk"]
+position = Vector3(2.4, 0.036, -9.3)
+mesh = SubResource("Mesh_unit")
+material_override = SubResource("Mat_marking")
+scale = Vector3(0.5, 0.012, 2.8)
+
+[node name="DistantCity" type="Node3D" parent="."]
+
+[node name="Tower00" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-34, 22, -70)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(14, 44, 12)
+
+[node name="Tower01" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-20, 28, -95)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(18, 56, 14)
+
+[node name="Tower02" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(0, 18, -105)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(22, 36, 16)
+
+[node name="Tower03" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(24, 25, -88)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(16, 50, 13)
+
+[node name="Tower04" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(38, 16, -62)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(12, 32, 12)
+
+[node name="Tower05" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-48, 12, -55)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(10, 24, 10)
+
+[node name="Tower06" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(50, 10, -48)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(10, 20, 10)
+
+[node name="TowerEdgeW" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-34, 24, -42)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(10, 48, 10)
+
+[node name="TowerEdgeE" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(34, 20, -46)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(11, 40, 11)
+
+[node name="TowerCenter" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(0, 22, -56)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(15, 44, 12)
+
+[node name="TowerNearW" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-24, 18, -38)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(8, 36, 10)
+
+[node name="TowerNearE" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(24, 18, -38)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(8, 36, 10)

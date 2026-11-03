@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CombatSettings" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/combat_settings.gd" id="1_settings"]
+
+[resource]
+script = ExtResource("1_settings")
+max_stamina = 100.0
+stamina_regen_per_second = 18.0
+stamina_regen_delay = 0.7
+dodge_stamina_cost = 16.0
+dodge_duration = 0.8
+dodge_iframe_time = 0.3
+dodge_speed = 4.0
+post_hit_iframe_time = 0.25
+block_damage_multiplier = 0.3
+block_stamina_per_hit = 15.0
+block_stamina_per_second = 10.0
+block_move_multiplier = 0.45
+guard_break_stagger = 0.9
+combat_radius = 8.0
+combat_grace = 2.0

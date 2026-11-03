@@ -2,10 +2,17 @@
 
 [ext_resource type="Script" uid="uid://c10o3bhy7yen8" path="res://scripts/slice/locations/caravan_site.gd" id="1_site"]
 [ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
-[ext_resource type="PackedScene" path="res://scenes/slice/props/horse.tscn" id="90_horse"]
+[ext_resource type="PackedScene" path="res://assets/characters/generated/white_horse_stock/white_horse_stock.tscn" id="90_horse"]
 [ext_resource type="PackedScene" path="res://scenes/locations/caravan_site/larva.tscn" id="3_larva"]
 [ext_resource type="PackedScene" path="res://scenes/characters/mountain_king.tscn" id="4_tyrant"]
 [ext_resource type="Script" uid="uid://6fxn77ug1dtb" path="res://scripts/interaction/interactable.gd" id="5_interactable"]
+[ext_resource type="Script" path="res://scripts/inspect/inspectable.gd" id="6_inspect"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_wagon_wedges.tres" id="7_wedges"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_key.tres" id="8_key"]
+[ext_resource type="Script" path="res://scripts/world/rockfall_hazard.gd" id="9_rockfall"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_chain.tres" id="10_chain"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_shackles.tres" id="11_shackles"]
+[ext_resource type="Script" path="res://scripts/interaction/trigger_zone.gd" id="12_trigger"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_night"]
 sky_top_color = Color(0.018, 0.026, 0.045, 1)
@@ -57,6 +64,9 @@ size = Vector3(0.5, 4, 3.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wwl7r"]
 size = Vector3(4.5, 4, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_night_edge"]
+radius = 1.45
 
 [sub_resource type="StandardMaterial3D" id="Mat_wood_dark"]
 albedo_color = Color(0.19, 0.13, 0.09, 1)
@@ -345,6 +355,39 @@ height = 0.08
 sides = 10
 material = SubResource("Mat_chain")
 
+[node name="BrokenChain" type="Node3D" parent="Props"]
+position = Vector3(-4.7, 0.08, -1.7)
+rotation = Vector3(0, 0.45, 0)
+
+[node name="LinkA" type="CSGBox3D" parent="Props/BrokenChain"]
+position = Vector3(0, 0.04, 0)
+rotation = Vector3(0.2, 0.1, 0.55)
+size = Vector3(0.5, 0.06, 0.08)
+material = SubResource("Mat_chain")
+
+[node name="LinkB" type="CSGBox3D" parent="Props/BrokenChain"]
+position = Vector3(0.34, 0.05, 0.18)
+rotation = Vector3(-0.1, 0.6, 0.4)
+size = Vector3(0.44, 0.06, 0.08)
+material = SubResource("Mat_chain")
+
+[node name="Shackle" type="CSGCylinder3D" parent="Props/BrokenChain"]
+position = Vector3(0.68, 0.08, 0.25)
+rotation = Vector3(1.5708, 0, 0.2)
+radius = 0.15
+height = 0.08
+sides = 10
+material = SubResource("Mat_chain")
+
+[node name="Inspectable" type="Node3D" parent="Props/BrokenChain"]
+script = ExtResource("6_inspect")
+data = ExtResource("10_chain")
+
+[node name="InspectableShackles" type="Node3D" parent="Props/BrokenChain"]
+script = ExtResource("6_inspect")
+data = ExtResource("11_shackles")
+target_paths = Array[NodePath]([NodePath("Shackle")])
+
 [node name="Wagon" type="Node3D" parent="Props" unique_id=479835627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2.4)
 
@@ -408,6 +451,11 @@ material = SubResource("Mat_wood")
 transform = Transform3D(0.94923544, -0.31456655, 0, 0.31456655, 0.94923544, 0, 0, 0, 1, -1.3, 0.16, 0.98)
 size = Vector3(0.35, 0.24, 0.24)
 material = SubResource("Mat_wood")
+
+[node name="Inspectable" type="Node3D" parent="Props/Wagon" node_paths=PackedStringArray()]
+script = ExtResource("6_inspect")
+data = ExtResource("7_wedges")
+target_paths = Array[NodePath]([NodePath("../WedgeL"), NodePath("../WedgeR")])
 
 [node name="Shaft" type="CSGBox3D" parent="Props/Wagon" unique_id=1066564023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 0.48, 0)
@@ -648,6 +696,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0.28)
 size = Vector3(0.12, 0.04, 0.05)
 material = SubResource("Mat_steel")
 
+[node name="Inspectable" type="Node3D" parent="Props/Key"]
+script = ExtResource("6_inspect")
+data = ExtResource("8_key")
+
 [node name="Larva" parent="Props" unique_id=1139256513 instance=ExtResource("3_larva")]
 transform = Transform3D(-0.666276, 0, 0.74570525, 0, 1, 0, -0.74570525, 0, -0.666276, 0.45, 0, -0.9)
 visible = false
@@ -668,6 +720,13 @@ transform = Transform3D(-0.22720204, 0, 0.9738476, 0, 1, 0, -0.9738476, 0, -0.22
 transform = Transform3D(-0.7373938, 0, -0.67546314, 0, 1, 0, 0.67546314, 0, -0.7373938, 4.6, 0, -3.2)
 
 [node name="Rocks" type="Node3D" parent="Props" unique_id=1865519071]
+
+[node name="RockfallHazard" type="Node3D" parent="Props/Rocks"]
+position = Vector3(3.4, 0, -2.4)
+script = ExtResource("9_rockfall")
+radius = 5.8
+warning_time = 1.4
+damage = 9999.0
 
 [node name="Rock01" type="CSGBox3D" parent="Props/Rocks" unique_id=1371893903]
 transform = Transform3D(0.8827072, 0.0071592405, 0.46986896, 0.0978434, 0.9751704, -0.19866933, -0.4596246, 0.22134042, 0.86008936, 4.2, 0.4, -2.8)
@@ -723,42 +782,42 @@ material = SubResource("Mat_ice")
 
 [node name="BroadSlave" parent="NPCs" unique_id=836164982 instance=ExtResource("2_mannequin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.5)
-height_scale = 1.08
-width_scale = 1.4
-archetype = "slave"
+height_scale = 0.975
+width_scale = 1.0
+archetype = "broad_slave"
 pose = "idle"
 
 [node name="BroadCorpse" parent="NPCs" unique_id=1359454729 instance=ExtResource("2_mannequin")]
 transform = Transform3D(0.9553365, 0, -0.29552022, 0, 1, 0, 0.29552022, 0, 0.9553365, 0.4, 0, 0.4)
 visible = false
 height_scale = 1.08
-width_scale = 1.35
+width_scale = 1.12
 archetype = "slave"
 pose = "dead"
 
 [node name="ShiftySlave" parent="NPCs" unique_id=1758685587 instance=ExtResource("2_mannequin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
-height_scale = 0.95
-width_scale = 0.9
-archetype = "slave"
+height_scale = 0.93
+width_scale = 1.0
+archetype = "shifty"
 pose = "idle"
 
 [node name="Scholar" parent="NPCs" unique_id=340717595 instance=ExtResource("2_mannequin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 1.2)
-height_scale = 1.04
-width_scale = 0.88
-archetype = "slave"
+height_scale = 0.98
+width_scale = 1.0
+archetype = "scholar"
 pose = "talk"
 
 [node name="Hero" parent="NPCs" unique_id=1798104434 instance=ExtResource("2_mannequin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.85, 1.2)
-height_scale = 1.05
-width_scale = 0.95
-archetype = "knight"
+height_scale = 1.02
+width_scale = 1.04
+archetype = "hero"
 pose = "ride"
 
 [node name="WhiteHorse" type="Node3D" parent="NPCs/Hero" unique_id=2007261172]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, -0.20)
 
 [node name="Model" parent="NPCs/Hero/WhiteHorse" instance=ExtResource("90_horse")]
 coat_color = Color(0.86, 0.84, 0.8, 1)
@@ -772,12 +831,12 @@ material = SubResource("Mat_steel")
 
 [node name="Veteran" parent="NPCs" unique_id=813446438 instance=ExtResource("2_mannequin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0.85, 2.2)
-height_scale = 1.02
-archetype = "knight"
+height_scale = 0.95
+archetype = "veteran"
 pose = "ride"
 
 [node name="DarkHorse" type="Node3D" parent="NPCs/Veteran" unique_id=623237817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, -0.20)
 
 [node name="Model" parent="NPCs/Veteran/DarkHorse" instance=ExtResource("90_horse")]
 coat_color = Color(0.12, 0.1, 0.09, 1)
@@ -829,117 +888,127 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.1, 0.9)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_rations"
-prompt = "Взять хлеб и воду"
+prompt = "Р вЂ™Р В·РЎРЏРЎвЂљРЎРЉ РЎвЂ¦Р В»Р ВµР В± Р С‘ Р Р†Р С•Р Т‘РЎС“"
 radius = 2.2
 
 [node name="Bloodbane" type="Node3D" parent="Interactables" unique_id=17689396]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.2, 2)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_bloodbane"
-prompt = "Рассмотреть ягоды"
+prompt = "Р В Р В°РЎРѓРЎРѓР СР С•РЎвЂљРЎР‚Р ВµРЎвЂљРЎРЉ РЎРЏР С–Р С•Р Т‘РЎвЂ№"
 radius = 1.8
 
 [node name="Wagon" type="Node3D" parent="Interactables" unique_id=1188764253]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.2, -1.2)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_wagon"
-prompt = "Осмотреть повозку"
+prompt = "Р С›РЎРѓР СР С•РЎвЂљРЎР‚Р ВµРЎвЂљРЎРЉ Р С—Р С•Р Р†Р С•Р В·Р С”РЎС“"
 radius = 2.4
 
 [node name="AttackTrigger" type="Node3D" parent="Interactables" unique_id=695088254]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.2, 0.6)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_attack"
-prompt = "Сесть у костра"
+prompt = "Р РЋР ВµРЎРѓРЎвЂљРЎРЉ РЎС“ Р С”Р С•РЎРѓРЎвЂљРЎР‚Р В°"
 radius = 2.4
 
 [node name="ChainLarva" type="Node3D" parent="Interactables" unique_id=102069820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.3, -0.9)
 script = ExtResource("5_interactable")
 interaction_id = &"chain_larva"
-prompt = "Набросить цепь"
+prompt = "Р СњР В°Р В±РЎР‚Р С•РЎРѓР С‘РЎвЂљРЎРЉ РЎвЂ Р ВµР С—РЎРЉ"
 radius = 2.4
 
 [node name="HeroKey" type="Node3D" parent="Interactables" unique_id=495029239]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.2, 1.3)
 script = ExtResource("5_interactable")
 interaction_id = &"hero_key"
-prompt = "Подобрать ключ"
+prompt = "Р СџР С•Р Т‘Р С•Р В±РЎР‚Р В°РЎвЂљРЎРЉ Р С”Р В»РЎР‹РЎвЂЎ"
 radius = 2.0
 
 [node name="WagonWedges" type="Node3D" parent="Interactables" unique_id=1777816266]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.2, -2.4)
 script = ExtResource("5_interactable")
 interaction_id = &"wagon_wedges"
-prompt = "Выбить клинья"
+prompt = "Р вЂ™РЎвЂ№Р В±Р С‘РЎвЂљРЎРЉ Р С”Р В»Р С‘Р Р…РЎРЉРЎРЏ"
 radius = 2.2
 
 [node name="WagonLoop" type="Node3D" parent="Interactables" unique_id=1546068243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0.2, -1.2)
 script = ExtResource("5_interactable")
 interaction_id = &"wagon_loop"
-prompt = "Свить петлю"
+prompt = "Р РЋР Р†Р С‘РЎвЂљРЎРЉ Р С—Р ВµРЎвЂљР В»РЎР‹"
 radius = 2.0
 
 [node name="WagonPush" type="Node3D" parent="Interactables" unique_id=1476354220]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.2, -2.4)
 script = ExtResource("5_interactable")
 interaction_id = &"wagon_push"
-prompt = "Толкнуть повозку"
+prompt = "Р вЂРЎР‚Р С•РЎРѓР С‘РЎвЂљРЎРЉ Р С—Р ВµРЎвЂљР В»РЎР‹"
 radius = 2.2
 
 [node name="FlaskA" type="Node3D" parent="Interactables" unique_id=1574230941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.2, 2.55)
 script = ExtResource("5_interactable")
 interaction_id = &"flask_a"
-prompt = "Забрать флягу"
+prompt = "Р вЂ”Р В°Р В±РЎР‚Р В°РЎвЂљРЎРЉ РЎвЂћР В»РЎРЏР С–РЎС“"
 
 [node name="FlaskB" type="Node3D" parent="Interactables" unique_id=81865210]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25, 0.2, 3)
 script = ExtResource("5_interactable")
 interaction_id = &"flask_b"
-prompt = "Забрать флягу"
+prompt = "Р вЂ”Р В°Р В±РЎР‚Р В°РЎвЂљРЎРЉ РЎвЂћР В»РЎРЏР С–РЎС“"
 
 [node name="FlaskC" type="Node3D" parent="Interactables" unique_id=1232063508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.2, -2.3)
 script = ExtResource("5_interactable")
 interaction_id = &"flask_c"
-prompt = "Забрать флягу"
+prompt = "Р вЂ”Р В°Р В±РЎР‚Р В°РЎвЂљРЎРЉ РЎвЂћР В»РЎРЏР С–РЎС“"
 
 [node name="Veteran" type="Node3D" parent="Interactables" unique_id=77161754]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.2, -2.2)
 script = ExtResource("5_interactable")
 interaction_id = &"veteran"
-prompt = "Подойти к раненому"
+prompt = "Р СџР С•Р Т‘Р С•Р в„–РЎвЂљР С‘ Р С” РЎР‚Р В°Р Р…Р ВµР Р…Р С•Р СРЎС“"
 radius = 2.2
 
 [node name="VeteranSword" type="Node3D" parent="Interactables" unique_id=309394466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.2, -2.75)
 script = ExtResource("5_interactable")
 interaction_id = &"veteran_sword"
-prompt = "Поднять сломанный меч"
+prompt = "Р СџР С•Р Т‘Р Р…РЎРЏРЎвЂљРЎРЉ РЎРѓР В»Р С•Р СР В°Р Р…Р Р…РЎвЂ№Р в„– Р СР ВµРЎвЂЎ"
 radius = 1.6
-
-[node name="NightFire" type="Node3D" parent="Interactables" unique_id=2084630340]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.2, 0.5)
-script = ExtResource("5_interactable")
-interaction_id = &"night_fire"
-prompt = "Сесть у костра"
-radius = 2.2
-
-[node name="PoisonFlasks" type="Node3D" parent="Interactables" unique_id=1831943458]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.2, 0.7)
-script = ExtResource("5_interactable")
-interaction_id = &"poison_flasks"
-prompt = "Отравить общие фляги"
-radius = 1.4
 
 [node name="DawnExit" type="Node3D" parent="Interactables" unique_id=1532371820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 6.2)
 script = ExtResource("5_interactable")
 interaction_id = &"dawn_exit"
-prompt = "Начать восхождение"
+prompt = "Р СњР В°РЎвЂЎР В°РЎвЂљРЎРЉ Р Р†Р С•РЎРѓРЎвЂ¦Р С•Р В¶Р Т‘Р ВµР Р…Р С‘Р Вµ"
 radius = 2.4
+
+[node name="Triggers" type="Node3D" parent="."]
+
+[node name="NightEdgeSouth" type="Area3D" parent="Triggers"]
+position = Vector3(0, 0.2, 4.7)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_trigger")
+trigger_id = &"night_edge"
+enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/NightEdgeSouth"]
+shape = SubResource("SphereShape3D_night_edge")
+
+[node name="NightEdgeNorth" type="Area3D" parent="Triggers"]
+position = Vector3(0, 0.2, -5.2)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_trigger")
+trigger_id = &"night_edge"
+enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/NightEdgeNorth"]
+shape = SubResource("SphereShape3D_night_edge")
 
 [node name="Spawns" type="Node3D" parent="." unique_id=295567306]
 

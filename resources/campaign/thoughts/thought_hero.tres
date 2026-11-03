@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GuideThought" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/guide/guide_thought.gd" id="1_thought"]
+
+[resource]
+script = ExtResource("1_thought")
+id = &"thought_hero"
+trigger_id = &"thought_hero"
+text = "Герой ищет меня. Лунный свет выдаст, лёд — под ногами."
+once = true

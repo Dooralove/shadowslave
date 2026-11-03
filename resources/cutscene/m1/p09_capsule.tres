@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/cutscene/content/m1/p09_capsule.gd" id="2_script"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"m1/p09_capsule"
+display_name = "P09 — капсула и time-skip"
+description = "Санни ложится в капсулу; проходит месяц обучения."
+chapter = &"M1"
+cutscene_script = ExtResource("2_script")
+skip_policy = 1
+key_scene = true
+max_duration = 30.0
+min_skip_time = 0.5
+completion_flags = Array[StringName]([&"capsule_entered", &"academy_month_passed"])
+skip_summary = Array[String](["Санни ложится в капсулу; проходит месяц."])
+hide_hud = true
+letterbox = true
+once = true
+once_flag = &"capsule_entered"
+realign_camera_on_finish = true

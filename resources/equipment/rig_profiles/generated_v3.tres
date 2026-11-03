@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterRigProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/character_rig_profile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+id = &"generated_v3"
+skeleton_name = &"Skeleton3D"
+required_bones = PackedStringArray("Hips", "Spine", "Spine1", "Spine2", "Neck", "Head", "RightShoulder", "RightArm", "RightForeArm", "RightHand", "LeftShoulder", "LeftArm", "LeftForeArm", "LeftHand", "RightUpLeg", "RightLeg", "RightFoot", "LeftUpLeg", "LeftLeg", "LeftFoot")
+socket_bones = {
+&"hand_r": &"RightHand",
+&"hand_l": &"LeftHand",
+&"hips": &"Hips",
+&"back": &"Spine2",
+&"head": &"Head"
+}
+notes = "Sunny generated v3 / Nightmare v2: 52 bones, Mixamo-style names."

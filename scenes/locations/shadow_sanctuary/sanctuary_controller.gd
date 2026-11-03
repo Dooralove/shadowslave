@@ -77,6 +77,7 @@ func arm_altar() -> void:
 		return
 	_altar_ready = true
 	nightmare_state = NightmareState.ALTAR_READY
+	_play_ui(&"ui_confirm")
 	# Нельзя менять monitoring внутри body_entered: Godot блокирует Area3D.
 	altar_trigger.set_deferred(&"monitoring", false)
 	altar_ready.emit()
@@ -92,6 +93,8 @@ func begin_offering() -> bool:
 		return false
 	_blood_offered = true
 	nightmare_state = NightmareState.OFFERING
+	_play_sfx(&"world_ritual_offering", -2.0)
+	_set_music_intensity(0.8)
 	if altar != null:
 		altar.enabled = false
 	# В источнике пока нет реплик для алтаря: менеджер корректно вернёт null.
@@ -112,6 +115,8 @@ func complete_trial() -> bool:
 		return false
 	_nightmare_completed = true
 	nightmare_state = NightmareState.COMPLETED
+	_play_ui(&"ui_skill_unlock")
+	_set_music_intensity(1.0)
 	if altar != null:
 		altar.enabled = false
 	trial_completed.emit()
@@ -127,6 +132,7 @@ func enter_crevice() -> void:
 	if _crevice_entered:
 		return
 	_crevice_entered = true
+	_play_sfx(&"world_rockfall", -10.0)
 	DialogueManager.request_bark(DialogueManager.CONTEXT_COVER)
 	player_entered_crevice.emit()
 
@@ -146,10 +152,29 @@ func announce_spell_message(text: String, evaluation: Evaluation = Evaluation.NO
 
 ## Короткое каноническое сообщение оценки Заклятия.
 func announce_evaluation(evaluation: Evaluation) -> void:
+	_play_ui(&"ui_quest_update")
 	if not EVALUATION_LINES.has(evaluation):
 		push_warning("SanctuaryController: неизвестная оценка %s" % evaluation)
 		return
 	announce_spell_message(str(EVALUATION_LINES[evaluation]), evaluation)
+
+
+func _play_sfx(cue_id: StringName, volume_offset_db := 0.0) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"play_sfx"):
+		director.call(&"play_sfx", cue_id, global_position, volume_offset_db)
+
+
+func _play_ui(cue_id: StringName) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"play_ui"):
+		director.call(&"play_ui", cue_id)
+
+
+func _set_music_intensity(value: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"set_music_intensity"):
+		director.call(&"set_music_intensity", value)
 
 
 func _on_crevice_body_entered(body: Node3D) -> void:

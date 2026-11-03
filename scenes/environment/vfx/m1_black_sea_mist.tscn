@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_mist"]
+offsets = PackedFloat32Array(0, 0.25, 0.75, 1)
+colors = PackedColorArray(0.08, 0.13, 0.2, 0.0, 0.12, 0.19, 0.28, 0.18, 0.16, 0.24, 0.34, 0.08, 0.05, 0.08, 0.13, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_mist"]
+gradient = SubResource("Gradient_mist")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_mist"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("Tex_mist")
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Mesh_mist"]
+material = SubResource("Mat_mist")
+size = Vector2(1.8, 0.8)
+
+[sub_resource type="ParticleProcessMaterial" id="Process_mist"]
+emission_shape = 3
+emission_box_extents = Vector3(18, 0.6, 18)
+direction = Vector3(0.12, 0.05, 0.04)
+spread = 30.0
+initial_velocity_min = 0.25
+initial_velocity_max = 0.8
+gravity = Vector3(0, 0.01, 0)
+scale_min = 0.6
+scale_max = 1.8
+color_ramp = SubResource("Tex_mist")
+turbulence_enabled = true
+turbulence_noise_strength = 0.2
+
+[node name="M1BlackSeaMist" type="Node3D"]
+
+[node name="Mist" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 300
+lifetime = 8.0
+preprocess = 4.0
+fixed_fps = 30
+interpolate = true
+local_coords = false
+visibility_aabb = AABB(-24, -4, -24, 48, 12, 48)
+process_material = SubResource("Process_mist")
+draw_pass_1 = SubResource("Mesh_mist")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BestiaryEntry" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/bestiary_entry.gd" id="1_bestiary"]
+
+[resource]
+script = ExtResource("1_bestiary")
+id = &"larva"
+title = "Личинка"
+text = "Бледная личинка, выбравшаяся из мёртвой плоти. Слепая, но чуткая к движению и шуму."
+unlock_event = &"seen"
+event_label = "Увидел"
+category = "Первый Кошмар"
+weakness = "Уязвима в момент броска."

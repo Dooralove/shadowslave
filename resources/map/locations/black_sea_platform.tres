@@ -1,0 +1,140 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(6, 0, 5.196, 3, 3, 5.196, 0, 6, -3, 5.196, -5.196, 3, -6, 0, -5.196, -3, -3, -5.196, 0, -6, 3, -5.196, 5.196, -3)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(5.2, -2.4, 11.2, -2.4, 11.2, 2.4, 5.2, 2.4)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-27, -34, 27, -34, 30, -12, 22, 0, -22, 0, -30, -12)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-40, -12, -20, -16, -11, 0, -20, 16, -40, 12, -42, 0)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(40, -12, 20, -16, 11, 0, 20, 16, 40, 12, 42, 0)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-25, -40, -19, -40, -19, -1, -25, -1)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 4
+points = PackedVector2Array(6.35, 0, 5.5, 3.18, 3.18, 5.5, 0, 6.35, -3.18, 5.5, -5.5, 3.18, -6.35, 0, -5.5, -3.18, -3.18, -5.5, 0, -6.35, 3.18, -5.5, 5.5, -3.18, 6.35, 0)
+closed = false
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 2.6, 3.4, 2.1, 5.8, 0.7, 8.0, 0)
+closed = false
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"neck"
+label = "Шея статуи"
+description = "Круглая площадка около 12 м в диаметре — срез шеи гигантского рыцаря."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"seven_stars"
+label = "Семь звёзд"
+description = "Знаки на нагруднике статуи, видные с передней стороны."
+use_world_position = true
+world_position = Vector2(0, -30)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"sword"
+label = "Опущенный меч"
+description = "Огромный меч в руке статуи; остриё уходит к воде."
+use_world_position = true
+world_position = Vector2(-22, -38)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"shoulder_west"
+label = "Западное плечо"
+description = "Обломанный наплечник. Ориентир на теле статуи."
+use_world_position = true
+world_position = Vector2(-25, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"shoulder_east"
+label = "Восточное плечо"
+description = "Обломанный наплечник у начала спуска."
+use_world_position = true
+world_position = Vector2(25, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"descent"
+label = "Спуск по статуе"
+description = "Разлом на восточном краю шеи; дальше — отдельная сцена спуска."
+use_world_position = true
+world_position = Vector2(8, 0)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"from_sleeper"
+label = "Пробуждение"
+description = "Точка появления после палаты снов."
+use_world_position = true
+world_position = Vector2(0, 2.6)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_7"]
+script = ExtResource("1_marker")
+id = &"from_coral"
+label = "Возвращение со спуска"
+description = "Точка возвращения с верхней площадки спуска."
+use_world_position = true
+world_position = Vector2(5.2, -1.8)
+kind = 4
+
+[resource]
+script = ExtResource("2_def")
+id = &"black_sea_platform"
+title = "ШЕЯ БЕЗГОЛОВОГО РЫЦАРЯ"
+subtitle = "Чёрное море · платформа-шея"
+description = "Круглая каменная площадка около 12 м в диаметре — срез шеи колоссальной статуи рыцаря. Голова отсутствует; на нагруднике семь звёзд, меч опущен к земле. Вокруг только чёрная вода без луны и звёзд."
+background_color = Color(0.012, 0.02, 0.032, 1)
+land_color = Color(0.21, 0.23, 0.26, 1)
+accent_color = Color(0.48, 0.64, 0.86, 1)
+terrain_style = &"stone"
+world_bounds = Rect2(-42, -62, 84, 88)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6"), SubResource("Marker_7")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/black_sea_platform.tscn")

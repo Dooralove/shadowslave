@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/mannequin.gd" id="1_mannequin"]
+
+[node name="Jett" type="Node3D"]
+script = ExtResource("1_mannequin")
+archetype = "mass_female"
+pose = "idle"
+height_scale = 1.0
+width_scale = 0.98
+placeholder = true
+uniform_color = Color(0.16, 0.22, 0.38, 1)
+hair_color = Color(0.09, 0.07, 0.06, 1)
+skin_color = Color(1, 0.86, 0.78, 1)
+accent_color = Color(0.08, 0.08, 0.1, 1)
+accessory = "badge"

@@ -1,0 +1,35 @@
+[gd_resource type="Environment" format=3]
+
+[ext_resource type="GradientTexture1D" path="res://resources/environment/p4_grade_lut.tres" id="p4_lut"]
+
+[resource]
+background_mode = 1
+background_color = Color(0.018, 0.020, 0.026, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.36, 0.40, 0.48, 1)
+ambient_light_energy = 0.42
+tonemap_mode = 4
+tonemap_exposure = 1.12
+ssao_enabled = true
+ssao_radius = 1.8
+ssao_intensity = 1.8
+ssil_enabled = true
+ssil_intensity = 0.65
+ssr_enabled = true
+ssr_max_steps = 64
+ssr_fade_in = 0.1
+ssr_fade_out = 1.5
+glow_enabled = true
+glow_intensity = 0.22
+glow_bloom = 0.02
+fog_enabled = true
+fog_light_color = Color(0.22, 0.26, 0.32, 1)
+fog_density = 0.004
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.004
+volumetric_fog_albedo = Color(0.62, 0.68, 0.76, 1)
+volumetric_fog_length = 30.0
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 0.95
+adjustment_color_correction = ExtResource("p4_lut")

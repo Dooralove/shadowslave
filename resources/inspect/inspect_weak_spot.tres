@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="InspectableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inspect/inspectable_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"inspect_weak_spot"
+display_name = "Слабое место"
+kind = 3
+highlight_color = Color(1, 0.42, 0.32, 1)
+highlight_strength = 0.95
+pulse_speed = 2.8
+detection_radius = 6.0
+auto_inspect = true
+beat_id = &""
+required_flags = Array[StringName]([])
+forbidden_flags = Array[StringName]([&"larva_killed"])
+completed_flag = &""
+completed_item = &""
+thought_id = &"thought_weak_spot"
+thought_once = true
+suppress_beacon_id = &""

@@ -1,0 +1,774 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu/main_menu.gd" id="1_menu"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_menu_backdrop.gd" id="2_backdrop"]
+[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_sigil.gd" id="3_sigil"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Backdrop" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_backdrop")
+ring_center_ratio = Vector2(0.8, 0.5)
+ring_radius_ratio = 0.46
+
+[node name="MenuPage" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Frame" type="MarginContainer" parent="MenuPage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 72
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 40
+
+[node name="Column" type="VBoxContainer" parent="MenuPage/Frame"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TopBar" type="HBoxContainer" parent="MenuPage/Frame/Column"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Sigil" type="Control" parent="MenuPage/Frame/Column/TopBar"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("3_sigil")
+color = Color(0.7, 0.55, 0.35, 0.3)
+faint_color = Color(0.7, 0.67, 0.6, 0.12)
+accent_color = Color(0.83, 0.68, 0.46, 0.55)
+rotation_speed = 0.014
+tick_count = 18
+
+[node name="Wordmark" type="VBoxContainer" parent="MenuPage/Frame/Column/TopBar"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="MenuPage/Frame/Column/TopBar/Wordmark"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitleSmall"
+theme_override_font_sizes/font_size = 18
+text = "SHADOW SLAVE"
+
+[node name="Meta" type="Label" parent="MenuPage/Frame/Column/TopBar/Wordmark"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+theme_override_font_sizes/font_size = 9
+text = "ВХОД В ИГРУ · ПЕРВЫЙ КОШМАР"
+
+[node name="Spacer" type="Control" parent="MenuPage/Frame/Column/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TopRule" type="ColorRect" parent="MenuPage/Frame/Column"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.55, 0.5, 0.42, 0.2)
+
+[node name="SpacerTop" type="Control" parent="MenuPage/Frame/Column"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Hero" type="HBoxContainer" parent="MenuPage/Frame/Column"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="TitleColumn" type="VBoxContainer" parent="MenuPage/Frame/Column/Hero"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Kicker" type="Label" parent="MenuPage/Frame/Column/Hero/TitleColumn"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "НОЧЬ. ЦЕПИ. ГОРА."
+
+[node name="Title" type="Label" parent="MenuPage/Frame/Column/Hero/TitleColumn"]
+layout_mode = 2
+theme_type_variation = &"BrandLabel"
+theme_override_font_sizes/font_size = 74
+text = "SHADOW
+SLAVE"
+
+[node name="Subtitle" type="Label" parent="MenuPage/Frame/Column/Hero/TitleColumn"]
+layout_mode = 2
+theme_type_variation = &"BodyLargeLabel"
+theme_override_font_sizes/font_size = 20
+text = "Первый Кошмар"
+
+[node name="TitleRule" type="ColorRect" parent="MenuPage/Frame/Column/Hero/TitleColumn"]
+custom_minimum_size = Vector2(360, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(0.55, 0.5, 0.42, 0.22)
+
+[node name="Tagline" type="Label" parent="MenuPage/Frame/Column/Hero/TitleColumn"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+theme_override_font_sizes/font_size = 14
+text = "Проснись. Выживи. Запомни своё имя."
+
+[node name="ActionsFrame" type="PanelContainer" parent="MenuPage/Frame/Column/Hero"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"RpgPanel"
+
+[node name="ActionsMargin" type="MarginContainer" parent="MenuPage/Frame/Column/Hero/ActionsFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 22
+
+[node name="Actions" type="VBoxContainer" parent="MenuPage/Frame/Column/Hero/ActionsFrame/ActionsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PlayButton" type="Button" parent="MenuPage/Frame/Column/Hero/ActionsFrame/ActionsMargin/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(376, 64)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+theme_override_font_sizes/font_size = 18
+text = "ИГРАТЬ"
+
+[node name="SettingsButton" type="Button" parent="MenuPage/Frame/Column/Hero/ActionsFrame/ActionsMargin/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(376, 52)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+theme_override_font_sizes/font_size = 15
+text = "НАСТРОЙКИ"
+
+[node name="Hint" type="Label" parent="MenuPage/Frame/Column/Hero/ActionsFrame/ActionsMargin/Actions"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 10
+text = "Демо-сборка: графика, звук и управление. Изменения сохраняются."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpacerBottom" type="Control" parent="MenuPage/Frame/Column"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BottomRule" type="ColorRect" parent="MenuPage/Frame/Column"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.55, 0.5, 0.42, 0.14)
+
+[node name="Footer" type="HBoxContainer" parent="MenuPage/Frame/Column"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Left" type="Label" parent="MenuPage/Frame/Column/Footer"]
+layout_mode = 2
+theme_type_variation = &"MicroLabel"
+text = "SHADOW SLAVE / ПЕРВЫЙ КОШМАР"
+size_flags_vertical = 4
+
+[node name="Spacer" type="Control" parent="MenuPage/Frame/Column/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Right" type="Label" parent="MenuPage/Frame/Column/Footer"]
+layout_mode = 2
+theme_type_variation = &"MicroLabel"
+text = "ENTER — ВЫБРАТЬ · МЫШЬ — НАЖАТИЕ"
+size_flags_vertical = 4
+
+[node name="SettingsPage" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scrim" type="ColorRect" parent="SettingsPage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.006, 0.008, 0.009, 0.78)
+
+[node name="SettingsMargin" type="MarginContainer" parent="SettingsPage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 44
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 44
+theme_override_constants/margin_bottom = 28
+
+[node name="SettingsCenter" type="CenterContainer" parent="SettingsPage/SettingsMargin"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="SettingsPage/SettingsMargin/SettingsCenter"]
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 2
+theme_type_variation = &"RpgPanel"
+
+[node name="PanelBody" type="MarginContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 26
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 26
+
+[node name="Column" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column"]
+layout_mode = 2
+
+[node name="TitleBlock" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Header"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Overline" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Header/TitleBlock"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ПАРАМЕТРЫ ИГРЫ"
+
+[node name="Title" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Header/TitleBlock"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitle"
+theme_override_font_sizes/font_size = 30
+text = "НАСТРОЙКИ"
+
+[node name="Spacer" type="Control" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="CloseHint" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Header"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Esc — назад"
+size_flags_vertical = 4
+
+[node name="HeaderRule" type="ColorRect" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.55, 0.5, 0.42, 0.2)
+
+[node name="Tabs" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GraphicsTab" type="Button" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 38)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+theme_type_variation = &"CategoryButton"
+theme_override_font_sizes/font_size = 12
+text = "ГРАФИКА"
+
+[node name="SoundTab" type="Button" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 38)
+layout_mode = 2
+toggle_mode = true
+theme_type_variation = &"CategoryButton"
+theme_override_font_sizes/font_size = 12
+text = "ЗВУК"
+
+[node name="ControlsTab" type="Button" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 38)
+layout_mode = 2
+toggle_mode = true
+theme_type_variation = &"CategoryButton"
+theme_override_font_sizes/font_size = 12
+text = "УПРАВЛЕНИЕ"
+
+[node name="PagesFrame" type="PanelContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"SubPanel"
+
+[node name="PagesMargin" type="MarginContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 18
+
+[node name="Pages" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin"]
+layout_mode = 2
+
+[node name="GraphicsPage" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="WindowModeRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/WindowModeRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Режим окна"
+size_flags_vertical = 4
+
+[node name="WindowModeOption" type="OptionButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/WindowModeRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 38)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResolutionRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/ResolutionRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Разрешение окна"
+size_flags_vertical = 4
+
+[node name="ResolutionOption" type="OptionButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/ResolutionRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 38)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VsyncRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/VsyncRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Вертикальная синхронизация"
+size_flags_vertical = 4
+
+[node name="VsyncCheck" type="CheckButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/VsyncRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Включена"
+
+[node name="FpsRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/FpsRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Ограничение FPS"
+size_flags_vertical = 4
+
+[node name="FpsOption" type="OptionButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/FpsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 38)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RenderScaleRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/RenderScaleRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Масштаб 3D-рендера"
+size_flags_vertical = 4
+
+[node name="RenderScaleSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/RenderScaleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 50.0
+max_value = 100.0
+step = 5.0
+value = 100.0
+
+[node name="RenderScaleValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage/RenderScaleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "100%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="Note" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/GraphicsPage"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 10
+text = "Разрешение применяется в оконном режиме. Масштаб рендера влияет только на 3D-сцену."
+autowrap_mode = 3
+
+[node name="SoundPage" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="MasterRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MasterRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Общая громкость"
+size_flags_vertical = 4
+
+[node name="MasterSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MasterRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 1.0
+value = 80.0
+
+[node name="MasterValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MasterRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "80%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="MusicRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MusicRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Музыка"
+size_flags_vertical = 4
+
+[node name="MusicSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 1.0
+value = 70.0
+
+[node name="MusicValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "70%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="SfxRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/SfxRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Звуковые эффекты"
+size_flags_vertical = 4
+
+[node name="SfxSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/SfxRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 1.0
+value = 80.0
+
+[node name="SfxValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/SfxRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "80%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="AmbienceRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/AmbienceRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Окружение"
+size_flags_vertical = 4
+
+[node name="AmbienceSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/AmbienceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 1.0
+value = 80.0
+
+[node name="AmbienceValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/AmbienceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "80%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="VoiceRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/VoiceRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Голоса"
+size_flags_vertical = 4
+
+[node name="VoiceSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/VoiceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="VoiceValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/VoiceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "100%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="UiRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/UiRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Интерфейс"
+size_flags_vertical = 4
+
+[node name="UiSlider" type="HSlider" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/UiRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 1.0
+value = 80.0
+
+[node name="UiValue" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/UiRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_type_variation = &"BronzeLabel"
+text = "80%"
+horizontal_alignment = 2
+size_flags_vertical = 4
+
+[node name="AccessibilitySeparator" type="HSeparator" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+
+[node name="CaptionsRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/CaptionsRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Субтитры важных звуков"
+size_flags_vertical = 4
+
+[node name="CaptionsCheck" type="CheckButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/CaptionsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+button_pressed = true
+text = "Включены"
+
+[node name="MonoRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MonoRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Моно-сведение"
+size_flags_vertical = 4
+
+[node name="MonoCheck" type="CheckButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/MonoRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Выключено"
+
+[node name="DynamicRangeRow" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Label" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/DynamicRangeRow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Динамический диапазон"
+size_flags_vertical = 4
+
+[node name="DynamicRangeOption" type="OptionButton" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage/DynamicRangeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Note" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/SoundPage"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 10
+text = "Отдельные шины для музыки, окружения, эффектов, голосов и интерфейса. Значения сохраняются в user://settings.cfg."
+autowrap_mode = 3
+
+[node name="ControlsPage" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Note" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/ControlsPage"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+theme_override_font_sizes/font_size = 10
+text = "Нажмите на привязку, чтобы назначить новую клавишу. Backspace — очистить, Esc — отмена."
+autowrap_mode = 3
+
+[node name="Scroll" type="ScrollContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/ControlsPage"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ControlsList" type="VBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/PagesFrame/PagesMargin/Pages/ControlsPage/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="Footer" type="HBoxContainer" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ResetButton" type="Button" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 44)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+text = "СБРОСИТЬ"
+
+[node name="StatusLabel" type="Label" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MutedLabel"
+text = "Изменения применяются сразу"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="SettingsPage/SettingsMargin/SettingsCenter/Panel/PanelBody/Column/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 44)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "НАЗАД"
+
+[node name="Fade" type="ColorRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.008, 0.009, 0.011, 1)

@@ -109,7 +109,7 @@ func test_variant_uses_poc_model_and_keeps_rules() -> void:
 	assert_false((sunny.get_node("Visual/Model") as Node3D).visible, "KayKit скрыт, но не удалён (откат)")
 	var animator := sunny.get_node("Animator") as SunnyAnimator
 	var actor := sunny.get_node("CinematicActor") as CinematicActor
-	assert_eq(animator.animation_player, sunny.get_node("Visual/ModelPoc/AnimationPlayer"))
+	assert_eq(animator.animation_player, sunny.get_node("Visual/ModelPoc/Model/AnimationPlayer"))
 	for clip in [animator.idle_clip, animator.walk_clip, animator.run_clip, animator.jump_clip, animator.fall_clip,
 			animator.land_clip, animator.attack_clip, animator.hit_clip, animator.death_clip]:
 		assert_true(animator.animation_player.has_animation(clip), "клип аниматора %s" % clip)

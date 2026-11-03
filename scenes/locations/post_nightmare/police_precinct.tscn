@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://mho5v46a42sv"]
+
+[ext_resource type="Script" uid="uid://ukujwfynfkt7" path="res://scripts/locations/post_nightmare/police_precinct.gd" id="1_location"]
+[ext_resource type="Environment" path="res://resources/locations/post_nightmare/environments/env_precinct.tres" id="2_environment"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_player"]
+[ext_resource type="Script" uid="uid://blcshma5se0ec" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" uid="uid://b66p775hv3f1w" path="res://scripts/world/level_portal.gd" id="5_portal"]
+[ext_resource type="PackedScene" uid="uid://b36woeuu7cs3l" path="res://scenes/quests/gameplay_hud.tscn" id="6_noe71"]
+[ext_resource type="PackedScene" path="res://scenes/environment/post_nightmare/police_precinct_art.tscn" id="7_art"]
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_stage.gd" id="8_stage"]
+[ext_resource type="Resource" path="res://resources/cutscene/m1/p05_wake.tres" id="9_p05wake"]
+[ext_resource type="Resource" path="res://resources/cutscene/m1/p05_mirror.tres" id="10_p05mirror"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_exit"]
+size = Vector3(8, 3, 1.4)
+
+[node name="PolicePrecinct" type="Node3D" unique_id=2016179876]
+script = ExtResource("1_location")
+location_id = &"police_precinct"
+display_name = "Полицейский участок"
+map_id = &"police_precinct"
+show_debug_labels = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=19515820]
+environment = ExtResource("2_environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=380374877]
+transform = Transform3D(0.7880108, 0.4575257, -0.41195792, 0, 0.66913056, 0.74314487, 0.6156615, -0.58560616, 0.5272821, 0, 0, 0)
+light_color = Color(0.72, 0.8, 0.95, 1)
+light_energy = 0.55
+shadow_enabled = true
+directional_shadow_max_distance = 80.0
+
+[node name="Player" parent="." unique_id=1385158442 instance=ExtResource("3_player")]
+position = Vector3(5, 0.2, -18.2)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="Spawns" type="Node3D" parent="." unique_id=1535743333]
+
+[node name="Start" type="Marker3D" parent="Spawns" unique_id=194452534]
+position = Vector3(5, 0.2, -18.2)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="Return" type="Marker3D" parent="Spawns" unique_id=1884463650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 6.8)
+
+[node name="Yard" type="Marker3D" parent="Spawns" unique_id=1086741313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.2, 12)
+
+[node name="CellBlock" type="Marker3D" parent="Spawns" unique_id=582198990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -15)
+
+[node name="Interrogation" type="Marker3D" parent="Spawns" unique_id=19366727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.2, -2)
+
+[node name="FromApproach" type="Marker3D" parent="Spawns" unique_id=2077633977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 13.5)
+
+[node name="Portals" type="Node3D" parent="." unique_id=2000658651]
+
+[node name="ToAcademyApproach" type="Area3D" parent="Portals" unique_id=1076677392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 16.4)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/academy_approach.tscn"
+destination_spawn = &"FromPrecinct"
+fade_out_duration = 0.35
+fade_in_duration = 0.35
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToAcademyApproach" unique_id=1785718708]
+shape = SubResource("BoxShape3D_exit")
+
+[node name="Shots" type="Node3D" parent="." unique_id=2101584420]
+
+[node name="Overview" type="Camera3D" parent="Shots" unique_id=833840628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 13, 19)
+fov = 55.0
+far = 220.0
+
+[node name="OverviewTarget" type="Marker3D" parent="Shots" unique_id=1054559435]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Entrance" type="Camera3D" parent="Shots" unique_id=927793719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 13.5)
+fov = 65.0
+far = 220.0
+
+[node name="EntranceTarget" type="Marker3D" parent="Shots" unique_id=674769725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+
+[node name="Interrogation" type="Camera3D" parent="Shots" unique_id=809719483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2.2, -2)
+fov = 60.0
+far = 220.0
+
+[node name="InterrogationTarget" type="Marker3D" parent="Shots" unique_id=110016419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1.1, -2)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1085010987]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=1404387659]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("4_fade")
+
+[node name="GameplayHud" parent="." unique_id=22532716 instance=ExtResource("6_noe71")]
+
+[node name="ArtOverlay" parent="." instance=ExtResource("7_art")]
+
+[node name="Cutscene" type="Node3D" parent="."]
+
+[node name="P05Wake" type="Node3D" parent="Cutscene"]
+script = ExtResource("8_stage")
+definition = ExtResource("9_p05wake")
+
+[node name="P05Mirror" type="Node3D" parent="Cutscene"]
+script = ExtResource("8_stage")
+definition = ExtResource("10_p05mirror")

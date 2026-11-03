@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/cutscene/test/test_cutscene_script.gd" id="2_script"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"test/basic"
+display_name = "Basic Cutscene Test"
+description = "Демонстрационная сцена: камера, перемещение, анимация, ожидание и диалог."
+chapter = &"test"
+cutscene_script = ExtResource("2_script")
+skip_policy = 2
+max_duration = 30.0
+completion_flags = Array[StringName]([&"test_cutscene_done"])
+skip_summary = Array[String](["Тестовая кат-сцена пропущена: камера, актёры и HUD возвращены в геймплей."])
+hide_hud = true
+letterbox = true
+once = false

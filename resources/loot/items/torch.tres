@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_tool.png" id="1_w23ii"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_1vghw"]
+
+[resource]
+resource_name = "torch"
+script = ExtResource("2_1vghw")
+id = &"torch"
+display_name = "Факел из кости"
+category = 3
+stack_max = 1
+description = "Кость, водоросли и жир. Светит, пока есть чем поджечь."
+canon_status = &"CANON"
+tags = PackedStringArray("tool", "light")
+icon = ExtResource("1_w23ii")

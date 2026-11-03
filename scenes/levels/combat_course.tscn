@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/combat_course.gd" id="1_course"]
+[ext_resource type="PackedScene" path="res://scenes/levels/test_level.tscn" id="2_level"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="3_hud"]
+[ext_resource type="Script" path="res://scripts/combat/combat_encounter.gd" id="4_encounter"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/carapace_enemy.tscn" id="5_carapace"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/larva_enemy.tscn" id="6_larva"]
+[ext_resource type="Resource" path="res://resources/combat/enemies/carapace_wounded.tres" id="7_wounded"]
+
+[node name="CombatCourse" type="Node3D"]
+script = ExtResource("1_course")
+
+[node name="Level" parent="." instance=ExtResource("2_level")]
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="Encounters" type="Node3D" parent="."]
+
+[node name="WoundedScavenger" type="Node3D" parent="Encounters"]
+position = Vector3(0, 0.05, -6)
+script = ExtResource("4_encounter")
+encounter_id = &"wounded_scavenger"
+display_name = "Раненый карапакс-падальщик"
+activation_radius = 8.0
+leash_radius = 22.0
+
+[node name="Carapace" parent="Encounters/WoundedScavenger" instance=ExtResource("5_carapace")]
+data = ExtResource("7_wounded")
+
+[node name="LarvaPair" type="Node3D" parent="Encounters"]
+position = Vector3(7, 0.05, 0)
+script = ExtResource("4_encounter")
+encounter_id = &"larva_pair"
+display_name = "Пара личинок"
+activation_radius = 8.0
+leash_radius = 20.0
+
+[node name="LarvaA" parent="Encounters/LarvaPair" instance=ExtResource("6_larva")]
+position = Vector3(-1, 0, 0)
+
+[node name="LarvaB" parent="Encounters/LarvaPair" instance=ExtResource("6_larva")]
+position = Vector3(1, 0, -1.5)
+
+[node name="CarapacePair" type="Node3D" parent="Encounters"]
+position = Vector3(-8, 0.05, -10)
+script = ExtResource("4_encounter")
+encounter_id = &"carapace_pair"
+display_name = "Два карапакса"
+activation_radius = 9.0
+leash_radius = 24.0
+
+[node name="CarapaceA" parent="Encounters/CarapacePair" instance=ExtResource("5_carapace")]
+position = Vector3(-1.6, 0, 0)
+
+[node name="CarapaceB" parent="Encounters/CarapacePair" instance=ExtResource("5_carapace")]
+position = Vector3(1.6, 0, -1.2)

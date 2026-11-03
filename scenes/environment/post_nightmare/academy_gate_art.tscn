@@ -1,0 +1,103 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_overlay.gd" id="1_q4uf3"]
+[ext_resource type="Resource" path="res://assets/environments/post_nightmare/profiles/art_p07_profile.tres" id="2_ujv17"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_column_intact.tscn" id="3_l0utn"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_relief_panel_geometric.tscn" id="4_cukfr"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_relief_panel_figure.tscn" id="5_0ewng"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_red.tres" id="6_s123r"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_low_a.tscn" id="7_1p575"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_small_d.tscn" id="8_qjvjt"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_crate_supplies_a.tscn" id="9_jkxsf"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_barrel_broken_b.tscn" id="10_def28"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o67y8"]
+size = Vector3(4.7, 0.52, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tdrch"]
+size = Vector3(0.3, 5.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cxi6m"]
+size = Vector3(0.3, 5.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u6nqb"]
+size = Vector3(4.7, 0.18, 0.38)
+
+[node name="ArtOverlay" type="Node3D" unique_id=1616528900]
+script = ExtResource("1_q4uf3")
+profile = ExtResource("2_ujv17")
+
+[node name="Props" type="Node3D" parent="." unique_id=262999687]
+
+[node name="GateColumnWestA" type="Node3D" parent="Props" unique_id=892202218 instance=ExtResource("3_l0utn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2, 0, 5.5)
+
+[node name="GateColumnEastA" type="Node3D" parent="Props" unique_id=1826016200 instance=ExtResource("3_l0utn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2, 0, 5.5)
+
+[node name="GateColumnWestB" type="Node3D" parent="Props" unique_id=1661985104 instance=ExtResource("3_l0utn")]
+transform = Transform3D(0.92, 0, 0, 0, 0.92, 0, 0, 0, 0.92, -15.2, 0, 18)
+
+[node name="GateColumnEastB" type="Node3D" parent="Props" unique_id=544562787 instance=ExtResource("3_l0utn")]
+transform = Transform3D(0.92, 0, 0, 0, 0.92, 0, 0, 0, 0.92, 15.2, 0, 18)
+
+[node name="GateRelief" type="Node3D" parent="Props" unique_id=708344723 instance=ExtResource("4_cukfr")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 5.3, 0.82)
+
+[node name="GateReliefSide" type="Node3D" parent="Props" unique_id=1587526731 instance=ExtResource("5_0ewng")]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, -3.8, 5.3, 0.82)
+
+[node name="GateRedLintel" type="MeshInstance3D" parent="Props" unique_id=717660676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.95, 4.35)
+material_override = ExtResource("6_s123r")
+mesh = SubResource("BoxMesh_o67y8")
+
+[node name="GateRedPostWest" type="MeshInstance3D" parent="Props" unique_id=1996773925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 3, 4.35)
+material_override = ExtResource("6_s123r")
+mesh = SubResource("BoxMesh_tdrch")
+
+[node name="GateRedPostEast" type="MeshInstance3D" parent="Props" unique_id=334126357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 3, 4.35)
+material_override = ExtResource("6_s123r")
+mesh = SubResource("BoxMesh_cxi6m")
+
+[node name="GateRedThreshold" type="MeshInstance3D" parent="Props" unique_id=1567086690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 4.35)
+material_override = ExtResource("6_s123r")
+mesh = SubResource("BoxMesh_u6nqb")
+
+[node name="PlazaSnowWest" type="Node3D" parent="Props" unique_id=1381469279 instance=ExtResource("7_1p575")]
+transform = Transform3D(0.8413265, 0, 0.70863944, 0, 1.1, 0, -0.70863944, 0, 0.8413265, -12.5, 0.26539338, 22)
+
+[node name="PlazaSnowEast" type="Node3D" parent="Props" unique_id=1988493750 instance=ExtResource("8_qjvjt")]
+transform = Transform3D(-0.666276, 0, 0.74570525, 0, 1, 0, -0.74570525, 0, -0.666276, 12.3, 0.21933335, 22.3)
+
+[node name="PlazaSupplyCrate" type="Node3D" parent="Props" unique_id=2008258399 instance=ExtResource("9_jkxsf")]
+transform = Transform3D(0.75149816, 0, 0.27431825, 0, 0.8, 0, -0.27431825, 0, 0.75149816, 12.2, 0, 4.5)
+
+[node name="PlazaBarrel" type="Node3D" parent="Props" unique_id=1576492036 instance=ExtResource("10_def28")]
+transform = Transform3D(0.32612193, 0, 0.8388352, 0, 0.9, 0, -0.8388352, 0, 0.32612193, -11.2, -0.015790923, 4.8)
+
+[node name="Lights" type="Node3D" parent="." unique_id=885303028]
+
+[node name="GateWarmFlood" type="OmniLight3D" parent="Lights" unique_id=2013878224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 8)
+light_color = Color(1, 0.82, 0.62, 1)
+light_energy = 2.2
+omni_range = 22.0
+
+[node name="StarHalo" type="SpotLight3D" parent="Lights" unique_id=1205302152]
+transform = Transform3D(1, 0, 0, 0, 0.99875236, 0.049937572, 0, -0.049937572, 0.99875236, 0, 7.6, 4)
+light_color = Color(0.58, 0.78, 1, 1)
+light_energy = 2.4
+spot_range = 14.0
+spot_angle = 30.0
+
+[node name="GateInnerWarm" type="OmniLight3D" parent="Lights" unique_id=1392521022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -8)
+light_color = Color(1, 0.74, 0.48, 1)
+light_energy = 1.1
+omni_range = 12.0
+
+[node name="Decals" type="Node3D" parent="." unique_id=225397629]

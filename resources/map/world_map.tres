@@ -9,118 +9,451 @@
 
 [sub_resource type="Resource" id="World_M0"]
 script = ExtResource("1_marker")
-id = &"crimson_spire"
-label = "Багровый шпиль"
-description = "В центре Лабиринта, посреди кратера Забытого берега."
+id = &"frozen_citadel"
+label = "Ледяная Цитадель"
+description = "Цитадель во льдах на краю мира."
 use_world_position = true
-world_position = Vector2(0.24, 0.155)
-kind = 3
+world_position = Vector2(0.3936, 0.098)
+kind = 0
 
 [sub_resource type="Resource" id="World_M1"]
 script = ExtResource("1_marker")
-id = &"dark_city"
-label = "Тёмный город"
-description = "Руины на восточном краю кратера; над городом стоит замок."
+id = &"northern_outpost"
+label = "Северный Форпост"
+description = "Поселение у южной кромки вечных льдов."
 use_world_position = true
-world_position = Vector2(0.304, 0.155)
-kind = 0
+world_position = Vector2(0.2448, 0.142)
+kind = 1
 
 [sub_resource type="Resource" id="World_M2"]
 script = ExtResource("1_marker")
-id = &"ashen_barrow"
-label = "Пепельный курган"
-description = "Напротив Тёмного города, на западном краю кратера."
+id = &"ternwall_glacier"
+label = "Ледник Тернвалл"
+description = "Медленно ползущий ледник на востоке пустошей."
 use_world_position = true
-world_position = Vector2(0.176, 0.155)
+world_position = Vector2(0.552, 0.11)
 kind = 0
 
 [sub_resource type="Resource" id="World_M3"]
 script = ExtResource("1_marker")
-id = &"black_skull"
-label = "Цитадель Чёрного Черепа"
-description = "Цитадель в Пустыне Кошмаров."
+id = &"emberhold"
+label = "Эмберхолд"
+description = "Город в сердце выжженного леса."
 use_world_position = true
-world_position = Vector2(0.616, 0.19)
-kind = 0
+world_position = Vector2(0.3216, 0.36)
+kind = 1
 
 [sub_resource type="Resource" id="World_M4"]
 script = ExtResource("1_marker")
-id = &"tomb_of_ariel"
-label = "Гробница Ариэля"
-description = "Гробница в глубине пустыни."
+id = &"charred_bastion"
+label = "Выжженный бастион"
+description = "Руины крепости, пережившей огонь."
 use_world_position = true
-world_position = Vector2(0.736, 0.17)
-kind = 2
+world_position = Vector2(0.448, 0.352)
+kind = 0
 
 [sub_resource type="Resource" id="World_M5"]
 script = ExtResource("1_marker")
-id = &"ravenheart"
-label = "Вороново Сердце"
-description = "Столица владений Песни на склонах хребта."
+id = &"obsidian_keep"
+label = "Обсидиановая крепость"
+description = "Чёрная крепость у восточной кромки леса."
 use_world_position = true
-world_position = Vector2(0.136, 0.51)
-kind = 1
+world_position = Vector2(0.5248, 0.292)
+kind = 0
 
 [sub_resource type="Resource" id="World_M6"]
+script = ExtResource("1_marker")
+id = &"ashen_canopy"
+label = "Пепельный полог"
+description = "Сплошной полог мёртвых крон над лесом."
+use_world_position = true
+world_position = Vector2(0.296, 0.304)
+kind = 0
+
+[sub_resource type="Resource" id="World_M7"]
+script = ExtResource("1_marker")
+id = &"tomb_of_ariel"
+label = "Гробница Ариэля"
+description = "Древняя гробница в глубине пустыни."
+use_world_position = true
+world_position = Vector2(0.6496, 0.098)
+kind = 2
+
+[sub_resource type="Resource" id="World_M8"]
+script = ExtResource("1_marker")
+id = &"dunes_of_silence"
+label = "Дюны Безмолвия"
+description = "Белые дюны, в которых не слышно ветра."
+use_world_position = true
+world_position = Vector2(0.6736, 0.184)
+kind = 0
+
+[sub_resource type="Resource" id="World_M9"]
+script = ExtResource("1_marker")
+id = &"searchwind_wastes"
+label = "Пустоши Ищущего Ветра"
+description = "Выжженные пустоши на востоке."
+use_world_position = true
+world_position = Vector2(0.6864, 0.302)
+kind = 0
+
+[sub_resource type="Resource" id="World_M10"]
+script = ExtResource("1_marker")
+id = &"sands_of_obelisk"
+label = "Пески Обелиска"
+description = "Пески вокруг забытого монумента."
+use_world_position = true
+world_position = Vector2(0.632, 0.374)
+kind = 0
+
+[sub_resource type="Resource" id="World_M11"]
+script = ExtResource("1_marker")
+id = &"forgotten_obelisk"
+label = "Забытый Обелиск"
+description = "Обелиск, чьё имя стёрто временем."
+use_world_position = true
+world_position = Vector2(0.6768, 0.402)
+kind = 0
+
+[sub_resource type="Resource" id="World_M12"]
+script = ExtResource("1_marker")
+id = &"howling_mirror"
+label = "Воющее Зеркало"
+description = "Гладкая скала, в которой воет ветер."
+use_world_position = true
+world_position = Vector2(0.7376, 0.436)
+kind = 2
+
+[sub_resource type="Resource" id="World_M13"]
+script = ExtResource("1_marker")
+id = &"crimson_spire"
+label = "Багровый шпиль"
+description = "Багровый шпиль в кольце Лабиринта."
+use_world_position = true
+world_position = Vector2(0.3056, 0.494)
+kind = 3
+
+[sub_resource type="Resource" id="World_M14"]
+script = ExtResource("1_marker")
+id = &"dark_city"
+label = "Тёмный город"
+description = "Руины на восточном краю кратера."
+use_world_position = true
+world_position = Vector2(0.4448, 0.484)
+kind = 0
+
+[sub_resource type="Resource" id="World_M15"]
+script = ExtResource("1_marker")
+id = &"dark_graveyard"
+label = "Кладбище Тьмы"
+description = "Мёртвое поле у стен Тёмного города."
+use_world_position = true
+world_position = Vector2(0.4272, 0.532)
+kind = 2
+
+[sub_resource type="Resource" id="World_M16"]
+script = ExtResource("1_marker")
+id = &"nameless_isle"
+label = "Безымянный остров"
+description = "Остров в чёрной глубине кратера."
+use_world_position = true
+world_position = Vector2(0.3632, 0.506)
+kind = 0
+
+[sub_resource type="Resource" id="World_M17"]
+script = ExtResource("1_marker")
+id = &"soul_burning_tree"
+label = "Древо, сжигающее души"
+description = "Красное древо, у которого горят души."
+use_world_position = true
+world_position = Vector2(0.4976, 0.478)
+kind = 2
+
+[sub_resource type="Resource" id="World_M18"]
+script = ExtResource("1_marker")
+id = &"salt_flats_tree"
+label = "Солончаковое древо"
+description = "Одинокое дерево на солончаках."
+use_world_position = true
+world_position = Vector2(0.4896, 0.45)
+kind = 0
+
+[sub_resource type="Resource" id="World_M19"]
+script = ExtResource("1_marker")
+id = &"boneblight_pass"
+label = "Перевал Костесвета"
+description = "Проход к кратеру с запада."
+use_world_position = true
+world_position = Vector2(0.2336, 0.516)
+kind = 0
+
+[sub_resource type="Resource" id="World_M20"]
+script = ExtResource("1_marker")
+id = &"ashen_barrow"
+label = "Пепельный курган"
+description = "Курган напротив Тёмного города, на западном краю кратера."
+use_world_position = true
+world_position = Vector2(0.2288, 0.49)
+kind = 0
+
+[sub_resource type="Resource" id="World_M21"]
 script = ExtResource("1_marker")
 id = &"moonriver"
 label = "Равнина Лунной Реки"
 description = "Равнина во владениях Песни."
 use_world_position = true
-world_position = Vector2(0.2, 0.64)
+world_position = Vector2(0.2, 0.646)
 kind = 0
 
-[sub_resource type="Resource" id="World_M7"]
+[sub_resource type="Resource" id="World_M22"]
 script = ExtResource("1_marker")
-id = &"nameless_temple"
-label = "Безымянный храм"
-description = "Храм в зоне смерти Могилы Бога."
+id = &"jade_palace"
+label = "Нефритовая обитель"
+description = "Храм в западных горах."
 use_world_position = true
-world_position = Vector2(0.396, 0.53)
+world_position = Vector2(0.0496, 0.702)
+kind = 0
+
+[sub_resource type="Resource" id="World_M23"]
+script = ExtResource("1_marker")
+id = &"ravenheart"
+label = "Вороново Сердце"
+description = "Столица клана Песни на склонах хребта."
+use_world_position = true
+world_position = Vector2(0.1168, 0.714)
+kind = 0
+
+[sub_resource type="Resource" id="World_M24"]
+script = ExtResource("1_marker")
+id = &"ravenreach"
+label = "Вороний хребет"
+description = "Горный форпост над Вороновым Сердцем."
+use_world_position = true
+world_position = Vector2(0.0832, 0.748)
+kind = 1
+
+[sub_resource type="Resource" id="World_M25"]
+script = ExtResource("1_marker")
+id = &"stormward_pass"
+label = "Штормовой перевал"
+description = "Перевал, открытый всем ветрам."
+use_world_position = true
+world_position = Vector2(0.1104, 0.66)
+kind = 0
+
+[sub_resource type="Resource" id="World_M26"]
+script = ExtResource("1_marker")
+id = &"crescent_plateau"
+label = "Полумесячное плато"
+description = "Плато в форме полумесяца."
+use_world_position = true
+world_position = Vector2(0.0352, 0.766)
+kind = 0
+
+[sub_resource type="Resource" id="World_M27"]
+script = ExtResource("1_marker")
+id = &"roundtable_keep"
+label = "Крепость Круглого Стола"
+description = "Старая крепость на южных склонах."
+use_world_position = true
+world_position = Vector2(0.1392, 0.778)
+kind = 0
+
+[sub_resource type="Resource" id="World_M28"]
+script = ExtResource("1_marker")
+id = &"eaglen_den"
+label = "Орлиное гнездо"
+description = "Поселение на орлиных скалах."
+use_world_position = true
+world_position = Vector2(0.1456, 0.826)
+kind = 1
+
+[sub_resource type="Resource" id="World_M29"]
+script = ExtResource("1_marker")
+id = &"congreve_peak"
+label = "Пик Конгрива"
+description = "Высочайшая вершина Серых гор."
+use_world_position = true
+world_position = Vector2(0.0352, 0.846)
+kind = 0
+
+[sub_resource type="Resource" id="World_M30"]
+script = ExtResource("1_marker")
+id = &"mournful_plain"
+label = "Скорбная равнина"
+description = "Равнина у южных отрогов."
+use_world_position = true
+world_position = Vector2(0.2176, 0.792)
+kind = 0
+
+[sub_resource type="Resource" id="World_M31"]
+script = ExtResource("1_marker")
+id = &"silence_of_bones"
+label = "Безмолвие костей"
+description = "Кости павшего божества под открытым небом."
+use_world_position = true
+world_position = Vector2(0.4448, 0.662)
+kind = 0
+
+[sub_resource type="Resource" id="World_M32"]
+script = ExtResource("1_marker")
+id = &"silent_watchers"
+label = "Безмолвные стражи"
+description = "Исполинские фигуры на краю поля костей."
+use_world_position = true
+world_position = Vector2(0.3536, 0.7)
 kind = 2
 
-[sub_resource type="Resource" id="World_M8"]
+[sub_resource type="Resource" id="World_M33"]
+script = ExtResource("1_marker")
+id = &"field_of_bones"
+label = "Поле костей"
+description = "Поле, усеянное костями неизвестных тварей."
+use_world_position = true
+world_position = Vector2(0.3376, 0.744)
+kind = 0
+
+[sub_resource type="Resource" id="World_M34"]
+script = ExtResource("1_marker")
+id = &"veilstone"
+label = "Вуаль-камень"
+description = "Камень, скрывающий границу зоны смерти."
+use_world_position = true
+world_position = Vector2(0.3456, 0.802)
+kind = 0
+
+[sub_resource type="Resource" id="World_M35"]
+script = ExtResource("1_marker")
+id = &"glass_peaks"
+label = "Стеклянные пики"
+description = "Пики из чёрного стекла."
+use_world_position = true
+world_position = Vector2(0.4416, 0.754)
+kind = 0
+
+[sub_resource type="Resource" id="World_M36"]
+script = ExtResource("1_marker")
+id = &"bone_sea"
+label = "Костяное море"
+description = "Море костей у подножия Могилы Бога."
+use_world_position = true
+world_position = Vector2(0.4544, 0.826)
+kind = 0
+
+[sub_resource type="Resource" id="World_M37"]
+script = ExtResource("1_marker")
+id = &"sunken_road"
+label = "Затонувшая дорога"
+description = "Дорога, ушедшая под кости."
+use_world_position = true
+world_position = Vector2(0.3888, 0.852)
+kind = 0
+
+[sub_resource type="Resource" id="World_M38"]
 script = ExtResource("1_marker")
 id = &"night_temple"
 label = "Храм Ночи"
-description = "Храм на Скованных островах."
+description = "Храм на парящем острове."
 use_world_position = true
-world_position = Vector2(0.544, 0.51)
+world_position = Vector2(0.656, 0.526)
 kind = 0
 
-[sub_resource type="Resource" id="World_M9"]
+[sub_resource type="Resource" id="World_M39"]
 script = ExtResource("1_marker")
-id = &"tower_of_longing"
-label = "Башня Тоски"
-description = "Башня на Скованных островах."
+id = &"iron_prison"
+label = "Железная тюрьма"
+description = "Бастион-тюрьма на цепи."
 use_world_position = true
-world_position = Vector2(0.652, 0.6)
-kind = 0
+world_position = Vector2(0.6368, 0.61)
+kind = 2
 
-[sub_resource type="Resource" id="World_M10"]
+[sub_resource type="Resource" id="World_M40"]
 script = ExtResource("1_marker")
-id = &"noctis"
-label = "Святилище Ноктиса"
-description = "Святилище на Скованных островах."
+id = &"sanctuary_of_night"
+label = "Святилище Ночи"
+description = "Святилище на южном острове."
 use_world_position = true
-world_position = Vector2(0.588, 0.68)
+world_position = Vector2(0.6848, 0.656)
 kind = 0
 
-[sub_resource type="Resource" id="World_M11"]
+[sub_resource type="Resource" id="World_M41"]
+script = ExtResource("1_marker")
+id = &"broken_isles"
+label = "Разбитые острова"
+description = "Осколки островов на краю бездны."
+use_world_position = true
+world_position = Vector2(0.7552, 0.702)
+kind = 0
+
+[sub_resource type="Resource" id="World_M42"]
+script = ExtResource("1_marker")
+id = &"night_garden"
+label = "Ночной сад"
+description = "Сад на берегу Штормового моря."
+use_world_position = true
+world_position = Vector2(0.2272, 0.886)
+kind = 0
+
+[sub_resource type="Resource" id="World_M43"]
+script = ExtResource("1_marker")
+id = &"night_sky"
+label = "Ночное небо"
+description = "Берег, где небо не отражается в воде."
+use_world_position = true
+world_position = Vector2(0.24, 0.926)
+kind = 0
+
+[sub_resource type="Resource" id="World_M44"]
+script = ExtResource("1_marker")
+id = &"unknown_lands"
+label = "???"
+description = "Никто не знает, что здесь."
+use_world_position = true
+world_position = Vector2(0.316, 0.936)
+kind = 0
+
+[sub_resource type="Resource" id="World_M45"]
 script = ExtResource("1_marker")
 id = &"bastion"
 label = "Бастион"
 description = "Цитадель в сердце владений Доблести."
 use_world_position = true
-world_position = Vector2(0.632, 0.86)
+world_position = Vector2(0.6544, 0.882)
+kind = 1
+
+[sub_resource type="Resource" id="World_M46"]
+script = ExtResource("1_marker")
+id = &"evergold"
+label = "Вечное золото"
+description = "Город у золотых полей."
+use_world_position = true
+world_position = Vector2(0.5456, 0.886)
+kind = 1
+
+[sub_resource type="Resource" id="World_M47"]
+script = ExtResource("1_marker")
+id = &"greatwood"
+label = "Великий лес"
+description = "Древний лес на востоке Котловины."
+use_world_position = true
+world_position = Vector2(0.728, 0.972)
+kind = 0
+
+[sub_resource type="Resource" id="World_M48"]
+script = ExtResource("1_marker")
+id = &"rivergate"
+label = "Речные врата"
+description = "Городок у слияния рек."
+use_world_position = true
+world_position = Vector2(0.4976, 0.976)
 kind = 1
 
 [resource]
 script = ExtResource("2_def")
 id = &"world"
 title = "ЦАРСТВО СНОВ"
-subtitle = "Общая карта мира · схема"
-description = "Царство снов — весь мир истории. Расположение регионов — схема по описаниям из глав; регионы без карты пока в разработке."
+subtitle = "Мир Shadow Slave · рисованная карта"
+description = "Царство снов — весь мир истории. Подписи и рисунки нанесены на карту; регионы без собственной карты пока в разработке."
 background_color = Color(0.03, 0.04, 0.05, 1)
 land_color = Color(0.2, 0.2, 0.17, 1)
 accent_color = Color(0.78, 0.63, 0.38, 1)
@@ -128,7 +461,8 @@ terrain_style = &"kingdom"
 world_bounds = Rect2(0, 0, 1, 1)
 background_texture = ExtResource("6_tex")
 background_rect = Rect2(0, 0, 0.8, 1)
+baked_labels = true
 features = Array[ExtResource("3_feature")]([])
-markers = Array[ExtResource("1_marker")]([SubResource("World_M0"), SubResource("World_M1"), SubResource("World_M2"), SubResource("World_M3"), SubResource("World_M4"), SubResource("World_M5"), SubResource("World_M6"), SubResource("World_M7"), SubResource("World_M8"), SubResource("World_M9"), SubResource("World_M10"), SubResource("World_M11")])
+markers = Array[ExtResource("1_marker")]([SubResource("World_M0"), SubResource("World_M1"), SubResource("World_M2"), SubResource("World_M3"), SubResource("World_M4"), SubResource("World_M5"), SubResource("World_M6"), SubResource("World_M7"), SubResource("World_M8"), SubResource("World_M9"), SubResource("World_M10"), SubResource("World_M11"), SubResource("World_M12"), SubResource("World_M13"), SubResource("World_M14"), SubResource("World_M15"), SubResource("World_M16"), SubResource("World_M17"), SubResource("World_M18"), SubResource("World_M19"), SubResource("World_M20"), SubResource("World_M21"), SubResource("World_M22"), SubResource("World_M23"), SubResource("World_M24"), SubResource("World_M25"), SubResource("World_M26"), SubResource("World_M27"), SubResource("World_M28"), SubResource("World_M29"), SubResource("World_M30"), SubResource("World_M31"), SubResource("World_M32"), SubResource("World_M33"), SubResource("World_M34"), SubResource("World_M35"), SubResource("World_M36"), SubResource("World_M37"), SubResource("World_M38"), SubResource("World_M39"), SubResource("World_M40"), SubResource("World_M41"), SubResource("World_M42"), SubResource("World_M43"), SubResource("World_M44"), SubResource("World_M45"), SubResource("World_M46"), SubResource("World_M47"), SubResource("World_M48")])
 placements = Array[ExtResource("5_placement")]([])
 scene_paths = PackedStringArray()

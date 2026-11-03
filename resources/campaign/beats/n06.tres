@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N06"
+part = &"act_1"
+part_title = "Акт I «Цепь»"
+canonical_block = 5
+title = "Марш в цепи"
+beat_type = 0
+format_label = "И"
+objective = "Держать шаг цепи"
+idle_objectives = Array[String](["Держись вровень с цепью", "Пригнись под порывом ветра", "Не отставай на льду"])
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"prologue_completed"])
+exit_conditions = Array[StringName]([&"march_intro_seen", &"camp_reached"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 180.0
+estimated_time_text = "~3 мин"
+scene_path = "res://scenes/campaign/first_nightmare_pass.tscn"
+can_die = false

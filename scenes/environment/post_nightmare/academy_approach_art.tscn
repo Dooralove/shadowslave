@@ -1,0 +1,93 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_overlay.gd" id="1_h2aou"]
+[ext_resource type="Resource" path="res://assets/environments/post_nightmare/profiles/art_p06_profile.tres" id="2_eqegw"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_low_a.tscn" id="3_5wuhv"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_small_d.tscn" id="4_r4hp4"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_crest_c.tscn" id="5_cc6wi"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_wall_b.tscn" id="6_p83ar"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_dead_tree_b.tscn" id="7_b68h5"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_dead_tree_a.tscn" id="8_t1auj"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_crate_supplies_a.tscn" id="9_a572l"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_barrel_water_a.tscn" id="10_m3b5l"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_wagon_debris_a.tscn" id="11_3o78v"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_screen.tres" id="12_gr00b"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cjcbl"]
+size = Vector3(4.2, 0.07, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x878i"]
+size = Vector3(0.08, 3.4, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0qvy3"]
+size = Vector3(0.08, 3.4, 0.1)
+
+[node name="ArtOverlay" type="Node3D" unique_id=1579235206]
+script = ExtResource("1_h2aou")
+profile = ExtResource("2_eqegw")
+
+[node name="Props" type="Node3D" parent="." unique_id=1075138426]
+
+[node name="SnowDriftWestA" type="Node3D" parent="Props" unique_id=1381469279 instance=ExtResource("3_5wuhv")]
+transform = Transform3D(1.194005, 0, 0.11980011, 0, 1.2, 0, -0.11980011, 0, 1.194005, -9.3, 0.31584007, -11)
+
+[node name="SnowDriftWestB" type="Node3D" parent="Props" unique_id=1988493750 instance=ExtResource("4_r4hp4")]
+transform = Transform3D(-0.12884454, 0, 0.9916648, 0, 1, 0, -0.9916648, 0, -0.12884454, -8.9, 0.21933335, 5)
+
+[node name="SnowDriftEastA" type="Node3D" parent="Props" unique_id=160266387 instance=ExtResource("5_cc6wi")]
+transform = Transform3D(-1.1, 0, -9.616505e-08, 0, 1.1, 0, 9.616505e-08, 0, -1.1, 9.4, 0.26539338, 9)
+
+[node name="SnowDriftEastB" type="Node3D" parent="Props" unique_id=1471397486 instance=ExtResource("6_p83ar")]
+transform = Transform3D(-0.9, 0, -7.86805e-08, 0, 0.9, 0, 7.86805e-08, 0, -0.9, 9, 0.17766, -4)
+
+[node name="DeadTreeWest" type="Node3D" parent="Props" unique_id=361460525 instance=ExtResource("7_b68h5")]
+transform = Transform3D(0.96534085, 0, 0.5273681, 0, 1.1, 0, -0.5273681, 0, 0.96534085, -12.8, 0.037678353, -3)
+
+[node name="DeadTreeEast" type="Node3D" parent="Props" unique_id=1179279686 instance=ExtResource("8_t1auj")]
+transform = Transform3D(-0.41614684, 0, 0.9092974, 0, 1, 0, -0.9092974, 0, -0.41614684, 13, 0.08481618, 8)
+
+[node name="CheckpointCrate" type="Node3D" parent="Props" unique_id=2008258399 instance=ExtResource("9_a572l")]
+transform = Transform3D(0.8330566, 0, -0.16886893, 0, 0.85, 0, 0.16886893, 0, 0.8330566, 9.1, 0, -19.2)
+
+[node name="GuardBarrel" type="Node3D" parent="Props" unique_id=460442023 instance=ExtResource("10_m3b5l")]
+transform = Transform3D(0.921061, 0, 0.38941833, 0, 1, 0, -0.38941833, 0, 0.921061, 9.6, 0, -15.8)
+
+[node name="RoadDebris" type="Node3D" parent="Props" unique_id=986653549 instance=ExtResource("11_3o78v")]
+transform = Transform3D(0.36287686, 0, 0.7129659, 0, 0.8, 0, -0.7129659, 0, 0.36287686, -7.8, 0.13434835, 12.5)
+
+[node name="CheckpointGuideTop" type="MeshInstance3D" parent="Props" unique_id=1383477476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.05, -20.9)
+material_override = ExtResource("12_gr00b")
+mesh = SubResource("BoxMesh_cjcbl")
+
+[node name="CheckpointGuideWest" type="MeshInstance3D" parent="Props" unique_id=1966130725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15, 2, -20.9)
+material_override = ExtResource("12_gr00b")
+mesh = SubResource("BoxMesh_x878i")
+
+[node name="CheckpointGuideEast" type="MeshInstance3D" parent="Props" unique_id=1679659283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 2, -20.9)
+material_override = ExtResource("12_gr00b")
+mesh = SubResource("BoxMesh_0qvy3")
+
+[node name="Lights" type="Node3D" parent="." unique_id=1138787374]
+
+[node name="ApproachWarmFill" type="OmniLight3D" parent="Lights" unique_id=1361751777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 6.2, 8)
+light_color = Color(1, 0.72, 0.46, 1)
+light_energy = 1.5
+omni_range = 16.0
+
+[node name="CheckpointWarmWash" type="OmniLight3D" parent="Lights" unique_id=1215498817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4.5, -18)
+light_color = Color(1, 0.76, 0.52, 1)
+light_energy = 1.2
+omni_range = 9.0
+
+[node name="CheckpointInterior" type="OmniLight3D" parent="Lights" unique_id=1844492234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, -20.8)
+light_color = Color(1, 0.8, 0.58, 1)
+light_energy = 2.0
+omni_range = 11.0
+
+[node name="Decals" type="Node3D" parent="." unique_id=290596451]

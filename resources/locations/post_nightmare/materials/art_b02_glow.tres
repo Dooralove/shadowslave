@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "art_b02_glow"
+albedo_color = Color(0.2, 0.065, 0.035, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(1, 0.42, 0.18, 1)
+emission_energy_multiplier = 1.15

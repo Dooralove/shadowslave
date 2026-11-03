@@ -191,7 +191,7 @@ func test_bark_ui_presents_and_hides_line() -> void:
 	assert_true(bark_ui.visible)
 	assert_true(bark_ui.subtitles.visible)
 	assert_eq(bark_ui.subtitles.text_label.text, bark.text)
-	assert_eq(bark_ui.subtitles.speaker_label.text, "Санни")
+	assert_eq(bark_ui.subtitles.speaker_label.text, "САННИ")
 	assert_false(bark_ui.subtitles.continue_hint.visible, "реплика не ждёт нажатия")
 
 	bark_ui.hide_bark()

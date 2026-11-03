@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://b4u6axtx5m5lm"]
+
+[ext_resource type="Script" uid="uid://cdgc1ybnwwdhg" path="res://scripts/locations/post_nightmare/tide_descent.gd" id="1_location"]
+[ext_resource type="Environment" path="res://resources/locations/post_nightmare/environments/env_tide_descent.tres" id="2_environment"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_player"]
+[ext_resource type="Script" uid="uid://blcshma5se0ec" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" uid="uid://b66p775hv3f1w" path="res://scripts/world/level_portal.gd" id="5_portal"]
+[ext_resource type="PackedScene" uid="uid://b36woeuu7cs3l" path="res://scenes/quests/gameplay_hud.tscn" id="6_ss35m"]
+[ext_resource type="PackedScene" path="res://scenes/environment/post_nightmare/tide_descent_art.tscn" id="7_art"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_top"]
+size = Vector3(4.5, 3, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bottom"]
+size = Vector3(5, 3, 1.2)
+
+[node name="TideDescent" type="Node3D" unique_id=798634497]
+script = ExtResource("1_location")
+location_id = &"tide_descent"
+display_name = "Спуск по статуе"
+map_id = &"tide_descent"
+show_debug_labels = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=927130752]
+environment = ExtResource("2_environment")
+
+[node name="AbyssFill" type="DirectionalLight3D" parent="." unique_id=1458519179]
+transform = Transform3D(0.95105654, -0.26206127, 0.16375406, 0, 0.52991927, 0.8480481, -0.309017, -0.8065417, 0.5039832, 0, 0, 0)
+light_color = Color(0.45, 0.6, 0.82, 1)
+light_energy = 0.7
+shadow_enabled = true
+directional_shadow_max_distance = 120.0
+
+[node name="Player" parent="." unique_id=1765562977 instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 17.6)
+
+[node name="Spawns" type="Node3D" parent="." unique_id=1741521960]
+
+[node name="Start" type="Marker3D" parent="Spawns" unique_id=2022032606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 17.6)
+
+[node name="FromPlatform" type="Marker3D" parent="Spawns" unique_id=86010727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 17.6)
+
+[node name="FromCoral" type="Marker3D" parent="Spawns" unique_id=1155870229]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -5.8, -19.5)
+
+[node name="Portals" type="Node3D" parent="." unique_id=1065998400]
+
+[node name="ToPlatform" type="Area3D" parent="Portals" unique_id=1456445856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 22.6)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/black_sea_platform.tscn"
+destination_spawn = &"FromCoral"
+fade_out_duration = 0.22
+fade_in_duration = 0.28
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToPlatform" unique_id=1487147507]
+shape = SubResource("BoxShape3D_top")
+
+[node name="ToCoral" type="Area3D" parent="Portals" unique_id=290416561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, -22.5)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/forgotten_shore_labyrinth/labyrinth_first_fragment.tscn"
+destination_spawn = &"FromDescent"
+fade_out_duration = 0.22
+fade_in_duration = 0.28
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToCoral" unique_id=1173395830]
+shape = SubResource("BoxShape3D_bottom")
+
+[node name="Shots" type="Node3D" parent="." unique_id=1916859596]
+
+[node name="Overview" type="Camera3D" parent="Shots" unique_id=935718376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 8, 30)
+fov = 60.0
+far = 220.0
+
+[node name="OverviewTarget" type="Marker3D" parent="Shots" unique_id=2076572735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="Top" type="Camera3D" parent="Shots" unique_id=85908518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3.5, 20)
+fov = 64.0
+far = 120.0
+
+[node name="TopTarget" type="Marker3D" parent="Shots" unique_id=1098388927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="Stairs" type="Camera3D" parent="Shots" unique_id=293336254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3.5, 5)
+fov = 68.0
+far = 220.0
+
+[node name="StairsTarget" type="Marker3D" parent="Shots" unique_id=499432366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -8)
+
+[node name="Bottom" type="Camera3D" parent="Shots" unique_id=463311177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -14)
+fov = 66.0
+far = 220.0
+
+[node name="BottomTarget" type="Marker3D" parent="Shots" unique_id=93495892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.2, -23)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1293968268]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=742744575]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("4_fade")
+
+[node name="GameplayHud" parent="." unique_id=22532716 instance=ExtResource("6_ss35m")]
+
+[node name="ArtOverlay" parent="." instance=ExtResource("7_art")]

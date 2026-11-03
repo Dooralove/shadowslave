@@ -9,3 +9,4 @@ cooldown = 1.0
 active_time = 0.2
 reach = 1.1
 radius = 0.8
+contact_time = 0.717

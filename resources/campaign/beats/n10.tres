@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N10"
+part = &"act_1"
+part_title = "Акт I «Цепь»"
+canonical_block = 9
+title = "Ловушка с повозкой"
+beat_type = 0
+format_label = "И + К"
+objective = "Сбросить Тирана с обрыва"
+idle_objectives = Array[String](["Осмотри повозку у края", "Выбей клинья из-под колёс", "Свей петлю и брось её на Тирана"])
+checkpoint_id = &"CP-N10a"
+checkpoint_ids = Array[StringName]([&"CP-N10a", &"CP-N10b"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N10a": Vector3(0.6, 0.05, 2.1),
+&"CP-N10b": Vector3(-2.6, 0.05, -2.0)
+})
+entry_conditions = Array[StringName]([&"chains_released"])
+exit_conditions = Array[StringName]([&"wagon_fall_seen", &"tyrant_fall_seen"])
+staging_flags = Array[StringName]([&"tyrant_alive_suspected"])
+estimated_seconds = 210.0
+estimated_time_text = "~3,5 мин"
+scene_path = "res://scenes/campaign/caravan_site_arrival.tscn"
+can_die = true

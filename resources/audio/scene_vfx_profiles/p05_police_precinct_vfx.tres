@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SceneVfxProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_event.gd" id="1_ynj0g"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_rain_light.tscn" id="2_rjtr6"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_breath_puff.tscn" id="3_b7l7y"]
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_profile.gd" id="4_lgtlb"]
+
+[sub_resource type="Resource" id="Resource_b5k3q"]
+script = ExtResource("1_ynj0g")
+scene = ExtResource("2_rjtr6")
+position = Vector3(0, 0.05, 14)
+scale = 0.8
+
+[sub_resource type="Resource" id="Resource_07lkj"]
+script = ExtResource("1_ynj0g")
+scene = ExtResource("3_b7l7y")
+position = Vector3(0, 1.4, 0)
+scale = 0.5
+attach_to = NodePath("Player")
+
+[resource]
+script = ExtResource("4_lgtlb")
+id = &"p05_police_precinct_vfx"
+scene_path = "res://scenes/locations/post_nightmare/police_precinct.tscn"
+location_id = &"police_precinct"
+enter_effects = Array[ExtResource("1_ynj0g")]([SubResource("Resource_b5k3q"), SubResource("Resource_07lkj")])

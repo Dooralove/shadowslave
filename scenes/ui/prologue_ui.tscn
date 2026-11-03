@@ -1,46 +1,26 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://7p4dqgbjyd3n"]
 
-[ext_resource type="Script" path="res://scripts/ui/prologue_ui.gd" id="1_ui"]
-[ext_resource type="Script" path="res://scripts/ui/drowsiness_overlay.gd" id="2_drowsy"]
-[ext_resource type="Shader" path="res://scripts/ui/drowsiness.gdshader" id="3_shader"]
-[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
-[ext_resource type="Script" path="res://scripts/ui/subtitle_ui.gd" id="5_subs"]
-[ext_resource type="Script" path="res://scripts/ui/interaction_prompt_ui.gd" id="6_prompt"]
-[ext_resource type="Script" path="res://scripts/ui/spell_message_ui.gd" id="7_spell"]
-[ext_resource type="Script" path="res://scripts/ui/rune_status_ui.gd" id="8_runes"]
+[ext_resource type="Script" uid="uid://s68gy6m6jidk" path="res://scripts/ui/prologue_ui.gd" id="1_ui"]
+[ext_resource type="Script" uid="uid://c32ojo3l6uads" path="res://scripts/ui/drowsiness_overlay.gd" id="2_drowsy"]
+[ext_resource type="Shader" uid="uid://b7yjrg60yao88" path="res://scripts/ui/drowsiness.gdshader" id="3_shader"]
+[ext_resource type="Script" uid="uid://blcshma5se0ec" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" uid="uid://ud0jp2xwdsm1" path="res://scripts/ui/subtitle_ui.gd" id="5_subs"]
+[ext_resource type="Script" uid="uid://djhe2kp25wpwb" path="res://scripts/ui/interaction_prompt_ui.gd" id="6_prompt"]
+[ext_resource type="Script" uid="uid://cdpxh87ex8o8g" path="res://scripts/ui/spell_message_ui.gd" id="7_spell"]
+[ext_resource type="Script" uid="uid://caia0dq0e66pu" path="res://scripts/ui/rune_status_ui.gd" id="8_runes"]
+[ext_resource type="PackedScene" path="res://scenes/ui/objective_line.tscn" id="9_objective"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="10_combat_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_world_markers.tscn" id="11_x0p0a"]
 
 [sub_resource type="ShaderMaterial" id="Mat_drowsy"]
 shader = ExtResource("3_shader")
 shader_parameter/intensity = 0.0
 
-[sub_resource type="StyleBoxFlat" id="Style_subtitles"]
-bg_color = Color(0, 0, 0, 0.55)
-content_margin_left = 18.0
-content_margin_top = 10.0
-content_margin_right = 18.0
-content_margin_bottom = 10.0
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="Style_runes"]
-bg_color = Color(0.03, 0.04, 0.07, 0.88)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.55, 0.75, 0.95, 0.8)
-content_margin_left = 28.0
-content_margin_top = 22.0
-content_margin_right = 28.0
-content_margin_bottom = 22.0
-
-[node name="PrologueUI" type="CanvasLayer"]
+[node name="PrologueUI" type="CanvasLayer" unique_id=1126330723]
 layer = 10
 script = ExtResource("1_ui")
 
-[node name="Drowsiness" type="ColorRect" parent="."]
+[node name="Drowsiness" type="ColorRect" parent="." unique_id=1290430872]
 unique_name_in_owner = true
 material = SubResource("Mat_drowsy")
 anchors_preset = 15
@@ -51,7 +31,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_drowsy")
 
-[node name="Prompt" type="Label" parent="."]
+[node name="Prompt" type="Label" parent="." unique_id=1643140517]
 unique_name_in_owner = true
 anchors_preset = 7
 anchor_left = 0.5
@@ -64,14 +44,13 @@ offset_right = 240.0
 offset_bottom = -170.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 script = ExtResource("6_prompt")
 
-[node name="Hint" type="Label" parent="."]
+[node name="Hint" type="Label" parent="." unique_id=1985626783]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -81,14 +60,18 @@ offset_top = 24.0
 offset_right = 320.0
 offset_bottom = 54.0
 grow_horizontal = 2
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Fade" type="ColorRect" parent="."]
+[node name="ObjectiveLine" parent="." unique_id=1697195476 instance=ExtResource("9_objective")]
+unique_name_in_owner = true
+
+[node name="CombatHud" parent="." unique_id=425418011 instance=ExtResource("10_combat_hud")]
+
+[node name="Fade" type="ColorRect" parent="." unique_id=1192452875]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +82,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("4_fade")
 
-[node name="Subtitles" type="PanelContainer" parent="."]
+[node name="Subtitles" type="PanelContainer" parent="." unique_id=1489797606]
 unique_name_in_owner = true
 anchors_preset = 7
 anchor_left = 0.5
@@ -113,36 +96,35 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("Style_subtitles")
+theme_type_variation = &"RpgPanel"
 script = ExtResource("5_subs")
 
-[node name="Box" type="VBoxContainer" parent="Subtitles"]
+[node name="Box" type="VBoxContainer" parent="Subtitles" unique_id=869132722]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="SpeakerLabel" type="Label" parent="Subtitles/Box"]
+[node name="SpeakerLabel" type="Label" parent="Subtitles/Box" unique_id=1870837123]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 1)
 theme_override_font_sizes/font_size = 16
 
-[node name="TextLabel" type="Label" parent="Subtitles/Box"]
+[node name="TextLabel" type="Label" parent="Subtitles/Box" unique_id=1506606723]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 autowrap_mode = 3
 
-[node name="ContinueHint" type="Label" parent="Subtitles/Box"]
+[node name="ContinueHint" type="Label" parent="Subtitles/Box" unique_id=761853259]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_colors/font_color = Color(0.62, 0.59, 0.53, 1)
 theme_override_font_sizes/font_size = 14
 text = "E / Space — далее"
 horizontal_alignment = 2
 
-[node name="SpellMessage" type="Label" parent="."]
+[node name="SpellMessage" type="Label" parent="." unique_id=417522592]
 unique_name_in_owner = true
-script = ExtResource("7_spell")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -154,14 +136,14 @@ offset_right = 420.0
 offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.64, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 28
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+script = ExtResource("7_spell")
 
-[node name="RuneStatus" type="PanelContainer" parent="."]
+[node name="RuneStatus" type="PanelContainer" parent="." unique_id=1683738044]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
@@ -175,33 +157,33 @@ offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("Style_runes")
+theme_type_variation = &"RpgPanel"
 script = ExtResource("8_runes")
 
-[node name="Box" type="VBoxContainer" parent="RuneStatus"]
+[node name="Box" type="VBoxContainer" parent="RuneStatus" unique_id=311633006]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="RuneStatus/Box"]
+[node name="Title" type="Label" parent="RuneStatus/Box" unique_id=521761239]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 1)
 theme_override_font_sizes/font_size = 22
 text = "Руны Заклинания"
 horizontal_alignment = 1
 
-[node name="Rows" type="VBoxContainer" parent="RuneStatus/Box"]
+[node name="Rows" type="VBoxContainer" parent="RuneStatus/Box" unique_id=1521448471]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CloseHint" type="Label" parent="RuneStatus/Box"]
+[node name="CloseHint" type="Label" parent="RuneStatus/Box" unique_id=733961343]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_colors/font_color = Color(0.62, 0.59, 0.53, 1)
 theme_override_font_sizes/font_size = 14
 text = "Tab / E — закрыть"
 horizontal_alignment = 2
 
-[node name="EndCard" type="Label" parent="."]
+[node name="EndCard" type="Label" parent="." unique_id=1214313917]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
@@ -214,8 +196,9 @@ offset_right = 360.0
 offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme_override_font_sizes/font_size = 30
 text = "Конец вертикального среза"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="WorldMarkers" parent="." unique_id=1178609934 instance=ExtResource("11_x0p0a")]

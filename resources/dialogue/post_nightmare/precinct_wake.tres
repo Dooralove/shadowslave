@@ -1,0 +1,146 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "[Порок: Чистая совесть]"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Это ещё что?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Ты не можешь лгать."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Прекрасно. Просто прекрасно."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Очнулся. Я уж думала, ты решил умереть мне назло."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Вы бы расстроились?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Я бы составила отчёт. Это хуже."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Три дня. После Кошмара ты проспал три дня."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Я в порядке."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "[Ложь.]"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Вот и первая проверка."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Я не в порядке."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Уже лучше. Вставай, Sleeper Sunless."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_14"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Что со мной?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_15"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Твой Порок. Чистая совесть. Ты не можешь лгать."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_16"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "И как с этим жить?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_17"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Правдой. Или молчанием. В Академии это пригодится."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_18"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Есть куда вернуться?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_19"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Нет."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_20"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Тогда не возвращайся. Академия даст койку, еду и шанс."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_21"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Шанс на что?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_22"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Не умереть в первую же ночь."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_23"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Через месяц солнцестояние. Приведи себя в порядок. Машина во дворе."
+duration = 0.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13"), SubResource("Line_14"), SubResource("Line_15"), SubResource("Line_16"), SubResource("Line_17"), SubResource("Line_18"), SubResource("Line_19"), SubResource("Line_20"), SubResource("Line_21"), SubResource("Line_22"), SubResource("Line_23")]

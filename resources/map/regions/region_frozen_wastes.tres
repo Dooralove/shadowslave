@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRegion" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
+[ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
+
+[resource]
+script = ExtResource("4_region")
+id = &"region_frozen_wastes"
+title = "ЛЕДЯНЫЕ ПУСТОШИ"
+subtitle = "Край мира · вечный лёд"
+description = "Ледяные пустоши на самом севере, за морем. Бескрайняя Бель, ледник Тернвалл, Северный Форпост и Ледяная Цитадель."
+status = 1
+outside_realm = false
+outline = PackedVector2Array(0.0336, 0.052, 0.08, 0.02, 0.128, 0.024, 0.176, 0.014, 0.232, 0.022, 0.288, 0.014, 0.344, 0.024, 0.4, 0.016, 0.456, 0.024, 0.512, 0.036, 0.56, 0.052, 0.604, 0.074, 0.628, 0.114, 0.6336, 0.165, 0.6224, 0.218, 0.5984, 0.25, 0.56, 0.262, 0.528, 0.282, 0.48, 0.292, 0.432, 0.3, 0.376, 0.298, 0.32, 0.286, 0.264, 0.274, 0.208, 0.268, 0.156, 0.276, 0.112, 0.258, 0.0784, 0.226, 0.056, 0.18, 0.0432, 0.13, 0.0368, 0.086)
+label_position = Vector2(0.376, 0.135)
+location_ids = Array[StringName]([])

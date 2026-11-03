@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="1_fade"]
+
+[node name="Root" type="Node"]
+
+[node name="Fade" type="ColorRect" parent="."]
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("1_fade")

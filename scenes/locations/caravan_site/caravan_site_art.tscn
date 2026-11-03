@@ -53,6 +53,13 @@
 [ext_resource type="PackedScene" path="res://assets/environments/nightmare/backdrop/ridge_mid_b.glb" id="51_ridge_mid_b"]
 [ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/black_mountain_far.glb" id="52_black_mountain_far"]
 [ext_resource type="PackedScene" path="res://scenes/environment/nm_snowfall.tscn" id="53_nm_snowfall"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nightmare/decor/mountain_silhouette_a.tscn" id="mid_a"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nightmare/decor/mountain_silhouette_b.tscn" id="mid_b"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nightmare/decor/ruin_watchtower_a.tscn" id="mid_tower"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nightmare/decor/camp_perimeter_a.tscn" id="mid_camp"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/flora/dead_tree_b.glb" id="mid_tree"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_site_dressing.tscn" id="p3_site_dressing"]
+[ext_resource type="GradientTexture1D" path="res://resources/environment/p4_grade_lut.tres" id="p4_lut"]
 
 [sub_resource type="ShaderMaterial" id="Sky_art_mat"]
 shader = ExtResource("2_nm_night_sky")
@@ -66,21 +73,39 @@ background_mode = 2
 sky = SubResource("Sky_art")
 ambient_light_source = 2
 ambient_light_color = Color(0.24, 0.29, 0.42, 1)
-ambient_light_energy = 0.5
-tonemap_mode = 2
+ambient_light_energy = 0.72
+tonemap_mode = 4
+tonemap_exposure = 1.12
 glow_enabled = true
-glow_intensity = 0.4
-glow_bloom = 0.05
+glow_intensity = 0.55
+glow_bloom = 0.12
+glow_hdr_threshold = 0.85
 ssao_enabled = true
-ssao_radius = 2.0
-ssao_intensity = 1.5
+ssao_radius = 1.6
+ssao_intensity = 1.7
+ssil_enabled = true
+ssil_radius = 1.6
+ssil_intensity = 0.9
+ssr_enabled = true
+ssr_max_steps = 48
+ssr_fade_in = 0.1
+ssr_fade_out = 0.2
+ssr_depth_tolerance = 0.4
 fog_enabled = true
 fog_light_color = Color(0.07, 0.085, 0.12, 1)
-fog_density = 0.0032
-fog_aerial_perspective = 0.35
-fog_sky_affect = 0.15
+fog_density = 0.0028
+fog_aerial_perspective = 0.45
+fog_sky_affect = 0.18
 fog_height = -14.0
-fog_height_density = 0.035
+fog_height_density = 0.04
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.004
+volumetric_fog_albedo = Color(0.66, 0.72, 0.9, 1)
+volumetric_fog_length = 65.0
+volumetric_fog_anisotropy = 0.22
+
+adjustment_enabled = true
+adjustment_color_correction = ExtResource("p4_lut")
 
 [sub_resource type="BoxShape3D" id="Shape_north_w"]
 size = Vector3(5, 4, 0.5)
@@ -103,7 +128,14 @@ environment = SubResource("Env_art")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
 rotation = Vector3(-0.4328, -1.455, 0)
 light_color = Color(0.66, 0.73, 0.95, 1)
-light_energy = 0.95
+light_energy = 1.2
+directional_shadow_max_distance = 90.0
+
+[node name="RimLight" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.35, 0.15, 0)
+light_color = Color(0.5, 0.64, 0.94, 1)
+light_energy = 0.75
+shadow_enabled = false
 
 [node name="Blockout" parent="Geometry"]
 visible = false
@@ -785,6 +817,10 @@ transform = Transform3D(0.1736, -0.9848, 0, 0.9848, 0.1736, 0, 0, 0, 1, 0.32, 0.
 [node name="Clouds" parent="Backdrop" instance=ExtResource("49_nm_cloud_sea")]
 position = Vector3(0, -70, 0)
 
+[node name="LowClouds" parent="Backdrop" instance=ExtResource("49_nm_cloud_sea")]
+position = Vector3(0, -4, 0)
+scale = Vector3(1.35, 1, 1.35)
+
 [node name="RidgeWest" parent="Backdrop" instance=ExtResource("50_ridge_mid_a")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -420, -60, 40)
 
@@ -799,3 +835,28 @@ transform = Transform3D(-0.9397, 0, -0.342, 0, 1, 0, 0.342, 0, -0.9397, 300, -62
 
 [node name="Snowfall" parent="." instance=ExtResource("53_nm_snowfall")]
 position = Vector3(0, 0, 0)
+
+[node name="SeamsMidground" type="Node3D" parent="."]
+
+[node name="SpiresSouth" parent="SeamsMidground" instance=ExtResource("mid_a")]
+transform = Transform3D(1.6, 0, 0, 0, 1.55, 0, 0, 0, 1.6, -40, -12, 45)
+
+[node name="SpiresSouthCenter" parent="SeamsMidground" instance=ExtResource("mid_b")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, -18, 80)
+
+[node name="SpiresEast" parent="SeamsMidground" instance=ExtResource("mid_b")]
+transform = Transform3D(1.4, 0, 0, 0, 1.35, 0, 0, 0, 1.4, 55, -20, 20)
+
+[node name="SpiresNorth" parent="SeamsMidground" instance=ExtResource("mid_a")]
+transform = Transform3D(1.4, 0, 0, 0, 1.35, 0, 0, 0, 1.4, 15, -18, -55)
+
+[node name="Watchtower" parent="SeamsMidground" instance=ExtResource("mid_tower")]
+transform = Transform3D(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0, -45, -6, 40)
+
+[node name="AbandonedCamp" parent="SeamsMidground" instance=ExtResource("mid_camp")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -24, 0.5, 22)
+
+[node name="DeadTree" parent="SeamsMidground" instance=ExtResource("mid_tree")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -4, 4.0, 6)
+
+[node name="P3SiteDressing" parent="." instance=ExtResource("p3_site_dressing")]

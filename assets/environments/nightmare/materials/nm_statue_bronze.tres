@@ -1,0 +1,41 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/environments/nightmare/materials/nm_statue_triplanar.gdshader" id="1_nm_statue_triplanar"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/low_tide_rocks_diff_2k.jpg" id="2_low_tide_rocks_diff_2k"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/low_tide_rocks_nor_gl_2k.jpg" id="3_low_tide_rocks_nor_gl_2k"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/low_tide_rocks_arm_2k.jpg" id="4_low_tide_rocks_arm_2k"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_macro"]
+frequency = 0.008
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_macro"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_macro")
+
+[resource]
+resource_name = "nm_statue_bronze"
+shader = ExtResource("1_nm_statue_triplanar")
+shader_parameter/base_albedo = ExtResource("2_low_tide_rocks_diff_2k")
+shader_parameter/base_normal = ExtResource("3_low_tide_rocks_nor_gl_2k")
+shader_parameter/base_orm = ExtResource("4_low_tide_rocks_arm_2k")
+shader_parameter/base_tint = Color(0.5064, 0.4100, 0.3133, 1.0)
+shader_parameter/base_tile_m = 3.6
+shader_parameter/base_normal_strength = 1.0
+shader_parameter/base_roughness_scale = 1.0
+shader_parameter/base_roughness_offset = 0.02
+shader_parameter/base_metallic = 0.65
+shader_parameter/macro_noise = SubResource("NoiseTexture2D_macro")
+shader_parameter/macro_tile_m = 18.0
+shader_parameter/macro_strength = 0.30
+shader_parameter/wet_height = -72.0
+shader_parameter/wet_softness = 4.0
+shader_parameter/wet_strength = 0.45
+shader_parameter/salt_fade_start = -40.0
+shader_parameter/salt_fade_end = 60.0
+shader_parameter/salt_strength = 0.3
+shader_parameter/salt_color = Color(0.7674, 0.7858, 0.8095, 1.0)
+shader_parameter/dirt_strength = 1.0
+shader_parameter/triplanar_sharpness = 6.0

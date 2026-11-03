@@ -1,0 +1,21 @@
+[gd_resource type="Environment" format=3]
+
+[ext_resource type="Sky" path="res://resources/locations/post_nightmare/environments/sky_grey_sky.tres" id="1_308eb"]
+
+[resource]
+resource_name = "art_p06_env"
+background_mode = 2
+sky = ExtResource("1_308eb")
+ambient_light_source = 2
+ambient_light_color = Color(0.3, 0.36, 0.46, 1)
+ambient_light_energy = 0.42
+tonemap_mode = 2
+tonemap_exposure = 0.96
+ssao_enabled = true
+ssao_intensity = 1.15
+glow_enabled = true
+glow_intensity = 0.38
+fog_enabled = true
+fog_light_color = Color(0.1, 0.13, 0.18, 1)
+fog_density = 0.022
+fog_sky_affect = 0.35

@@ -66,6 +66,13 @@ func _interact(site: Node3D, id: StringName) -> void:
 		point.interact()
 
 
+func _trigger(site: Node3D, id: StringName) -> void:
+	var zone := site.call(&"get_trigger", id) as TriggerZone
+	assert_not_null(zone, "зона %s существует" % id)
+	if zone != null:
+		zone.fire()
+
+
 func test_scene_has_cast_route_and_no_premature_completion() -> void:
 	var site := await _make_location()
 	assert_true(site.get_node("NPCs/Hero") is Mannequin)
@@ -74,38 +81,58 @@ func test_scene_has_cast_route_and_no_premature_completion() -> void:
 	assert_false(site.get_node("NPCs/ShiftyBody").visible, "тело Шифти скрыто до падения")
 	assert_false(site.get_node("Props/BloodStain").visible, "кровь появляется только после падения")
 	assert_false(site.get_node("NPCs/TyrantSighting").visible, "Тиран не виден до ночи")
-	assert_true((site.call(&"get_interactable", &"road_gap") as Interactable).enabled)
-	assert_false((site.call(&"get_interactable", &"sword") as Interactable).enabled)
-	assert_false((site.call(&"get_interactable", &"rest") as Interactable).enabled)
+	assert_true((site.call(&"get_trigger", &"road_gap") as TriggerZone).enabled)
+	assert_false((site.call(&"get_trigger", &"sword") as TriggerZone).enabled)
+	assert_false((site.call(&"get_trigger", &"rest") as TriggerZone).enabled)
 	assert_false((site.call(&"get_interactable", &"bell") as Interactable).enabled)
 	assert_false((site.call(&"get_trigger", &"temple") as TriggerZone).enabled)
 	assert_false(NightmareRunState.has_flag(&"first_nightmare_completed"))
 	assert_false(NightmareRunState.has_flag(&"tyrant_death_confirmed"))
 
 
+func test_trail_keeps_e_only_for_the_bell_act() -> void:
+	var site := await _make_location()
+	for id in [&"road_gap", &"sword", &"rest", &"scholar", &"cave", &"cave_exit", &"hero"]:
+		assert_null(site.call(&"get_interactable", id), "у %s больше нет E-точки" % id)
+		assert_not_null(site.call(&"get_trigger", id), "у %s есть зона прохода" % id)
+	assert_not_null(site.call(&"get_interactable", &"bell"), "Колокольчик остаётся поступком")
+	assert_null(site.call(&"get_interactable", &"temple"), "храм остаётся триггером")
+
+
+func test_art_trail_keeps_the_trigger_conversion() -> void:
+	var site := (load("res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn") as PackedScene).instantiate() as PilgrimPath
+	add_child_autofree(site)
+	await wait_physics_frames(1)
+	for id in [&"road_gap", &"sword", &"rest", &"scholar", &"cave", &"cave_exit", &"hero"]:
+		assert_null(site.get_interactable(id), "арт-тропа не возвращает E-точку %s" % id)
+		assert_not_null(site.get_trigger(id), "арт-тропа сохраняет зону %s" % id)
+	assert_not_null(site.get_interactable(&"bell"), "Колокольчик остаётся E-поступком")
+
+
 func test_route_requires_each_canonical_step_once() -> void:
 	var site := await _make_location()
-	var gap := site.call(&"get_interactable", &"road_gap") as Interactable
-	var sword := site.call(&"get_interactable", &"sword") as Interactable
-	var rest := site.call(&"get_interactable", &"rest") as Interactable
-	var scholar := site.call(&"get_interactable", &"scholar") as Interactable
-	var cave := site.call(&"get_interactable", &"cave") as Interactable
-	var cave_exit := site.call(&"get_interactable", &"cave_exit") as Interactable
-	var hero := site.call(&"get_interactable", &"hero") as Interactable
+	var gap := site.call(&"get_trigger", &"road_gap") as TriggerZone
+	var sword := site.call(&"get_trigger", &"sword") as TriggerZone
+	var rest := site.call(&"get_trigger", &"rest") as TriggerZone
+	var scholar := site.call(&"get_trigger", &"scholar") as TriggerZone
+	var cave := site.call(&"get_trigger", &"cave") as TriggerZone
+	var cave_exit := site.call(&"get_trigger", &"cave_exit") as TriggerZone
+	var hero := site.call(&"get_trigger", &"hero") as TriggerZone
 	var bell := site.call(&"get_interactable", &"bell") as Interactable
 	var temple := site.call(&"get_trigger", &"temple") as TriggerZone
 
+	assert_true(gap.enabled, "провал открыт с самого начала")
 	assert_false(sword.enabled, "меч недоступен до осмотра провала")
-	_interact(site, &"road_gap")
+	_trigger(site, &"road_gap")
 	assert_true(NightmareRunState.has_flag(&"road_gap_seen"))
 	assert_true(sword.enabled, "после провала открывается верхняя площадка с мечом")
 
-	_interact(site, &"sword")
+	_trigger(site, &"sword")
 	assert_true(NightmareRunState.has_flag(&"sword_discarded"))
 	assert_false(site.get_node("Props/Sword").visible, "меч остаётся на камне")
 	assert_true(rest.enabled, "после меча открывается альков")
 
-	_interact(site, &"rest")
+	_trigger(site, &"rest")
 	assert_true(NightmareRunState.has_flag(&"alcove_reached"))
 	assert_false(rest.enabled, "альков одноразовый")
 	assert_false(NightmareRunState.has_flag(&"shifty_dead"), "ночь ещё не убила Шифти")
@@ -118,12 +145,17 @@ func test_route_requires_each_canonical_step_once() -> void:
 	assert_false(site.get_node("NPCs/Shifty").visible, "Шифти исчезает после падения")
 	assert_false(site.get_node("NPCs/ShiftyBody").visible, "тело Шифти не показывается")
 	assert_true(site.get_node("Props/BloodStain").visible, "на камне остаётся кровь")
-	assert_signal_emitted_with_parameters(site, "hint_requested",
-		["Кровь на камнях. Тела нет. Тропа ведёт дальше."])
+	assert_signal_not_emitted(site, "hint_requested", "констатация о крови не возвращается")
+	var thought := (get_node_or_null("/root/CampaignGuide") as Node)
+	assert_not_null(thought, "система подсказок доступна")
+	if thought != null:
+		assert_string_contains(thought.call(&"get_thought_text", &"thought_scholar"), "Кровь")
+	assert_false(scholar.enabled, "Учёный ждёт N18, а не только смерти Шифти")
+	NightmareRunState.set_flag(&"shifty_larva_killed")
 	site.call(&"begin_dawn")
-	assert_true(scholar.enabled, "на рассвете открывается Учёный")
+	assert_true(scholar.enabled, "после N18 на рассвете открывается Учёный")
 
-	_interact(site, &"scholar")
+	_trigger(site, &"scholar")
 	assert_true(NightmareRunState.has_flag(&"scholar_confronted"))
 	assert_false(cave.enabled, "пещера закрыта до ухода Учёного")
 	site.call(&"abandon_scholar")
@@ -131,7 +163,7 @@ func test_route_requires_each_canonical_step_once() -> void:
 	assert_false(site.get_node("NPCs/Scholar").visible, "Учёный не возвращается")
 	assert_true(cave.enabled, "после Учёного открывается пещера")
 
-	_interact(site, &"cave")
+	_trigger(site, &"cave")
 	assert_true(NightmareRunState.has_flag(&"cave_entered"))
 	assert_false(cave_exit.enabled, "из пещеры нельзя выйти до ранения")
 	assert_false(NightmareRunState.has_flag(&"hero_dead"), "Герой ещё жив в пещере")
@@ -140,12 +172,15 @@ func test_route_requires_each_canonical_step_once() -> void:
 	assert_true(NightmareRunState.has_flag(&"wound_taken"))
 	assert_true(cave_exit.enabled, "после ранения открыт северный выход")
 
-	_interact(site, &"cave_exit")
+	_trigger(site, &"cave_exit")
 	assert_true(NightmareRunState.has_flag(&"cave_escaped"))
-	assert_true(hero.enabled, "после пещеры Герой ждёт на тропе")
+	assert_false(hero.enabled, "после пещеры сначала идёт стелс N21")
 	assert_false(NightmareRunState.has_flag(&"hero_dead"), "встреча с Героем не убивает его заранее")
+	NightmareRunState.set_flag(&"stealth_completed")
+	site.call(&"prepare_route")
+	assert_true(hero.enabled, "после завершения стелса Герой ждёт на карнизе")
 
-	_interact(site, &"hero")
+	_trigger(site, &"hero")
 	assert_true(NightmareRunState.has_flag(&"hero_confrontation_seen"))
 	assert_true(bell.enabled, "после разговора доступен Колокольчик")
 	assert_false(NightmareRunState.has_flag(&"hero_dead"))
@@ -194,24 +229,24 @@ func test_route_requires_each_canonical_step_once() -> void:
 
 func test_interactions_do_not_retrigger_or_unlock_out_of_order() -> void:
 	var site := await _make_location()
-	var sword := site.call(&"get_interactable", &"sword") as Interactable
-	var rest := site.call(&"get_interactable", &"rest") as Interactable
+	var sword := site.call(&"get_trigger", &"sword") as TriggerZone
+	var rest := site.call(&"get_trigger", &"rest") as TriggerZone
 	var bell := site.call(&"get_interactable", &"bell") as Interactable
 	var temple := site.call(&"get_trigger", &"temple") as TriggerZone
 
-	_interact(site, &"sword")
+	_trigger(site, &"sword")
 	assert_false(NightmareRunState.has_flag(&"sword_discarded"), "меч нельзя бросить до провала")
-	_interact(site, &"rest")
+	_trigger(site, &"rest")
 	assert_false(NightmareRunState.has_flag(&"alcove_reached"), "альков закрыт")
 	_interact(site, &"bell")
 	assert_false(NightmareRunState.has_flag(&"silver_bell_used"), "Колокольчик закрыт")
 	temple.fire()
 	assert_false(NightmareRunState.has_flag(&"temple_reached"), "храм закрыт")
 
-	_interact(site, &"road_gap")
-	_interact(site, &"road_gap")
-	_interact(site, &"sword")
-	_interact(site, &"sword")
+	_trigger(site, &"road_gap")
+	_trigger(site, &"road_gap")
+	_trigger(site, &"sword")
+	_trigger(site, &"sword")
 	assert_true(NightmareRunState.has_flag(&"road_gap_seen"))
 	assert_true(NightmareRunState.has_flag(&"sword_discarded"))
 	assert_eq(site.phase, &"ASCENT")
@@ -219,17 +254,19 @@ func test_interactions_do_not_retrigger_or_unlock_out_of_order() -> void:
 
 func test_persistent_absence_after_ascent_reload() -> void:
 	var site := await _make_location()
-	_interact(site, &"road_gap")
-	_interact(site, &"sword")
-	_interact(site, &"rest")
+	_trigger(site, &"road_gap")
+	_trigger(site, &"sword")
+	_trigger(site, &"rest")
 	site.call(&"kill_shifty")
 	site.call(&"begin_dawn")
-	_interact(site, &"scholar")
+	_trigger(site, &"scholar")
 	site.call(&"abandon_scholar")
-	_interact(site, &"cave")
+	_trigger(site, &"cave")
 	site.call(&"wound_sunny")
-	_interact(site, &"cave_exit")
-	_interact(site, &"hero")
+	_trigger(site, &"cave_exit")
+	NightmareRunState.set_flag(&"stealth_completed")
+	site.call(&"prepare_route")
+	_trigger(site, &"hero")
 	_interact(site, &"bell")
 	site.call(&"begin_hero_capture")
 	site.call(&"complete_hero_capture")
@@ -369,7 +406,7 @@ func test_wrapper_connects_route_signals_without_completing_nightmare() -> void:
 	var wrapper := await _make_wrapper()
 	var site := wrapper.get_node("PilgrimPath") as Node3D
 	assert_not_null(site)
-	assert_true(site.call(&"get_interactable", &"road_gap") is Interactable)
+	assert_true(site.call(&"get_trigger", &"road_gap") is TriggerZone)
 	assert_true((wrapper.get_node("Sunny") as SunnyController).is_in_group(&"player"))
 	assert_false(wrapper.has_started_transition())
 	for signal_name in [
@@ -409,3 +446,44 @@ func test_wrapper_hides_shifty_on_fall_dialogue_line() -> void:
 	assert_false(site.get_node("NPCs/Shifty").visible, "на строке падения Шифти исчезает")
 	assert_false(site.get_node("NPCs/ShiftyBody").visible, "тело не появляется")
 	assert_true(site.get_node("Props/BloodStain").visible, "кровь остаётся")
+
+
+func test_wrapper_tracks_v2_beats_n14_to_n23_and_activates_checkpoints() -> void:
+	var wrapper := await _make_wrapper()
+	var sunny := wrapper.get_node("Sunny") as SunnyController
+	var recovery := sunny.get_node("FallRecovery") as FallRecovery
+	var director: BeatDirector = wrapper.beat_director
+	assert_not_null(director)
+	assert_eq(director.get_current_beat_id(), &"N14")
+	assert_eq(director.current_objective, "Подняться за Героем по старой тропе")
+
+	await wrapper.call(&"_handle_road_gap")
+	assert_eq(director.get_current_beat_id(), &"N15")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N15a")
+
+	await wrapper.call(&"_handle_sword_discarded")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N15c")
+	assert_true(sunny.is_unarmed(), "после брошенного меча Санни переходит в режим без оружия")
+
+	await wrapper.call(&"_handle_rest")
+	assert_eq(director.get_current_beat_id(), &"N18")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N18")
+
+	await wrapper.call(&"_handle_scholar")
+	assert_eq(director.get_current_beat_id(), &"N19")
+
+	await wrapper.call(&"_handle_cave")
+	assert_eq(director.get_current_beat_id(), &"N20")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N20")
+
+	wrapper.call(&"_handle_cave_escape")
+	assert_eq(director.get_current_beat_id(), &"N21")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N21a")
+
+	await wrapper.call(&"_handle_hero")
+	assert_eq(director.get_current_beat_id(), &"N22")
+
+	NightmareRunState.set_flag(&"silver_bell_used")
+	await wrapper.call(&"_handle_bell")
+	assert_eq(director.get_current_beat_id(), &"N23")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N23")

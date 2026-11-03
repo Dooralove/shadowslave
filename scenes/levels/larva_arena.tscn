@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/combat_arena.gd" id="1_arena"]
+[ext_resource type="PackedScene" path="res://scenes/levels/test_level.tscn" id="2_level"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/larva_enemy.tscn" id="3_larva"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="4_hud"]
+
+[node name="LarvaArena" type="Node3D"]
+script = ExtResource("1_arena")
+
+[node name="Level" parent="." instance=ExtResource("2_level")]
+
+[node name="TestEnemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_larva")]
+position = Vector3(0, 0.05, -5)
+target = NodePath("../Level/Sunny")
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/combat_arena.gd" id="1_arena"]
 [ext_resource type="PackedScene" path="res://scenes/levels/test_level.tscn" id="2_level"]
-[ext_resource type="PackedScene" path="res://scenes/characters/test_enemy.tscn" id="3_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/carapace_enemy.tscn" id="3_enemy"]
 [ext_resource type="Script" path="res://scripts/ui/combat_hud.gd" id="4_hud"]
 [ext_resource type="Script" path="res://scripts/systems/soul_sea_controller.gd" id="5_soul"]
 [ext_resource type="PackedScene" path="res://scenes/ui/soul_sea_hud.tscn" id="6_soul_hud"]
@@ -58,6 +58,16 @@ text = "Санни"
 [node name="PlayerHealth" type="ProgressBar" parent="HUD/Root/PlayerPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 20)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("Style_bar_bg")
+theme_override_styles/fill = SubResource("Style_player_fill")
+value = 100.0
+show_percentage = false
+
+[node name="PlayerStamina" type="ProgressBar" parent="HUD/Root/PlayerPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 8)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("Style_bar_bg")
@@ -124,7 +134,7 @@ offset_right = 700.0
 offset_bottom = -16.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
-text = "I — инвентарь · V — Море Души · ЛКМ — удар · Shift — бег · Space — прыжок · Esc — курсор · R — заново"
+text = "C — меню · I — рюкзак · M — карта · V — Море Души · ЛКМ — удар · Shift — бег · Space — прыжок · Esc — курсор · R — заново"
 
 [node name="InventoryLayer" type="CanvasLayer" parent="."]
 layer = 70

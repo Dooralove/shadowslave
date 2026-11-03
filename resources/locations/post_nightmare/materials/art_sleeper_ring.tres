@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "art_sleeper_ring"
+albedo_color = Color(0.06, 0.12, 0.16, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.3, 0.78, 1, 1)
+emission_energy_multiplier = 2.2

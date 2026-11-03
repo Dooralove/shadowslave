@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N24"
+part = &"finale"
+part_title = "Финал"
+canonical_block = 18
+title = "Алтарь безымянного храма и жертва"
+beat_type = 2
+format_label = "С"
+objective = "Дойти до алтаря"
+idle_objectives = Array[String]([])
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"temple_reached"])
+exit_conditions = Array[StringName]([&"trial_completed", &"tyrant_death_confirmed"])
+staging_flags = Array[StringName]([&"trial_completed", &"tyrant_death_confirmed"])
+estimated_seconds = 150.0
+estimated_time_text = "~2,5 мин"
+scene_path = "res://scenes/campaign/sanctuary_arrival.tscn"
+can_die = false

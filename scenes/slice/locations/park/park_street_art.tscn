@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/park_street.tscn" id="1_base"]
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/park/park_art.tscn" id="2_art"]
 [ext_resource type="PackedScene" path="res://assets/environments/park/props/cup.glb" id="3_cup"]
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/park/p2_park_set.tscn" id="5_p2"]
+[ext_resource type="Environment" path="res://assets/environments/park/sky/morning_environment.tres" id="6_env"]
+
 
 [sub_resource type="Gradient" id="Grad_puff"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -93,14 +96,14 @@ volumetric_fog_anisotropy = 0.4
 [node name="ParkStreetArt" instance=ExtResource("1_base")]
 
 [node name="WorldEnvironment" parent="."]
-environment = SubResource("Env_morning")
+environment = ExtResource("6_env")
 
 [node name="Sun" parent="."]
 rotation = Vector3(-0.576, 0.646, 0)
-light_color = Color(0.96, 0.97, 1, 1)
-light_energy = 2.0
-light_angular_distance = 0.8
-directional_shadow_max_distance = 70.0
+light_color = Color(1, 0.88, 0.72, 1)
+light_energy = 3.4
+light_angular_distance = 0.6
+directional_shadow_max_distance = 100.0
 
 [node name="Geometry" parent="."]
 visible = false
@@ -167,3 +170,5 @@ process_material = SubResource("Proc_steam")
 draw_pass_1 = SubResource("Mesh_steam")
 
 [node name="Art" parent="." instance=ExtResource("2_art")]
+
+[node name="P2" parent="." instance=ExtResource("5_p2")]

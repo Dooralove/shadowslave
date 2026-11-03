@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N09"
+part = &"act_1"
+part_title = "Акт I «Цепь»"
+canonical_block = 8
+title = "Первый бой с личинкой и ключ"
+beat_type = 0
+format_label = "И (бой)"
+objective = "Убить личинку → Отпереть кандалы"
+idle_objectives = Array[String](["Уклонись от личинки", "Бей цепью, пока не подоспеет Герой", "Отопри кандалы ключом"])
+checkpoint_id = &"CP-N09"
+checkpoint_ids = Array[StringName]([&"CP-N09"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N09": Vector3(0.6, 0.05, 1.8)
+})
+entry_conditions = Array[StringName]([&"attack_started", &"broad_slave_dead"])
+exit_conditions = Array[StringName]([&"larva_killed", &"chains_released"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 150.0
+estimated_time_text = "~2,5 мин"
+scene_path = "res://scenes/campaign/caravan_site_arrival.tscn"
+can_die = true

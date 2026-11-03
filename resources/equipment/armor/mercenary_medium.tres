@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/armor_item.gd" id="1_armor"]
+[ext_resource type="PackedScene" path="res://assets/characters/equipment/armor/mercenary_medium.glb" id="2_visual"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/generated_v3.tres" id="3_rig"]
+[ext_resource type="Resource" path="res://resources/equipment/stats/mercenary_medium_stats.tres" id="4_stats"]
+
+[resource]
+script = ExtResource("1_armor")
+id = &"mercenary_medium"
+display_name = "Доспех наёмника"
+slot = 0
+visual_scene = ExtResource("2_visual")
+rig_profile = ExtResource("3_rig")
+hide_parts = PackedStringArray()
+hide_surfaces = PackedInt32Array(0, 1, 2, 3)
+visual_scale = Vector3(1, 1.0793, 1)
+tags = PackedStringArray("armor", "medium", "chainmail", "mercenary", "generated")
+ab_variant = &"mercenary"
+notes = "Hyper3D image-to-3D: кольчуга, стальная кираса, наплечники и тёмно-красный табард. Голова манекена удалена; базовое тело и голова скрыты, потому что шлем закрытый."
+mode = 0
+coverage = PackedStringArray("torso", "arms", "legs", "feet", "head")
+stats = ExtResource("4_stats")
+rarity = 2
+set_id = &"mercenary_medium"
+required_strength = 8.0
+description = "Средний доспех наёмника: кольчужная рубаха, стальная кираса, наплечники и табард."
+lore = "Наёмники не спрашивают, кто платит. Они спрашивают, выдержит ли кольчуга удар в спину."
+rarity_color = Color(0.4, 0.62, 0.85, 1)

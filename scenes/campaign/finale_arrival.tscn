@@ -10,7 +10,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.5, 0.64, 0.86, 0.42)
+border_color = Color(0.55, 0.44, 0.28, 0.55)
 content_margin_left = 58.0
 content_margin_top = 40.0
 content_margin_right = 58.0
@@ -57,14 +57,14 @@ alignment = 1
 
 [node name="Kicker" type="Label" parent="Center/Column"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.52, 0.7, 0.92, 0.8)
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 0.9)
 theme_override_font_sizes/font_size = 15
 text = "ПЕРВЫЙ КОШМАР"
 horizontal_alignment = 1
 
 [node name="Title" type="Label" parent="Center/Column"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.9, 1.0, 1)
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
 theme_override_font_sizes/font_size = 42
 text = "ЗАВЕРШЁН"
 horizontal_alignment = 1
@@ -73,7 +73,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(760, 32)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.8, 0.92, 0.92)
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 0.95)
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 
@@ -89,24 +89,17 @@ theme_override_constants/separation = 12
 
 [node name="Body" type="Label" parent="Center/Column/Card/Text"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.88, 0.94, 1)
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
 theme_override_font_sizes/font_size = 19
-text = "Санлесс пробуждается в реальном мире. Divine Aspect и True Name остаются при нём — как сила и как новая несвобода."
+text = "Санлесс пробуждается в реальном мире. Способности Аспекта и Памяти впервые доступны; Shadow Core просыпается, а тень смотрит в ответ."
 horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Restart" type="Label" parent="Center/Column/Card/Text"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.56, 0.7, 0.88, 0.8)
+theme_override_colors/font_color = Color(0.62, 0.59, 0.53, 0.9)
 theme_override_font_sizes/font_size = 14
 text = "R — начать заново"
-horizontal_alignment = 1
-
-[node name="Prototype" type="Label" parent="Center/Column"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.44, 0.36, 0.8)
-theme_override_font_sizes/font_size = 13
-text = "Прототип вертикального среза · First Nightmare"
 horizontal_alignment = 1
 
 [node name="Fade" type="ColorRect" parent="."]

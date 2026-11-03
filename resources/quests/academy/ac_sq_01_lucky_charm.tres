@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_fco50"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_jf6y0"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_4giif"]
+
+[sub_resource type="Resource" id="Resource_txwxa"]
+script = ExtResource("1_fco50")
+id = &"vent"
+text = "Обыскать вентиляцию"
+kind = 2
+target_id = &"laundry_vent"
+
+[sub_resource type="Resource" id="Resource_l2ar8"]
+script = ExtResource("2_jf6y0")
+item_id = &"provisions"
+item_count = 2
+text = "Провизия ×2"
+
+[sub_resource type="Resource" id="Resource_dhph8"]
+script = ExtResource("2_jf6y0")
+flag = &"ac_rep_outcast_1"
+text = "Доверие «обречённых»"
+
+[resource]
+script = ExtResource("3_4giif")
+id = &"ac_sq_01_lucky_charm"
+scope = &"academy"
+code = "AC-SQ-01"
+title = "Талисман"
+summary = "Найти талисман Миры в вентиляции прачечной."
+description = "Мира потеряла латунный талисман — единственную вещь от брата. Он упал в вентиляцию."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_txwxa")]
+rewards = [SubResource("Resource_l2ar8"), SubResource("Resource_dhph8")]
+completion_flag = &"ac_sq_01_complete"

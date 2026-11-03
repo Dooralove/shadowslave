@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_dd4eg"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_plate.tres" id="2_nf02v"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_claw.tres" id="3_h5n34"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_joint.tres" id="4_2xugu"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="5_rx71l"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="6_yd0wh"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="7_u60nx"]
+
+[sub_resource type="Resource" id="Resource_1mwh1"]
+script = ExtResource("1_dd4eg")
+item = ExtResource("2_nf02v")
+weight = 45.0
+
+[sub_resource type="Resource" id="Resource_foxf1"]
+script = ExtResource("1_dd4eg")
+item = ExtResource("3_h5n34")
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_vwvyw"]
+script = ExtResource("1_dd4eg")
+item = ExtResource("4_2xugu")
+weight = 20.0
+
+[sub_resource type="Resource" id="Resource_ju5ls"]
+script = ExtResource("1_dd4eg")
+item = ExtResource("5_rx71l")
+weight = 5.0
+
+[sub_resource type="Resource" id="Resource_agsap"]
+script = ExtResource("1_dd4eg")
+item = ExtResource("6_yd0wh")
+weight = 100.0
+notes = "Канон: кристалл из карапакса, гл. 34."
+
+[resource]
+resource_name = "enemy_carapace_scavenger"
+script = ExtResource("7_u60nx")
+id = &"enemy_carapace_scavenger"
+display_name = "Карапакс-мусорщик"
+description = "Обычный карапакс: кристалл души, хитин и иногда мясо. Памяти не выпадают."
+source_kind = "enemy"
+canon_status = &"CANON"
+guaranteed = Array[ExtResource("1_dd4eg")]([SubResource("Resource_agsap")])
+entries = Array[ExtResource("1_dd4eg")]([SubResource("Resource_1mwh1"), SubResource("Resource_foxf1"), SubResource("Resource_vwvyw"), SubResource("Resource_ju5ls")])
+tags = PackedStringArray("carapace", "z03", "z13", "z14")

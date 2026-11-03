@@ -1,0 +1,7 @@
+[gd_resource type="Sky" format=3]
+
+[ext_resource type="Material" path="res://resources/locations/forgotten_shore_labyrinth/sky_labyrinth_material.tres" id="1_material"]
+
+[resource]
+sky_material = ExtResource("1_material")
+radiance_size = 3

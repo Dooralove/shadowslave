@@ -114,12 +114,14 @@ func get_zoom() -> float:
 
 ## Приближение с сохранением точки focus (пиксели холста) под курсором.
 func zoom_by(factor: float, focus: Vector2) -> void:
-	if _mode != Mode.LOCAL or _map == null:
+	if _mode == Mode.LOCAL and _map == null:
 		return
-	var before := _local_area()
+	if _mode == Mode.WORLD and _world_map == null:
+		return
+	var before := _world_area() if _mode == Mode.WORLD else _local_area()
 	var anchor := (focus - before.position) / before.size
 	_zoom = clampf(_zoom * factor, 1.0, MAX_ZOOM)
-	var base := _base_local_area()
+	var base := _base_world_area() if _mode == Mode.WORLD else _base_local_area()
 	var new_size := base.size * _zoom
 	var new_position := focus - anchor * new_size
 	_pan = new_position + new_size * 0.5 - base.get_center()
@@ -136,7 +138,7 @@ func reset_view() -> void:
 
 
 func _clamp_pan() -> void:
-	var base := _base_local_area()
+	var base := _base_world_area() if _mode == Mode.WORLD else _base_local_area()
 	var limit := base.size * (_zoom - 1.0) * 0.5
 	_pan = Vector2(clampf(_pan.x, -limit.x, limit.x), clampf(_pan.y, -limit.y, limit.y))
 
@@ -154,6 +156,8 @@ func show_world(
 	_current_region_id = current_region_id
 	_hover_region = null
 	_selected_marker_id = &""
+	_zoom = 1.0
+	_pan = Vector2.ZERO
 	_rebuild_buttons()
 	_layout_buttons()
 	queue_redraw()
@@ -211,7 +215,10 @@ func _gui_input(event: InputEvent) -> void:
 	if _mode == Mode.LOCAL:
 		_local_input(event)
 		return
+	_local_input(event)
 	if event is InputEventMouseMotion:
+		if _dragging:
+			return
 		var hovered := region_at(event.position)
 		if hovered != _hover_region:
 			_hover_region = hovered
@@ -222,7 +229,7 @@ func _gui_input(event: InputEvent) -> void:
 				else Control.CURSOR_ARROW
 			)
 			queue_redraw()
-	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and _zoom <= 1.0:
 		var region := region_at(event.position)
 		if region != null and region.is_playable():
 			region_selected.emit(region)
@@ -592,22 +599,43 @@ func _draw_world_map() -> void:
 	var area := _world_area()
 	_draw_background(_world_map, area)
 
-	for region in _regions:
-		if region != null and not region.outside_realm:
-			_draw_realm_region(region, area)
-	var realm_end := area.position.x + _world_map.background_rect.end.x * area.size.x
+	var baked := _world_map.baked_labels
 	var compass := Vector2(area.position.x + 44.0, area.end.y - 46.0)
-	var occupied: Array[Rect2] = [
-		Rect2(Vector2(realm_end - 2.0, area.position.y), Vector2(area.end.x - realm_end + 2.0, area.size.y)),
-		Rect2(compass - Vector2(34, 46), Vector2(68, 80)),
-	]
-	for region in _regions:
-		if region != null and not region.outside_realm:
-			occupied.append(_draw_region_label(region, area))
-	_draw_landmarks(area, occupied)
+	var occupied: Array[Rect2] = []
+	if baked:
+		# Подписи и значки уже нанесены на пергамент. Остаются только подсветка
+		# региона под курсором и отметка «вы здесь».
+		for region in _regions:
+			if region != null and not region.outside_realm and region == _hover_region:
+				_draw_realm_hover(region, area)
+		for region in _regions:
+			if region != null and not region.outside_realm and region.id == _current_region_id:
+				_draw_here_mark(area.position + region.label_position * area.size + Vector2(0, -30))
+	else:
+		for region in _regions:
+			if region != null and not region.outside_realm:
+				_draw_realm_region(region, area)
+		var realm_end := area.position.x + _world_map.background_rect.end.x * area.size.x
+		occupied = [
+			Rect2(Vector2(realm_end - 2.0, area.position.y), Vector2(area.end.x - realm_end + 2.0, area.size.y)),
+			Rect2(compass - Vector2(34, 46), Vector2(68, 80)),
+		]
+		for region in _regions:
+			if region != null and not region.outside_realm:
+				occupied.append(_draw_region_label(region, area))
+		_draw_landmarks(area, occupied)
 
 	_draw_outside_column(area)
-	MapPaint.draw_compass_rose(self, compass, 22.0)
+	if not baked:
+		MapPaint.draw_compass_rose(self, compass, 22.0)
+
+
+func _draw_realm_hover(region: MapRegion, area: Rect2) -> void:
+	if region.outline.size() < 3:
+		return
+	var points := _map_points(region.outline, area)
+	draw_colored_polygon(points, Color(1.0, 0.92, 0.70, 0.10))
+	draw_polyline(_closed_polygon(points), Color(1.0, 0.88, 0.58, 0.9), 2.0, true)
 
 
 func _draw_realm_region(region: MapRegion, area: Rect2) -> void:
@@ -779,6 +807,14 @@ func _base_local_area() -> Rect2:
 ## Область общей карты: растр Царства в background_rect сохраняет пропорции,
 ## остаток справа — колонка регионов вне Царства.
 func _world_area() -> Rect2:
+	var base := _base_world_area()
+	if is_equal_approx(_zoom, 1.0):
+		return base
+	var zoomed := base.size * _zoom
+	return Rect2(base.get_center() + _pan - zoomed * 0.5, zoomed)
+
+
+func _base_world_area() -> Rect2:
 	var margin := Vector2(minf(24.0, size.x * 0.03), minf(22.0, size.y * 0.045))
 	var inner := Rect2(margin, size - margin * 2.0)
 	var ratio := 1.6667

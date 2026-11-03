@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "art_academy_screen"
+albedo_color = Color(0.035, 0.07, 0.085, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.1, 0.34, 0.44, 1)
+emission_energy_multiplier = 0.55

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterRigProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/character_rig_profile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+id = &"p1_ual"
+skeleton_name = &"Skeleton3D"
+required_bones = PackedStringArray("Hips", "Spine", "Chest", "UpperChest", "Neck", "Head", "RightShoulder", "RightUpperArm", "RightLowerArm", "RightHand", "LeftShoulder", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperLeg", "RightLowerLeg", "RightFoot", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot")
+socket_bones = {
+&"hand_r": &"RightHand",
+&"hand_l": &"LeftHand",
+&"hips": &"Hips",
+&"back": &"UpperChest",
+&"head": &"Head"
+}
+notes = "P1 MPFB / UAL fallback: 53 bones. Armour must be authored on this exact rig."

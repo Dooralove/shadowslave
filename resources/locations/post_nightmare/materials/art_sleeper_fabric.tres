@@ -1,0 +1,14 @@
+[gd_resource type="ORMMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_linen_albedo_1k.jpg" id="1_vqk4y"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rough_linen_nor_gl_1k.jpg" id="2_birfw"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rough_linen_arm_1k.jpg" id="3_bm7v3"]
+
+[resource]
+resource_name = "art_sleeper_fabric"
+albedo_color = Color(0.38, 0.49, 0.62, 1)
+albedo_texture = ExtResource("1_vqk4y")
+orm_texture = ExtResource("3_bm7v3")
+normal_enabled = true
+normal_texture = ExtResource("2_birfw")
+uv1_scale = Vector3(1.3, 1.3, 1.3)

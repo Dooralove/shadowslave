@@ -1,0 +1,236 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/vitals_bar.gd" id="1_vitals"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_frame.png" id="2_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_medallion.png" id="3_medallion"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_plate.png" id="4_plate"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_fill.png" id="5_fill"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_glow.png" id="6_glow"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_shine.png" id="7_shine"]
+[ext_resource type="Texture2D" path="res://assets/ui/vitals/hp_notch.png" id="8_notch"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="VitalsBar" type="Control"]
+custom_minimum_size = Vector2(360, 130)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 130.0
+mouse_filter = 2
+texture_filter = 2
+script = ExtResource("1_vitals")
+
+[node name="BarGlow" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.18)
+layout_mode = 0
+offset_left = 76.0
+offset_top = 28.0
+offset_right = 284.0
+offset_bottom = 84.0
+mouse_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+texture = ExtResource("6_glow")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Plate" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 92.0
+offset_top = 40.0
+offset_right = 268.0
+offset_bottom = 80.0
+mouse_filter = 2
+texture_filter = 4
+texture = ExtResource("4_plate")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="BarClip" type="Control" parent="."]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+offset_left = 96.0
+offset_top = 44.0
+offset_right = 264.0
+offset_bottom = 78.0
+mouse_filter = 2
+
+[node name="Ghost" type="ColorRect" parent="BarClip"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 24.0
+mouse_filter = 2
+color = Color(0.72, 0.62, 0.45, 0.18)
+
+[node name="Fill" type="TextureRect" parent="BarClip"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("5_fill")
+expand_mode = 1
+stretch_mode = 1
+texture_repeat = 2
+
+[node name="Shine" type="TextureRect" parent="BarClip"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.14)
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 24.0
+mouse_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+texture = ExtResource("7_shine")
+expand_mode = 1
+stretch_mode = 1
+texture_repeat = 2
+
+[node name="StaminaFill" type="TextureRect" parent="BarClip"]
+unique_name_in_owner = true
+modulate = Color(0.88, 0.71, 0.4, 1)
+layout_mode = 0
+offset_top = 28.0
+offset_right = 168.0
+offset_bottom = 34.0
+mouse_filter = 2
+texture = ExtResource("5_fill")
+expand_mode = 1
+stretch_mode = 1
+texture_repeat = 2
+
+[node name="NotchA" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 0
+offset_left = 136.0
+offset_top = 40.0
+offset_right = 141.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture_filter = 4
+texture = ExtResource("8_notch")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="NotchB" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 0
+offset_left = 177.0
+offset_top = 40.0
+offset_right = 182.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture_filter = 4
+texture = ExtResource("8_notch")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="NotchC" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 0
+offset_left = 218.0
+offset_top = 40.0
+offset_right = 223.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture_filter = 4
+texture = ExtResource("8_notch")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="DamageOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 96.0
+offset_top = 44.0
+offset_right = 264.0
+offset_bottom = 78.0
+mouse_filter = 2
+color = Color(0.82, 0.08, 0.05, 0)
+
+[node name="Frame" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 18.0
+offset_right = 348.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture_filter = 4
+texture = ExtResource("2_frame")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="MedallionGlow" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.28)
+layout_mode = 0
+offset_left = -19.0
+offset_top = 27.0
+offset_right = 65.0
+offset_bottom = 111.0
+mouse_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+texture = ExtResource("6_glow")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Medallion" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -6.0
+offset_top = 40.0
+offset_right = 52.0
+offset_bottom = 98.0
+mouse_filter = 2
+texture = ExtResource("3_medallion")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="MedallionCore" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.55, 0.85, 1, 0.5)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 54.0
+offset_right = 38.0
+offset_bottom = 84.0
+mouse_filter = 2
+material = SubResource("CanvasItemMaterial_add")
+texture = ExtResource("6_glow")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="HealthLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_right = 348.0
+offset_bottom = 18.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 14
+text = "Санни · 100 / 100"
+
+[node name="StatusLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 104.0
+offset_right = 340.0
+offset_bottom = 122.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.48, 0.34, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "КРИТИЧЕСКОЕ СОСТОЯНИЕ"
+horizontal_alignment = 0

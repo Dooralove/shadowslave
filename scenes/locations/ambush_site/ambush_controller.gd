@@ -25,6 +25,9 @@ signal state_changed(new_state: State)
 
 enum State { WAITING, AMBUSH_STARTED, THREAT_ACTIVE, ESCAPE_AVAILABLE, ESCAPED }
 
+const WORLD_FRAME := preload("res://scripts/world/world_frame.gd")
+const SNOW_SCENE := preload("res://scenes/environment/vfx/m1_snow_drift.tscn")
+
 ## AI монстра. Если не задан, ищется дочерний узел MountainKing.
 @export var mountain_king: MountainKing
 ## Если false, AI выключен до start_ambush() (обычный режим засады).
@@ -65,6 +68,7 @@ func _ready() -> void:
 		_escape_reach_trigger.body_entered.connect(_on_escape_reach_body_entered)
 
 	# Сцена засады не должна начинаться с автоматической погони.
+	_build_backdrop()
 	if mountain_king:
 		mountain_king.set_player_hidden(_player_hidden)
 		if monster_starts_active:
@@ -78,6 +82,70 @@ func _ready() -> void:
 			mountain_king.deactivate()
 
 	set_process(true)
+
+
+## The arena is a snow bowl surrounded by 12–28 m cliffs. Above the rim the
+## old build showed only stars and a void; distant ridges and snow give the
+## canyon a mountain horizon without touching collision or gameplay.
+func _build_backdrop() -> void:
+	var backdrop := Node3D.new()
+	backdrop.name = "Backdrop"
+	add_child(backdrop)
+	var near_rim := WORLD_FRAME.ridge_ring(
+		Vector3.ZERO,
+		360.0,
+		120,
+		-2.0,
+		34.0,
+		92.0,
+		Color(0.10, 0.13, 0.18),
+		Color(0.035, 0.045, 0.060),
+		Color(0.10, 0.13, 0.18),
+		Color(0.035, 0.045, 0.060),
+		151,
+		"NearMountainRim"
+	)
+	backdrop.add_child(near_rim)
+	var far_rim := WORLD_FRAME.ridge_ring(
+		Vector3.ZERO,
+		820.0,
+		100,
+		-2.0,
+		70.0,
+		180.0,
+		Color(0.10, 0.13, 0.18),
+		Color(0.055, 0.070, 0.090),
+		Color(0.10, 0.13, 0.18),
+		Color(0.055, 0.070, 0.090),
+		173,
+		"FarMountainRim"
+	)
+	backdrop.add_child(far_rim)
+	WORLD_FRAME.spire_cluster(
+		backdrop,
+		Vector3(0.0, 0.0, -520.0),
+		-2.0,
+		210.0,
+		5,
+		Color(0.035, 0.045, 0.060),
+		Color(0.10, 0.13, 0.18),
+		0.40,
+		191,
+		"DistantPeak",
+		42.0
+	)
+	for i in 2:
+		var snow := SNOW_SCENE.instantiate() as Node3D
+		if snow == null:
+			continue
+		snow.name = "Snowfall%d" % i
+		snow.position = Vector3(0.0, 2.0, -8.0 + float(i) * 18.0)
+		backdrop.add_child(snow)
+		for child in snow.get_children():
+			var particles := child as GPUParticles3D
+			if particles != null:
+				particles.emitting = true
+				particles.preprocess = 1.5
 
 
 func _process(delta: float) -> void:

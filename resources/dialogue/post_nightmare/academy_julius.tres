@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"medic"
+text = "Протокол индукции. Слушайте инструктора."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Сто Sleepers. Белые стены. Запах дезинфекции и страха."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"rock"
+text = "Вы не избранные. Вы те, кто ещё дышит."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"rock"
+text = "В Царстве Снов нет сюжета. Есть Врата, Цитадели и твари, которые умеют носить человеческие лица."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"rock"
+text = "Не верьте красноречию. Особенно своему."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"kasper"
+text = "Excellent. Начнём с простого. Кто из вас уже убивал?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Высокий юноша в форме с золотым шитьём улыбнулся. Свита улыбнулась раньше."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"kasper"
+text = "Я — Каспер. Аспект: Excellent. А ты?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Санни. Я убил тирана плевком."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Тишина. Потом смех."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"kasper"
+text = "Он потерял разум в Кошмаре. Оставьте его."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Он не поверил. Но и не выдал."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "В углу сидела слепая девушка. Она повернула голову в его сторону."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_14"]
+script = ExtResource("2_line")
+speaker = &"rock"
+text = "До солнцестояния месяц. Используйте его."
+duration = 0.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13"), SubResource("Line_14")]

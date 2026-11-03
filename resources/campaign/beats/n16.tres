@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N16"
+part = &"act_3"
+part_title = "Акт III «Подъём»"
+canonical_block = 14
+title = "Ночная стража в алькове и слепота Тирана"
+beat_type = 2
+format_label = "С"
+objective = "Сменить Героя на страже"
+idle_objectives = Array[String](["Сядь у огня в алькове", "Смотри вниз: Тиран ест тела", "Не шуми у края"])
+guide_beacon_id = &"alcove"
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"alcove_reached"])
+exit_conditions = Array[StringName]([&"tyrant_sighting_seen", &"dawn_ascent"])
+staging_flags = Array[StringName]([&"tyrant_sighting_seen", &"dawn_ascent"])
+estimated_seconds = 120.0
+estimated_time_text = "~2 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = false

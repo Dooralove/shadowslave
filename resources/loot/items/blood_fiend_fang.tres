@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_material.png" id="1_fgiey"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_idecc"]
+
+[resource]
+resource_name = "blood_fiend_fang"
+script = ExtResource("2_idecc")
+id = &"blood_fiend_fang"
+display_name = "Клык кровавого демона"
+stack_max = 3
+description = "Кость хищника, который чувствует кровь. Трофей, не оружие."
+canon_status = &"CANON"
+tags = PackedStringArray("trophy", "blood_fiend")
+icon = ExtResource("1_fgiey")

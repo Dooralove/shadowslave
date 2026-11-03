@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_3sveh"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_obqb4"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_vu2q2"]
+
+[sub_resource type="Resource" id="Resource_si34t"]
+script = ExtResource("1_3sveh")
+id = &"watch"
+text = "Посмотреть спарринг"
+target_id = &"academy_reached_dojo"
+
+[sub_resource type="Resource" id="Resource_r5kxd"]
+script = ExtResource("1_3sveh")
+id = &"locker"
+text = "Поговорить с Каспером в раздевалке"
+kind = 4
+target_id = &"kasper_locker"
+
+[sub_resource type="Resource" id="Resource_sj7ah"]
+script = ExtResource("2_obqb4")
+flag = &"immortal_flame_known"
+text = "История клана Immortal Flame"
+
+[sub_resource type="Resource" id="Resource_t2crt"]
+script = ExtResource("2_obqb4")
+currency_id = &"credits"
+currency_amount = 25
+text = "25 кредитов"
+
+[resource]
+script = ExtResource("3_vu2q2")
+id = &"ac_mq_10_sparring"
+scope = &"academy"
+code = "AC-MQ-10"
+title = "Спарринг"
+category = 0
+summary = "Посмотреть бой Каспера и Нефис."
+description = "Нефис почти побеждает без Аспекта. В раздевалке Каспер рассказывает о клане Immortal Flame."
+prerequisites = Array[StringName]([&"ac_mq_08_complete"])
+show_available = false
+objectives = [SubResource("Resource_si34t"), SubResource("Resource_r5kxd")]
+rewards = [SubResource("Resource_sj7ah"), SubResource("Resource_t2crt")]
+completion_flag = &"ac_mq_10_complete"

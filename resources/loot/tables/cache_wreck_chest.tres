@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_fejvj"]
+[ext_resource type="Resource" path="res://resources/loot/items/oil_flask.tres" id="2_01se2"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="3_hpo4p"]
+[ext_resource type="Resource" path="res://resources/loot/items/water_skin.tres" id="4_hja16"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="5_rnccs"]
+[ext_resource type="Resource" path="res://resources/loot/items/bone_spear.tres" id="6_t1j1r"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="7_8x1ap"]
+[ext_resource type="Resource" path="res://resources/loot/items/rope.tres" id="8_qwln0"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="9_ip1k0"]
+
+[sub_resource type="Resource" id="Resource_ntgwh"]
+script = ExtResource("1_fejvj")
+item = ExtResource("2_01se2")
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_74k10"]
+script = ExtResource("1_fejvj")
+item = ExtResource("3_hpo4p")
+max_count = 2
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_p6fqh"]
+script = ExtResource("1_fejvj")
+item = ExtResource("4_hja16")
+weight = 20.0
+
+[sub_resource type="Resource" id="Resource_8suhh"]
+script = ExtResource("1_fejvj")
+item = ExtResource("5_rnccs")
+weight = 10.0
+
+[sub_resource type="Resource" id="Resource_vwxa7"]
+script = ExtResource("1_fejvj")
+item = ExtResource("6_t1j1r")
+weight = 10.0
+condition_min = 0.45
+condition_max = 0.8
+notes = "Временное оружие, не Память."
+
+[sub_resource type="Resource" id="Resource_aasnk"]
+script = ExtResource("1_fejvj")
+item = ExtResource("7_8x1ap")
+min_count = 2
+max_count = 3
+weight = 100.0
+notes = "Канонная валюта; фиксированное ядро."
+
+[sub_resource type="Resource" id="Resource_4lnsg"]
+script = ExtResource("1_fejvj")
+item = ExtResource("8_qwln0")
+weight = 100.0
+condition_min = 0.8
+notes = "Канонный инструмент."
+
+[resource]
+resource_name = "cache_wreck_chest"
+script = ExtResource("9_ip1k0")
+id = &"cache_wreck_chest"
+display_name = "Сундук с затонувшего судна"
+description = "Кованый сундук, выброшенный приливом. Практичный salvage, без записок и чужих скелетов."
+guaranteed = Array[ExtResource("1_fejvj")]([SubResource("Resource_aasnk"), SubResource("Resource_4lnsg")])
+entries = Array[ExtResource("1_fejvj")]([SubResource("Resource_ntgwh"), SubResource("Resource_74k10"), SubResource("Resource_p6fqh"), SubResource("Resource_8suhh"), SubResource("Resource_vwxa7")])
+bonus_rolls = 2
+tags = PackedStringArray("tide_wrack", "z02", "z11", "z14", "z17")

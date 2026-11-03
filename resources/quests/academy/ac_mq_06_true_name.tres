@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_vn5jk"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_bavsk"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_ex5fc"]
+
+[sub_resource type="Resource" id="Resource_ry1ao"]
+script = ExtResource("1_vn5jk")
+id = &"read_board"
+text = "Прочитать табло"
+kind = 2
+target_id = &"ranking_board"
+
+[sub_resource type="Resource" id="Resource_3y0mq"]
+script = ExtResource("1_vn5jk")
+id = &"talk_kasper"
+text = "Поговорить с Каспером"
+kind = 4
+target_id = &"kasper_dining"
+
+[sub_resource type="Resource" id="Resource_qtk5x"]
+script = ExtResource("2_bavsk")
+flag = &"nephis_true_name_seen"
+text = "True Name Нефис"
+
+[sub_resource type="Resource" id="Resource_8p31k"]
+script = ExtResource("2_bavsk")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[resource]
+script = ExtResource("3_ex5fc")
+id = &"ac_mq_06_true_name"
+scope = &"academy"
+code = "AC-MQ-06"
+title = "Имя на табло"
+category = 0
+summary = "Понять, кто такая Нефис."
+description = "На табло появляется True Name Нефис — Changing Star. Каспер кланяется. Кассия сидит одна."
+prerequisites = Array[StringName]([&"ac_mq_05_complete"])
+show_available = false
+objectives = [SubResource("Resource_ry1ao"), SubResource("Resource_3y0mq")]
+rewards = [SubResource("Resource_qtk5x"), SubResource("Resource_8p31k")]
+completion_flag = &"ac_mq_06_complete"

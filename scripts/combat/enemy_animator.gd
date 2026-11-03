@@ -45,8 +45,16 @@ func _process(delta: float) -> void:
 
 ## Скорость клипа атаки, при которой контакт совпадает с серединой окна попадания.
 func attack_clip_speed() -> float:
-	var contact_at := enemy.telegraph_time + attack.stats.active_time * 0.5
-	return clampf(attack_contact_time / contact_at, 0.5, 2.0)
+	if attack == null or attack.stats == null:
+		return 1.0
+	var contact_at := enemy.telegraph_time + attack.stats.windup_time + attack.stats.active_time * 0.5
+	var contact := attack_contact_time
+	var value: Variant = attack.stats.get(&"contact_time")
+	if value != null and float(value) > 0.0:
+		contact = float(value)
+	if contact_at <= 0.0:
+		return 1.0
+	return clampf(contact / contact_at, 0.5, 2.0)
 
 
 func _on_state_changed(new_state: TestEnemy.State) -> void:
@@ -80,8 +88,10 @@ func _on_damaged(_amount: float) -> void:
 	# Реакцию показываем, только когда противник не готовит и не наносит удар.
 	if enemy.state in [TestEnemy.State.TELEGRAPH, TestEnemy.State.ATTACK, TestEnemy.State.DEAD]:
 		return
+	if not animation_player.has_animation(hit_clip):
+		return
 	_play(hit_clip, 0.05)
-	_hit_left = animation_player.get_animation(hit_clip).length
+	_hit_left = _clip_length(hit_clip)
 
 
 func _on_animation_finished(clip: StringName) -> void:
@@ -94,3 +104,8 @@ func _play(clip: StringName, blend := -1.0) -> void:
 	animation_player.speed_scale = 1.0
 	animation_player.play(clip, blend_time if blend < 0.0 else blend)
 	animation_player.seek(0.0, true)
+
+
+func _clip_length(clip: StringName) -> float:
+	var animation := animation_player.get_animation(clip)
+	return animation.length if animation != null else 0.0

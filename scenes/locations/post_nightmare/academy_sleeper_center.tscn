@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://cu0v1n5672iir"]
+
+[ext_resource type="Script" uid="uid://b07nilf54wvx1" path="res://scripts/locations/post_nightmare/academy_sleeper_center.gd" id="1_location"]
+[ext_resource type="Environment" path="res://resources/locations/post_nightmare/environments/env_academy_interior.tres" id="2_environment"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_player"]
+[ext_resource type="Script" uid="uid://blcshma5se0ec" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" uid="uid://b66p775hv3f1w" path="res://scripts/world/level_portal.gd" id="5_portal"]
+[ext_resource type="PackedScene" uid="uid://b36woeuu7cs3l" path="res://scenes/quests/gameplay_hud.tscn" id="6_stbjy"]
+[ext_resource type="PackedScene" path="res://scenes/environment/post_nightmare/academy_sleeper_center_art.tscn" id="7_art"]
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_stage.gd" id="8_stage"]
+[ext_resource type="Resource" path="res://resources/cutscene/m1/p09_induction.tres" id="9_p09induction"]
+[ext_resource type="Resource" path="res://resources/cutscene/m1/p09_capsule.tres" id="10_p09capsule"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_campus"]
+size = Vector3(4, 3, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dream"]
+size = Vector3(3, 2, 2.8)
+
+[node name="AcademySleeperCenter" type="Node3D" unique_id=1950979595]
+script = ExtResource("1_location")
+location_id = &"academy_sleeper_center"
+display_name = "Спальный центр Академии"
+map_id = &"academy_sleeper_center"
+show_debug_labels = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1847869146]
+environment = ExtResource("2_environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=454143639]
+transform = Transform3D(0.8660254, 0.40957603, -0.28678823, 0, 0.57357645, 0.81915206, 0.5, -0.7094065, 0.49673176, 0, 0, 0)
+light_color = Color(0.7, 0.82, 1, 1)
+light_energy = 0.35
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="Player" parent="." unique_id=2027050939 instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.2)
+
+[node name="Spawns" type="Node3D" parent="." unique_id=1202080303]
+
+[node name="Start" type="Marker3D" parent="Spawns" unique_id=1312470816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.2)
+
+[node name="Return" type="Marker3D" parent="Spawns" unique_id=2039263729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.2)
+
+[node name="CommonRoom" type="Marker3D" parent="Spawns" unique_id=149436604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.2, 0)
+
+[node name="Showers" type="Marker3D" parent="Spawns" unique_id=743744311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.2, 0)
+
+[node name="Observation" type="Marker3D" parent="Spawns" unique_id=317879890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -8)
+
+[node name="FromCampus" type="Marker3D" parent="Spawns" unique_id=1030787915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 11)
+
+[node name="FromDream" type="Marker3D" parent="Spawns" unique_id=140420011]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.2, -21.5)
+
+[node name="Portals" type="Node3D" parent="." unique_id=981996802]
+
+[node name="ToCampus" type="Area3D" parent="Portals" unique_id=748403416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 13.25)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/academy_campus.tscn"
+destination_spawn = &"FromSleeper"
+fade_out_duration = 0.22
+fade_in_duration = 0.28
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToCampus" unique_id=9495433]
+shape = SubResource("BoxShape3D_campus")
+
+[node name="ToBlackSea" type="Area3D" parent="Portals" unique_id=242412137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -25.5)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/black_sea_platform.tscn"
+destination_spawn = &"FromSleeper"
+fade_out_duration = 1.35
+fade_in_duration = 1.55
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToBlackSea" unique_id=991747299]
+shape = SubResource("BoxShape3D_dream")
+
+[node name="Shots" type="Node3D" parent="." unique_id=434499672]
+
+[node name="Overview" type="Camera3D" parent="Shots" unique_id=984946210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, 5.8)
+fov = 70.0
+far = 160.0
+
+[node name="OverviewTarget" type="Marker3D" parent="Shots" unique_id=1330661637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -5.5)
+
+[node name="Dormitory" type="Camera3D" parent="Shots" unique_id=1682632238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 6.1)
+fov = 65.0
+far = 160.0
+
+[node name="DormitoryTarget" type="Marker3D" parent="Shots" unique_id=690018324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -4)
+
+[node name="Observation" type="Camera3D" parent="Shots" unique_id=1131084667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, -7.1)
+fov = 72.0
+far = 160.0
+
+[node name="ObservationTarget" type="Marker3D" parent="Shots" unique_id=1647496463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, -11.7)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1824468169]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=537933279]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("4_fade")
+
+[node name="GameplayHud" parent="." unique_id=22532716 instance=ExtResource("6_stbjy")]
+
+[node name="ArtOverlay" parent="." instance=ExtResource("7_art")]
+
+[node name="Cutscene" type="Node3D" parent="."]
+
+[node name="P09Induction" type="Node3D" parent="Cutscene"]
+script = ExtResource("8_stage")
+definition = ExtResource("9_p09induction")
+
+[node name="P09Capsule" type="Node3D" parent="Cutscene"]
+script = ExtResource("8_stage")
+definition = ExtResource("10_p09capsule")

@@ -54,6 +54,14 @@ func _interact(site: Node3D, id: StringName) -> void:
 		point.interact()
 
 
+func _trigger(site: Node3D, id: StringName) -> void:
+	var zone := site.call(&"get_trigger", id) as TriggerZone
+	assert_not_null(zone, "зона прохода %s существует" % id)
+	if zone != null:
+		assert_true(zone.enabled, "зона %s доступна" % id)
+		zone.fire()
+
+
 func _flag(flag: StringName) -> bool:
 	return NightmareRunState.has_flag(flag)
 
@@ -124,19 +132,18 @@ func test_eighteen_step_route_reaches_finale_without_premature_completion() -> v
 	assert_eq(camp_wrapper.get_phase(), &"CAMP")
 	await _despawn(camp_wrapper)
 
-	# Шаг 5. Три якоря лагеря открывают нападение.
+	# Шаг 5. N07 v2: паёк и постановка, без чек-листа осмотров.
 	var camp = await _spawn(CAMP_LOCATION)
 	camp.begin_camp()
 	_interact(camp, &"camp_rations")
-	_interact(camp, &"camp_bloodbane")
-	_interact(camp, &"camp_wagon")
+	camp.stage_camp_vision_recognition()
 	assert_true(_flag(&"camp_rations_taken"))
 	assert_true(_flag(&"camp_bloodbane_seen"))
 	assert_true(_flag(&"camp_wagon_examined"))
 	assert_true(_flag(&"camp_explored"))
 	assert_true((camp.call(&"get_interactable", &"camp_attack") as Interactable).enabled)
 
-	# Шаг 6. Нападение начинается только после осмотра лагеря.
+	# Шаг 6. Нападение начинается после постановки N07.
 	_interact(camp, &"camp_attack")
 	assert_true(_flag(&"attack_started"))
 	assert_true(_flag(&"camp_completed"))
@@ -188,10 +195,7 @@ func test_eighteen_step_route_reaches_finale_without_premature_completion() -> v
 	_interact(camp, &"flask_b")
 	_interact(camp, &"flask_c")
 	assert_eq(camp.collected_flasks(), 3)
-	_interact(camp, &"poison_flasks")
-	assert_true(_flag(&"flasks_poisoned"))
-	assert_true(_flag(&"sunny_flask_clean"))
-	assert_eq(NightmareRunState.get_item_count(&"flasks"), 3, "отравление не расходует фляги")
+	assert_null(camp.get_interactable(&"poison_flasks"), "E-точки отравления больше нет")
 	_interact(camp, &"veteran")
 	_interact(camp, &"veteran_sword")
 	assert_true(_flag(&"veteran_sword_taken"))
@@ -205,8 +209,11 @@ func test_eighteen_step_route_reaches_finale_without_premature_completion() -> v
 	assert_true(NightmareRunState.has_item(&"cloak"))
 	assert_true(NightmareRunState.has_item(&"boots"))
 
-	# Шаг 10. Ночь у огня и рассвет.
-	_interact(camp, &"night_fire")
+	# Шаг 10. Ночь у края: монтаж ставит флаги, затем рассвет.
+	camp.request_night()
+	assert_true(_flag(&"flasks_poisoned"))
+	assert_true(_flag(&"sunny_flask_clean"))
+	assert_eq(NightmareRunState.get_item_count(&"flasks"), 3, "фляги не расходуются")
 	assert_true(_flag(&"night_started"))
 	assert_eq(camp.phase, &"NIGHT")
 	assert_false(camp.four_larvae.visible, "NIGHT не возвращает личинок")
@@ -221,17 +228,18 @@ func test_eighteen_step_route_reaches_finale_without_premature_completion() -> v
 
 	# Шаг 11. Разрушенная дорога и брошенный меч.
 	var path = await _spawn(PILGRIM_LOCATION)
-	_interact(path, &"road_gap")
+	_trigger(path, &"road_gap")
 	assert_true(_flag(&"road_gap_seen"))
-	_interact(path, &"sword")
+	_trigger(path, &"sword")
 	assert_true(_flag(&"sword_discarded"))
 	assert_false((path.get_node("Props/Sword") as Node3D).visible)
 	assert_false(NightmareRunState.has_item(&"sword"))
 
 	# Шаг 12. Альков, ночь, слепота и смерть Шифти.
-	_interact(path, &"rest")
+	_trigger(path, &"rest")
 	assert_true(_flag(&"alcove_reached"))
 	path.kill_shifty()
+	NightmareRunState.set_flag(&"shifty_larva_killed")
 	path.begin_dawn()
 	assert_true(_flag(&"shifty_dead"))
 	assert_true(_flag(&"dawn_ascent"))
@@ -242,24 +250,28 @@ func test_eighteen_step_route_reaches_finale_without_premature_completion() -> v
 		"на камне остаётся кровь")
 
 	# Шаг 13. Учёный разоблачён и оставлен.
-	_interact(path, &"scholar")
+	_trigger(path, &"scholar")
 	assert_true(_flag(&"scholar_confronted"))
 	path.abandon_scholar()
 	assert_true(_flag(&"scholar_abandoned"))
 	assert_false((path.get_node("NPCs/Scholar") as Node3D).visible)
 
 	# Шаг 14. Пещера, признание, ранение и выход.
-	_interact(path, &"cave")
+	_trigger(path, &"cave")
 	assert_true(_flag(&"cave_entered"))
 	path.mark_confession()
 	path.wound_sunny()
 	assert_true(_flag(&"scholar_confession_seen"))
 	assert_true(_flag(&"wound_taken"))
-	_interact(path, &"cave_exit")
+	_trigger(path, &"cave_exit")
 	assert_true(_flag(&"cave_escaped"))
+	# N21: в маршрутном тесте проверяем шлюз, а сам стелс гоняет
+	# test_act4_stealth. Без флага Герой не должен открываться.
+	NightmareRunState.set_flag(&"stealth_completed")
+	path.prepare_route()
 
 	# Шаг 15. Герой, Silver Bell, захват и вход в храм.
-	_interact(path, &"hero")
+	_trigger(path, &"hero")
 	assert_true(_flag(&"hero_confrontation_seen"))
 	assert_true((path.get_node("NPCs/Hero") as Node3D).visible, "до звонка Герой виден")
 	assert_false((path.get_node("NPCs/TyrantAtHero") as Node3D).visible)
@@ -348,6 +360,81 @@ func test_eighteen_step_route_reaches_finale_without_premature_completion() -> v
 	assert_true(_flag(&"first_nightmare_completed"),
 		"финальный флаг выставляется только в S15")
 	await _despawn(finale)
+
+
+func test_v2_staged_bloodbane_and_beat_director_route_reach_appraisal_and_finale() -> void:
+	var camp = await _spawn(CAMP_LOCATION)
+	camp.begin_camp()
+	_interact(camp, &"camp_rations")
+	camp.stage_camp_vision_recognition()
+	assert_true(_flag(&"camp_bloodbane_seen"))
+	assert_true(_flag(&"camp_explored"))
+	_interact(camp, &"camp_attack")
+	camp.begin_larva_phase()
+	_interact(camp, &"chain_larva")
+	camp.kill_larva()
+	camp.show_key()
+	_interact(camp, &"hero_key")
+	camp.release_chains()
+	camp.finish_episode()
+	camp.begin_wagon_phase()
+	_interact(camp, &"wagon_wedges")
+	_interact(camp, &"wagon_loop")
+	_interact(camp, &"wagon_push")
+	camp.stage_tyrant_for_wagon()
+	camp.animate_wagon_fall(true)
+	camp.show_aftermath()
+	camp.begin_aftermath_search()
+	_interact(camp, &"flask_a")
+	_interact(camp, &"flask_b")
+	_interact(camp, &"flask_c")
+	_interact(camp, &"veteran")
+	_interact(camp, &"veteran_sword")
+	camp.execute_veteran()
+	# Отравление ставит постановка N13 без кнопки.
+	camp.request_night()
+	assert_true(_flag(&"flasks_poisoned"))
+	assert_true(_flag(&"sunny_flask_clean"))
+	camp.begin_dawn()
+	_interact(camp, &"dawn_exit")
+	await _despawn(camp)
+
+	var path = await _spawn(PILGRIM_LOCATION)
+	_trigger(path, &"road_gap")
+	_trigger(path, &"sword")
+	_trigger(path, &"rest")
+	path.kill_shifty()
+	NightmareRunState.set_flag(&"shifty_larva_killed")
+	path.begin_dawn()
+	_trigger(path, &"scholar")
+	path.abandon_scholar()
+	_trigger(path, &"cave")
+	path.mark_confession()
+	path.wound_sunny()
+	_trigger(path, &"cave_exit")
+	NightmareRunState.set_flag(&"stealth_completed")
+	path.prepare_route()
+	_trigger(path, &"hero")
+	_interact(path, &"bell")
+	path.begin_hero_capture()
+	path.complete_hero_capture()
+	NightmareRunState.set_flag(&"mark_of_divinity")
+	path.reach_temple()
+	await _despawn(path)
+
+	NightmareRunState.set_flag(&"trial_completed")
+	NightmareRunState.set_flag(&"tyrant_death_confirmed")
+	var appraisal = await _spawn(APPRAISAL_SCENE, {
+		"fade_in": false,
+		"transition_enabled": false,
+		"fast_mode": true,
+		"start_delay": 0.0,
+		"end_delay": 0.0,
+	})
+	assert_eq(appraisal.defeated_dormant_humans(), 3, "постановка N13 засчитывает трёх дремлющих людей в оценке")
+	assert_true(appraisal.can_appraise())
+	await _despawn(appraisal)
+
 
 
 func _configure_fast_ritual(ritual: AltarRitual) -> void:

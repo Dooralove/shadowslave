@@ -237,8 +237,8 @@ omni_range = 4.0
 [node name="GuardA" parent="Guards" instance=ExtResource("2_mannequin")]
 position = Vector3(-2.4, 0, -1.6)
 rotation = Vector3(0, -2.396, 0)
-height_scale = 1.12
-archetype = "police"
+height_scale = 1.0
+archetype = "police_guard"
 pose = "idle"
 
 [node name="Rifle" type="MeshInstance3D" parent="Guards/GuardA"]
@@ -248,8 +248,8 @@ mesh = SubResource("Mesh_rifle")
 [node name="GuardB" parent="Guards" instance=ExtResource("2_mannequin")]
 position = Vector3(2.4, 0, -1.6)
 rotation = Vector3(0, 2.396, 0)
-height_scale = 1.15
-archetype = "police"
+height_scale = 1.0
+archetype = "police_guard"
 pose = "idle"
 
 [node name="Rifle" type="MeshInstance3D" parent="Guards/GuardB"]
@@ -259,14 +259,14 @@ mesh = SubResource("Mesh_rifle")
 [node name="Policeman" parent="." instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -8.5)
 rotation = Vector3(0, 3.14159, 0)
-height_scale = 1.1
-archetype = "police"
+height_scale = 0.95
+archetype = "police_desk"
 pose = "idle"
 
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="Chair" type="Marker3D" parent="Spawns"]
-position = Vector3(0, 0, 0.95)
+position = Vector3(0, 0, 1.15)
 
 [node name="Markers" type="Node3D" parent="."]
 

@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="EnvironmentArtProfile" format=3]
+
+[ext_resource type="Environment" path="res://assets/environments/post_nightmare/environments/art_p08_env.tres" id="1_ibfnn"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_asphalt.tres" id="2_gge5i"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_material_swap.gd" id="3_2vgs1"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_concrete.tres" id="4_nrhrd"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_wall.tres" id="5_6g14b"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_metal.tres" id="6_m1kcr"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_snow.tres" id="7_s3lfo"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_glass.tres" id="8_u0dsy"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_screen.tres" id="9_sm3os"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_red.tres" id="10_cfsra"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_white.tres" id="11_hjkv3"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_wood_light.tres" id="12_pxier"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_profile.gd" id="13_lyogf"]
+
+[sub_resource type="Resource" id="Resource_j6jgn"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "asphalt.tres"
+material = ExtResource("2_gge5i")
+
+[sub_resource type="Resource" id="Resource_20116"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "concrete.tres"
+material = ExtResource("4_nrhrd")
+
+[sub_resource type="Resource" id="Resource_xohxx"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "concrete_dark.tres"
+material = ExtResource("5_6g14b")
+
+[sub_resource type="Resource" id="Resource_0smnr"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "metal_dark.tres"
+material = ExtResource("6_m1kcr")
+
+[sub_resource type="Resource" id="Resource_w7gpn"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "metal_light.tres"
+material = ExtResource("6_m1kcr")
+
+[sub_resource type="Resource" id="Resource_7r6pk"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "snow.tres"
+material = ExtResource("7_s3lfo")
+
+[sub_resource type="Resource" id="Resource_28l3m"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "glass_blue.tres"
+material = ExtResource("8_u0dsy")
+
+[sub_resource type="Resource" id="Resource_upah1"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "screen_cyan_dim.tres"
+material = ExtResource("9_sm3os")
+
+[sub_resource type="Resource" id="Resource_og4e4"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "fabric_blue.tres"
+material = ExtResource("10_cfsra")
+
+[sub_resource type="Resource" id="Resource_hl5bl"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "white.tres"
+material = ExtResource("11_hjkv3")
+
+[sub_resource type="Resource" id="Resource_nyt3s"]
+script = ExtResource("3_2vgs1")
+match_path_suffix = "wood_light.tres"
+material = ExtResource("12_pxier")
+
+[resource]
+resource_name = "art_p08_profile"
+script = ExtResource("13_lyogf")
+environment = ExtResource("1_ibfnn")
+material_swaps = [SubResource("Resource_j6jgn"), SubResource("Resource_20116"), SubResource("Resource_xohxx"), SubResource("Resource_0smnr"), SubResource("Resource_w7gpn"), SubResource("Resource_7r6pk"), SubResource("Resource_28l3m"), SubResource("Resource_upah1"), SubResource("Resource_og4e4"), SubResource("Resource_hl5bl"), SubResource("Resource_nyt3s")]
+hide_name_prefixes = PackedStringArray("GalleryColumn")
+hide_name_contains = PackedStringArray()
+override_key_light = true
+key_light_rotation_degrees = Vector3(-16, -40, 0)
+key_light_color = Color(1, 0.82, 0.64, 1)
+key_light_energy = 0.92
+water_name_contains = PackedStringArray("Water", "SeaBelow", "BlackWater", "DeepWater")
+glow_intensity = 0.36
+fog_density = 0.016

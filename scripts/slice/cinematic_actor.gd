@@ -22,14 +22,17 @@ func _ready() -> void:
 
 func begin() -> void:
 	active = true
-	if animator:
-		animator.cinematic = true
+	if animator != null:
+		# animator объявлен как Node: у Mannequin/SunnyAnimator свойство
+		# cinematic есть не у всех наследников, поэтому статический доступ
+		# к нему запрещён. set() работает и для SunnyAnimator, и для NPC.
+		animator.set(&"cinematic", true)
 
 
 func end() -> void:
 	active = false
-	if animator:
-		animator.cinematic = false
+	if animator != null:
+		animator.set(&"cinematic", false)
 
 
 func has_action(action: StringName) -> bool:

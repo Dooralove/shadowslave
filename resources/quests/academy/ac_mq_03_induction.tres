@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_mxwid"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_68iw8"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_73ki2"]
+
+[sub_resource type="Resource" id="Resource_ie5xo"]
+script = ExtResource("1_mxwid")
+id = &"listen_rock"
+text = "Выслушать Рока"
+kind = 4
+target_id = &"rock_induction"
+
+[sub_resource type="Resource" id="Resource_vh7ce"]
+script = ExtResource("1_mxwid")
+id = &"answer_kasper"
+text = "Ответить Касперу"
+kind = 4
+target_id = &"kasper_induction"
+
+[sub_resource type="Resource" id="Resource_ksyej"]
+script = ExtResource("1_mxwid")
+id = &"see_cassia"
+text = "Заметить Кассию"
+target_id = &"cassia_seen"
+
+[sub_resource type="Resource" id="Resource_etmkw"]
+script = ExtResource("2_68iw8")
+flag = &"academy_schedule"
+text = "Расписание занятий"
+
+[sub_resource type="Resource" id="Resource_phn6u"]
+script = ExtResource("2_68iw8")
+currency_id = &"credits"
+currency_amount = 20
+text = "20 кредитов"
+
+[resource]
+script = ExtResource("3_73ki2")
+id = &"ac_mq_03_induction"
+scope = &"academy"
+code = "AC-MQ-03"
+title = "Индукция"
+category = 0
+summary = "Пройти индукцию и не выдать себя."
+description = "Рок объясняет правила Царства Снов. Каспер спрашивает, кто уже убивал. Кассия сидит в углу."
+prerequisites = Array[StringName]([&"ac_mq_02_complete"])
+show_available = false
+objectives = [SubResource("Resource_ie5xo"), SubResource("Resource_vh7ce"), SubResource("Resource_ksyej")]
+rewards = [SubResource("Resource_etmkw"), SubResource("Resource_phn6u")]
+completion_flag = &"ac_mq_03_complete"

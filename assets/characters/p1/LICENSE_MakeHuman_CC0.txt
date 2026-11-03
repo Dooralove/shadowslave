@@ -1,0 +1,7 @@
+P1 main cast assets (Sunny, police, Hero/Auro, Scholar, Shifty, veteran, mass NPCs)
+use CC0 MakeHuman / MPFB 2 body, skin, hair and clothing assets.
+Source: https://static.makehumancommunity.org/assets/assetpacks.html
+Full asset and author list: docs/ASSET_LICENSES.md
+
+Mountain King is an original procedural mesh/rig/animations built by
+assets/characters/p1/source/build_mountain_king.py; no external model or texture.

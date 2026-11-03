@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_hq7qh"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_wqwcm"]
+
+[sub_resource type="Resource" id="Resource_t0pqp"]
+script = ExtResource("1_hq7qh")
+cue_id = &"b02_wave_crash"
+position = Vector3(0, -5, -20)
+volume_db = -8.0
+delay = 1.2
+
+[sub_resource type="Resource" id="Resource_omipf"]
+script = ExtResource("1_hq7qh")
+cue_id = &"world_coral_groan"
+position = Vector3(3, -5, -20)
+volume_db = -9.0
+delay = 2.4
+
+[sub_resource type="Resource" id="Resource_1cnpb"]
+script = ExtResource("1_hq7qh")
+cue_id = &"b02_wave_crash"
+position = Vector3(0, -5, -20)
+volume_db = -7.0
+flag = &"tide_seen"
+
+[sub_resource type="Resource" id="Resource_d8yf0"]
+script = ExtResource("1_hq7qh")
+cue_id = &"b02_water_flow"
+position = Vector3(0, -5.5, -20)
+volume_db = -4.0
+loop = true
+
+[sub_resource type="Resource" id="Resource_6b2jh"]
+script = ExtResource("1_hq7qh")
+cue_id = &"world_tide_warning"
+position = Vector3(0, 1.2, 15)
+volume_db = -4.0
+trigger = &"tide_descent_warning"
+
+[sub_resource type="Resource" id="Resource_wwrys"]
+script = ExtResource("1_hq7qh")
+cue_id = &"world_tide_warning"
+position = Vector3(0, 1.2, 15)
+volume_db = -4.0
+trigger = &"b02_tide_warning"
+
+[resource]
+script = ExtResource("2_wqwcm")
+id = &"b02_tide_descent"
+scene_path = "res://scenes/locations/post_nightmare/tide_descent.tscn"
+location_id = &"tide_descent"
+music_id = &"m1_descent"
+ambience_id = &"m1_descent"
+music_intensity = 0.42
+reverb_profile = &"descent"
+loops = Array[ExtResource("1_hq7qh")]([SubResource("Resource_d8yf0")])
+enter_events = Array[ExtResource("1_hq7qh")]([SubResource("Resource_t0pqp"), SubResource("Resource_omipf")])
+flag_events = Array[ExtResource("1_hq7qh")]([SubResource("Resource_1cnpb")])
+trigger_events = Array[ExtResource("1_hq7qh")]([SubResource("Resource_6b2jh"), SubResource("Resource_wwrys")])

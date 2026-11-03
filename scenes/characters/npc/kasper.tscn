@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/mannequin.gd" id="1_mannequin"]
+
+[node name="Kasper" type="Node3D"]
+script = ExtResource("1_mannequin")
+archetype = "mass_male"
+pose = "idle"
+height_scale = 1.02
+width_scale = 0.98
+placeholder = true
+uniform_color = Color(0.15, 0.16, 0.2, 1)
+hair_color = Color(0.35, 0.26, 0.14, 1)
+skin_color = Color(1, 0.87, 0.76, 1)
+accent_color = Color(0.72, 0.55, 0.18, 1)

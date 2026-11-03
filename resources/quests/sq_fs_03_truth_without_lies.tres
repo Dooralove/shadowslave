@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+
+[sub_resource type="Resource" id="Obj_return"]
+script = ExtResource("2_objective")
+id = &"return_theo"
+text = "Вернуться к Тео"
+kind = 4
+target_id = &"theo_return"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_choice"]
+script = ExtResource("2_objective")
+id = &"choose_truth"
+text = "Сказать правду"
+kind = 5
+target_id = &"sq_fs_03_resolved"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_cord"]
+script = ExtResource("2_objective")
+id = &"take_cord"
+text = "Забрать нить Лиссы"
+kind = 2
+target_id = &"sq_fs_03_cord"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_cache"]
+script = ExtResource("2_objective")
+id = &"open_cache"
+text = "Открыть тайник"
+kind = 2
+target_id = &"sq_fs_03_cache"
+required_count = 1
+optional = true
+
+[resource]
+script = ExtResource("1_quest")
+id = &"sq_fs_03_truth_without_lies"
+scope = &"forgotten_shore"
+code = "10"
+title = "Правда без лжи"
+category = 1
+summary = "Тео уже знает ответ, но Санни не может соврать."
+description = "Санни возвращается к Тео с плащом Лиссы. Он может сказать правду прямо, неполно или признаться, что не знает. Любой выбор — правда, но последствия разные. Ложь «Она жива» заблокирована Flaw."
+prerequisites = Array[StringName]([&"sq_fs_02_complete"])
+required_quests = Array[StringName]([])
+auto_start = false
+show_available = false
+objectives = [SubResource("Obj_return"), SubResource("Obj_choice"), SubResource("Obj_cord"), SubResource("Obj_cache")]
+rewards = []
+completion_flag = &"sq_fs_03_complete"

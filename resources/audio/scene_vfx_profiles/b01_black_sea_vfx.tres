@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="SceneVfxProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_event.gd" id="1_66dly"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_shroud_ribbons.tscn" id="2_qnskd"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_black_sea_mist.tscn" id="3_v4rwl"]
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_profile.gd" id="4_rc1x8"]
+
+[sub_resource type="Resource" id="Resource_in1i3"]
+script = ExtResource("1_66dly")
+scene = ExtResource("2_qnskd")
+position = Vector3(0, 1.2, 0)
+attach_to = NodePath("Player")
+persistent = true
+flag = &"shroud_summoned"
+
+[sub_resource type="Resource" id="Resource_4qtdp"]
+script = ExtResource("1_66dly")
+scene = ExtResource("3_v4rwl")
+position = Vector3(0, -4, 0)
+loop = true
+
+[resource]
+script = ExtResource("4_rc1x8")
+id = &"b01_black_sea_vfx"
+scene_path = "res://scenes/locations/post_nightmare/black_sea_platform.tscn"
+location_id = &"black_sea_platform"
+loops = Array[ExtResource("1_66dly")]([SubResource("Resource_4qtdp")])
+flag_effects = Array[ExtResource("1_66dly")]([SubResource("Resource_in1i3")])

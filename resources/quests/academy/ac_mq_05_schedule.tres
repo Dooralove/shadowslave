@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_8oxob"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_e4k6i"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_sqohe"]
+
+[sub_resource type="Resource" id="Resource_68cs3"]
+script = ExtResource("1_8oxob")
+id = &"read_schedule"
+text = "Прочитать расписание"
+kind = 2
+target_id = &"schedule_board"
+
+[sub_resource type="Resource" id="Resource_fvjui"]
+script = ExtResource("1_8oxob")
+id = &"interview"
+text = "Пройти интервью"
+kind = 4
+target_id = &"administrator"
+
+[sub_resource type="Resource" id="Resource_mhirp"]
+script = ExtResource("2_e4k6i")
+flag = &"library_pass"
+text = "Допуск в библиотеку"
+
+[sub_resource type="Resource" id="Resource_woh5v"]
+script = ExtResource("2_e4k6i")
+currency_id = &"credits"
+currency_amount = 25
+text = "25 кредитов"
+
+[resource]
+script = ExtResource("3_sqohe")
+id = &"ac_mq_05_schedule"
+scope = &"academy"
+code = "AC-MQ-05"
+title = "Расписание и интервью"
+category = 0
+summary = "Выбрать курс и пройти интервью."
+description = "На доске — Wilderness Survival, боевая подготовка и мёртвые языки. Администратор задаёт вопросы об Аспекте."
+prerequisites = Array[StringName]([&"ac_mq_04_complete"])
+show_available = false
+objectives = [SubResource("Resource_68cs3"), SubResource("Resource_fvjui")]
+rewards = [SubResource("Resource_mhirp"), SubResource("Resource_woh5v")]
+completion_flag = &"ac_mq_05_complete"

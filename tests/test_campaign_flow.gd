@@ -142,12 +142,14 @@ func test_pass_reuses_caravan_road_and_places_player_on_chain() -> void:
 	assert_false(exit.monitorable, "зона не является целью физических запросов")
 	assert_almost_eq(exit.position.z, -36.0, 0.01, "зона стоит в конце марша")
 
-	var note := pass_scene.get_node("PrototypeNote/Root/Note") as Label
-	assert_not_null(note)
-	assert_string_contains(note.text, "S01", "марш отмечен как реализованный сегмент")
 	assert_eq(pass_scene.march_beats.size(), 4, "в S01 четыре обязательных знакомства")
 	assert_true(pass_scene.march_beats[-1].completes_intro, "последняя реплика завершает знакомство")
 
+
+
+func test_pass_has_no_debug_note() -> void:
+	var pass_scene := _instantiate(PASS_SCENE, false)
+	assert_null(pass_scene.get_node_or_null("PrototypeNote"), "PrototypeNote ?????? ?? S01")
 
 
 func test_pass_restrains_lateral_movement_until_exit() -> void:
@@ -215,8 +217,9 @@ func test_sanctuary_wrapper_completes_after_ritual_death() -> void:
 	var wrapper := _instantiate(SANCTUARY_SCENE, false)
 	var sanctuary := wrapper.get_node("Sanctuary") as SanctuaryController
 	var ritual := sanctuary.get_node("AltarRitual") as AltarRitual
-	var objective := wrapper.get_node("Objective/Root") as Control
-	assert_true(objective.visible, "перед алтарём показана цель")
+	var objective := wrapper.get_node("UI/ObjectiveLine") as ObjectiveLine
+	assert_true(objective.is_showing(), "перед алтарём показана цель")
+	assert_string_contains(objective.get_objective_text(), "алтаря")
 	assert_true(
 		ritual.finished.is_connected(Callable(wrapper, "_on_trial_finished")),
 		"оболочка ждёт завершения ритуала после смерти Тирана"
@@ -235,5 +238,5 @@ func test_sanctuary_wrapper_completes_after_ritual_death() -> void:
 	assert_true(NightmareRunState.has_flag(&"tyrant_death_confirmed"))
 	assert_false(NightmareRunState.has_flag(&"first_nightmare_completed"),
 		"финальный флаг выставляется только после оценки и пробуждения")
-	assert_false(objective.visible, "цель убирается после завершения")
+	assert_false(objective.is_showing(), "цель убирается после завершения")
 	assert_false(wrapper.get_node("Transition/Card").visible, "старая карточка не дублирует сообщение Заклятия")

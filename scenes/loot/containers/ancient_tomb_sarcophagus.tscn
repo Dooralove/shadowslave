@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cdl66f51obqpq"]
+
+[ext_resource type="Script" uid="uid://ca77g6rxoa4w3" path="res://scripts/loot/loot_cache.gd" id="1_8cpgm"]
+[ext_resource type="Resource" path="res://resources/loot/tables/cache_ossuary_common.tres" id="2_kmsnr"]
+[ext_resource type="PackedScene" uid="uid://c0lhxawej4fqj" path="res://assets/models/containers/ancient_tomb_sarcophagus.glb" id="2_vs4ds"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kmsnr"]
+size = Vector3(2.2, 1.67, 1.56)
+
+[node name="AncientTombSarcophagus" type="Node3D" unique_id=1260856269]
+script = ExtResource("1_8cpgm")
+container_id = &"secret_z06_ossuary"
+loot_pool = ExtResource("2_kmsnr")
+lid_open_degrees = 75.0
+prompt = "Вскрыть коралловый саркофаг"
+radius = 2.6
+enabled = true
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=706443348]
+
+[node name="Model" parent="VisualRoot" unique_id=1095568779 instance=ExtResource("2_vs4ds")]
+
+[node name="Glow" type="OmniLight3D" parent="." unique_id=1441387548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+light_color = Color(0.62352943, 0.84705883, 0.8156863, 1)
+light_energy = 0.45
+omni_range = 3.2
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=929315816]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1579898909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835, 0)
+shape = SubResource("BoxShape3D_kmsnr")
+
+[node name="StateLabel" type="Label3D" parent="." unique_id=796820794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+pixel_size = 0.004
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.9019608, 0.7529412, 1)
+outline_modulate = Color(0.101960786, 0.050980393, 0.03137255, 1)
+font_size = 24
+outline_size = 5

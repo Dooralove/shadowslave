@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_preview.gd" id="1_sso34"]
+
+[node name="ArtPreview" type="Node3D" unique_id=818704391]
+script = ExtResource("1_sso34")
+location_scene_path = "res://scenes/locations/post_nightmare/police_precinct.tscn"
+art_scene_path = "res://scenes/environment/post_nightmare/police_precinct_art.tscn"
+location_node_name = "PolicePrecinct"

@@ -5,7 +5,7 @@ const ARENA_SCENE := "res://scenes/levels/combat_arena.tscn"
 
 var arena: Node3D
 var sunny: SunnyController
-var enemy: TestEnemy
+var enemy: CarapaceEnemy
 var hud: CombatHud
 
 
@@ -26,7 +26,7 @@ func test_arena_has_fighters_and_hud() -> void:
 
 func test_enemy_starts_idle_out_of_detection_range() -> void:
 	assert_gt(enemy.distance_to_target(), enemy.detection_range, "есть время осмотреться до боя")
-	assert_eq(enemy.state, TestEnemy.State.IDLE)
+	assert_eq(enemy.state, CarapaceEnemy.State.IDLE)
 
 
 func test_health_bars_follow_health() -> void:
@@ -36,6 +36,15 @@ func test_health_bars_follow_health() -> void:
 	assert_eq(hud.enemy_bar.value, enemy.health.current_health)
 	sunny.health.take_damage(15.0)
 	assert_eq(hud.player_bar.value, sunny.health.current_health)
+
+
+func test_hud_appears_in_combat_and_shows_stamina() -> void:
+	enemy.global_position = sunny.global_position + Vector3(0.0, 0.0, -5.0)
+	await wait_physics_frames(20)
+	assert_true(hud.player_panel.visible, "в бою полосы игрока видны")
+	assert_true(hud.enemy_panel.visible, "полоса противника видна")
+	assert_eq(hud.stamina_bar.max_value, sunny.stamina.max_stamina)
+	assert_eq(hud.stamina_bar.value, sunny.stamina.current_stamina)
 
 
 func test_victory_message() -> void:

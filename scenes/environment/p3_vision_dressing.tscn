@@ -1,0 +1,102 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_snow_gust.tscn" id="1_snow"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_breath_puff.tscn" id="2_breath"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_dust_motes.tscn" id="3_dust"]
+[ext_resource type="PackedScene" path="res://scenes/environment/nm_cloud_sea.tscn" id="4_cloud"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/p3_footprint.png" id="5_footprint"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/p3_chain_scrape.png" id="6_chain"]
+[ext_resource type="Script" path="res://scripts/world/decal_trail.gd" id="7_trail"]
+
+[node name="P3VisionDressing" type="Node3D"]
+
+[node name="GroundDetails" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.983844, 0.17903, 0, -0.17903, 0.983844, 12, 0, -5)
+
+[node name="SnowGust" parent="." instance=ExtResource("1_snow")]
+position = Vector3(0, 1.0, 0)
+
+[node name="CloudLayerMid" parent="." instance=ExtResource("4_cloud")]
+position = Vector3(0, -64, 0)
+scale = Vector3(1.55, 1, 1.55)
+
+[node name="CloudLayerNear" parent="." instance=ExtResource("4_cloud")]
+position = Vector3(0, -44, 0)
+scale = Vector3(1.15, 1, 1.15)
+
+[node name="RoadDust" parent="." instance=ExtResource("3_dust")]
+position = Vector3(8, 1.2, -26)
+scale = Vector3(1.5, 1.0, 1.5)
+
+[node name="CaravanBootprints" type="Node3D" parent="GroundDetails"]
+script = ExtResource("7_trail")
+texture = ExtResource("5_footprint")
+start = Vector3(-0.4, 0.06, -15.0)
+end = Vector3(0.2, 0.06, -36.0)
+count = 24
+size = Vector3(0.22, 0.04, 0.44)
+side_offset = 0.1
+yaw_jitter = 0.14
+modulate = Color(0.84, 0.9, 0.99, 0.72)
+surface_lift = 0.46
+
+[node name="CaravanChainScuffs" type="Node3D" parent="GroundDetails"]
+script = ExtResource("7_trail")
+texture = ExtResource("6_chain")
+start = Vector3(-0.2, 0.061, -17.0)
+end = Vector3(0.0, 0.061, -39.0)
+count = 12
+size = Vector3(0.35, 0.04, 0.65)
+side_offset = 0.02
+yaw_jitter = 0.08
+modulate = Color(0.4, 0.46, 0.56, 0.4)
+surface_lift = 0.46
+
+[node name="BreathSlaveA" parent="." instance=ExtResource("2_breath")]
+position = Vector3(12.0, 9.0, -46.5)
+
+[node name="BreathSlaveB" parent="." instance=ExtResource("2_breath")]
+position = Vector3(12.0, 8.65, -44.9)
+
+[node name="BreathRider" parent="." instance=ExtResource("2_breath")]
+position = Vector3(10.9, 9.0, -38.3)
+
+[node name="MoonShaftA" type="SpotLight3D" parent="."]
+position = Vector3(3.0, 52.0, -16.0)
+rotation = Vector3(-1.12, 0.2, 0)
+light_color = Color(0.62, 0.73, 1, 1)
+light_energy = 12.0
+light_volumetric_fog_energy = 1.7
+spot_range = 160.0
+spot_angle = 7.5
+spot_angle_attenuation = 1.4
+
+[node name="MoonShaftB" type="SpotLight3D" parent="."]
+position = Vector3(20.0, 58.0, -38.0)
+rotation = Vector3(-1.18, -0.16, 0)
+light_color = Color(0.58, 0.7, 1, 1)
+light_energy = 8.0
+light_volumetric_fog_energy = 1.3
+spot_range = 150.0
+spot_angle = 6.5
+spot_angle_attenuation = 1.4
+
+[node name="MoonShaftRoad" type="SpotLight3D" parent="."]
+position = Vector3(9.0, 30.0, -9.0)
+rotation = Vector3(-1.3, 0.12, 0)
+light_color = Color(0.6, 0.72, 1, 1)
+light_energy = 11.0
+light_volumetric_fog_energy = 2.3
+spot_range = 92.0
+spot_angle = 6.0
+spot_angle_attenuation = 1.5
+
+[node name="MoonShaftCaravan" type="SpotLight3D" parent="."]
+position = Vector3(18.0, 35.0, -42.0)
+rotation = Vector3(-1.22, -0.12, 0)
+light_color = Color(0.58, 0.7, 1, 1)
+light_energy = 9.0
+light_volumetric_fog_energy = 1.9
+spot_range = 100.0
+spot_angle = 5.5
+spot_angle_attenuation = 1.5

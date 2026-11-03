@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_marble_black_albedo_2k.jpg" id="1_on2sm"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_marble_black_arm_2k.jpg" id="2_uxnmq"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_marble_black_nor_gl_2k.jpg" id="3_bs0ys"]
+
+[resource]
+resource_name = "art_b01_pale"
+albedo_color = Color(0.58, 0.62, 0.66, 1)
+albedo_texture = ExtResource("1_on2sm")
+metallic_texture = ExtResource("2_uxnmq")
+metallic_texture_channel = 2
+roughness = 0.78
+roughness_texture = ExtResource("2_uxnmq")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 0.6
+normal_texture = ExtResource("3_bs0ys")
+uv1_scale = Vector3(3.2, 3.2, 3.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 5

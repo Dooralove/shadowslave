@@ -1,0 +1,86 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_wfpuf"]
+[ext_resource type="Resource" path="res://resources/loot/items/iron_sword_worn.tres" id="2_rxqxj"]
+[ext_resource type="Resource" path="res://resources/loot/items/iron_sword_used.tres" id="3_pf42f"]
+[ext_resource type="Resource" path="res://resources/loot/items/iron_sword_fine.tres" id="4_fvtau"]
+[ext_resource type="Resource" path="res://resources/loot/items/leather_cuirass_worn.tres" id="5_a38cy"]
+[ext_resource type="Resource" path="res://resources/loot/items/leather_cuirass_used.tres" id="6_pebra"]
+[ext_resource type="Resource" path="res://resources/loot/items/bandit_cloak.tres" id="7_aw0yj"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="8_m4hcm"]
+[ext_resource type="Resource" path="res://resources/loot/items/rope.tres" id="9_oqnbi"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="10_05f4e"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="11_pg3cm"]
+
+[sub_resource type="Resource" id="Resource_ly6ge"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("2_rxqxj")
+weight = 25.0
+condition_min = 0.15
+condition_max = 0.35
+notes = "Износ: сильно щербатый."
+
+[sub_resource type="Resource" id="Resource_akku5"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("3_pf42f")
+weight = 25.0
+condition_min = 0.4
+condition_max = 0.7
+notes = "Износ: рабочий."
+
+[sub_resource type="Resource" id="Resource_qyh3q"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("4_fvtau")
+weight = 10.0
+condition_min = 0.8
+notes = "Износ: ухоженный."
+
+[sub_resource type="Resource" id="Resource_u0fuf"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("5_a38cy")
+weight = 20.0
+condition_min = 0.15
+condition_max = 0.4
+
+[sub_resource type="Resource" id="Resource_lhhup"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("6_pebra")
+weight = 15.0
+condition_min = 0.45
+condition_max = 0.75
+
+[sub_resource type="Resource" id="Resource_j3lm7"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("7_aw0yj")
+weight = 15.0
+condition_min = 0.4
+condition_max = 0.9
+
+[sub_resource type="Resource" id="Resource_vat2p"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("8_m4hcm")
+weight = 10.0
+
+[sub_resource type="Resource" id="Resource_dj8gm"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("9_oqnbi")
+weight = 5.0
+
+[sub_resource type="Resource" id="Resource_ulete"]
+script = ExtResource("1_wfpuf")
+item = ExtResource("10_05f4e")
+max_count = 2
+weight = 100.0
+
+[resource]
+resource_name = "enemy_humanoid_bandit"
+script = ExtResource("11_pg3cm")
+id = &"enemy_humanoid_bandit"
+display_name = "Разбойник / охотник Гунлауга"
+description = "Будущие люди-противники. Падает то, что надето и что в руках; Памяти не выпадают — они уничтожаются с владельцем."
+source_kind = "humanoid"
+canon_status = &"GD_FUTURE"
+guaranteed = Array[ExtResource("1_wfpuf")]([SubResource("Resource_ulete")])
+entries = Array[ExtResource("1_wfpuf")]([SubResource("Resource_ly6ge"), SubResource("Resource_akku5"), SubResource("Resource_qyh3q"), SubResource("Resource_u0fuf"), SubResource("Resource_lhhup"), SubResource("Resource_j3lm7"), SubResource("Resource_vat2p"), SubResource("Resource_dj8gm")])
+bonus_rolls = 2
+tags = PackedStringArray("humanoid", "bandit", "future")

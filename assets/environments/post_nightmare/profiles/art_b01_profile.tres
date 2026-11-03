@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="EnvironmentArtProfile" format=3]
+
+[ext_resource type="Environment" path="res://assets/environments/post_nightmare/environments/art_b01_env.tres" id="1_netn4"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b01_stone.tres" id="2_6ha7c"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_material_swap.gd" id="3_03w12"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b01_pale.tres" id="4_s31l5"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b01_bronze.tres" id="5_8skw8"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_coral_live.tres" id="6_f78hx"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_coral_pale.tres" id="7_1y8pk"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_profile.gd" id="8_5bmw8"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/water_black.tres" id="9_b54or"]
+
+[sub_resource type="Resource" id="Resource_y54ik"]
+script = ExtResource("3_03w12")
+match_path_suffix = "statue_stone.tres"
+material = ExtResource("2_6ha7c")
+
+[sub_resource type="Resource" id="Resource_agh7h"]
+script = ExtResource("3_03w12")
+match_path_suffix = "statue_pale.tres"
+material = ExtResource("4_s31l5")
+
+[sub_resource type="Resource" id="Resource_eaahf"]
+script = ExtResource("3_03w12")
+match_path_suffix = "metal_light.tres"
+material = ExtResource("5_8skw8")
+
+[sub_resource type="Resource" id="Resource_acnxi"]
+script = ExtResource("3_03w12")
+match_path_suffix = "metal_dark.tres"
+material = ExtResource("5_8skw8")
+
+[sub_resource type="Resource" id="Resource_a2i15"]
+script = ExtResource("3_03w12")
+match_path_suffix = "coral.tres"
+material = ExtResource("6_f78hx")
+
+[sub_resource type="Resource" id="Resource_mw6eq"]
+script = ExtResource("3_03w12")
+match_path_suffix = "coral_pale.tres"
+material = ExtResource("7_1y8pk")
+
+[resource]
+resource_name = "art_b01_profile"
+script = ExtResource("8_5bmw8")
+environment = ExtResource("1_netn4")
+material_swaps = [SubResource("Resource_y54ik"), SubResource("Resource_agh7h"), SubResource("Resource_eaahf"), SubResource("Resource_acnxi"), SubResource("Resource_a2i15"), SubResource("Resource_mw6eq")]
+hide_name_prefixes = PackedStringArray()
+hide_name_contains = PackedStringArray()
+override_key_light = true
+key_light_name = "AbyssFill"
+key_light_rotation_degrees = Vector3(-58, -18, 0)
+key_light_color = Color(0.46, 0.62, 0.92, 1)
+key_light_energy = 0.85
+water_material = ExtResource("9_b54or")
+water_name_contains = PackedStringArray("BlackWater")
+glow_intensity = 0.55
+fog_density = 0.0026

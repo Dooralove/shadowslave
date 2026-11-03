@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ArmorSetData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/armor_set_data.gd" id="1_armor"]
+[ext_resource type="PackedScene" path="res://assets/characters/equipment/armor/caravan_alpha_v3.glb" id="2_visual"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/generated_v3.tres" id="3_rig"]
+
+[resource]
+script = ExtResource("1_armor")
+id = &"caravan_alpha_v3"
+display_name = "Caravan Alpha (v3 split)"
+slot = 0
+visual_scene = ExtResource("2_visual")
+rig_profile = ExtResource("3_rig")
+hide_parts = PackedStringArray()
+hide_surfaces = PackedInt32Array()
+tags = PackedStringArray("alpha", "v3", "split", "leather")
+ab_variant = &"A"
+notes = "Alpha split: clothing islands form the armour shell; base body keeps only exposed skin/hair. Armour is required to cover torso and limbs."
+mode = 0
+coverage = PackedStringArray("torso", "arms", "legs", "feet")
+lod1_distance = 10.0
+lod2_distance = 22.0

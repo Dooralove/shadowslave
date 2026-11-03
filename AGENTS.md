@@ -20,15 +20,16 @@
 - По теме задачи: `docs/design/first_nightmare_*`, `docs/design/level_*`, `docs/story/*`, `docs/art/*`. Полный список — в `docs/`.
 - Если документ противоречит памяти, догадке или старому комментарию в коде, прав документ. Расхождение зафиксируй в `docs/DECISIONS.md`.
 
-## Инструменты (статус на 2026-10-29)
+## Инструменты (статус на 2026-11-01)
 
-Статусы подтверждены по `docs/DECISIONS.md`, `.mcp.json` и проверкам в сессиях. Не считай инструмент рабочим, пока его не проверили в этой сессии.
+Статусы подтверждены по `docs/DECISIONS.md`, `opencode.json`, `.mcp.json` и проверкам в сессиях. Не считай инструмент рабочим, пока его не проверили в этой сессии. Полный инвентарь софта — `docs/art/tooling_inventory.md`.
 
 | Инструмент | Назначение | Статус и ограничения |
 |---|---|---|
-| Godot MCP (`.mcp.json`, `godot-mcp-server`) | запуск сцен, ввод, скриншоты, runtime-запросы, GUT | Работает. Autoload `MCPRuntime` временный: убрать или исключить перед релизной сборкой. Версия не закреплена в `.mcp.json` (в `opencode.json` — 0.6.1). |
-| Blender MCP (пользовательский, `mcp-for-blender` 2.2.4, SAFE_MODE) | процедурная геометрия, greybox, коллизии, экспорт `.glb` | Работает, когда Blender открыт. Внешние библиотеки и генераторы моделей выключены. Сборки делаются скриптами `source/build_*.py` в фоновом Blender. |
-| Poly Haven (CC0) | PBR-текстуры и HDRI | Работает через прямую загрузку. Библиотека в Blender MCP выключена. Каждый набор регистрируется в `docs/ASSET_LICENSES.md`. |
+| Godot MCP (`opencode.json`, `.mcp.json`, `godot-mcp-server@0.6.1`) | запуск сцен, ввод, скриншоты, runtime-запросы, GUT | Версия закреплена в обоих конфигах. Editor connected. Runtime helper в текущем дереве не подключается из-за parse errors (`StaminaComponent`, `CombatSettings`, `AttackData`, `CampaignGuide`); не считать runtime-тесты выполненными. Autoload `MCPRuntime` временный: убрать или исключить перед релизной сборкой. |
+| Blender MCP (`mcp-for-blender==2.2.6`, addon 1.8/protocol 15, SAFE_MODE) | процедурная геометрия, greybox, коллизии, экспорт `.glb` | Версия закреплена в `opencode.json` и `.mcp.json`. Работает, когда Blender открыт; addon auto-start включён. Внешние библиотеки и генераторы моделей выключены. Сборки — скриптами `source/build_*.py` в фоновом Blender. |
+| Poly Haven (CC0) | PBR-текстуры и HDRI | Работает через прямую загрузку. 9 наборов (27 файлов) лежат в staging, в проект не импортированы; см. `docs/art/asset_staging_manifest.md`. Каждый набор регистрируется в `docs/ASSET_LICENSES.md` при переносе в `assets/`. |
+| Krita 5.3.4.1 / Materialize 1.78 / glTF-Transform 4.5.1 | 2D-живопись, PBR-карты, оптимизация GLB | Установлены 2026-11-01, проверены. Blender OptiX и Node Wrangler включены. См. `docs/art/tooling_inventory.md`. |
 | Material Maker 1.7 + MaterialPilot 0.1.0 | процедурные графы материалов, рендер карт | **Экспериментально, не внедрён.** Пилот v1 хуже контрольного материала (`experiments/materialpilot/README.md`). В MCP не регистрировать без решения. Экспорт в Godot не поддерживается; предпросмотр и экспорт — только в окне с GPU. |
 | Modly CLI | резервный инструмент для фонового реквизита | **Не установлен и не проверен.** Не использовать до проверки. |
 
@@ -36,3 +37,23 @@
 - Новый MCP-сервер регистрируй только после решения пользователя.
 - Не добавляй абсолютные пути в файлы, которые попадают в Git.
 - Экспериментальные файлы держи в `experiments/` (в `.gitignore`).
+
+## Skills
+
+Проектные skills лежат в `.opencode/skills/` и подхватываются автоматически:
+
+- `graphics-production` — Blender-кит, PBR, свет, пост, оптимизация, проверки.
+- `mcp-operations` — Godot/Blender MCP, статус, скриншоты, безопасные правки, troubleshooting.
+- `forgotten-shore-art` — канон и арт-язык Лабиринта: 18 зон, прилив, гроза, палитра, запреты.
+- `texture-toolchain` — Krita/Materialize/glTF-Transform, PBR-карты, decals, tiling, импорт.
+
+Перед задачей загружай подходящий skill по точному ID. Skills — проектные, не глобальные; не дублируй их в `~/.config/opencode/skills` без необходимости.
+
+## MCP-конфигурация
+
+- `opencode.json` — `mcp.servers.godot` (`godot-mcp-server@0.6.1`) и `mcp.servers.blender` (`mcp-for-blender==2.2.6`).
+- `.mcp.json` — те же два сервера для Claude/других MCP-клиентов.
+- `project.godot` — autoload `MCPRuntime` и editor plugin `godot_mcp`.
+- Версии MCP-серверов закреплены; после изменения конфигов нужен перезапуск OpenCode/клиента и повторная проверка статусов.
+- Blender MCP addon auto-start включён; сервер слушает localhost:9876 по умолчанию. Godot MCP WebSocket — порт 6505.
+- Runtime helper Godot может не подключаться из-за parse errors пользовательских скриптов; это не ошибка конфигурации. Для скриншотов без runtime используй `tools/audit/location_capture.gd`.

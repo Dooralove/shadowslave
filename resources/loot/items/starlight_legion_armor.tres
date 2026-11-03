@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_memory.png" id="1_0imb1"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_4e3wr"]
+
+[resource]
+resource_name = "starlight_legion_armor"
+script = ExtResource("2_4e3wr")
+id = &"starlight_legion_armor"
+display_name = "Броня Звёздного Легиона"
+category = 5
+stack_max = 1
+description = "Память Центуриона: чёрный костюм и белые пластины с семью звёздами."
+canon_status = &"CANON"
+tags = PackedStringArray("memory", "armor", "boss")
+icon = ExtResource("1_0imb1")

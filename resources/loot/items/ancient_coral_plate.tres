@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_material.png" id="1_nf1hr"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_e00e4"]
+
+[resource]
+resource_name = "ancient_coral_plate"
+script = ExtResource("2_e00e4")
+id = &"ancient_coral_plate"
+display_name = "Древняя коралловая пластина"
+stack_max = 3
+description = "Фрагмент брони, выросшей в коралле. Реликвия без применения в текущем билде."
+tags = PackedStringArray("relic", "set_material")
+icon = ExtResource("1_nf1hr")

@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/coral_ground_02_diff_2k.jpg" id="1_6128e"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/coral_ground_02_arm_2k.jpg" id="2_ybwga"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/coral_ground_02_nor_gl_2k.jpg" id="3_dxvc4"]
+
+[resource]
+resource_name = "art_b02_coral_pale"
+albedo_color = Color(0.5, 0.4, 0.34, 1)
+albedo_texture = ExtResource("1_6128e")
+metallic_texture = ExtResource("2_ybwga")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_ybwga")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 1.1
+normal_texture = ExtResource("3_dxvc4")
+uv1_scale = Vector3(2.2, 2.2, 2.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 5

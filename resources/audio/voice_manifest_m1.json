@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "scope": "M1 post-Nightmare dialogue sequences",
+  "note": "Import table only. No voice is generated. Missing lines are silent in VoiceDirector.",
+  "counts": {
+    "sequences": 12,
+    "lines": 29,
+    "with_voice": 0,
+    "missing_voice": 29
+  },
+  "lines": [
+    {
+      "sequence": "academy_campus_guide",
+      "index": 0,
+      "voice_id": "academy_campus_guide_000",
+      "speaker": "guard",
+      "duration": 3.6,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_campus_guide",
+      "index": 1,
+      "voice_id": "academy_campus_guide_001",
+      "speaker": "sunny",
+      "duration": 2.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_campus_guide",
+      "index": 2,
+      "voice_id": "academy_campus_guide_002",
+      "speaker": "guard",
+      "duration": 2.8,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_capsule",
+      "index": 0,
+      "voice_id": "academy_capsule_000",
+      "speaker": "medic",
+      "duration": 3.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_capsule",
+      "index": 1,
+      "voice_id": "academy_capsule_001",
+      "speaker": "sunny",
+      "duration": 2.6,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_capsule",
+      "index": 2,
+      "voice_id": "academy_capsule_002",
+      "speaker": "medic",
+      "duration": 3.2,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_checkpoint",
+      "index": 0,
+      "voice_id": "academy_checkpoint_000",
+      "speaker": "guard",
+      "duration": 2.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_checkpoint",
+      "index": 1,
+      "voice_id": "academy_checkpoint_001",
+      "speaker": "sunny",
+      "duration": 2.4,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_checkpoint",
+      "index": 2,
+      "voice_id": "academy_checkpoint_002",
+      "speaker": "guard",
+      "duration": 3.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_jet",
+      "index": 0,
+      "voice_id": "academy_jet_000",
+      "speaker": "jet",
+      "duration": 3.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_jet",
+      "index": 1,
+      "voice_id": "academy_jet_001",
+      "speaker": "sunny",
+      "duration": 2.2,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_jet",
+      "index": 2,
+      "voice_id": "academy_jet_002",
+      "speaker": "jet",
+      "duration": 3.4,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_julius",
+      "index": 0,
+      "voice_id": "academy_julius_000",
+      "speaker": "julius",
+      "duration": 3.4,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_julius",
+      "index": 1,
+      "voice_id": "academy_julius_001",
+      "speaker": "sunny",
+      "duration": 2.2,
+      "has_voice": false
+    },
+    {
+      "sequence": "academy_julius",
+      "index": 2,
+      "voice_id": "academy_julius_002",
+      "speaker": "julius",
+      "duration": 4.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "black_sea_descent",
+      "index": 0,
+      "voice_id": "black_sea_descent_000",
+      "speaker": "narration",
+      "duration": 3.6,
+      "has_voice": false
+    },
+    {
+      "sequence": "black_sea_descent",
+      "index": 1,
+      "voice_id": "black_sea_descent_001",
+      "speaker": "sunny",
+      "duration": 3.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "black_sea_stars",
+      "index": 0,
+      "voice_id": "black_sea_stars_000",
+      "speaker": "narration",
+      "duration": 4.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "black_sea_stars",
+      "index": 1,
+      "voice_id": "black_sea_stars_001",
+      "speaker": "sunny",
+      "duration": 2.8,
+      "has_voice": false
+    },
+    {
+      "sequence": "black_sea_sword",
+      "index": 0,
+      "voice_id": "black_sea_sword_000",
+      "speaker": "narration",
+      "duration": 4.2,
+      "has_voice": false
+    },
+    {
+      "sequence": "black_sea_sword",
+      "index": 1,
+      "voice_id": "black_sea_sword_001",
+      "speaker": "sunny",
+      "duration": 3.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "precinct_exit",
+      "index": 0,
+      "voice_id": "precinct_exit_000",
+      "speaker": "narration",
+      "duration": 3.0,
+      "has_voice": false
+    },
+    {
+      "sequence": "precinct_exit",
+      "index": 1,
+      "voice_id": "precinct_exit_001",
+      "speaker": "sunny",
+      "duration": 3.4,
+      "has_voice": false
+    },
+    {
+      "sequence": "precinct_mirror",
+      "index": 0,
+      "voice_id": "precinct_mirror_000",
+      "speaker": "narration",
+      "duration": 3.8,
+      "has_voice": false
+    },
+    {
+      "sequence": "precinct_mirror",
+      "index": 1,
+      "voice_id": "precinct_mirror_001",
+      "speaker": "sunny",
+      "duration": 2.8,
+      "has_voice": false
+    },
+    {
+      "sequence": "precinct_wake",
+      "index": 0,
+      "voice_id": "precinct_wake_000",
+      "speaker": "narration",
+      "duration": 3.4,
+      "has_voice": false
+    },
+    {
+      "sequence": "precinct_wake",
+      "index": 1,
+      "voice_id": "precinct_wake_001",
+      "speaker": "sunny",
+      "duration": 2.6,
+      "has_voice": false
+    },
+    {
+      "sequence": "tide_descent_warning",
+      "index": 0,
+      "voice_id": "tide_descent_warning_000",
+      "speaker": "narration",
+      "duration": 3.2,
+      "has_voice": false
+    },
+    {
+      "sequence": "tide_descent_warning",
+      "index": 1,
+      "voice_id": "tide_descent_warning_001",
+      "speaker": "sunny",
+      "duration": 3.8,
+      "has_voice": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_31se8"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_g1jon"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_f41cg"]
+
+[sub_resource type="Resource" id="Resource_4s2v7"]
+script = ExtResource("1_31se8")
+id = &"talk_guard"
+text = "Пройти проверку на КПП"
+kind = 4
+target_id = &"gate_guard"
+
+[sub_resource type="Resource" id="Resource_ix2ae"]
+script = ExtResource("1_31se8")
+id = &"enter_campus"
+text = "Войти в кампус"
+target_id = &"academy_reached_campus"
+
+[sub_resource type="Resource" id="Resource_qlakg"]
+script = ExtResource("2_g1jon")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[sub_resource type="Resource" id="Resource_1o2lu"]
+script = ExtResource("2_g1jon")
+flag = &"academy_pass"
+text = "Пропуск на территорию"
+
+[resource]
+script = ExtResource("3_f41cg")
+id = &"ac_mq_01_red_gate"
+scope = &"academy"
+code = "AC-MQ-01"
+title = "Красные ворота"
+category = 0
+summary = "Пройти проверку на КПП и войти в Академию."
+description = "Санни приходит к Академии Пробуждённых. Охрана проверяет имя и статус; за воротами начинается кампус."
+show_available = false
+objectives = [SubResource("Resource_4s2v7"), SubResource("Resource_ix2ae")]
+rewards = [SubResource("Resource_qlakg"), SubResource("Resource_1o2lu")]
+completion_flag = &"ac_mq_01_complete"

@@ -10,6 +10,7 @@ const DAY_SKY := Color(0.55, 0.62, 0.72)
 @onready var road: Node3D = $Road
 @onready var snow: Node3D = $Road/SnowCover
 @onready var bones: Node3D = $Road/Bones
+@onready var future_camp: Node3D = $Road/FutureCamp
 @onready var caravan: Node3D = $Road/Caravan
 @onready var caravan_end: Marker3D = $Road/CaravanEnd
 
@@ -40,6 +41,10 @@ func play_cutscene(id: StringName, fast: bool) -> void:
 func _vision(fast: bool) -> void:
 	await _orbit(fast)
 	use_shot(&"RoadShot")
+	# Кадр-подсказка на будущую стоянку: повозка у края, клинья, кости.
+	future_camp.visible = true
+	await pause(1.4, fast)
+	future_camp.visible = false
 	caravan.visible = true
 	animate(caravan, ^"position", caravan_end.position, 6.0, fast)
 	animate(snow, ^"scale:y", 0.02, 4.0, fast)

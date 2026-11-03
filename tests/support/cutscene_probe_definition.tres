@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://tests/support/cutscene_probe_script.gd" id="2_script"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"test/probe"
+display_name = "Cutscene probe"
+cutscene_script = ExtResource("2_script")
+max_duration = 5.0
+completion_flags = Array[StringName]([&"test_cutscene_done"])
+hide_hud = false
+letterbox = false
+once = false

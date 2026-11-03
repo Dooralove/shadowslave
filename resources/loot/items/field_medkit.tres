@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_consumable.png" id="1_em85r"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_84d8f"]
+
+[resource]
+resource_name = "field_medkit"
+script = ExtResource("2_84d8f")
+id = &"field_medkit"
+display_name = "Полевая аптечка"
+category = 2
+stack_max = 1
+description = "Два заряда грубых бинтов и игл. Лечение прерывается уроном."
+tags = PackedStringArray("heal", "p0")
+icon = ExtResource("1_em85r")

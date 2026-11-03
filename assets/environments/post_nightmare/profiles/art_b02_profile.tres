@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="EnvironmentArtProfile" format=3]
+
+[ext_resource type="Environment" path="res://assets/environments/post_nightmare/environments/art_b02_env.tres" id="1_r83kp"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_wet_stone.tres" id="2_sggma"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_material_swap.gd" id="3_rtn41"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_coral_live.tres" id="4_2g6fn"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_coral_pale.tres" id="5_ldw7l"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_glow.tres" id="6_lh5om"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_b02_glow_dim.tres" id="7_7e21i"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_profile.gd" id="8_nqbtu"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/water_black.tres" id="9_jsgin"]
+
+[sub_resource type="Resource" id="Resource_43jax"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "statue_stone.tres"
+material = ExtResource("2_sggma")
+
+[sub_resource type="Resource" id="Resource_168hd"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "statue_pale.tres"
+material = ExtResource("2_sggma")
+
+[sub_resource type="Resource" id="Resource_x7npk"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "concrete_dark.tres"
+material = ExtResource("2_sggma")
+
+[sub_resource type="Resource" id="Resource_3scox"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "tile_wet.tres"
+material = ExtResource("2_sggma")
+
+[sub_resource type="Resource" id="Resource_xrukb"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "coral.tres"
+material = ExtResource("4_2g6fn")
+
+[sub_resource type="Resource" id="Resource_j34nh"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "coral_pale.tres"
+material = ExtResource("5_ldw7l")
+
+[sub_resource type="Resource" id="Resource_5v1v7"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "screen_cyan.tres"
+material = ExtResource("6_lh5om")
+
+[sub_resource type="Resource" id="Resource_5vd7r"]
+script = ExtResource("3_rtn41")
+match_path_suffix = "screen_cyan_dim.tres"
+material = ExtResource("7_7e21i")
+
+[resource]
+resource_name = "art_b02_profile"
+script = ExtResource("8_nqbtu")
+environment = ExtResource("1_r83kp")
+material_swaps = [SubResource("Resource_43jax"), SubResource("Resource_168hd"), SubResource("Resource_x7npk"), SubResource("Resource_3scox"), SubResource("Resource_xrukb"), SubResource("Resource_j34nh"), SubResource("Resource_5v1v7"), SubResource("Resource_5vd7r")]
+hide_name_prefixes = PackedStringArray()
+hide_name_contains = PackedStringArray()
+override_key_light = true
+key_light_name = "AbyssFill"
+key_light_rotation_degrees = Vector3(-46, -22, 0)
+key_light_color = Color(0.5, 0.64, 0.86, 1)
+key_light_energy = 1.0
+water_material = ExtResource("9_jsgin")
+water_name_contains = PackedStringArray("SeaBelow")
+glow_intensity = 0.46
+fog_density = 0.008

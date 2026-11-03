@@ -7,7 +7,15 @@
         "/c",
         "npx",
         "-y",
-        "godot-mcp-server"
+        "godot-mcp-server@0.6.1"
+      ],
+      "env": {}
+    },
+    "blender": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-for-blender==2.2.6"
       ],
       "env": {}
     }

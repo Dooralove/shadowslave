@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="3_reward"]
+
+[sub_resource type="Resource" id="Obj_fork"]
+script = ExtResource("2_objective")
+id = &"reach_fork"
+text = "Дойти до первой развилки"
+kind = 3
+target_id = &"first_fork"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_meet"]
+script = ExtResource("2_objective")
+id = &"meet_nephis"
+text = "Поговорить с Нефис в прогалине"
+kind = 4
+target_id = &"nephis"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_camp"]
+script = ExtResource("2_objective")
+id = &"reach_camp"
+text = "Дойти до лагеря на коралловом холме"
+kind = 3
+target_id = &"camp"
+required_count = 1
+
+[sub_resource type="Resource" id="Reward_day"]
+script = ExtResource("3_reward")
+currency_id = &"soul_shard"
+currency_amount = 5
+heal_amount = 20.0
+text = "5 осколков души"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"first_day"
+scope = &"forgotten_shore"
+code = "01"
+title = "Первый день на берегу"
+category = 0
+summary = "Найти путь от подножия статуи до лагеря."
+description = "Коралловый лабиринт встречает Санни пустотой и шумом прилива. Нужно пройти развилку, найти людей в прогалине и добраться до безопасного лагеря на холме."
+prerequisites = Array[StringName]([])
+required_quests = Array[StringName]([])
+auto_start = true
+show_available = true
+objectives = [SubResource("Obj_fork"), SubResource("Obj_meet"), SubResource("Obj_camp")]
+rewards = [SubResource("Reward_day")]
+completion_flag = &"shore_first_day_complete"

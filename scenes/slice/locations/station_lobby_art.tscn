@@ -12,8 +12,13 @@
 [ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_lobby_wall_tri.tres" id="10_wall"]
 [ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_lobby_ceiling_tri.tres" id="11_ceiling"]
 [ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_wall_tri.tres" id="12_side_door"]
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/lobby_p2_dressing.tscn" id="13_p2"]
+[ext_resource type="Environment" path="res://assets/environments/prologue/materials/p2_lobby_environment.tres" id="14_env"]
 
 [node name="StationLobby" instance=ExtResource("1_base")]
+
+[node name="WorldEnvironment" parent="."]
+environment = ExtResource("14_env")
 
 [node name="Floor" parent="Geometry"]
 material = ExtResource("9_floor")
@@ -132,9 +137,11 @@ position = Vector3(6, 0, 2.35)
 rotation = Vector3(0, -1.5708, 0)
 
 [node name="Counter" parent="Art" instance=ExtResource("4_counter")]
+visible = false
 position = Vector3(0, 0, -3)
 
 [node name="Terminal" parent="Art" instance=ExtResource("5_terminal")]
+visible = false
 position = Vector3(0.9, 0.76, -3.15)
 rotation = Vector3(0, 3.14159, 0)
 
@@ -161,3 +168,28 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="Entrance" parent="Art" instance=ExtResource("8_door")]
 position = Vector3(0, 0, 6)
 rotation = Vector3(0, 3.14159, 0)
+
+[node name="P2" parent="." instance=ExtResource("13_p2")]
+
+[node name="AlarmCenter" type="OmniLight3D" parent="AlarmLights"]
+position = Vector3(0, 3.55, -1.5)
+light_color = Color(1, 0.06, 0.03, 1)
+light_energy = 0.0
+omni_range = 10.0
+
+[node name="P2Lighting" type="Node3D" parent="."]
+
+[node name="CounterKey" type="SpotLight3D" parent="P2Lighting"]
+position = Vector3(0, 3.92, -3.0)
+rotation = Vector3(-1.5708, 0, 0)
+light_color = Color(0.75, 0.86, 1, 1)
+light_energy = 6.0
+spot_range = 8.0
+spot_angle = 46.0
+shadow_enabled = true
+
+[node name="CounterFill" type="OmniLight3D" parent="P2Lighting"]
+position = Vector3(2.5, 1.8, -2.4)
+light_color = Color(0.42, 0.58, 0.9, 1)
+light_energy = 1.0
+omni_range = 5.0

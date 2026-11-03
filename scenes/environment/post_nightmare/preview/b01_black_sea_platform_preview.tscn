@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_preview.gd" id="1_skyky"]
+
+[node name="ArtPreview" type="Node3D" unique_id=1811189648]
+script = ExtResource("1_skyky")
+location_scene_path = "res://scenes/locations/post_nightmare/black_sea_platform.tscn"
+art_scene_path = "res://scenes/environment/post_nightmare/black_sea_platform_art.tscn"
+location_node_name = "BlackSeaPlatform"

@@ -8,6 +8,9 @@ signal changed
 const CATEGORY_ALL := -1
 
 var catalog: RpgDemoCatalog
+## Необязательный мост к реальному персонажу. Без него сессия остаётся
+## демонстрационной и меняет только флаги equipped.
+var equipment: EquipmentComponent
 var items: Array[RpgDemoItem] = []
 var offers: Array[RpgDemoTradeOffer] = []
 var demo_coins := 0
@@ -45,6 +48,12 @@ func initialize(data: RpgDemoCatalog) -> void:
 
 	demo_coins = catalog.starting_demo_coins
 	select_first_visible()
+
+
+func set_equipment_component(value: EquipmentComponent) -> void:
+	equipment = value
+	_sync_equipped_from_equipment()
+	changed.emit()
 
 
 func set_category(category: int) -> void:
@@ -144,6 +153,13 @@ func can_drop(item: RpgDemoItem) -> bool:
 func equip_item(item: RpgDemoItem) -> bool:
 	if not can_equip(item):
 		return false
+	if equipment != null and item.equipment_id != &"":
+		var target := _equipment_target(item)
+		if target == null or not equipment.equip(target):
+			return false
+		_sync_equipped_from_equipment()
+		changed.emit()
+		return true
 	for other in items:
 		if other != null and other != item and other.equip_slot == item.equip_slot:
 			other.equipped = false
@@ -155,9 +171,36 @@ func equip_item(item: RpgDemoItem) -> bool:
 func unequip_item(item: RpgDemoItem) -> bool:
 	if item == null or not item.equipped:
 		return false
+	if equipment != null and item.equipment_id != &"":
+		var target := _equipment_target(item)
+		if target != null:
+			equipment.unequip(target.slot)
+		_sync_equipped_from_equipment()
+		changed.emit()
+		return true
 	item.equipped = false
 	changed.emit()
 	return true
+
+
+func _equipment_target(item: RpgDemoItem) -> EquipmentItemData:
+	if equipment == null or equipment.catalog == null:
+		return null
+	return equipment.catalog.get_item(item.equipment_id)
+
+
+func _sync_equipped_from_equipment() -> void:
+	if equipment == null:
+		return
+	for item in items:
+		if item == null or item.equipment_id == &"":
+			continue
+		var target := _equipment_target(item)
+		if target == null:
+			item.equipped = false
+			continue
+		var current := equipment.get_equipped(target.slot)
+		item.equipped = current != null and current.id == item.equipment_id
 
 
 func consume_item(item: RpgDemoItem) -> bool:

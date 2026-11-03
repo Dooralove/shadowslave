@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/p1/models/sunny_nightmare.glb" id="1_model"]
+[ext_resource type="AnimationLibrary" path="res://assets/characters/sunny_realistic_poc/animations/ual_standard.glb" id="2_ual"]
+[ext_resource type="AnimationLibrary" path="res://assets/characters/sunny_realistic_poc/animations/sunny_idle_relaxed.glb" id="3_idle"]
+[ext_resource type="Script" path="res://assets/characters/p1/sunny_p1_model.gd" id="4_script"]
+
+[node name="SunnyNightmareP1Model" type="Node3D"]
+script = ExtResource("4_script")
+
+[node name="Mesh" parent="." instance=ExtResource("1_model")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Mesh")
+libraries = {
+&"": ExtResource("2_ual"),
+&"sunny": ExtResource("3_idle")
+}

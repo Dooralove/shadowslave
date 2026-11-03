@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_material.png" id="1_47igc"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_1ah28"]
+
+[resource]
+resource_name = "demon_fat"
+script = ExtResource("2_1ah28")
+id = &"demon_fat"
+display_name = "Жир демона"
+description = "Густая масса, которая горит долго и ровно. Канонный материал свечи."
+canon_status = &"CANON"
+tags = PackedStringArray("trophy", "fire")
+icon = ExtResource("1_47igc")

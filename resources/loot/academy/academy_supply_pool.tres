@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_eigip"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="2_j1sa0"]
+[ext_resource type="Resource" path="res://resources/loot/items/torch.tres" id="3_6hg4d"]
+[ext_resource type="Resource" path="res://resources/loot/items/water_skin.tres" id="4_4yvxb"]
+[ext_resource type="Resource" path="res://resources/loot/items/oil_flask.tres" id="5_eo0d8"]
+[ext_resource type="Resource" path="res://resources/loot/items/rope.tres" id="6_ksg1h"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="7_e16qt"]
+
+[sub_resource type="Resource" id="Resource_265oe"]
+script = ExtResource("1_eigip")
+item = ExtResource("2_j1sa0")
+max_count = 2
+weight = 2.2
+
+[sub_resource type="Resource" id="Resource_xjrjd"]
+script = ExtResource("1_eigip")
+item = ExtResource("3_6hg4d")
+max_count = 2
+weight = 1.4
+
+[sub_resource type="Resource" id="Resource_05gml"]
+script = ExtResource("1_eigip")
+item = ExtResource("4_4yvxb")
+weight = 1.2
+
+[sub_resource type="Resource" id="Resource_fxwhi"]
+script = ExtResource("1_eigip")
+item = ExtResource("5_eo0d8")
+weight = 0.8
+
+[sub_resource type="Resource" id="Resource_1oxg7"]
+script = ExtResource("1_eigip")
+item = ExtResource("6_ksg1h")
+
+[resource]
+script = ExtResource("7_e16qt")
+id = &"academy_supply"
+display_name = "Поставка Академии"
+description = "Академический контейнер: бытовые припасы, инструменты, медикаменты."
+guaranteed = Array[ExtResource("1_eigip")]([SubResource("Resource_1oxg7")])
+entries = Array[ExtResource("1_eigip")]([SubResource("Resource_265oe"), SubResource("Resource_xjrjd"), SubResource("Resource_05gml"), SubResource("Resource_fxwhi")])
+tags = PackedStringArray("academy", "container")

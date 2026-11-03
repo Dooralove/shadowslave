@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/post_nightmare_finale.gd" id="1_finale"]
+
+[node name="PostNightmareFinale" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_finale")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.035, 0.04, 0.045, 1)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Column" type="VBoxContainer" parent="Center"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Kicker" type="Label" parent="Center/Column"]
+layout_mode = 2
+text = "ПОСЛЕ КОШМАРА"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Center/Column"]
+layout_mode = 2
+text = "Конец демонстрационного фрагмента"
+horizontal_alignment = 1
+
+[node name="Card" type="PanelContainer" parent="Center/Column"]
+layout_mode = 2
+
+[node name="Body" type="VBoxContainer" parent="Center/Column/Card"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="Center/Column/Card/Body"]
+layout_mode = 2
+text = "Санни прошёл шею колосса, спустился к кораллам и вошёл в Лабиринт Забытого берега.\n\nДальше — Академия, Нефис, Кассия, прилив, шторм и Древо Души. Это следующие этапы производства."
+autowrap_mode = 3
+
+[node name="Hint" type="Label" parent="Center/Column/Card/Body"]
+layout_mode = 2
+text = "Текущий milestone завершён. Полный сюжет реализуется поэтапно."
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="Center/Column/Card/Body"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(320, 44)
+layout_mode = 2
+text = "Продолжить: технический фрагмент · Z11–Z18"
+
+[node name="BackButton" type="Button" parent="Center/Column/Card/Body"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 44)
+layout_mode = 2
+text = "В главное меню"
+
+[node name="Footer" type="Label" parent="Center/Column"]
+layout_mode = 2
+text = "R / Esc — в меню"
+horizontal_alignment = 1

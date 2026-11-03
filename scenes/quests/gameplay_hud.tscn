@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://b36woeuu7cs3l"]
+
+[ext_resource type="Script" uid="uid://cgd4b44qvuv3c" path="res://scripts/ui/gameplay_hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/objective_line.tscn" id="2_objective"]
+[ext_resource type="Script" uid="uid://djhe2kp25wpwb" path="res://scripts/ui/interaction_prompt_ui.gd" id="3_prompt"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="4_combat"]
+[ext_resource type="Script" uid="uid://ud0jp2xwdsm1" path="res://scripts/ui/subtitle_ui.gd" id="5_subtitles"]
+[ext_resource type="Script" uid="uid://c65i2cbbkbs61" path="res://scripts/dialogue/dialogue_runner.gd" id="6_dialogue"]
+[ext_resource type="Script" uid="uid://topgy3f7b1es" path="res://scripts/ui/quest_toast.gd" id="7_toast"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tide_indicator.tscn" id="8_avw44"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_world_markers.tscn" id="9_mnqqu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_minimap.tscn" id="10_minimap"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_quick_items.tscn" id="11_quick"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_control_hints.tscn" id="12_hints"]
+
+[sub_resource type="StyleBoxFlat" id="Style_subtitles"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.58)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="GameplayHud" type="CanvasLayer" unique_id=22532716]
+layer = 20
+script = ExtResource("1_hud")
+
+[node name="ObjectiveLine" parent="." unique_id=1788352742 instance=ExtResource("2_objective")]
+unique_name_in_owner = true
+
+[node name="HUDMinimap" parent="." instance=ExtResource("10_minimap")]
+
+[node name="QuickItems" parent="." instance=ExtResource("11_quick")]
+
+[node name="ControlHints" parent="." instance=ExtResource("12_hints")]
+
+[node name="Prompt" type="Label" parent="." unique_id=536100737]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -176.0
+offset_right = 240.0
+offset_bottom = -146.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+script = ExtResource("3_prompt")
+
+[node name="Hint" type="Label" parent="." unique_id=596066614]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="CombatHud" parent="." unique_id=1122612783 instance=ExtResource("4_combat")]
+
+[node name="Subtitles" type="PanelContainer" parent="." unique_id=157672050]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -132.0
+offset_right = 420.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_subtitles")
+script = ExtResource("5_subtitles")
+
+[node name="Box" type="VBoxContainer" parent="Subtitles" unique_id=689784974]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SpeakerLabel" type="Label" parent="Subtitles/Box" unique_id=1209754832]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="TextLabel" type="Label" parent="Subtitles/Box" unique_id=1244719803]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
+
+[node name="ContinueHint" type="Label" parent="Subtitles/Box" unique_id=1754796003]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.59, 0.53, 1)
+theme_override_font_sizes/font_size = 14
+text = "E / Space — далее"
+horizontal_alignment = 2
+
+[node name="DialogueRunner" type="Node" parent="." unique_id=194799187]
+unique_name_in_owner = true
+script = ExtResource("6_dialogue")
+subtitles = NodePath("../Subtitles")
+
+[node name="QuestToast" type="Label" parent="." unique_id=955963507]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -620.0
+offset_top = -92.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 3
+script = ExtResource("7_toast")
+
+[node name="TideIndicator" parent="." unique_id=274334981 instance=ExtResource("8_avw44")]
+
+[node name="WorldMarkers" parent="." unique_id=1926789188 instance=ExtResource("9_mnqqu")]

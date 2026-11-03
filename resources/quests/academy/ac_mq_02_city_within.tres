@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_nvxry"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_y6ggk"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_bsoa3"]
+
+[sub_resource type="Resource" id="Resource_8yrer"]
+script = ExtResource("1_nvxry")
+id = &"terminal"
+text = "Получить направление у терминала"
+kind = 2
+target_id = &"campus_terminal"
+
+[sub_resource type="Resource" id="Resource_ueauj"]
+script = ExtResource("1_nvxry")
+id = &"reach_sleeper"
+text = "Дойти до Sleeper Center"
+target_id = &"academy_reached_sleeper_entry"
+
+[sub_resource type="Resource" id="Resource_xvxbw"]
+script = ExtResource("1_nvxry")
+id = &"register"
+text = "Зарегистрироваться"
+kind = 4
+target_id = &"sleeper_receptionist"
+
+[sub_resource type="Resource" id="Resource_iposs"]
+script = ExtResource("2_y6ggk")
+flag = &"room_key"
+text = "Ключ от комнаты 07"
+
+[sub_resource type="Resource" id="Resource_rsxg5"]
+script = ExtResource("2_y6ggk")
+currency_id = &"credits"
+currency_amount = 15
+text = "15 кредитов"
+
+[resource]
+script = ExtResource("3_bsoa3")
+id = &"ac_mq_02_city_within"
+scope = &"academy"
+code = "AC-MQ-02"
+title = "Город в городе"
+category = 0
+summary = "Найти Sleeper Center и зарегистрироваться."
+description = "Кампус оказывается городом в городе. Терминал выдаёт направление, стойка регистрации — комнату и форму."
+prerequisites = Array[StringName]([&"ac_mq_01_complete"])
+show_available = false
+objectives = [SubResource("Resource_8yrer"), SubResource("Resource_ueauj"), SubResource("Resource_xvxbw")]
+rewards = [SubResource("Resource_iposs"), SubResource("Resource_rsxg5")]
+completion_flag = &"ac_mq_02_complete"

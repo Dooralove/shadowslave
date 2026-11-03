@@ -67,7 +67,7 @@ func test_scene_has_player_prompt_and_altar_point() -> void:
 	var altar := sanctuary.get_node_or_null("Interactables/AltarOffering") as Interactable
 	assert_not_null(altar, "у алтаря есть точка взаимодействия")
 	assert_true(altar.enabled, "точка доступна")
-	assert_eq(altar.prompt, "Совершить подношение")
+	assert_eq(altar.prompt, "Лечь на алтарь")
 
 
 func test_catalog_uses_canonical_sequence() -> void:
@@ -102,7 +102,7 @@ func test_prompt_appears_near_altar_and_hides_when_point_closes() -> void:
 	interactor.refresh()
 	assert_eq(interactor.focused, altar, "игрок в зоне алтаря")
 	assert_true(prompt.visible, "подсказка появилась")
-	assert_eq(prompt.text, "E — Совершить подношение")
+	assert_eq(prompt.text, "E — Лечь на алтарь")
 
 	altar.enabled = false
 	interactor.refresh()

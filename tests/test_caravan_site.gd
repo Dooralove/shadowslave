@@ -8,12 +8,14 @@ const DIALOGUE_DIR := "res://resources/dialogue/caravan/"
 const CAMP_SEQUENCES := [
 	&"camp_arrival",
 	&"camp_rations",
+	&"camp_berries",
 	&"camp_bloodbane",
 	&"camp_wagon",
 	&"camp_hero_gaze",
 	&"camp_attack",
 	&"camp_metamorphosis",
 	&"camp_larva_kill",
+	&"camp_second_larva",
 	&"camp_key_throw",
 	&"camp_unlock",
 	&"camp_complete",
@@ -24,6 +26,7 @@ const CAMP_SEQUENCES := [
 	&"camp_veteran_kill",
 	&"camp_veteran_loot",
 	&"camp_night",
+	&"camp_night_montage",
 	&"camp_dawn",
 ]
 
@@ -55,23 +58,30 @@ func _wait_until(predicate: Callable, max_frames := 90) -> bool:
 
 
 func _advance_to_aftermath(site: CaravanSite, wrapper: Node3D) -> bool:
-	if not await _wait_until(func() -> bool: return site.get_interactable(&"camp_attack") != null):
+	if not await _wait_until(func() -> bool: return site.get_interactable(&"camp_rations").enabled):
 		return false
+	# N07 v2: единственное действие — паёк; ягоды и узнавание идут катсценой.
 	site.get_interactable(&"camp_rations").interact()
-	site.get_interactable(&"camp_bloodbane").interact()
-	site.get_interactable(&"camp_wagon").interact()
-	site.get_interactable(&"camp_attack").interact()
 	if not await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_LARVA):
 		return false
 	site.get_interactable(&"chain_larva").interact()
 	if not await _wait_until(func() -> bool: return site.get_interactable(&"hero_key").enabled):
 		return false
 	site.get_interactable(&"hero_key").interact()
+	if not await _wait_until(func() -> bool: return site.second_larva != null):
+		return false
+	# Условие добивания: Герой завершает бой, когда личинка измотана.
+	site.second_larva.health.take_damage(site.second_larva.health.max_health)
 	if not await _wait_until(func() -> bool: return site.get_interactable(&"wagon_wedges").enabled):
 		return false
 	site.get_interactable(&"wagon_wedges").interact()
 	site.get_interactable(&"wagon_loop").interact()
 	site.get_interactable(&"wagon_push").interact()
+	await wait_process_frames(1)
+	var timing := wrapper.get_node("TimingChallenge") as TimingChallenge
+	if timing == null:
+		return false
+	timing.press_at_ratio(0.5)
 	if not await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_AFTERMATH, 240):
 		return false
 	if not await _wait_until(func() -> bool: return NightmareRunState.has_flag(&"tasks_assigned")):
@@ -89,7 +99,7 @@ func test_survivor_tasks_veteran_bell_night_and_dawn() -> void:
 	assert_eq(site.collected_flasks(), 0)
 	assert_true(site.get_interactable(&"flask_a").enabled)
 	assert_true(site.get_interactable(&"veteran").enabled)
-	assert_true(site.get_interactable(&"night_fire").enabled, "костёр виден, но ночь блокируется подсказкой")
+	assert_true((site.get_node("Triggers/NightEdgeSouth") as TriggerZone).enabled, "край открыт после совета")
 	assert_false(NightmareRunState.has_flag(&"night_started"))
 
 	for id in [&"flask_a", &"flask_b", &"flask_c"]:
@@ -99,8 +109,15 @@ func test_survivor_tasks_veteran_bell_night_and_dawn() -> void:
 	assert_eq(NightmareRunState.get_item_count(&"flasks"), 3)
 	assert_false(site.get_interactable(&"flask_a").enabled)
 	assert_true(site.get_interactable(&"veteran").enabled)
-	assert_true(site.get_interactable(&"poison_flasks").enabled, "после трёх фляг доступно отравление")
-	assert_false(NightmareRunState.has_flag(&"flasks_poisoned"), "отравление не выполняется само")
+	assert_null(site.get_interactable(&"poison_flasks"), "E-точки отравления больше нет")
+	assert_false(NightmareRunState.has_flag(&"flasks_poisoned"), "флаг ставится только ночной постановкой")
+
+	# До ветерана ночь не начинается; подсказка объясняет причину.
+	var hints: Array[String] = []
+	site.hint_requested.connect(func(text: String) -> void: hints.append(text))
+	site.request_night()
+	assert_false(NightmareRunState.has_flag(&"night_started"), "ночь без ветерана не начинается")
+	assert_string_contains(hints.back(), "ветеран")
 
 	site.get_interactable(&"veteran").interact()
 	assert_true(await _wait_until(func() -> bool: return NightmareRunState.has_flag(&"veteran_found")))
@@ -118,25 +135,18 @@ func test_survivor_tasks_veteran_bell_night_and_dawn() -> void:
 	assert_eq(NightmareRunState.get_item_count(&"boots"), 1)
 	assert_eq(NightmareRunState.get_item_count(&"sword"), 1)
 	assert_false(site.veteran.visible, "ветеран не воскресает")
-	assert_true(site.get_interactable(&"night_fire").enabled)
+	assert_true((site.get_node("Triggers/NightEdgeSouth") as TriggerZone).enabled)
 	assert_true(sunny.input_enabled)
 
-	# Ночь без отравления не начинается и объясняет, чего не хватает.
-	var hints: Array[String] = []
-	site.hint_requested.connect(func(text: String) -> void: hints.append(text))
-	site.get_interactable(&"night_fire").interact()
-	assert_false(NightmareRunState.has_flag(&"night_started"), "ночь без отравления не начинается")
-	assert_eq(hints.back(), "Сначала отравьте общие фляги Bloodbane.")
-
-	site.get_interactable(&"poison_flasks").interact()
+	# N13: постановка у края ставит флаги отравления и запускает монтаж.
+	site.request_night()
 	assert_true(NightmareRunState.has_flag(&"flasks_poisoned"))
 	assert_true(NightmareRunState.has_flag(&"sunny_flask_clean"))
 	assert_eq(NightmareRunState.get_item_count(&"flasks"), 3, "фляги не расходуются")
-
-	site.get_interactable(&"night_fire").interact()
 	assert_true(await _wait_until(func() -> bool: return NightmareRunState.has_flag(&"night_started")))
 	assert_true(await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_DAWN, 240))
 	assert_true(NightmareRunState.has_flag(&"night_passed"))
+	assert_true(sunny.get_node("BloodSpots").are_spots_visible(), "утром видны пятна на пальцах")
 	assert_true(site.get_interactable(&"dawn_exit").enabled)
 	assert_true(sunny.input_enabled)
 
@@ -189,45 +199,36 @@ func test_camp_scene_has_required_cast_and_props() -> void:
 	assert_gt(site.tyrant.global_position.y, -1.0, "Горный Король остаётся на площадке")
 
 
-func test_camp_interactions_are_one_shot_and_unlock_attack() -> void:
+func test_camp_interactions_are_one_shot_without_checklist() -> void:
 	var wrapper := _spawn_wrapper()
 	var site := wrapper.get_node("CaravanSite") as CaravanSite
 	var sequence_count := [0]
 	site.sequence_requested.connect(func(_sequence: DialogueSequence) -> void: sequence_count[0] += 1)
 	var rations := site.get_interactable(&"camp_rations")
-	var bloodbane := site.get_interactable(&"camp_bloodbane")
-	var wagon := site.get_interactable(&"camp_wagon")
 	assert_true(rations.enabled)
-	assert_false(site.get_interactable(&"camp_attack").enabled, "до осмотра атака закрыта")
+	assert_false(site.get_interactable(&"camp_bloodbane").enabled, "ягоды — не E-задача")
+	assert_false(site.get_interactable(&"camp_wagon").enabled, "повозка — не E-задача")
+	assert_false(site.get_interactable(&"camp_attack").enabled, "нападение запускается постановкой")
 
 	rations.interact()
 	rations.interact()
 	assert_eq(sequence_count[0], 1, "повторное взаимодействие не запускает реплику")
 	assert_true(NightmareRunState.has_flag(&"camp_rations_taken"))
 	assert_false(rations.enabled)
-	assert_false(site.get_interactable(&"camp_attack").enabled)
-
-	bloodbane.interact()
-	wagon.interact()
-	assert_eq(sequence_count[0], 3)
+	assert_true(await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_LARVA))
 	assert_true(NightmareRunState.has_flag(&"camp_bloodbane_seen"))
 	assert_true(NightmareRunState.has_flag(&"camp_wagon_examined"))
 	assert_true(NightmareRunState.has_flag(&"camp_explored"))
-	assert_true(site.get_interactable(&"camp_attack").enabled, "после осмотра можно вернуться к костру")
+	assert_false(site.get_interactable(&"camp_attack").enabled, "после N07 E-атака не нужна")
 
 
 func test_attack_larva_key_wagon_fall_and_aftermath() -> void:
 	var wrapper := _spawn_wrapper()
 	var site := wrapper.get_node("CaravanSite") as CaravanSite
 	var sunny := wrapper.get_node("Sunny") as SunnyController
-	assert_true(await _wait_until(func() -> bool: return site.get_interactable(&"camp_attack") != null))
-	# Все три осмотра выполняются напрямую: проверяется сценарий, а не поиск пути.
+	assert_true(await _wait_until(func() -> bool: return site.get_interactable(&"camp_rations").enabled))
+	# N07 v2: паёк запускает ягодную катсцену и камнепад автоматически.
 	site.get_interactable(&"camp_rations").interact()
-	site.get_interactable(&"camp_bloodbane").interact()
-	site.get_interactable(&"camp_wagon").interact()
-	assert_true(site.get_interactable(&"camp_attack").enabled)
-
-	site.get_interactable(&"camp_attack").interact()
 	var reached_larva := await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_LARVA)
 	assert_true(reached_larva, "нападение доходит до фазы личинки")
 	assert_true(NightmareRunState.has_flag(&"attack_started"))
@@ -253,8 +254,13 @@ func test_attack_larva_key_wagon_fall_and_aftermath() -> void:
 	assert_true(site.get_interactable(&"hero_key").enabled)
 
 	site.get_interactable(&"hero_key").interact()
+	var reached_second := await _wait_until(func() -> bool: return site.second_larva != null)
+	assert_true(reached_second, "после ключа появляется вторая личинка")
+	assert_true(sunny.combat_enabled, "Санни может драться без цепи")
+	site.second_larva.health.take_damage(site.second_larva.health.max_health)
 	var reached_wagon := await _wait_until(func() -> bool: return site.get_interactable(&"wagon_wedges").enabled)
-	assert_true(reached_wagon, "ключ и освобождение доводят эпизод до плана с повозкой")
+	assert_true(reached_wagon, "после добивания Героем эпизод доходит до плана с повозкой")
+	assert_true(NightmareRunState.has_flag(&"second_larva_killed"))
 	assert_true(NightmareRunState.has_flag(&"chains_released"))
 	assert_true(NightmareRunState.has_flag(&"camp_episode_completed"))
 	assert_false(sunny.chain_restrained, "после ключа цепь снята")
@@ -280,6 +286,10 @@ func test_attack_larva_key_wagon_fall_and_aftermath() -> void:
 	assert_true(site.chain_loop.visible)
 
 	site.get_interactable(&"wagon_push").interact()
+	await wait_process_frames(1)
+	var timing := wrapper.get_node("TimingChallenge") as TimingChallenge
+	assert_not_null(timing)
+	timing.press_at_ratio(0.5)
 	var reached_aftermath := await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_AFTERMATH, 240)
 	assert_true(reached_aftermath, "повозка и Тиран падают, сцена переходит к последствиям")
 	assert_true(NightmareRunState.has_flag(&"wagon_fall_seen"))
@@ -336,3 +346,56 @@ func test_larvae_stay_hidden_when_wagon_phase_is_restored() -> void:
 	assert_false(site.four_larvae.visible, "AFTERMATH не возвращает личинок")
 	for larva in site.four_larvae.get_children():
 		assert_false((larva as Node3D).visible, "после последствий личинки остаются скрытыми")
+
+
+func test_v2_beats_checkpoints_and_staged_bloodbane_poisoning() -> void:
+	var wrapper := _spawn_wrapper()
+	var site := wrapper.get_node("CaravanSite") as CaravanSite
+	var sunny := wrapper.get_node("Sunny") as SunnyController
+	var recovery := sunny.get_node("FallRecovery") as FallRecovery
+	var director: BeatDirector = wrapper.beat_director
+	assert_not_null(director)
+	assert_true(await _wait_until(func() -> bool: return site.get_interactable(&"camp_rations").enabled))
+	assert_eq(director.get_current_beat_id(), &"N07")
+	assert_eq(director.current_objective, "Взять паёк")
+
+	# В v2 N07 достаточно взять паёк; узнавание Bloodbane и повозки ставит постановка.
+	site.get_interactable(&"camp_rations").interact()
+	assert_true(await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_LARVA))
+	assert_true(NightmareRunState.has_flag(&"camp_bloodbane_seen"))
+	assert_true(NightmareRunState.has_flag(&"camp_explored"))
+	assert_eq(director.get_current_beat_id(), &"N09")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N09")
+
+	site.get_interactable(&"chain_larva").interact()
+	assert_true(await _wait_until(func() -> bool: return site.get_interactable(&"hero_key").enabled))
+	site.get_interactable(&"hero_key").interact()
+	assert_true(await _wait_until(func() -> bool: return site.second_larva != null))
+	site.second_larva.health.take_damage(site.second_larva.health.max_health)
+	assert_true(await _wait_until(func() -> bool: return site.get_interactable(&"wagon_wedges").enabled))
+	assert_eq(director.get_current_beat_id(), &"N10")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N10a")
+
+	site.get_interactable(&"wagon_wedges").interact()
+	site.get_interactable(&"wagon_loop").interact()
+	site.get_interactable(&"wagon_push").interact()
+	await wait_process_frames(1)
+	var timing := wrapper.get_node("TimingChallenge") as TimingChallenge
+	timing.press_at_ratio(0.5)
+	assert_true(await _wait_until(func() -> bool: return site.phase == CaravanSite.PHASE_AFTERMATH, 240))
+	assert_true(await _wait_until(func() -> bool: return NightmareRunState.has_flag(&"tasks_assigned")))
+	assert_eq(director.get_current_beat_id(), &"N12")
+
+	for id in [&"flask_a", &"flask_b", &"flask_c"]:
+		site.get_interactable(id).interact()
+	site.get_interactable(&"veteran").interact()
+	assert_true(await _wait_until(func() -> bool: return site.get_interactable(&"veteran_sword").enabled))
+	site.get_interactable(&"veteran_sword").interact()
+	assert_true(await _wait_until(func() -> bool: return NightmareRunState.has_flag(&"veteran_dead")))
+
+	# В v2 N13 отравление ставит монтаж у края, а не кнопка.
+	site.request_night()
+	assert_true(await _wait_until(func() -> bool: return NightmareRunState.has_flag(&"night_started")))
+	assert_true(NightmareRunState.has_flag(&"flasks_poisoned"), "постановка N13 выставляет flasks_poisoned")
+	assert_true(NightmareRunState.has_flag(&"sunny_flask_clean"), "постановка N13 выставляет sunny_flask_clean")
+	assert_eq(director.get_current_beat_id(), &"N13")

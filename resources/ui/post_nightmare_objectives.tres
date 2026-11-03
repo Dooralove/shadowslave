@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PostNightmareObjectives" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/post_nightmare_objectives.gd" id="1_objectives"]
+
+[resource]
+script = ExtResource("1_objectives")
+objectives = Dictionary[StringName, String]({
+&"police_precinct": "Проснуться в участке и найти выход во двор",
+&"academy_approach": "Добраться до КПП академии",
+&"academy_gate": "Пройти через ворота и найти Джулиуса",
+&"academy_campus": "Пересечь кампус и найти спальный центр",
+&"academy_sleeper_center": "Найти капсулу и погрузиться в сон",
+&"black_sea_platform": "Подняться к звёздам и спуститься к Чёрному морю",
+&"tide_descent": "Спуститься к коралловым воротам Лабиринта"
+})

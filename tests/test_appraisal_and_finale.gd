@@ -276,3 +276,15 @@ func test_finale_reopen_after_completion_keeps_flags() -> void:
 	assert_true(NightmareRunState.has_flag(&"first_nightmare_finished"))
 	assert_true(NightmareRunState.has_flag(&"first_nightmare_completed"),
 		"повторное открытие не сбрасывает финальные флаги")
+
+
+func test_larva_deeds_count_both_first_and_shifty_larva() -> void:
+	NightmareRunState.reset()
+	var appraisal = load("res://scripts/campaign/appraisal.gd").new()
+	assert_eq(appraisal.defeated_larva(), 0, "без личинок деяния нет")
+	NightmareRunState.set_flag(&"larva_killed")
+	assert_eq(appraisal.defeated_larva(), 1, "первая личинка считается")
+	NightmareRunState.set_flag(&"shifty_larva_killed")
+	assert_eq(appraisal.defeated_larva(), 2, "личинка Шифти считается отдельно")
+	NightmareRunState.reset()
+	appraisal.free()

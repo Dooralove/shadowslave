@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ArmorSetData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/armor_set_data.gd" id="1_armor"]
+[ext_resource type="PackedScene" path="res://assets/characters/equipment/armor/caravan_alpha_p1.glb" id="2_visual"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/p1_ual.tres" id="3_rig"]
+
+[resource]
+script = ExtResource("1_armor")
+id = &"caravan_alpha_p1"
+display_name = "Caravan Alpha (P1/UAL)"
+slot = 0
+visual_scene = ExtResource("2_visual")
+rig_profile = ExtResource("3_rig")
+hide_parts = PackedStringArray()
+hide_part_prefixes = PackedStringArray("sunny_real_toigo_fisherman_sweater", "sunny_real_toigo_wool_pants", "sunny_real_shoes06")
+tags = PackedStringArray("alpha", "p1", "ual")
+ab_variant = &"A"
+notes = "P1/UAL profile proof. Clothing is hidden by node names; CharacterLodVisibility is disabled while worn."
+mode = 0
+coverage = PackedStringArray("torso", "arms", "legs", "feet")
+disable_character_lod = true

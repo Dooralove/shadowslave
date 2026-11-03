@@ -1,0 +1,152 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-13, -7, 13, -7, 13, 7, -13, 7)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-25, -6, -15, -6, -15, 6, -25, 6)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-15, -2, -13, -2, -13, 2, -15, 2)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(15, -6, 25, -6, 25, 6, 15, 6)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(13, -2, 15, -2, 15, 2, 13, 2)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-6, -13, 6, -13, 6, -7, -6, -7)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 13, 0, 7, 0, 0, 0, -7, 0, -13, 0, -21, 0, -28)
+closed = false
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-6, 7, 6, 7, 6, 13, -6, 13)
+closed = true
+
+[sub_resource type="Resource" id="Feature_8"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2, -21, 2, -21, 2, -13, -2, -13)
+closed = true
+
+[sub_resource type="Resource" id="Feature_9"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-12, -29, 12, -29, 12, -20, -12, -20)
+closed = true
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"start"
+label = "Вход в спальный центр"
+description = "Южный край общей спальни."
+use_world_position = true
+world_position = Vector2(0, 3.2)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"dormitory"
+label = "Капсулы"
+description = "Двенадцать спальных капсул в четыре ряда."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"common"
+label = "Общая комната"
+description = "Стол, кухонный уголок и автомат."
+use_world_position = true
+world_position = Vector2(-20, 0)
+kind = 1
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"showers"
+label = "Душевые"
+description = "Кабинки, раковины и шкафчики для полотенец."
+use_world_position = true
+world_position = Vector2(20, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"observation"
+label = "Наблюдение"
+description = "Пункт с мониторами и пультом."
+use_world_position = true
+world_position = Vector2(0, -10)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"from_campus"
+label = "Вход с кампуса"
+description = "Тамбур южного входа."
+use_world_position = true
+world_position = Vector2(0, 11)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"from_dream"
+label = "Возвращение из сна"
+description = "Точка пробуждения у капсулы."
+use_world_position = true
+world_position = Vector2(0, -21.5)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_7"]
+script = ExtResource("1_marker")
+id = &"dream_ward"
+label = "Палата снов"
+description = "Капсула и койки в глубине корпуса."
+use_world_position = true
+world_position = Vector2(0, -25.5)
+kind = 3
+
+[resource]
+script = ExtResource("2_def")
+id = &"academy_sleeper_center"
+title = "СПАЛЬНЫЙ ЦЕНТР"
+subtitle = "Капсулы, общая комната и наблюдение"
+description = "Прототип спального центра Академии: общая спальня с капсулами, бытовая комната, душевые, наблюдательный пункт и палата снов с капсулой перехода."
+background_color = Color(0.05, 0.058, 0.068, 1)
+land_color = Color(0.23, 0.235, 0.24, 1)
+accent_color = Color(0.55, 0.72, 0.78, 1)
+terrain_style = &"city"
+world_bounds = Rect2(-26, -30, 52, 44)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6"), SubResource("Marker_7")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_sleeper_center.tscn")

@@ -204,13 +204,15 @@ func test_world_regions_split_into_playable_and_in_development() -> void:
 	assert_true(route != null and route.outside_realm, "Кошмар — вне Царства снов")
 	var shore := atlas.get_region(&"region_forgotten_shore")
 	assert_not_null(shore, "Забытый берег есть на карте мира")
-	assert_true(shore != null and not shore.is_playable(), "регион Царства в разработке недоступен")
+	assert_true(shore != null and shore.is_playable(), "первый фрагмент Забытого берега доступен в демо")
 	assert_true(shore != null and not shore.outside_realm, "Забытый берег — часть Царства")
+	assert_true(atlas.get_location(&"labyrinth_first_fragment") != null, "карта Лабиринта подключена к атласу")
 	var realm_regions := 0
 	for region in atlas.regions:
 		if region != null and not region.outside_realm:
 			realm_regions += 1
-			assert_false(region.is_playable(), "%s пока в разработке" % region.id)
+			if region.id != &"region_forgotten_shore":
+				assert_false(region.is_playable(), "%s пока в разработке" % region.id)
 	assert_gte(realm_regions, 6, "в Царстве снов несколько регионов")
 
 

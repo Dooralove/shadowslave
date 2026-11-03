@@ -1,0 +1,650 @@
+[gd_scene format=3 uid="uid://rj5as5df2o46"]
+
+[ext_resource type="Script" uid="uid://bhnjqg5qugtjd" path="res://scripts/locations/forgotten_shore_labyrinth/labyrinth_first_fragment.gd" id="1_location"]
+[ext_resource type="Environment" path="res://resources/locations/forgotten_shore_labyrinth/env_labyrinth.tres" id="2_environment"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_player"]
+[ext_resource type="Script" uid="uid://blcshma5se0ec" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" uid="uid://b66p775hv3f1w" path="res://scripts/world/level_portal.gd" id="5_portal"]
+[ext_resource type="Script" uid="uid://b3igcmxe2hhdm" path="res://scripts/locations/forgotten_shore_labyrinth/tide_controller.gd" id="6_tide"]
+[ext_resource type="Material" path="res://resources/locations/forgotten_shore_labyrinth/materials/nm_tide_water_labyrinth.tres" id="7_water"]
+[ext_resource type="Script" uid="uid://da5et34u7fom5" path="res://scripts/world/flicker_light.gd" id="8_flicker"]
+[ext_resource type="PackedScene" uid="uid://dii17rmxhqqsl" path="res://scenes/loot/containers/chest_wood_iron.tscn" id="9_1i6p2"]
+[ext_resource type="Resource" path="res://resources/locations/forgotten_shore_labyrinth/audio_zones.tres" id="9_audio"]
+[ext_resource type="PackedScene" uid="uid://b36woeuu7cs3l" path="res://scenes/quests/gameplay_hud.tscn" id="10_hud"]
+[ext_resource type="PackedScene" uid="uid://cdl66f51obqpq" path="res://scenes/loot/containers/ancient_tomb_sarcophagus.tscn" id="10_lkwfh"]
+[ext_resource type="Script" uid="uid://buoqe6bk2wjks" path="res://scripts/locations/forgotten_shore_labyrinth/labyrinth_quest_director.gd" id="11_quest"]
+[ext_resource type="PackedScene" uid="uid://cyfpkd3prw6e4" path="res://scenes/loot/containers/loot_barrel_cluster.tscn" id="11_ydt4h"]
+[ext_resource type="Resource" path="res://resources/loot/items/torch.tres" id="12_mmods"]
+[ext_resource type="Script" uid="uid://c61nkpccs17xg" path="res://scripts/quests/quest_trigger_zone.gd" id="12_qtz"]
+[ext_resource type="Resource" path="res://resources/loot/tables/cache_ossuary_relic_helm.tres" id="12_y7j73"]
+[ext_resource type="Script" uid="uid://cd7rf01chaef6" path="res://scripts/locations/forgotten_shore_labyrinth/demo_end_zone.gd" id="13_demo"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_plate.tres" id="13_i7atb"]
+[ext_resource type="Resource" path="res://resources/loot/tables/cache_ossuary_relic_plate.tres" id="13_y7j73"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="14_6bm5t"]
+[ext_resource type="Script" uid="uid://dws70oe45e5cw" path="res://scripts/locations/forgotten_shore_labyrinth/final_zone.gd" id="14_final"]
+[ext_resource type="Script" uid="uid://cflu05tn00uo1" path="res://scripts/locations/forgotten_shore_labyrinth/labyrinth_narrative_director.gd" id="15_narrative"]
+[ext_resource type="Script" uid="uid://bdxlw6j06hqxn" path="res://scripts/loot/loot_bag_persistence.gd" id="16_18qoa"]
+[ext_resource type="Resource" path="res://resources/loot/items/bone_spear.tres" id="16_r6hpm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_portal"]
+size = Vector3(4, 3, 1.2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_camp_night"]
+radius = 6.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_demo_end"]
+radius = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_final_zone"]
+radius = 4.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
+size = Vector2(3000, 1200)
+
+[node name="LabyrinthFirstFragment" type="Node3D" unique_id=569935957]
+script = ExtResource("1_location")
+audio_zone_set = ExtResource("9_audio")
+location_id = &"labyrinth_first_fragment"
+display_name = "Лабиринт Забытого берега — первый фрагмент"
+map_id = &"labyrinth_first_fragment"
+show_debug_labels = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=565446147]
+environment = ExtResource("2_environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1661003339]
+transform = Transform3D(-0.42261833, -0.45315388, 0.7848855, 0, 0.8660254, 0.5, -0.90630776, 0.21130916, -0.3659982, 0, 0, 0)
+light_color = Color(1, 0.95, 0.88, 1)
+light_energy = 1.75
+shadow_enabled = true
+directional_shadow_split_1 = 0.08
+directional_shadow_split_2 = 0.22
+directional_shadow_split_3 = 0.52
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 140.0
+
+[node name="SkyFill" type="DirectionalLight3D" parent="." unique_id=704062458]
+transform = Transform3D(0.42261824, 0.28006452, -0.86195, 0, 0.95105654, 0.309017, 0.9063078, -0.13059622, 0.40193385, 0, 0, 0)
+light_color = Color(0.55, 0.65, 0.85, 1)
+light_energy = 0.38
+
+[node name="SkyFill2" type="DirectionalLight3D" parent="." unique_id=704062459]
+transform = Transform3D(0.42261824, -0.33950886, 0.840314, 0, 0.92718387, 0.37460658, -0.9063078, -0.15831557, 0.3918448, 0, 0, 0)
+light_color = Color(0.55, 0.62, 0.74, 1)
+light_energy = 0.3
+
+[node name="Player" parent="." unique_id=113872265 instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 6.2, 0)
+floor_stop_on_slope = false
+allow_sprint = true
+allow_jump = true
+
+[node name="Spawns" type="Node3D" parent="." unique_id=1541484930]
+
+[node name="Start" type="Marker3D" parent="Spawns" unique_id=345899896]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 38, 6.2, 0)
+
+[node name="FromDescent" type="Marker3D" parent="Spawns" unique_id=1463007816]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 38, 6.2, 0)
+
+[node name="Camp" type="Marker3D" parent="Spawns" unique_id=227846152]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -100, 18.2, -5)
+
+[node name="CampReturn" type="Marker3D" parent="Spawns" unique_id=711985221]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -100, 18.2, -5)
+
+[node name="Refuge" type="Marker3D" parent="Spawns" unique_id=2077277728]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -700, 18.2, -20)
+
+[node name="RefugeReturn" type="Marker3D" parent="Spawns" unique_id=1684661688]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -700, 18.2, -20)
+
+[node name="BoneBridge" type="Marker3D" parent="Spawns" unique_id=1471845246]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -600, 6.2, 0)
+
+[node name="StormStart" type="Marker3D" parent="Spawns" unique_id=314378223]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1050, 6.2, 0)
+
+[node name="CliffBase" type="Marker3D" parent="Spawns" unique_id=1460743492]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1320, 6.2, 0)
+
+[node name="CliffTop" type="Marker3D" parent="Spawns" unique_id=1389267337]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1400, 35.2, 0)
+
+[node name="Portals" type="Node3D" parent="." unique_id=639995778]
+
+[node name="ToDescent" type="Area3D" parent="Portals" unique_id=199852533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 6, 0)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/tide_descent.tscn"
+destination_spawn = &"FromCoral"
+fade_out_duration = 0.22
+fade_in_duration = 0.28
+fade_layer = NodePath("../UI/Fade")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToDescent" unique_id=124653119]
+shape = SubResource("BoxShape3D_portal")
+
+[node name="ToWest" type="Area3D" parent="Portals" unique_id=1171085782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1420, 35, 0)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/campaign/post_nightmare_finale.tscn"
+enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToWest" unique_id=1790766746]
+shape = SubResource("BoxShape3D_portal")
+
+[node name="Shots" type="Node3D" parent="." unique_id=309612371]
+
+[node name="OverviewEast" type="Camera3D" parent="Shots" unique_id=1487705888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 90, 80)
+fov = 60.0
+
+[node name="OverviewEastTarget" type="Marker3D" parent="Shots" unique_id=1349684261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, 0)
+
+[node name="OverviewWest" type="Camera3D" parent="Shots" unique_id=934760416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 150, 120)
+fov = 55.0
+
+[node name="OverviewWestTarget" type="Marker3D" parent="Shots" unique_id=1332310284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -750, 0, 0)
+
+[node name="Entrance" type="Camera3D" parent="Shots" unique_id=258409333]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 8, 0)
+fov = 65.0
+
+[node name="EntranceTarget" type="Marker3D" parent="Shots" unique_id=704062455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Statue" type="Camera3D" parent="Shots" unique_id=704062456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 80, 250)
+fov = 55.0
+
+[node name="StatueTarget" type="Marker3D" parent="Shots" unique_id=704062457]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 88, 0)
+
+[node name="Carcass" type="Camera3D" parent="Shots" unique_id=1171610339]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 11, 10)
+fov = 60.0
+
+[node name="CarcassTarget" type="Marker3D" parent="Shots" unique_id=563822419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -1, 27)
+
+[node name="Fork" type="Camera3D" parent="Shots" unique_id=1182331204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 8)
+fov = 65.0
+
+[node name="ForkTarget" type="Marker3D" parent="Shots" unique_id=666800503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -6)
+
+[node name="Mud" type="Camera3D" parent="Shots" unique_id=162402027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 5, -28)
+fov = 65.0
+
+[node name="MudTarget" type="Marker3D" parent="Shots" unique_id=1467759963]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, -2, -42)
+
+[node name="Bone" type="Camera3D" parent="Shots" unique_id=1413406533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, 24)
+fov = 65.0
+
+[node name="BoneTarget" type="Marker3D" parent="Shots" unique_id=589655094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 24)
+
+[node name="Ridge" type="Camera3D" parent="Shots" unique_id=563530934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 14, -40)
+fov = 65.0
+
+[node name="RidgeTarget" type="Marker3D" parent="Shots" unique_id=1048454846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, -10)
+
+[node name="Clearing" type="Camera3D" parent="Shots" unique_id=1901452538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 8, 0)
+fov = 65.0
+
+[node name="ClearingTarget" type="Marker3D" parent="Shots" unique_id=363323001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 4, 0)
+
+[node name="Camp" type="Camera3D" parent="Shots" unique_id=1298588377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 24, -4)
+fov = 60.0
+
+[node name="CampTarget" type="Marker3D" parent="Shots" unique_id=1283316318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, 18, -12)
+
+[node name="Channel" type="Camera3D" parent="Shots" unique_id=132914372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124, 10, 0)
+fov = 65.0
+
+[node name="ChannelTarget" type="Marker3D" parent="Shots" unique_id=1969218533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 0)
+
+[node name="Hunting" type="Camera3D" parent="Shots" unique_id=2076681758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, 16, 0)
+fov = 65.0
+
+[node name="HuntingTarget" type="Marker3D" parent="Shots" unique_id=1903617017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -380, 4, 0)
+
+[node name="Bridge" type="Camera3D" parent="Shots" unique_id=1270743434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -540, 12, 12)
+fov = 65.0
+
+[node name="BridgeTarget" type="Marker3D" parent="Shots" unique_id=1038378606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -620, 5, 0)
+
+[node name="Refuge" type="Camera3D" parent="Shots" unique_id=1887548675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -660, 28, -20)
+fov = 60.0
+
+[node name="RefugeTarget" type="Marker3D" parent="Shots" unique_id=1564110070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -720, 18, -20)
+
+[node name="Pack" type="Camera3D" parent="Shots" unique_id=1508283804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1060, 18, 20)
+fov = 65.0
+
+[node name="PackTarget" type="Marker3D" parent="Shots" unique_id=2095859783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -950, 2, 60)
+
+[node name="Storm" type="Camera3D" parent="Shots" unique_id=1744999596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1150, 16, 0)
+fov = 65.0
+
+[node name="StormTarget" type="Marker3D" parent="Shots" unique_id=1911841193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1300, 8, 0)
+
+[node name="Cliffs" type="Camera3D" parent="Shots" unique_id=1192377153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1260, 14, 0)
+fov = 65.0
+
+[node name="CliffsTarget" type="Marker3D" parent="Shots" unique_id=1303592401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1400, 25, 0)
+
+[node name="Markers" type="Node3D" parent="." unique_id=1088712239]
+
+[node name="CampCheckpoint" type="Marker3D" parent="Markers" unique_id=111360554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 18, -5)
+
+[node name="RefugeCheckpoint" type="Marker3D" parent="Markers" unique_id=1947124048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -700, 18, -20)
+
+[node name="CliffCheckpoint" type="Marker3D" parent="Markers" unique_id=2089519602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1320, 6, 0)
+
+[node name="FirstSighting" type="Marker3D" parent="Markers" unique_id=367451158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, 0)
+
+[node name="AzureBladePickup" type="Marker3D" parent="Markers" unique_id=380598226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="TideSafePoints" type="Node3D" parent="Markers" unique_id=1555533365]
+
+[node name="S01_Entry" type="Marker3D" parent="Markers/TideSafePoints" unique_id=450758792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 6, 0)
+
+[node name="S07_Ridge" type="Marker3D" parent="Markers/TideSafePoints" unique_id=1216381997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 7, -55)
+
+[node name="S10_Hill" type="Marker3D" parent="Markers/TideSafePoints" unique_id=313799073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 18, -5)
+
+[node name="S11_Channel" type="Marker3D" parent="Markers/TideSafePoints" unique_id=2000794810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140, 6, -20)
+
+[node name="S14_Bridge" type="Marker3D" parent="Markers/TideSafePoints" unique_id=359016809]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 6, 0)
+
+[node name="S15_Refuge" type="Marker3D" parent="Markers/TideSafePoints" unique_id=1753521300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -700, 18, -20)
+
+[node name="S16_Ridge" type="Marker3D" parent="Markers/TideSafePoints" unique_id=1463169370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -900, 6, 90)
+
+[node name="S17_Storm" type="Marker3D" parent="Markers/TideSafePoints" unique_id=2009973006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1200, 8, 0)
+
+[node name="S18_Cliffs" type="Marker3D" parent="Markers/TideSafePoints" unique_id=976070406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1400, 35, 0)
+
+[node name="Gameplay" type="Node3D" parent="." unique_id=929773962]
+
+[node name="Triggers" type="Node3D" parent="Gameplay" unique_id=1558186159]
+
+[node name="FirstFight" type="Marker3D" parent="Gameplay/Triggers" unique_id=2089422910]
+
+[node name="FirstSighting" type="Marker3D" parent="Gameplay/Triggers" unique_id=2137526848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, 0)
+
+[node name="Camp" type="Marker3D" parent="Gameplay/Triggers" unique_id=1316959735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 18, -5)
+
+[node name="WestCrossing" type="Marker3D" parent="Gameplay/Triggers" unique_id=1950694176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137, 6, -20)
+
+[node name="Bridge" type="Marker3D" parent="Gameplay/Triggers" unique_id=489291806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 6, 0)
+
+[node name="Refuge" type="Marker3D" parent="Gameplay/Triggers" unique_id=154407912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -700, 18, -20)
+
+[node name="Storm" type="Marker3D" parent="Gameplay/Triggers" unique_id=766256552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1050, 6, 0)
+
+[node name="Cliffs" type="Marker3D" parent="Gameplay/Triggers" unique_id=1485393388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1320, 6, 0)
+
+[node name="CampNight" type="Area3D" parent="Gameplay/Triggers" unique_id=49648418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.5, 18.2, -8.5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_qtz")
+quest_subject = &"camp_night"
+set_flag = &"camp_night_seen"
+trigger_id = &"camp_night"
+enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/Triggers/CampNight" unique_id=583338800]
+shape = SubResource("SphereShape3D_camp_night")
+
+[node name="DemoEndZone" type="Area3D" parent="Gameplay/Triggers" unique_id=674704469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 18.2, -5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("13_demo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/Triggers/DemoEndZone" unique_id=1328676938]
+shape = SubResource("SphereShape3D_demo_end")
+
+[node name="FinalZone" type="Area3D" parent="Gameplay/Triggers" unique_id=1313891892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1410, 35.2, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("14_final")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/Triggers/FinalZone" unique_id=419887441]
+shape = SubResource("SphereShape3D_final_zone")
+
+[node name="Interactables" type="Node3D" parent="Gameplay" unique_id=1266123890]
+
+[node name="AzureBlade" type="Marker3D" parent="Gameplay/Interactables" unique_id=838222501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Campfire" type="Marker3D" parent="Gameplay/Interactables" unique_id=1875436281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 18, -5)
+
+[node name="SoulShardDryPocket" type="Marker3D" parent="Gameplay/Interactables" unique_id=247183874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 6.5, 49)
+
+[node name="SoulShardTunnel" type="Marker3D" parent="Gameplay/Interactables" unique_id=1283699440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0.5, 20)
+
+[node name="SoulShardBridge" type="Marker3D" parent="Gameplay/Interactables" unique_id=1525095810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 6.5, 0)
+
+[node name="Secrets" type="Node3D" parent="Gameplay/Interactables" unique_id=1307261475 groups=["loot_secret_root"]]
+
+[node name="Secret_Z02_WreckChest" parent="Gameplay/Interactables/Secrets" unique_id=1846734660 instance=ExtResource("9_1i6p2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -1.5, 36.2)
+
+[node name="Secret_Z06_Ossuary" parent="Gameplay/Interactables/Secrets" unique_id=1260856269 instance=ExtResource("10_lkwfh")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -52, 6, 49.5)
+
+[node name="Secret_Z09_Barrels" parent="Gameplay/Interactables/Secrets" unique_id=1213296881 instance=ExtResource("11_ydt4h")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -82, 0, 21.2)
+flavor_item = ExtResource("12_mmods")
+
+[node name="Secret_Z11_TideChest" parent="Gameplay/Interactables/Secrets" unique_id=1061999809 instance=ExtResource("9_1i6p2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.5, -6, 26.5)
+container_id = &"secret_z11_tide_chest"
+prompt = "Открыть затопленный сундук"
+
+[node name="Secret_Z13_Barrels" parent="Gameplay/Interactables/Secrets" unique_id=17834016 instance=ExtResource("11_ydt4h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -505, 0, 24)
+container_id = &"secret_z13_barrels"
+flavor_item = ExtResource("13_i7atb")
+
+[node name="Secret_Z14_BridgeChest" parent="Gameplay/Interactables/Secrets" unique_id=1563978551 instance=ExtResource("9_1i6p2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -638, 2, 19.5)
+container_id = &"secret_z14_bridge_chest"
+flavor_item = ExtResource("14_6bm5t")
+prompt = "Открыть сундук под мостом"
+
+[node name="Secret_Z15_RelicOssuary" parent="Gameplay/Interactables/Secrets" unique_id=850635742 instance=ExtResource("10_lkwfh")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -708, 18, -28)
+container_id = &"secret_z15_ossuary"
+loot_pool = ExtResource("12_y7j73")
+include_future = true
+prompt = "Вскрыть саркофаг Кораллового Стража"
+
+[node name="Secret_Z16_Barrels" parent="Gameplay/Interactables/Secrets" unique_id=1794463642 instance=ExtResource("11_ydt4h")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1025, 0, -32)
+container_id = &"secret_z16_barrels"
+
+[node name="Secret_Z17_StormChest" parent="Gameplay/Interactables/Secrets" unique_id=1492961587 instance=ExtResource("9_1i6p2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1280, -2, 27.5)
+container_id = &"secret_z17_storm_chest"
+flavor_item = ExtResource("16_r6hpm")
+prompt = "Открыть сундук в штормовой низине"
+
+[node name="Secret_Z18_CliffOssuary" parent="Gameplay/Interactables/Secrets" unique_id=873710044 instance=ExtResource("10_lkwfh")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1415, 35, 7.5)
+container_id = &"secret_z18_ossuary"
+loot_pool = ExtResource("13_y7j73")
+include_future = true
+prompt = "Вскрыть саркофаг на утёсах"
+
+[node name="Encounters" type="Node3D" parent="Gameplay" unique_id=1224591233]
+
+[node name="WoundedScavenger" type="Marker3D" parent="Gameplay/Encounters" unique_id=268332958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="PacksZ13" type="Marker3D" parent="Gameplay/Encounters" unique_id=752003227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -375, 0, 0)
+
+[node name="TwoCarapaces" type="Marker3D" parent="Gameplay/Encounters" unique_id=1235212882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -560, 6, 0)
+
+[node name="Echo" type="Marker3D" parent="Gameplay/Encounters" unique_id=1224748835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 6, 0)
+
+[node name="Companions" type="Node3D" parent="Gameplay" unique_id=628660046]
+
+[node name="Nephis" type="Marker3D" parent="Gameplay/Companions" unique_id=2041739489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, 0)
+
+[node name="Cassia" type="Marker3D" parent="Gameplay/Companions" unique_id=407861896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0, 1)
+
+[node name="EchoPath" type="Marker3D" parent="Gameplay/Companions" unique_id=1590149284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 6, 0)
+
+[node name="Dialogue" type="Node3D" parent="Gameplay" unique_id=538544917]
+
+[node name="NephisAnchor" type="Marker3D" parent="Gameplay/Dialogue" unique_id=1984185468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 1.5, 0)
+
+[node name="CassiaAnchor" type="Marker3D" parent="Gameplay/Dialogue" unique_id=678140635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 1.5, 1)
+
+[node name="QuestDirector" type="Node3D" parent="Gameplay" unique_id=1715671618]
+script = ExtResource("11_quest")
+
+[node name="NarrativeQuestDirector" type="Node3D" parent="Gameplay" unique_id=2098860382]
+script = ExtResource("15_narrative")
+
+[node name="Quests" type="Node3D" parent="Gameplay" unique_id=510162921]
+
+[node name="SQ_FS_01" type="Node3D" parent="Gameplay/Quests" unique_id=1135304161]
+
+[node name="Token" type="Marker3D" parent="Gameplay/Quests/SQ_FS_01" unique_id=1316697881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -1.35, 30.5)
+
+[node name="Traces" type="Node3D" parent="Gameplay/Quests/SQ_FS_01" unique_id=265626641]
+
+[node name="Heel" type="Marker3D" parent="Gameplay/Quests/SQ_FS_01/Traces" unique_id=1436755937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -1.35, 33.5)
+
+[node name="Shell" type="Marker3D" parent="Gameplay/Quests/SQ_FS_01/Traces" unique_id=395556691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.1, 8)
+
+[node name="Blood" type="Marker3D" parent="Gameplay/Quests/SQ_FS_01/Traces" unique_id=50806322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37, 0.1, 24)
+
+[node name="Theo" type="Marker3D" parent="Gameplay/Quests/SQ_FS_01" unique_id=2026738429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, 6.1, 48)
+
+[node name="SQ_FS_02" type="Node3D" parent="Gameplay/Quests" unique_id=454245890]
+
+[node name="Tunnel" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=1214146539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0.2, 19)
+
+[node name="EchoA" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=1833501323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0.2, 19)
+
+[node name="EchoB" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=472402246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0.2, 21)
+
+[node name="EchoC" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=1836888819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0.2, 19)
+
+[node name="Polyp" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=1426291422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 2.1, 20)
+
+[node name="Cloak" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=410350932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.5, 0.2, 20.5)
+
+[node name="Core" type="Marker3D" parent="Gameplay/Quests/SQ_FS_02" unique_id=1972049990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 2.1, 20)
+
+[node name="SQ_FS_03" type="Node3D" parent="Gameplay/Quests" unique_id=9643614]
+
+[node name="TheoReturn" type="Marker3D" parent="Gameplay/Quests/SQ_FS_03" unique_id=1443928714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, 6.1, 48)
+
+[node name="Cord" type="Marker3D" parent="Gameplay/Quests/SQ_FS_03" unique_id=2092909598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 6.1, 47)
+
+[node name="Cache" type="Marker3D" parent="Gameplay/Quests/SQ_FS_03" unique_id=1777082090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 6.1, 47)
+
+[node name="Token" type="Marker3D" parent="Gameplay/Quests/SQ_FS_03" unique_id=1768565161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0.2, 21)
+
+[node name="SQ_FS_05" type="Node3D" parent="Gameplay/Quests" unique_id=27525209]
+
+[node name="Bridge" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=240040824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -580, 6.2, 0)
+
+[node name="Trail" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=213027789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -590, 2.2, 19.5)
+
+[node name="Lair" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=2081741976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -610, -1.8, 9)
+
+[node name="Carcass" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=125548777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -585, 2.2, 18)
+
+[node name="Bait" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=502809839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -605, 2.2, 15)
+
+[node name="Alpha" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=207584320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 2.2, 18)
+
+[node name="WestEnd" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=1220673210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -650, 6.2, 0)
+
+[node name="Reward" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=941004950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -610, 2.2, 9)
+
+[node name="TideBonus" type="Marker3D" parent="Gameplay/Quests/SQ_FS_05" unique_id=948923036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -620, -1.8, 9)
+
+[node name="SQ_FS_04" type="Node3D" parent="Gameplay/Quests" unique_id=1337176271]
+
+[node name="Ledge" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04" unique_id=776405276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.5, 6.2, -20)
+
+[node name="LowSill" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04" unique_id=274507083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.5, -0.8, 0)
+
+[node name="Box" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04" unique_id=357476116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.5, -0.75, 0)
+
+[node name="Chart" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04" unique_id=827598921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.5, 6.3, -18)
+
+[node name="Levers" type="Node3D" parent="Gameplay/Quests/SQ_FS_04" unique_id=881742571]
+
+[node name="A" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04/Levers" unique_id=1924683266]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.6, -0.95, 0)
+
+[node name="B" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04/Levers" unique_id=2068615775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.5, -0.95, 1.1)
+
+[node name="C" type="Marker3D" parent="Gameplay/Quests/SQ_FS_04/Levers" unique_id=1025704521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -136.4, -0.95, 0)
+
+[node name="LootBagPersistence" type="Node3D" parent="Gameplay" unique_id=698013345]
+script = ExtResource("16_18qoa")
+
+[node name="Landmarks" type="Node3D" parent="." unique_id=402035173]
+
+[node name="Statue" type="Node3D" parent="Landmarks" unique_id=285162297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
+
+[node name="CampPillar" type="Node3D" parent="Landmarks" unique_id=1762048134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99, 18, -14)
+
+[node name="CampLight" type="OmniLight3D" parent="Landmarks/CampPillar" unique_id=66496890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 7)
+light_color = Color(1, 0.55, 0.2, 1)
+light_energy = 3.2
+shadow_enabled = true
+omni_range = 13.0
+script = ExtResource("8_flicker")
+
+[node name="WesternSpire" type="Node3D" parent="Landmarks" unique_id=2102481532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -420, 0, -105)
+
+[node name="BoneBridge" type="Node3D" parent="Landmarks" unique_id=1712375598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -600, 6, 0)
+
+[node name="StormWall" type="Node3D" parent="Landmarks" unique_id=1910633730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1300, 20, 0)
+
+[node name="Cliffs" type="Node3D" parent="Landmarks" unique_id=1457129716]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1450, 20, 0)
+
+[node name="Tide" type="Node3D" parent="." unique_id=1110210859]
+
+[node name="WaterPlane" type="MeshInstance3D" parent="Tide" unique_id=445920597]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -700, -8, 0)
+material_override = ExtResource("7_water")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_water")
+
+[node name="TideController" type="Node3D" parent="Tide" unique_id=1243543459]
+script = ExtResource("6_tide")
+water_plane = NodePath("../WaterPlane")
+
+[node name="TideGates" type="Node3D" parent="Tide" unique_id=1486096164]
+
+[node name="GameplayHud" parent="." unique_id=2029638024 instance=ExtResource("10_hud")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=683975028]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=512121340]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("4_fade")

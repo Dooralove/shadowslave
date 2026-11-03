@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/weapon_data.gd" id="1_weapon"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/short_sword.glb" id="2_visual"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/p1_ual.tres" id="3_rig"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/sunny_light_armed.tres" id="4_attack"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"short_sword_alpha_p1"
+display_name = "Short Sword (P1/UAL)"
+slot = 1
+visual_scene = ExtResource("2_visual")
+rig_profile = ExtResource("3_rig")
+attach_socket = &"hand_r"
+visual_rotation_degrees = Vector3(90, 90, 0)
+tags = PackedStringArray("alpha", "p1", "weapon")
+ab_variant = &"A"
+notes = "P1/UAL rig version; orientation matches the existing P1 weapon socket."
+grip_socket = &"hand_r"
+sheath_socket = &"hips"
+attack_data = ExtResource("4_attack")

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_data.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/carapace_claw.tres" id="2_claw"]
+
+[resource]
+script = ExtResource("1_enemy")
+id = &"carapace_scavenger"
+display_name = "Карапакс-падальщик"
+max_health = 95.0
+detection_range = 11.0
+lose_range = 16.0
+attack_distance = 2.1
+move_speed = 2.1
+turn_speed = 4.2
+telegraph_time = 0.85
+recovery_time = 1.05
+attack = ExtResource("2_claw")

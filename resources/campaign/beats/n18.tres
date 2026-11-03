@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N18"
+part = &"act_3"
+part_title = "Акт III «Подъём»"
+canonical_block = 14
+title = "Бой с личинкой из тела Шифти"
+beat_type = 0
+format_label = "И (бой)"
+objective = "Выжить"
+idle_objectives = Array[String](["Кровь ведёт за выступ", "Уклоняйся от личинки", "Сбрось её с обрыва"])
+guide_beacon_id = &"cave"
+checkpoint_id = &"CP-N18"
+checkpoint_ids = Array[StringName]([&"CP-N18"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N18": Vector3(2.4, 4.15, -34.7)
+})
+entry_conditions = Array[StringName]([&"shifty_dead"])
+exit_conditions = Array[StringName]([&"shifty_larva_killed"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 120.0
+estimated_time_text = "~2 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = true

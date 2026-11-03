@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_xxygw"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_2em3b"]
+
+[sub_resource type="Resource" id="Resource_2pwct"]
+script = ExtResource("1_xxygw")
+cue_id = &"p07_gate_scan"
+position = Vector3(5.5, 1.2, 3)
+volume_db = -3.0
+flag = &"academy_gate_passed"
+
+[sub_resource type="Resource" id="Resource_tstda"]
+script = ExtResource("1_xxygw")
+cue_id = &"world_wind_gust"
+position = Vector3(5, 1.5, 2)
+volume_db = -9.0
+flag = &"nephis_seen_at_gate"
+
+[sub_resource type="Resource" id="Resource_xtows"]
+script = ExtResource("1_xxygw")
+cue_id = &"p07_flag_flap"
+position = Vector3(-4, 2, 20)
+volume_db = -8.0
+loop = true
+
+[resource]
+script = ExtResource("2_2em3b")
+id = &"p07_academy_gate"
+scene_path = "res://scenes/locations/post_nightmare/academy_gate.tscn"
+location_id = &"academy_gate"
+music_id = &"m1_academy"
+ambience_id = &"m1_academy"
+music_intensity = 0.42
+loops = Array[ExtResource("1_xxygw")]([SubResource("Resource_xtows")])
+flag_events = Array[ExtResource("1_xxygw")]([SubResource("Resource_2pwct"), SubResource("Resource_tstda")])
+interactions = {
+&"academy_gate": &"p07_gate_scan",
+&"academy_gate_checkpoint": &"p07_gate_scan",
+&"gate_guard": &"ui_confirm",
+&"p07_gate": &"p07_gate_scan",
+&"p07_guard": &"ui_confirm"
+}

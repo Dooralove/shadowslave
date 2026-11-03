@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_6ujy5"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="2_cvchd"]
+[ext_resource type="Resource" path="res://resources/loot/items/rope.tres" id="3_kwg0e"]
+[ext_resource type="Resource" path="res://resources/loot/items/torch.tres" id="4_gmys2"]
+[ext_resource type="Resource" path="res://resources/loot/items/oil_flask.tres" id="5_iw7xm"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="6_f2avs"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="7_eeukk"]
+
+[sub_resource type="Resource" id="Resource_lsqlv"]
+script = ExtResource("1_6ujy5")
+item = ExtResource("2_cvchd")
+weight = 2.0
+
+[sub_resource type="Resource" id="Resource_dea8j"]
+script = ExtResource("1_6ujy5")
+item = ExtResource("3_kwg0e")
+weight = 1.4
+
+[sub_resource type="Resource" id="Resource_512ra"]
+script = ExtResource("1_6ujy5")
+item = ExtResource("4_gmys2")
+max_count = 2
+weight = 1.2
+
+[sub_resource type="Resource" id="Resource_3sby2"]
+script = ExtResource("1_6ujy5")
+item = ExtResource("5_iw7xm")
+weight = 0.7
+
+[sub_resource type="Resource" id="Resource_bgkqq"]
+script = ExtResource("1_6ujy5")
+item = ExtResource("6_f2avs")
+
+[resource]
+script = ExtResource("7_eeukk")
+id = &"academy_locker"
+display_name = "Шкафчик Академии"
+description = "Академический контейнер: бытовые припасы, инструменты, медикаменты."
+guaranteed = Array[ExtResource("1_6ujy5")]([SubResource("Resource_bgkqq")])
+entries = Array[ExtResource("1_6ujy5")]([SubResource("Resource_lsqlv"), SubResource("Resource_dea8j"), SubResource("Resource_512ra"), SubResource("Resource_3sby2")])
+tags = PackedStringArray("academy", "container")

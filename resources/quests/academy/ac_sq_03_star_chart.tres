@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_c2cog"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_ecsq8"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_dnnor"]
+
+[sub_resource type="Resource" id="Resource_g4qwh"]
+script = ExtResource("1_c2cog")
+id = &"archive"
+text = "Найти карту в архиве"
+kind = 2
+target_id = &"restricted_archive"
+
+[sub_resource type="Resource" id="Resource_wvk8o"]
+script = ExtResource("2_ecsq8")
+flag = &"star_navigation"
+text = "Звёздная навигация"
+
+[sub_resource type="Resource" id="Resource_xgxm3"]
+script = ExtResource("2_ecsq8")
+flag = &"ac_rep_faculty_1"
+text = "Доверие преподавателей"
+
+[resource]
+script = ExtResource("3_dnnor")
+id = &"ac_sq_03_star_chart"
+scope = &"academy"
+code = "AC-SQ-03"
+title = "Карта, которой нет"
+summary = "Найти карту звёзд в закрытом архиве."
+description = "Джулиус потерял карту, которую рисовал для Санни. Она попала в закрытый архив."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_g4qwh")]
+rewards = [SubResource("Resource_wvk8o"), SubResource("Resource_xgxm3")]
+completion_flag = &"ac_sq_03_complete"

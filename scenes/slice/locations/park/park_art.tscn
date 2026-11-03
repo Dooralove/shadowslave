@@ -23,6 +23,7 @@ shader = ExtResource("2_screen")
 [node name="ParkArt" type="Node3D"]
 
 [node name="Blockout" parent="." instance=ExtResource("1_blockout")]
+visible = false
 
 [node name="Screen" parent="Blockout"]
 surface_material_override/0 = SubResource("Mat_screen")
@@ -290,18 +291,23 @@ visible = false
 [node name="Upgrade" type="Node3D" parent="."]
 
 [node name="Tree0" parent="Upgrade" instance=ExtResource("6_tree_a")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 0, 4.8)
 
 [node name="Tree1" parent="Upgrade" instance=ExtResource("7_tree_b")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 0, 5.6)
 
 [node name="Tree2" parent="Upgrade" instance=ExtResource("8_tree_c")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0, 0, 6.2)
 
 [node name="Tree3" parent="Upgrade" instance=ExtResource("6_tree_a")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, -2.6)
 
 [node name="Tree4" parent="Upgrade" instance=ExtResource("8_tree_c")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 0, -2.2)
 
 [node name="Lamp0" parent="Upgrade" instance=ExtResource("9_lamp")]
@@ -317,30 +323,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0, 0, -15.95)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0, 0, -15.95)
 
 [node name="Facade0" parent="Upgrade" instance=ExtResource("11_slit")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.925, 0, -19.0)
 
 [node name="Facade1" parent="Upgrade" instance=ExtResource("10_bay")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, -19.0)
 
 [node name="Facade2" parent="Upgrade" instance=ExtResource("11_slit")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.425, 0, -19.0)
 
 [node name="Facade3" parent="Upgrade" instance=ExtResource("10_bay")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 0, -19.0)
 
 [node name="Facade4" parent="Upgrade" instance=ExtResource("10_bay")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 0, -19.0)
 
 [node name="Facade5" parent="Upgrade" instance=ExtResource("11_slit")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.675, 0, -19.0)
 
 [node name="Facade6" parent="Upgrade" instance=ExtResource("10_bay")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.55, 0, -19.0)
 
 [node name="Facade7" parent="Upgrade" instance=ExtResource("10_bay")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.05, 0, -19.0)
 
 [node name="StationEntrance" parent="Upgrade" instance=ExtResource("12_entrance")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.0)
 
 [node name="Bollard00" parent="Upgrade" instance=ExtResource("13_bollard")]
@@ -377,6 +392,51 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 0, -16.15)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 0, -16.15)
 
 [editable path="Blockout"]
+
+[node name="StationMain" parent="Blockout"]
+visible = false
+
+[node name="StationTower" parent="Blockout"]
+visible = false
+
+[node name="StationPlinth" parent="Blockout"]
+visible = false
+
+[node name="NearSidewalk" parent="Blockout"]
+visible = false
+
+[node name="FarSidewalk" parent="Blockout"]
+visible = false
+
+[node name="Street" parent="Blockout"]
+visible = false
+
+[node name="CurbNear" parent="Blockout"]
+visible = false
+
+[node name="CurbFar" parent="Blockout"]
+visible = false
+
+[node name="Lawn" parent="Blockout"]
+visible = false
+
+[node name="LawnEdge" parent="Blockout"]
+visible = false
+
+[node name="PathCross" parent="Blockout"]
+visible = false
+
+[node name="PocketOld" parent="Blockout"]
+visible = false
+
+[node name="PathWest" parent="Blockout"]
+visible = false
+
+[node name="PathEast" parent="Blockout"]
+visible = false
+
+[node name="PathMouth" parent="Blockout"]
+visible = false
 
 [node name="RowNW00" parent="Blockout"]
 surface_material_override/0 = ExtResource("15_stone")

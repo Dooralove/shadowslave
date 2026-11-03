@@ -1,0 +1,14 @@
+[gd_resource type="ORMMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rough_wood_diff_1k.jpg" id="1_p1c8d"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rough_wood_nor_gl_1k.jpg" id="2_4hy7d"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rough_wood_arm_1k.jpg" id="3_wcs65"]
+
+[resource]
+resource_name = "art_wood_dark"
+albedo_color = Color(0.58, 0.53, 0.47, 1)
+albedo_texture = ExtResource("1_p1c8d")
+orm_texture = ExtResource("3_wcs65")
+normal_enabled = true
+normal_texture = ExtResource("2_4hy7d")
+uv1_scale = Vector3(1.8, 1.8, 1.8)

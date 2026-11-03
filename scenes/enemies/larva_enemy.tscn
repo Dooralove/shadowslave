@@ -1,0 +1,138 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/test_enemy.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/combat/enemies/larva.tres" id="2_data"]
+[ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="3_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/melee_attack.gd" id="5_attack"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/larva_bite.tres" id="6_bite"]
+[ext_resource type="PackedScene" path="res://scenes/locations/caravan_site/larva.tscn" id="7_larva"]
+[ext_resource type="Script" path="res://scripts/combat/larva_animator.gd" id="8_animator"]
+[ext_resource type="Script" path="res://scripts/combat/hit_flash.gd" id="9_flash"]
+[ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="10_spark"]
+[ext_resource type="Script" path="res://scripts/inspect/inspectable.gd" id="11_inspect"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_weak_spot.tres" id="12_weak"]
+
+[sub_resource type="CapsuleShape3D" id="Capsule_body"]
+radius = 0.45
+height = 1.05
+
+[sub_resource type="SphereShape3D" id="Sphere_attack"]
+radius = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_swing"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.15, 0.1, 0.3)
+
+[sub_resource type="SphereMesh" id="Sphere_swing"]
+material = SubResource("Mat_swing")
+
+[sub_resource type="StandardMaterial3D" id="Mat_telegraph"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.25, 0.1, 0.42)
+
+[sub_resource type="CylinderMesh" id="Cylinder_telegraph"]
+material = SubResource("Mat_telegraph")
+top_radius = 0.85
+bottom_radius = 0.85
+height = 0.03
+
+[sub_resource type="CapsuleShape3D" id="Capsule_hurtbox"]
+radius = 0.5
+height = 1.15
+
+[sub_resource type="StandardMaterial3D" id="Mat_weak"]
+albedo_color = Color(0.38, 0.12, 0.1, 1)
+emission_enabled = true
+emission = Color(0.55, 0.12, 0.08, 1)
+emission_energy_multiplier = 0.8
+roughness = 0.6
+
+[node name="LarvaEnemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_enemy")
+data = ExtResource("2_data")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.53, 0)
+shape = SubResource("Capsule_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Model" type="Node3D" parent="Visual"]
+scale = Vector3(1.15, 1.15, 1.15)
+
+[node name="Larva" parent="Visual/Model" instance=ExtResource("7_larva")]
+
+[node name="WeakSpot" type="CSGSphere3D" parent="Visual/Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86, -0.3)
+use_collision = false
+radius = 0.1
+radial_segments = 8
+rings = 4
+material = SubResource("Mat_weak")
+
+[node name="Inspectable" type="Node3D" parent="Visual/Model/WeakSpot"]
+script = ExtResource("11_inspect")
+data = ExtResource("12_weak")
+
+[node name="MeleeAttack" type="Area3D" parent="Visual" node_paths=PackedStringArray("swing_visual")]
+position = Vector3(0, 0.55, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_attack")
+stats = ExtResource("6_bite")
+swing_visual = NodePath("SwingVisual")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/MeleeAttack"]
+shape = SubResource("Sphere_attack")
+
+[node name="SwingVisual" type="MeshInstance3D" parent="Visual/MeleeAttack"]
+visible = false
+cast_shadow = 0
+mesh = SubResource("Sphere_swing")
+
+[node name="TelegraphVisual" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.03, -0.8)
+visible = false
+cast_shadow = 0
+mesh = SubResource("Cylinder_telegraph")
+
+[node name="Glow" type="OmniLight3D" parent="Visual/TelegraphVisual"]
+light_color = Color(1, 0.25, 0.1, 1)
+light_energy = 1.4
+omni_range = 2.6
+shadow_enabled = false
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_hurtbox")
+health = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+position = Vector3(0, 0.58, 0)
+shape = SubResource("Capsule_hurtbox")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")
+max_health = 55.0
+
+[node name="HitFlash" type="Node" parent="." node_paths=PackedStringArray("health", "mesh_root")]
+script = ExtResource("9_flash")
+health = NodePath("../Health")
+mesh_root = NodePath("../Visual/Model")
+
+[node name="HitSpark" type="Node" parent="." node_paths=PackedStringArray("attack")]
+script = ExtResource("10_spark")
+attack = NodePath("../Visual/MeleeAttack")
+
+[node name="Animator" type="Node" parent="." node_paths=PackedStringArray("enemy", "model", "telegraph", "health")]
+script = ExtResource("8_animator")
+enemy = NodePath("..")
+model = NodePath("../Visual/Model")
+telegraph = NodePath("../Visual/TelegraphVisual")
+health = NodePath("../Health")

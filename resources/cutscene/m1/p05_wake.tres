@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/cutscene/content/m1/p05_wake.gd" id="2_script"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"m1/p05_wake"
+display_name = "P05 — пробуждение в участке"
+description = "Санни приходит в себя в камере; Джетт объясняет, где он и что делать дальше."
+chapter = &"M1"
+cutscene_script = ExtResource("2_script")
+skip_policy = 1
+key_scene = true
+max_duration = 35.0
+min_skip_time = 1.0
+completion_flags = Array[StringName]([&"p05_jett_talked", &"flaw_revealed", &"flaw_clear_conscience"])
+skip_summary = Array[String](["Джетт будит Санни и говорит о зеркале."])
+hide_hud = true
+letterbox = true
+once = true
+once_flag = &"p05_jett_talked"
+realign_camera_on_finish = true

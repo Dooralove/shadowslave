@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_currency.png" id="1_0qich"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_dkxtx"]
+
+[resource]
+resource_name = "soul_shard"
+script = ExtResource("2_dkxtx")
+id = &"soul_shard"
+display_name = "Осколок души"
+category = 0
+stack_max = 999
+description = "Кристаллизованная душа. Валюта Пробуждённых и ценность, которую Санни не поглощает."
+canon_status = &"CANON"
+tags = PackedStringArray("currency", "canon")
+icon = ExtResource("1_0qich")

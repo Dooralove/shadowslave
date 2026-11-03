@@ -1,0 +1,25 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_bone_aged_diff_1k.jpg" id="1_k5wcq"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_bone_aged_arm_1k.jpg" id="2_3iytb"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_bone_aged_nor_gl_1k.jpg" id="3_y8rnc"]
+
+[resource]
+resource_name = "nm_bone_aged_prim"
+albedo_color = Color(0.72, 0.68, 0.6, 1)
+albedo_texture = ExtResource("1_k5wcq")
+metallic_specular = 0.42
+roughness = 0.82
+roughness_texture = ExtResource("2_3iytb")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 0.95
+normal_texture = ExtResource("3_y8rnc")
+ao_enabled = true
+ao_light_affect = 0.35
+ao_texture = ExtResource("2_3iytb")
+uv1_scale = Vector3(1.25, 1.25, 1.25)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 5.0
+uv1_world_triplanar = true
+texture_filter = 5

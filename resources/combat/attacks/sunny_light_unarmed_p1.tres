@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1_attack"]
+
+[resource]
+script = ExtResource("1_attack")
+damage = 12.0
+damage_type = &"blunt"
+cooldown = 0.9
+windup_time = 0.3
+active_time = 0.2
+reach = 0.9
+radius = 0.7
+contact_time = 0.33
+attack_name = "Удар кулаком"
+kind = 0
+stamina_cost = 6.0
+guard_damage = 10.0
+blockable = true
+hitstop = 0.04
+

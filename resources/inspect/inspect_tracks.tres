@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="InspectableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inspect/inspectable_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"inspect_tracks"
+display_name = "Следы на снегу"
+kind = 1
+highlight_color = Color(0.78, 0.84, 0.94, 1)
+highlight_strength = 0.7
+pulse_speed = 1.6
+detection_radius = 3.0
+auto_inspect = true
+beat_id = &"N18"
+required_flags = Array[StringName]([&"shifty_dead"])
+forbidden_flags = Array[StringName]([&"cave_entered"])
+completed_flag = &""
+completed_item = &""
+thought_id = &"thought_tracks"
+thought_once = true
+suppress_beacon_id = &"cave"

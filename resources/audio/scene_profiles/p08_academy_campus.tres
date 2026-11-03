@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_6biia"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_bkt4b"]
+
+[sub_resource type="Resource" id="Resource_gg1a0"]
+script = ExtResource("1_6biia")
+cue_id = &"p08_terminal_beep"
+position = Vector3(-2.5, 1.2, 4)
+volume_db = -2.0
+flag = &"dorm_assigned"
+
+[sub_resource type="Resource" id="Resource_jtbjv"]
+script = ExtResource("1_6biia")
+cue_id = &"p08_crowd_walla"
+position = Vector3(0, 1, 0)
+volume_db = -8.0
+loop = true
+
+[resource]
+script = ExtResource("2_bkt4b")
+id = &"p08_academy_campus"
+scene_path = "res://scenes/locations/post_nightmare/academy_campus.tscn"
+location_id = &"academy_campus"
+music_id = &"m1_academy"
+ambience_id = &"m1_academy"
+music_intensity = 0.42
+reverb_profile = &"academy_hall"
+loops = Array[ExtResource("1_6biia")]([SubResource("Resource_jtbjv")])
+flag_events = Array[ExtResource("1_6biia")]([SubResource("Resource_gg1a0")])
+interactions = {
+&"academy_campus_guide": &"ui_confirm",
+&"academy_terminal": &"p08_terminal_beep",
+&"campus_guide": &"ui_confirm",
+&"campus_terminal": &"p08_terminal_beep",
+&"terminal": &"p08_terminal_beep"
+}

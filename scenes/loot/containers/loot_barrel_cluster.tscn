@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cyfpkd3prw6e4"]
+
+[ext_resource type="Script" uid="uid://ca77g6rxoa4w3" path="res://scripts/loot/loot_cache.gd" id="1_i4hat"]
+[ext_resource type="PackedScene" uid="uid://dh2rty5dtqe5t" path="res://assets/models/containers/loot_barrel_cluster.glb" id="2_5ywus"]
+[ext_resource type="Resource" path="res://resources/loot/tables/cache_barrel_cluster.tres" id="2_osaqu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_osaqu"]
+size = Vector3(1.55, 0.91, 1.37)
+
+[node name="LootBarrelCluster" type="Node3D" unique_id=1213296881]
+script = ExtResource("1_i4hat")
+container_id = &"secret_z09_barrels"
+loot_pool = ExtResource("2_osaqu")
+prompt = "Обыскать тайные бочки"
+radius = 2.4
+enabled = true
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=1962313702]
+
+[node name="Model" parent="VisualRoot" unique_id=1695300205 instance=ExtResource("2_5ywus")]
+
+[node name="Glow" type="OmniLight3D" parent="." unique_id=1373343186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+light_color = Color(1, 0.7607843, 0.47843137, 1)
+light_energy = 0.55
+omni_range = 2.6
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=513053164]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=320130998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.455, 0)
+shape = SubResource("BoxShape3D_osaqu")
+
+[node name="StateLabel" type="Label3D" parent="." unique_id=1654960394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+visible = false
+pixel_size = 0.004
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.9019608, 0.7529412, 1)
+outline_modulate = Color(0.101960786, 0.050980393, 0.03137255, 1)
+font_size = 24
+outline_size = 5

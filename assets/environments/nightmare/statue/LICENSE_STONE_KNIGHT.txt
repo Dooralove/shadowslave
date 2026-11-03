@@ -1,0 +1,18 @@
+Stone Knight — source model for the Forgotten Shore colossus
+===========================================================
+
+Title: Stone Knight
+Author: mzee92
+Source: https://sketchfab.com/3d-models/stone-knight-c3e3712fd5164e44abdab658981cb395
+License: Creative Commons Attribution 4.0 (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Downloaded via Sketchfab API on 2026-11-02 after explicit user permission.
+The downloaded source is kept as `assets/environments/nightmare/source/stone_knight_source.glb` for provenance (not imported by Godot).
+The delivered asset `statue_knight_colossus.glb` is a derivative: the source
+statue was scaled to 200 m, reoriented, given a new origin at the neck platform,
+combined with a 12 m neck platform, seven star medallions, and a stone collar.
+
+Required attribution:
+"Stone Knight" by mzee92, licensed CC BY 4.0, via Sketchfab.
+Credit is exposed in the main menu Credits dialog; verify it in the release build.

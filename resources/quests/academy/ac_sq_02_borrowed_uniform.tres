@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_31c1u"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_pkf4t"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_mjeak"]
+
+[sub_resource type="Resource" id="Resource_vy7rd"]
+script = ExtResource("1_31c1u")
+id = &"locker"
+text = "Обыскать шкафчики додзё"
+kind = 2
+target_id = &"dojo_locker"
+
+[sub_resource type="Resource" id="Resource_o1a1o"]
+script = ExtResource("2_pkf4t")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[sub_resource type="Resource" id="Resource_8mhs5"]
+script = ExtResource("2_pkf4t")
+flag = &"ac_rep_outcast_1"
+text = "Доверие «обречённых»"
+
+[resource]
+script = ExtResource("3_mjeak")
+id = &"ac_sq_02_borrowed_uniform"
+scope = &"academy"
+code = "AC-SQ-02"
+title = "Чужая форма"
+summary = "Найти форму Рена в шкафчиках додзё."
+description = "Группа Legacy «одолжила» форму Рена для посвящения. Он слишком напуган, чтобы сообщить."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_vy7rd")]
+rewards = [SubResource("Resource_o1a1o"), SubResource("Resource_8mhs5")]
+completion_flag = &"ac_sq_02_complete"

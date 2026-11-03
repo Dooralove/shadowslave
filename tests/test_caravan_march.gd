@@ -100,4 +100,19 @@ func test_camp_arrival_starts_transition_once_and_sets_flags() -> void:
 	assert_true(NightmareRunState.has_flag(&"march_intro_seen"))
 	assert_false(sunny.input_enabled)
 	assert_false(sunny.chain_restrained)
-	assert_true(pass_scene.get_node("PrototypeNote/Root/Note").visible == false)
+	assert_null(pass_scene.get_node_or_null("PrototypeNote"), "PrototypeNote ?????? ?? S01")
+
+
+func test_march_syncs_v2_beat_n06_and_objective() -> void:
+	var pass_scene := _spawn_pass(false)
+	var completed_beats: Array[StringName] = []
+	pass_scene.beat_director.beat_completed.connect(func(beat: BeatData) -> void: completed_beats.append(beat.id))
+	pass_scene.start()
+	assert_eq(pass_scene.beat_director.get_current_beat_id(), &"N06")
+	assert_eq(pass_scene.beat_director.current_objective, "Держать шаг цепи")
+	assert_eq(NightmareRunState.get_current_beat(), &"N06")
+
+	var sunny := pass_scene.get_node("Sunny") as SunnyController
+	pass_scene._on_exit_body_entered(sunny)
+	assert_eq(completed_beats, [&"N06"], "выход с марша завершает событие N06")
+

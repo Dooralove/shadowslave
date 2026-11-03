@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/objective_line.gd" id="1_objective"]
+
+[node name="ObjectiveLine" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 14.0
+offset_right = 520.0
+offset_bottom = 82.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_objective")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 496.0
+offset_bottom = 68.0
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="Caption" type="Label" parent="Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.68, 0.38, 0.96)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "ЦЕЛЬ"
+
+[node name="Text" type="Label" parent="Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 0.96)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3

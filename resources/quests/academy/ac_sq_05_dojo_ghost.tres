@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_0w5g7"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_hclq2"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_tbq1q"]
+
+[sub_resource type="Resource" id="Resource_63jdm"]
+script = ExtResource("1_0w5g7")
+id = &"ghost"
+text = "Проверить шум"
+kind = 2
+target_id = &"dojo_night_point"
+
+[sub_resource type="Resource" id="Resource_edyv7"]
+script = ExtResource("2_hclq2")
+flag = &"parry_basics"
+text = "Основы парирования"
+
+[sub_resource type="Resource" id="Resource_5bsgr"]
+script = ExtResource("2_hclq2")
+flag = &"dojo_token"
+text = "Доступ в додзё после отбоя"
+
+[resource]
+script = ExtResource("3_tbq1q")
+id = &"ac_sq_05_dojo_ghost"
+scope = &"academy"
+code = "AC-SQ-05"
+title = "Призрак в додзё"
+summary = "Проверить ночной шум в додзё."
+description = "После отбоя в додзё слышны удары. Это Рен тренируется тайком, чтобы не попасть в «обречённые»."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_63jdm")]
+rewards = [SubResource("Resource_edyv7"), SubResource("Resource_5bsgr")]
+completion_flag = &"ac_sq_05_complete"

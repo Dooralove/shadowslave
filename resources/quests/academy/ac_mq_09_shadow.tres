@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_8jaxt"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_dmao0"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_b6s4b"]
+
+[sub_resource type="Resource" id="Resource_62ode"]
+script = ExtResource("1_8jaxt")
+id = &"scout_1"
+text = "Осмотреть коридор"
+kind = 2
+target_id = &"shadow_point_1"
+
+[sub_resource type="Resource" id="Resource_d1igw"]
+script = ExtResource("1_8jaxt")
+id = &"scout_2"
+text = "Осмотреть фильтры"
+kind = 2
+target_id = &"shadow_point_2"
+
+[sub_resource type="Resource" id="Resource_07fys"]
+script = ExtResource("1_8jaxt")
+id = &"scout_3"
+text = "Осмотреть архив"
+kind = 2
+target_id = &"shadow_point_3"
+
+[sub_resource type="Resource" id="Resource_rbgaq"]
+script = ExtResource("2_dmao0")
+flag = &"shadow_scout"
+text = "Тень-разведчик"
+
+[sub_resource type="Resource" id="Resource_r86p0"]
+script = ExtResource("2_dmao0")
+flag = &"maintenance_key"
+text = "Ключ от сервисных тоннелей"
+
+[sub_resource type="Resource" id="Resource_ic1oy"]
+script = ExtResource("2_dmao0")
+currency_id = &"credits"
+currency_amount = 15
+text = "15 кредитов"
+
+[resource]
+script = ExtResource("3_b6s4b")
+id = &"ac_mq_09_shadow"
+scope = &"academy"
+code = "AC-MQ-09"
+title = "Тень в коридорах"
+category = 0
+summary = "Освоить тень-разведчика в сервисных коридорах."
+description = "Ночью тень тянется к вентиляции. Три точки разведки ведут к старой табличке с именами."
+prerequisites = Array[StringName]([&"ac_mq_04_complete"])
+show_available = false
+objectives = [SubResource("Resource_62ode"), SubResource("Resource_d1igw"), SubResource("Resource_07fys")]
+rewards = [SubResource("Resource_rbgaq"), SubResource("Resource_r86p0"), SubResource("Resource_ic1oy")]
+completion_flag = &"ac_mq_09_complete"

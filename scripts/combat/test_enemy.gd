@@ -10,6 +10,8 @@ enum State { IDLE, CHASE, TELEGRAPH, ATTACK, RECOVERY, DEAD }
 
 ## Цель для преследования. Если не задана — первый узел группы "player".
 @export var target: Node3D
+## Данные вида. Если заданы, перекрывают поля сцены и атаку.
+@export var data: EnemyData
 @export var detection_range := 10.0
 ## Дистанция, на которой преследование прекращается (больше detection_range, чтобы не дёргаться на границе).
 @export var lose_range := 15.0
@@ -31,11 +33,37 @@ var _state_time := 0.0
 
 
 func _ready() -> void:
+	if data != null:
+		_apply_data(data)
 	add_to_group(&"enemy")
 	if target == null:
 		target = get_tree().get_first_node_in_group("player") as Node3D
 	telegraph_visual.visible = false
 	health.died.connect(_on_died)
+
+
+## Применяет EnemyData. Публичный вход для тестов и будущих сцен.
+func apply_data(value: EnemyData) -> void:
+	data = value
+	if is_node_ready() and value != null:
+		_apply_data(value)
+
+
+func _apply_data(value: EnemyData) -> void:
+	detection_range = value.detection_range
+	lose_range = value.lose_range
+	attack_distance = value.attack_distance
+	move_speed = value.move_speed
+	turn_speed = value.turn_speed
+	telegraph_time = value.telegraph_time
+	recovery_time = value.recovery_time
+	health.configure(value.max_health)
+	if value.attack != null:
+		attack.configure(value.attack)
+
+
+func get_display_name() -> String:
+	return data.display_name if data != null else "Противник"
 
 
 ## Наблюдаемое состояние для будущих систем опасности. Не влияет на AI.
@@ -91,7 +119,9 @@ func update_ai(delta: float) -> void:
 			if _state_time >= telegraph_time:
 				_enter(State.ATTACK)
 		State.ATTACK:
-			if _state_time >= attack.stats.active_time:
+			# Окно закрывается внутри MeleeAttack, а не по отдельному таймеру:
+			# так windup/active в AttackData остаются единственным источником правды.
+			if attack.phase == MeleeAttack.Phase.RECOVERY or attack.phase == MeleeAttack.Phase.READY:
 				_enter(State.RECOVERY)
 		State.RECOVERY:
 			if _state_time >= recovery_time:
@@ -143,5 +173,6 @@ func _on_died() -> void:
 	attack.disable()
 	# Тело остаётся лежать на полу, но больше не загораживает проход.
 	collision_layer = 0
+	collision_mask = 0
 	# Падение показывает клип смерти (EnemyAnimator).
 	_enter(State.DEAD)

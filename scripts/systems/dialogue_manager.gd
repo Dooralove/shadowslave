@@ -84,8 +84,10 @@ func load_barks(path: String = "") -> bool:
 	if text.begins_with("\uFEFF"):
 		text = text.substr(1)
 
-	var parsed: Variant = JSON.parse_string(text)
-	if parsed == null:
+	var json := JSON.new()
+	var json_error := json.parse(text)
+	var parsed: Variant = json.data
+	if json_error != OK or parsed == null:
 		push_error("DialogueManager: ошибка разбора JSON в %s: %s." % [source_path, _describe_json_error(text)])
 		return false
 
