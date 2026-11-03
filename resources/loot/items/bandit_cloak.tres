@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_equipment.png" id="1_nigq0"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_07w5v"]
+
+[resource]
+resource_name = "bandit_cloak"
+script = ExtResource("2_07w5v")
+id = &"bandit_cloak"
+display_name = "Плащ разбойника"
+category = 4
+stack_max = 1
+description = "Тёмный плащ с чужой кровью на подоле. Обычная ткань."
+canon_status = &"GD_FUTURE"
+tags = PackedStringArray("humanoid", "armor", "cloak")
+icon = ExtResource("1_nigq0")

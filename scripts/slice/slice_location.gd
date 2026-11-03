@@ -7,6 +7,10 @@ extends Node3D
 signal interacted(id: StringName)
 signal triggered(id: StringName)
 
+## P4: все камеры из Shots/* являются катсценовыми. DOF назначается только им;
+## камера игрока (sunny.tscn/CameraRig) не получает этот ресурс.
+const CUTSCENE_CAMERA_ATTRIBUTES: CameraAttributes = preload("res://resources/cameras/p4_cutscene_dof.tres")
+
 var director: SliceDirector
 var _interactables := {}
 var _triggers := {}
@@ -26,6 +30,8 @@ func _ready() -> void:
 		for camera in shots.get_children():
 			var target := camera.get_node_or_null(^"LookAt") as Node3D
 			if camera is Camera3D and target:
+				if camera.attributes == null:
+					camera.attributes = CUTSCENE_CAMERA_ATTRIBUTES
 				var look_target := target.global_position
 				camera.look_at(look_target)
 				target.global_position = look_target

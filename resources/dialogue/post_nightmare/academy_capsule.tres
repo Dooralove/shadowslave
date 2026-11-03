@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "МЕСЯЦ В АКАДЕМИИ"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Лекции. Тренировки. Разговоры, которые он старался не запоминать."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Кассия. Слепая девушка, которая всегда знала, где он стоит."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Нефис. Серебряные волосы. Она не задавала лишних вопросов."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Потом пришёл день капсулы."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"medic"
+text = "Протокол погружения. Ложись в капсулу и считай от десяти."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Я уже умирал. Считать не обязательно."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"medic"
+text = "Тогда просто закрой глаза. Дальше — не наша территория."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Медцентр пах холодом. В соседнем зале стояли пустые кресла."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Sleeper Sunless. Добро пожаловать в Царство Снов."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Чёрная вода."
+duration = 0.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11")]

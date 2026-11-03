@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_vcbpw"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_bcpvv"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_5fvqm"]
+
+[sub_resource type="Resource" id="Resource_m7qe2"]
+script = ExtResource("1_vcbpw")
+id = &"find"
+text = "Обыскать старый фильтрационный блок"
+target_id = &"academy_reached_filtration"
+
+[sub_resource type="Resource" id="Resource_ciybr"]
+script = ExtResource("2_bcpvv")
+item_id = &"field_medkit"
+text = "Полевая аптечка"
+
+[sub_resource type="Resource" id="Resource_cuyjd"]
+script = ExtResource("2_bcpvv")
+flag = &"ac_rep_outcast_2"
+text = "Доверие «обречённых»"
+
+[resource]
+script = ExtResource("3_5fvqm")
+id = &"ac_sq_09_missing_cadet"
+scope = &"academy"
+code = "AC-SQ-09"
+title = "Пропавший кадет"
+summary = "Найти Рена в старом фильтрационном блоке."
+description = "Мира говорит, что Рен пропал после отбоя. Тень ведёт Санни в сервисные тоннели."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_m7qe2")]
+rewards = [SubResource("Resource_ciybr"), SubResource("Resource_cuyjd")]
+completion_flag = &"ac_sq_09_complete"

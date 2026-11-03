@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/park_street.tscn" id="1_base"]
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/park/park_art.tscn" id="2_art"]
 [ext_resource type="PackedScene" path="res://assets/environments/park/props/cup.glb" id="3_cup"]
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/park/p2_park_set.tscn" id="5_p2"]
+[ext_resource type="Environment" path="res://assets/environments/park/sky/morning_environment.tres" id="6_env"]
+
 
 [sub_resource type="Gradient" id="Grad_puff"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -68,6 +71,17 @@ sun_angle_max = 20.0
 [sub_resource type="Sky" id="Sky_morning"]
 sky_material = SubResource("SkyMat_morning")
 
+[sub_resource type="StandardMaterial3D" id="Mat_ground_fill"]
+albedo_color = Color(0.33, 0.32, 0.3, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="Mesh_ground_fill"]
+material = SubResource("Mat_ground_fill")
+size = Vector3(48, 0.1, 24)
+
+[sub_resource type="BoxShape3D" id="Shape_ground_fill"]
+size = Vector3(48, 0.1, 24)
+
 [sub_resource type="Environment" id="Env_morning"]
 background_mode = 2
 sky = SubResource("Sky_morning")
@@ -93,14 +107,21 @@ volumetric_fog_anisotropy = 0.4
 [node name="ParkStreetArt" instance=ExtResource("1_base")]
 
 [node name="WorldEnvironment" parent="."]
-environment = SubResource("Env_morning")
+environment = ExtResource("6_env")
 
 [node name="Sun" parent="."]
 rotation = Vector3(-0.576, 0.646, 0)
-light_color = Color(0.96, 0.97, 1, 1)
-light_energy = 2.0
-light_angular_distance = 0.8
-directional_shadow_max_distance = 70.0
+light_color = Color(1, 0.88, 0.72, 1)
+light_energy = 3.4
+light_angular_distance = 0.6
+directional_shadow_max_distance = 100.0
+
+[node name="BenchFill" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 6.0)
+light_color = Color(1, 0.86, 0.68, 1)
+light_energy = 1.8
+omni_range = 14.0
+shadow_enabled = false
 
 [node name="Geometry" parent="."]
 visible = false
@@ -166,4 +187,16 @@ visibility_aabb = AABB(-0.3, -0.1, -0.3, 0.6, 0.6, 0.6)
 process_material = SubResource("Proc_steam")
 draw_pass_1 = SubResource("Mesh_steam")
 
+[node name="GroundFill" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 8)
+mesh = SubResource("Mesh_ground_fill")
+
+[node name="GroundFillBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundFillBody"]
+shape = SubResource("Shape_ground_fill")
+
 [node name="Art" parent="." instance=ExtResource("2_art")]
+
+[node name="P2" parent="." instance=ExtResource("5_p2")]

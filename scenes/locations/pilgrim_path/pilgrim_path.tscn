@@ -4,6 +4,12 @@
 [ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
 [ext_resource type="Script" uid="uid://6fxn77ug1dtb" path="res://scripts/interaction/interactable.gd" id="3_interactable"]
 [ext_resource type="Script" uid="uid://cg74bimshho8n" path="res://scripts/interaction/trigger_zone.gd" id="4_trigger"]
+[ext_resource type="Script" path="res://scripts/guide/thought_trigger.gd" id="5_thought"]
+[ext_resource type="PackedScene" path="res://scenes/guide/guide_beacon.tscn" id="6_beacon"]
+[ext_resource type="Script" path="res://scripts/inspect/inspectable.gd" id="7_inspect"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_blood.tres" id="8_blood"]
+[ext_resource type="Resource" path="res://resources/inspect/inspect_tracks.tres" id="9_tracks"]
+[ext_resource type="Script" path="res://scripts/stealth/stealth_section.gd" id="10_stealth"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_ascent"]
 sky_top_color = Color(0.008, 0.012, 0.03, 1)
@@ -90,6 +96,27 @@ emission_energy_multiplier = 5.0
 
 [sub_resource type="BoxShape3D" id="Shape_temple"]
 size = Vector3(5, 3, 2)
+
+[sub_resource type="BoxShape3D" id="Shape_route_gap"]
+size = Vector3(3.2, 3, 2.2)
+
+[sub_resource type="BoxShape3D" id="Shape_route_sword"]
+size = Vector3(3.0, 3, 2.5)
+
+[sub_resource type="BoxShape3D" id="Shape_route_rest"]
+size = Vector3(4.0, 3, 3.0)
+
+[sub_resource type="BoxShape3D" id="Shape_route_scholar"]
+size = Vector3(3.0, 3, 2.5)
+
+[sub_resource type="BoxShape3D" id="Shape_route_cave"]
+size = Vector3(3.0, 3, 2.6)
+
+[sub_resource type="BoxShape3D" id="Shape_route_cave_exit"]
+size = Vector3(3.0, 3, 2.6)
+
+[sub_resource type="BoxShape3D" id="Shape_route_hero"]
+size = Vector3(3.5, 3, 2.6)
 
 [node name="PilgrimPath" type="Node3D" unique_id=823240785]
 script = ExtResource("1_path")
@@ -181,12 +208,12 @@ material = SubResource("Mat_snow")
 [node name="NarrowLedge" type="CSGBox3D" parent="Geometry" unique_id=1263009920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.8, -41.5)
 use_collision = true
-size = Vector3(2.2, 0.6, 11)
+size = Vector3(3.4, 0.6, 11)
 material = SubResource("Mat_ice")
 
 [node name="LedgeSnow" type="CSGBox3D" parent="Geometry" unique_id=2133956096]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.12, -41.5)
-size = Vector3(1.9, 0.03, 10.7)
+size = Vector3(3.1, 0.03, 10.7)
 material = SubResource("Mat_snow")
 
 [node name="CaveFloor" type="CSGBox3D" parent="Geometry" unique_id=948508357]
@@ -327,6 +354,47 @@ transform = Transform3D(0.9553365, 0, 0.29552022, 0, 1, 0, -0.29552022, 0, 0.955
 visible = false
 size = Vector3(1.5, 0.02, 1.2)
 material = SubResource("Mat_blood")
+
+[node name="Inspectable" type="Node3D" parent="Props/BloodStain"]
+script = ExtResource("7_inspect")
+data = ExtResource("8_blood")
+
+[node name="Tracks" type="Node3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, 4.135, -35.2)
+
+[node name="Track0" type="CSGBox3D" parent="Props/Tracks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, 0)
+use_collision = false
+size = Vector3(0.16, 0.018, 0.32)
+material = SubResource("Mat_rock_dark")
+
+[node name="Track1" type="CSGBox3D" parent="Props/Tracks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0, -0.38)
+use_collision = false
+size = Vector3(0.16, 0.018, 0.32)
+material = SubResource("Mat_rock_dark")
+
+[node name="Track2" type="CSGBox3D" parent="Props/Tracks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.78)
+use_collision = false
+size = Vector3(0.16, 0.018, 0.32)
+material = SubResource("Mat_rock_dark")
+
+[node name="Track3" type="CSGBox3D" parent="Props/Tracks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0, -1.18)
+use_collision = false
+size = Vector3(0.16, 0.018, 0.32)
+material = SubResource("Mat_rock_dark")
+
+[node name="Track4" type="CSGBox3D" parent="Props/Tracks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, -1.58)
+use_collision = false
+size = Vector3(0.16, 0.018, 0.32)
+material = SubResource("Mat_rock_dark")
+
+[node name="Inspectable" type="Node3D" parent="Props/Tracks"]
+script = ExtResource("7_inspect")
+data = ExtResource("9_tracks")
 
 [node name="CaveBlood" type="CSGBox3D" parent="Props" unique_id=1590431350]
 transform = Transform3D(0.921061, 0, -0.38941833, 0, 1, 0, 0.38941833, 0, 0.921061, 2.4, 4.125, -54.1)
@@ -504,25 +572,50 @@ visible = false
 [node name="Distortion" type="CSGSphere3D" parent="Props/TempleGuard" unique_id=335003014]
 material = SubResource("StandardMaterial3D_uh8u0")
 
+[node name="StealthSection" type="Node3D" parent="." unique_id=1147000521]
+script = ExtResource("10_stealth")
+
+[node name="Covers" type="Node3D" parent="StealthSection"]
+
+[node name="CoverWest" type="CSGBox3D" parent="StealthSection/Covers" unique_id=1539284736]
+transform = Transform3D(0.9505, 0, 0.3106, 0, 1, 0, -0.3106, 0, 0.9505, -1.1, 4.65, -55.8)
+use_collision = true
+size = Vector3(1.2, 1.4, 2.2)
+material = SubResource("Mat_rock_dark")
+
+[node name="CoverEast" type="CSGBox3D" parent="StealthSection/Covers" unique_id=1783442091]
+transform = Transform3D(0.9553, 0, -0.2957, 0, 1, 0, 0.2957, 0, 0.9553, 3.05, 4.65, -57.0)
+use_collision = true
+size = Vector3(1.2, 1.4, 2.2)
+material = SubResource("Mat_rock_dark")
+
+[node name="CoverEdge" type="CSGBox3D" parent="StealthSection/Covers" unique_id=775174989]
+transform = Transform3D(0.9553, 0, 0.2957, 0, 1, 0, -0.2957, 0, 0.9553, 0.15, 4.65, -58.15)
+use_collision = true
+size = Vector3(1.0, 1.2, 1.6)
+material = SubResource("Mat_rock_dark")
+
+[node name="ShadowZones" type="Node3D" parent="StealthSection"]
+
 [node name="NPCs" type="Node3D" parent="." unique_id=787395578]
 
 [node name="Hero" parent="NPCs" unique_id=511072400 instance=ExtResource("2_mannequin")]
 transform = Transform3D(-0.99999875, 0, 0.001592548, 0, 1, 0, -0.001592548, 0, -0.99999875, 0.8, 0.05, 6.5)
-height_scale = 1.08
-width_scale = 1.08
-archetype = "knight"
+height_scale = 1.02
+width_scale = 1.0
+archetype = "hero"
 pose = "idle"
 
 [node name="Shifty" parent="NPCs" unique_id=148496649 instance=ExtResource("2_mannequin")]
 transform = Transform3D(-0.90407217, 0, 0.42737985, 0, 1, 0, -0.42737985, 0, -0.90407217, 1.6, 0.05, 7.2)
-height_scale = 0.92
-archetype = "slave"
+height_scale = 0.93
+archetype = "shifty"
 pose = "idle"
 
 [node name="Scholar" parent="NPCs" unique_id=582801847 instance=ExtResource("2_mannequin")]
 transform = Transform3D(-0.9874798, 0, -0.15774564, 0, 1, 0, 0.15774564, 0, -0.9874798, -0.5, 0.05, 6.7)
 height_scale = 0.98
-archetype = "slave"
+archetype = "scholar"
 pose = "idle"
 
 [node name="ShiftyBody" type="Node3D" parent="NPCs" unique_id=314717787]
@@ -614,55 +707,89 @@ material = SubResource("Mat_eye")
 
 [node name="Interactables" type="Node3D" parent="." unique_id=620026832]
 
-[node name="RoadGap" type="Node3D" parent="Interactables" unique_id=1397804976]
+[node name="RoadGap" type="Area3D" parent="Interactables" unique_id=1397804976]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -2.8)
-script = ExtResource("3_interactable")
-interaction_id = &"road_gap"
-prompt = "Осмотреть провал"
-radius = 2.2
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"road_gap"
 enabled = true
 
-[node name="Sword" type="Node3D" parent="Interactables" unique_id=233607956]
+[node name="Shape" type="CollisionShape3D" parent="Interactables/RoadGap" unique_id=72050421]
+shape = SubResource("Shape_route_gap")
+
+[node name="Sword" type="Area3D" parent="Interactables" unique_id=233607956]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.85, -8.4)
-script = ExtResource("3_interactable")
-interaction_id = &"sword"
-prompt = "Оставить короткий меч"
-radius = 1.8
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"sword"
 
-[node name="Rest" type="Node3D" parent="Interactables" unique_id=1571285542]
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Sword" unique_id=72050422]
+shape = SubResource("Shape_route_sword")
+
+[node name="Rest" type="Area3D" parent="Interactables" unique_id=1571285542]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -31)
-script = ExtResource("3_interactable")
-interaction_id = &"rest"
-prompt = "Сесть у огня"
-radius = 2.2
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"rest"
 
-[node name="Scholar" type="Node3D" parent="Interactables" unique_id=772730303]
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Rest" unique_id=72050423]
+shape = SubResource("Shape_route_rest")
+
+[node name="Scholar" type="Area3D" parent="Interactables" unique_id=772730303]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 4.25, -40.5)
-script = ExtResource("3_interactable")
-interaction_id = &"scholar"
-prompt = "Догнать Учёного"
-radius = 2.2
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"scholar"
 
-[node name="Cave" type="Node3D" parent="Interactables" unique_id=1706980623]
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Scholar" unique_id=72050424]
+shape = SubResource("Shape_route_scholar")
+
+[node name="Cave" type="Area3D" parent="Interactables" unique_id=1706980623]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -48)
-script = ExtResource("3_interactable")
-interaction_id = &"cave"
-prompt = "Войти в пещеру"
-radius = 2.2
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"cave"
 
-[node name="CaveExit" type="Node3D" parent="Interactables" unique_id=1893288405]
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Cave" unique_id=72050425]
+shape = SubResource("Shape_route_cave")
+
+[node name="CaveExit" type="Area3D" parent="Interactables" unique_id=1893288405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -54.4)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"cave_exit"
+
+[node name="Shape" type="CollisionShape3D" parent="Interactables/CaveExit" unique_id=72050426]
+shape = SubResource("Shape_route_cave_exit")
+
+[node name="Stone" type="Node3D" parent="Interactables" unique_id=2015774014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55, 4.25, -55.15)
+visible = false
 script = ExtResource("3_interactable")
-interaction_id = &"cave_exit"
-prompt = "Выбраться на тропу"
+interaction_id = &"stone"
+prompt = "Бросить камень"
 radius = 2.0
 
-[node name="Hero" type="Node3D" parent="Interactables" unique_id=1720755904]
+[node name="Rock" type="CSGSphere3D" parent="Interactables/Stone" unique_id=1478632086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, 0)
+radius = 0.2
+material = SubResource("Mat_rock")
+
+[node name="Hero" type="Area3D" parent="Interactables" unique_id=1720755904]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -59)
-script = ExtResource("3_interactable")
-interaction_id = &"hero"
-prompt = "Посмотреть на Героя"
-radius = 2.4
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_trigger")
+trigger_id = &"hero"
+
+[node name="Shape" type="CollisionShape3D" parent="Interactables/Hero" unique_id=72050427]
+shape = SubResource("Shape_route_hero")
 
 [node name="Bell" type="Node3D" parent="Interactables" unique_id=336145208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.25, -61.5)
@@ -673,11 +800,114 @@ radius = 2.0
 
 [node name="Temple" type="Area3D" parent="Interactables" unique_id=1080880815]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, -69)
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("4_trigger")
 trigger_id = &"temple"
 
 [node name="Shape" type="CollisionShape3D" parent="Interactables/Temple" unique_id=364522321]
 shape = SubResource("Shape_temple")
+
+[node name="GuideBeacons" type="Node3D" parent="."]
+
+[node name="Gap" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(1, 1.8, -5)
+beacon_id = &"gap"
+
+[node name="Sword" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(7, 2.05, -8.4)
+rotation = Vector3(0, -0.9, 0)
+beacon_id = &"sword"
+
+[node name="Alcove" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(2.9, 4.25, -30.2)
+beacon_id = &"alcove"
+
+[node name="Dawn" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(1, 4.3, -42.5)
+beacon_id = &"dawn"
+
+[node name="Cave" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(1.3, 4.15, -47.4)
+beacon_id = &"cave"
+
+[node name="Hero" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(1, 4.15, -58.5)
+beacon_id = &"hero"
+
+[node name="Bell" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(1, 4.15, -61.5)
+beacon_id = &"bell"
+
+[node name="Temple" parent="GuideBeacons" instance=ExtResource("6_beacon")]
+position = Vector3(1, 4.35, -65.5)
+beacon_id = &"temple"
+trail_marks = 4
+
+[node name="GuideThoughts" type="Node3D" parent="."]
+
+[node name="Gap" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 0.6, 1)
+script = ExtResource("5_thought")
+thought_id = &"thought_gap"
+beat_id = &"N14"
+trigger_radius = 1.6
+
+[node name="Sword" type="Area3D" parent="GuideThoughts"]
+position = Vector3(5.6, 2.2, -6.4)
+script = ExtResource("5_thought")
+thought_id = &"thought_sword"
+beat_id = &"N15"
+trigger_radius = 1.6
+
+[node name="Alcove" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -26)
+script = ExtResource("5_thought")
+thought_id = &"thought_alcove"
+beat_id = &"N16"
+trigger_radius = 1.8
+
+[node name="Dawn" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -37)
+script = ExtResource("5_thought")
+thought_id = &"thought_dawn"
+beat_id = &"N17"
+trigger_radius = 1.8
+
+[node name="Scholar" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -43.5)
+script = ExtResource("5_thought")
+thought_id = &"thought_scholar"
+beat_id = &"N19"
+trigger_radius = 1.8
+
+[node name="Cave" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -45.6)
+script = ExtResource("5_thought")
+thought_id = &"thought_cave"
+beat_id = &"N20"
+trigger_radius = 1.8
+
+[node name="Hero" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -55.8)
+script = ExtResource("5_thought")
+thought_id = &"thought_hero"
+beat_id = &"N21"
+trigger_radius = 1.8
+
+[node name="Bell" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -60.4)
+script = ExtResource("5_thought")
+thought_id = &"thought_bell"
+beat_id = &"N22"
+trigger_radius = 1.4
+
+[node name="Temple" type="Area3D" parent="GuideThoughts"]
+position = Vector3(1, 4.6, -63.2)
+script = ExtResource("5_thought")
+thought_id = &"thought_temple"
+beat_id = &"N23"
+trigger_radius = 1.8
 
 [node name="Spawns" type="Node3D" parent="." unique_id=1047606296]
 
@@ -695,6 +925,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 4.15, -40.5)
 
 [node name="CaveInside" type="Marker3D" parent="Spawns" unique_id=597840061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -52)
+
+[node name="StealthStart" type="Marker3D" parent="Spawns" unique_id=1987226348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -54.35)
 
 [node name="HeroStand" type="Marker3D" parent="Spawns" unique_id=1181251319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.15, -59)

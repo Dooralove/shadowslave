@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/environments/park/trees/island_tree_lod0.glb" id="1_lod0"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/trees/island_tree_lod1.glb" id="2_lod1"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/trees/island_tree_lod2.glb" id="3_lod2"]
+[ext_resource type="Script" path="res://scripts/world/tree_lod.gd" id="4_script"]
+
+[node name="IslandTree" type="Node3D"]
+script = ExtResource("4_script")
+
+[node name="LOD0" parent="." instance=ExtResource("1_lod0")]
+
+[node name="LOD1" parent="." instance=ExtResource("2_lod1")]
+visible = false
+
+[node name="LOD2" parent="." instance=ExtResource("3_lod2")]
+visible = false

@@ -11,7 +11,7 @@ signal quest_chosen(quest_id: StringName)
 @onready var progress: Label = %Progress
 @onready var status_label: Label = %Status
 
-var quest: Resource
+var quest: Variant
 
 
 func _ready() -> void:
@@ -19,7 +19,7 @@ func _ready() -> void:
 	custom_minimum_size.y = 82.0
 
 
-func setup(data: Resource, selected: bool) -> void:
+func setup(data: Variant, selected: bool) -> void:
 	quest = data
 	if quest == null:
 		return
@@ -29,7 +29,7 @@ func setup(data: Resource, selected: bool) -> void:
 	quest_title.text = String(quest.title)
 	var completed := int(quest.completed_objectives())
 	var total: int = quest.objectives.size()
-	progress.text = "ЦЕЛИ · %d / %d" % [completed, total]
+	progress.text = "ЦЕЛИ · —" if total <= 0 else "ЦЕЛИ · %d / %d" % [completed, total]
 
 	var status := int(quest.status)
 	status_label.text = _status_title(status)
@@ -44,7 +44,10 @@ func setup(data: Resource, selected: bool) -> void:
 		RpgMenuTheme.SUCCESS if status == 2 else RpgMenuTheme.MUTED
 	)
 	button_pressed = selected
-	tooltip_text = "%s\n%s\nЦели: %d из %d" % [quest.title, quest.summary, completed, total]
+	var goal_text := "—"
+	if total > 0:
+		goal_text = "%d из %d" % [completed, total]
+	tooltip_text = "%s\n%s\nЦели: %s" % [quest.title, quest.summary, goal_text]
 
 
 func _status_title(status: int) -> String:

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SceneVfxProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_event.gd" id="1_a4to0"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_induction_pulse.tscn" id="2_3apag"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_steam_vents.tscn" id="3_en0vl"]
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_profile.gd" id="4_l8cyx"]
+
+[sub_resource type="Resource" id="Resource_pxww4"]
+script = ExtResource("1_a4to0")
+scene = ExtResource("2_3apag")
+position = Vector3(0, 1.2, -25.5)
+flag = &"induction_seen"
+
+[sub_resource type="Resource" id="Resource_xjrgs"]
+script = ExtResource("1_a4to0")
+scene = ExtResource("3_en0vl")
+position = Vector3(4.2, 1, -20.3)
+scale = 0.6
+loop = true
+
+[resource]
+script = ExtResource("4_l8cyx")
+id = &"p09_sleeper_center_vfx"
+scene_path = "res://scenes/locations/post_nightmare/academy_sleeper_center.tscn"
+location_id = &"academy_sleeper_center"
+loops = Array[ExtResource("1_a4to0")]([SubResource("Resource_xjrgs")])
+flag_effects = Array[ExtResource("1_a4to0")]([SubResource("Resource_pxww4")])

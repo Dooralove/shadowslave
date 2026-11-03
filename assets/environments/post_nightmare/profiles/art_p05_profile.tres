@@ -1,0 +1,90 @@
+[gd_resource type="Resource" script_class="EnvironmentArtProfile" format=3]
+
+[ext_resource type="Environment" path="res://assets/environments/post_nightmare/environments/art_p05_env.tres" id="1_vhw7y"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_concrete.tres" id="2_tukqw"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_material_swap.gd" id="3_dx4pd"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_concrete_dark.tres" id="4_uwmxv"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_tile.tres" id="5_mhp80"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_asphalt.tres" id="6_eahyp"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_paint.tres" id="7_iia1j"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_metal.tres" id="8_qbkqp"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_fabric.tres" id="9_8c14u"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_police_mirror.tres" id="10_f0mqy"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_wood_dark.tres" id="11_73e0c"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_wood_light.tres" id="12_i5yx4"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_profile.gd" id="13_esabs"]
+
+[sub_resource type="Resource" id="Resource_pmcq7"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "concrete_cold.tres"
+material = ExtResource("2_tukqw")
+
+[sub_resource type="Resource" id="Resource_8ivva"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "concrete_dark.tres"
+material = ExtResource("4_uwmxv")
+
+[sub_resource type="Resource" id="Resource_8ogox"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "tile_wet.tres"
+material = ExtResource("5_mhp80")
+
+[sub_resource type="Resource" id="Resource_mmwph"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "asphalt.tres"
+material = ExtResource("6_eahyp")
+
+[sub_resource type="Resource" id="Resource_dypq4"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "paint_white.tres"
+material = ExtResource("7_iia1j")
+
+[sub_resource type="Resource" id="Resource_xjhpt"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "metal_dark.tres"
+material = ExtResource("8_qbkqp")
+
+[sub_resource type="Resource" id="Resource_fej5h"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "metal_light.tres"
+material = ExtResource("8_qbkqp")
+
+[sub_resource type="Resource" id="Resource_hg3ib"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "fabric_grey.tres"
+material = ExtResource("9_8c14u")
+
+[sub_resource type="Resource" id="Resource_hs1w4"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "fabric_blue.tres"
+material = ExtResource("9_8c14u")
+
+[sub_resource type="Resource" id="Resource_q82mw"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "mirror.tres"
+material = ExtResource("10_f0mqy")
+
+[sub_resource type="Resource" id="Resource_bp07w"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "wood_dark.tres"
+material = ExtResource("11_73e0c")
+
+[sub_resource type="Resource" id="Resource_pfpay"]
+script = ExtResource("3_dx4pd")
+match_path_suffix = "wood_light.tres"
+material = ExtResource("12_i5yx4")
+
+[resource]
+resource_name = "art_p05_profile"
+script = ExtResource("13_esabs")
+environment = ExtResource("1_vhw7y")
+material_swaps = [SubResource("Resource_pmcq7"), SubResource("Resource_8ivva"), SubResource("Resource_8ogox"), SubResource("Resource_mmwph"), SubResource("Resource_dypq4"), SubResource("Resource_xjhpt"), SubResource("Resource_fej5h"), SubResource("Resource_hg3ib"), SubResource("Resource_hs1w4"), SubResource("Resource_q82mw"), SubResource("Resource_bp07w"), SubResource("Resource_pfpay")]
+hide_name_prefixes = PackedStringArray()
+hide_name_contains = PackedStringArray()
+override_key_light = true
+key_light_rotation_degrees = Vector3(-44, -30, 0)
+key_light_color = Color(0.6, 0.71, 0.9, 1)
+key_light_energy = 0.66
+water_name_contains = PackedStringArray("Water", "SeaBelow", "BlackWater", "DeepWater")
+glow_intensity = 0.3
+fog_density = 0.01

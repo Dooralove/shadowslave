@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="JournalEntryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/journal_entry_data.gd" id="1_journal"]
+
+[resource]
+script = ExtResource("1_journal")
+id = &"rules_of_nightmare"
+title = "Правила Кошмара"
+text = "Первый Кошмар — испытание, а не казнь. Люди и чудовища внутри — иллюзии. Сначала проверь Атрибуты и Аспект. Смерть откроет проход Существу Кошмара."

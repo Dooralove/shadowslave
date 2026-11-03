@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/tide_indicator.gd" id="1_tide"]
+
+[node name="TideIndicator" type="PanelContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -338.0
+offset_top = 96.0
+offset_right = -24.0
+offset_bottom = 174.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_type_variation = &"SubPanel"
+script = ExtResource("1_tide")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Top" type="HBoxContainer" parent="Box"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="State" type="Label" parent="Box/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"BronzeLabel"
+text = "ПРИЛИВ"
+
+[node name="Glyph" type="Label" parent="Box/Top"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "≈"
+vertical_alignment = 2
+
+[node name="LevelBar" type="ProgressBar" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+mouse_filter = 2
+value = 50.0
+show_percentage = false
+
+[node name="Detail" type="Label" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ДО ПРИЛИВА 02:00"
+autowrap_mode = 3

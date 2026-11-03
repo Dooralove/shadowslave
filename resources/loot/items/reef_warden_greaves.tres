@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_relic.png" id="1_u7nvk"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_jwk21"]
+
+[resource]
+resource_name = "reef_warden_greaves"
+script = ExtResource("2_jwk21")
+id = &"reef_warden_greaves"
+display_name = "Поножи Кораллового Стража"
+category = 7
+stack_max = 1
+description = "Часть реликтового сета. Тяжёлые, как мокрый камень."
+canon_status = &"GD_FUTURE"
+tags = PackedStringArray("relic", "set_piece", "legs")
+icon = ExtResource("1_u7nvk")

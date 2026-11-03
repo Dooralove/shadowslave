@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_data.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/carapace_wounded_claw.tres" id="2_claw"]
+
+[resource]
+script = ExtResource("1_enemy")
+id = &"carapace_wounded"
+display_name = "Раненый карапакс-падальщик"
+max_health = 65.0
+detection_range = 9.0
+lose_range = 14.0
+attack_distance = 2.0
+move_speed = 1.6
+turn_speed = 3.4
+telegraph_time = 0.95
+recovery_time = 1.2
+attack = ExtResource("2_claw")

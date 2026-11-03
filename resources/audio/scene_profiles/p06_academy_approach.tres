@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_0w1q7"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_dcvpu"]
+
+[sub_resource type="Resource" id="Resource_e5b23"]
+script = ExtResource("1_0w1q7")
+cue_id = &"p06_car_idle"
+position = Vector3(-3.4, 0.6, 18.6)
+volume_db = -4.0
+loop = true
+
+[sub_resource type="Resource" id="Resource_nxp00"]
+script = ExtResource("1_0w1q7")
+cue_id = &"p06_car_door"
+position = Vector3(-4.8, 1, 18)
+volume_db = -5.0
+trigger = &"academy_jet"
+
+[sub_resource type="Resource" id="Resource_ml08s"]
+script = ExtResource("1_0w1q7")
+cue_id = &"p06_car_door"
+position = Vector3(-4.8, 1, 18)
+volume_db = -5.0
+trigger = &"p06_jett"
+
+[resource]
+script = ExtResource("2_dcvpu")
+id = &"p06_academy_approach"
+scene_path = "res://scenes/locations/post_nightmare/academy_approach.tscn"
+location_id = &"academy_approach"
+music_id = &"m1_academy"
+ambience_id = &"m1_academy"
+music_intensity = 0.42
+loops = Array[ExtResource("1_0w1q7")]([SubResource("Resource_e5b23")])
+trigger_events = Array[ExtResource("1_0w1q7")]([SubResource("Resource_nxp00"), SubResource("Resource_ml08s")])
+interactions = {
+&"academy_checkpoint": &"p06_checkpoint_beep",
+&"jett": &"ui_confirm",
+&"p06_checkpoint": &"p06_checkpoint_beep",
+&"p06_jett": &"ui_confirm"
+}

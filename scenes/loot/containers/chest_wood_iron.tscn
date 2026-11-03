@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dii17rmxhqqsl"]
+
+[ext_resource type="Script" uid="uid://ca77g6rxoa4w3" path="res://scripts/loot/loot_cache.gd" id="1_6llo6"]
+[ext_resource type="Resource" path="res://resources/loot/tables/cache_wreck_chest.tres" id="2_h07d2"]
+[ext_resource type="PackedScene" uid="uid://eg6hq8d21wp0" path="res://assets/models/containers/chest_wood_iron.glb" id="2_yhlwa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h07d2"]
+size = Vector3(1.15, 0.98, 1)
+
+[node name="ChestWoodIron" type="Node3D" unique_id=1846734660]
+script = ExtResource("1_6llo6")
+container_id = &"secret_z02_wreck_chest"
+loot_pool = ExtResource("2_h07d2")
+lid_open_degrees = 100.0
+prompt = "Открыть кованый сундук"
+radius = 2.2
+enabled = true
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=1252149336]
+
+[node name="Model" parent="VisualRoot" unique_id=178578914 instance=ExtResource("2_yhlwa")]
+
+[node name="Glow" type="OmniLight3D" parent="." unique_id=1883059452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+light_color = Color(1, 0.6901961, 0.4, 1)
+light_energy = 0.75
+omni_range = 3.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1501455192]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1597446312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49, 0)
+shape = SubResource("BoxShape3D_h07d2")
+
+[node name="StateLabel" type="Label3D" parent="." unique_id=737366023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+visible = false
+pixel_size = 0.004
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.9019608, 0.7529412, 1)
+outline_modulate = Color(0.101960786, 0.050980393, 0.03137255, 1)
+font_size = 24
+outline_size = 5

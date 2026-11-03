@@ -1,0 +1,31 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/nightmare/decor/decor_no_collision.gd" id="1_decor"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_outcrop_a.glb" id="2_base"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/backdrop/cliff_face_tall_a.glb" id="3_cliff"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/rock_wall_b.glb" id="4_spire"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_angular_a.glb" id="5_rock"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_wall_b.glb" id="6_snow"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/flora/dead_tree_b.glb" id="7_tree_b"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/flora/dead_tree_c.glb" id="8_tree_c"]
+
+[node name="MountainSilhouetteB" type="Node3D"]
+script = ExtResource("1_decor")
+
+[node name="Base" parent="." instance=ExtResource("2_base")]
+transform = Transform3D(12, 0, 0, 0, 5, 0, 0, 0, 12, 0, -2.5, 0)
+
+[node name="CliffWall" parent="." instance=ExtResource("3_cliff")]
+transform = Transform3D(1.4, 0, 0, 0, 1.35, 0, 0, 0, 1.4, -2, -2, -1)
+
+[node name="Spire" parent="." instance=ExtResource("4_spire")]
+transform = Transform3D(2.6, 0, 0, 0, 3.2, 0, 0, 0, 2.6, 7, 0.8, 2)
+
+[node name="BoulderA" parent="." instance=ExtResource("5_rock")]
+transform = Transform3D(3.8, 0, 0, 0, 2.4, 0, 0, 0, 3.8, 0, 1.2, 5)
+
+[node name="BoulderB" parent="." instance=ExtResource("5_rock")]
+transform = Transform3D(2.2, 0, 0, 0, 1.5, 0, 0, 0, 2.2, 8, 0.7, 0)
+
+[node name="SnowWall" parent="." instance=ExtResource("6_snow")]
+transform = Transform3D(5.2, 0, 0, 0, 2.4, 0, 0, 0, 4.4, -1, 1.8, 4)

@@ -97,7 +97,9 @@ func test_full_attack_cycle_and_cooldown_between_attacks() -> void:
 
 	var elapsed := _time_until(MountainKing.State.ATTACK)
 	assert_almost_eq(elapsed, king.config.telegraph_time, STEP * 1.01)
-	assert_true(king.attack.is_active(), "окно попадания открыто")
+	assert_false(king.attack.is_active(), "сначала идёт windup атаки")
+	_step(king.attack.stats.windup_time + STEP)
+	assert_true(king.attack.is_active(), "после windup окно попадания открыто")
 
 	elapsed = _time_until(MountainKing.State.RECOVERY)
 	assert_almost_eq(elapsed, king.attack.stats.active_time, STEP * 1.01)
@@ -121,6 +123,9 @@ func test_damage_only_during_attack_window_and_once_per_swing() -> void:
 
 	_step(king.config.telegraph_time + STEP)
 	assert_eq(king.state, MountainKing.State.ATTACK)
+	assert_false(king.attack.is_active(), "windup ещё не закончился")
+	_step(king.attack.stats.windup_time + STEP)
+	assert_true(king.attack.is_active(), "windup закончился, окно открыто")
 	assert_true(king.attack.apply_hit(victim), "удар наносит урон")
 	assert_false(king.attack.apply_hit(victim), "повторно в том же ударе — нет")
 	assert_eq(victim.health.current_health, victim.health.max_health - king.attack.stats.damage)

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EquipmentLoadout" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/equipment_loadout.gd" id="1_loadout"]
+[ext_resource type="Resource" path="res://resources/equipment/armor/caravan_alpha_p1.tres" id="2_body"]
+[ext_resource type="Resource" path="res://resources/equipment/weapons/short_sword_alpha_p1.tres" id="3_weapon"]
+[ext_resource type="Resource" path="res://resources/equipment/accessories/water_flask_alpha_p1.tres" id="4_accessory"]
+
+[resource]
+script = ExtResource("1_loadout")
+body = ExtResource("2_body")
+weapon = ExtResource("3_weapon")
+accessories = [ExtResource("4_accessory")]

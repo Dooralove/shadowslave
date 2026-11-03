@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bvfovgmo7lqkh"
+
+[deps]
+
+files=["res://docs/art/soul_sea_kit_audit.mesh.translation", "res://docs/art/soul_sea_kit_audit.tris.translation", "res://docs/art/soul_sea_kit_audit.dims.translation", "res://docs/art/soul_sea_kit_audit.zmin.translation", "res://docs/art/soul_sea_kit_audit.origin.translation", "res://docs/art/soul_sea_kit_audit.materials.translation", "res://docs/art/soul_sea_kit_audit.uv.translation", "res://docs/art/soul_sea_kit_audit.color.translation", "res://docs/art/soul_sea_kit_audit.nonmanifold.translation"]
+
+source_file="res://docs/art/soul_sea_kit_audit.csv"
+dest_files=["res://docs/art/soul_sea_kit_audit.mesh.translation", "res://docs/art/soul_sea_kit_audit.tris.translation", "res://docs/art/soul_sea_kit_audit.dims.translation", "res://docs/art/soul_sea_kit_audit.zmin.translation", "res://docs/art/soul_sea_kit_audit.origin.translation", "res://docs/art/soul_sea_kit_audit.materials.translation", "res://docs/art/soul_sea_kit_audit.uv.translation", "res://docs/art/soul_sea_kit_audit.color.translation", "res://docs/art/soul_sea_kit_audit.nonmanifold.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

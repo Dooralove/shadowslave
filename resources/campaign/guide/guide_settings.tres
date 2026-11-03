@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GuideSettings" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/guide/guide_settings.gd" id="1_settings"]
+
+[resource]
+script = ExtResource("1_settings")
+idle_seconds = 8.0
+idle_step_seconds = 10.0
+max_idle_steps = 3
+idle_speed_threshold = 0.2
+thought_seconds = 5.0
+thought_fade_seconds = 0.35
+objective_fade_in_seconds = 0.4
+objective_fade_out_seconds = 0.6
+beacon_fade_seconds = 0.6

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="3_reward"]
+
+[sub_resource type="Resource" id="Obj_shards"]
+script = ExtResource("2_objective")
+id = &"collect_shards"
+text = "Собрать три осколка души"
+kind = 1
+target_id = &"soul_shard"
+required_count = 3
+
+[sub_resource type="Resource" id="Reward_shards"]
+script = ExtResource("3_reward")
+currency_id = &"soul_shard"
+currency_amount = 3
+text = "3 осколка души"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"crystal_cache"
+scope = &"forgotten_shore"
+code = "04"
+title = "Осколки в костях"
+category = 1
+summary = "Три осколка души спрятаны в ответвлениях лабиринта."
+description = "Сухой карман, слепой туннель и костяной мост. Ни один осколок не обязателен для пути, но вместе они дают запас на дорогу."
+prerequisites = Array[StringName]([])
+required_quests = Array[StringName]([])
+auto_start = true
+show_available = true
+objectives = [SubResource("Obj_shards")]
+rewards = [SubResource("Reward_shards")]
+completion_flag = &"crystal_cache_complete"

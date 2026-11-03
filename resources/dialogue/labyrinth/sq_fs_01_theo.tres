@@ -1,0 +1,104 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "В сухом кармане пахло кровью и мокрым камнем."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Живой. В этом месте это уже странно."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"theo"
+text = "Не подходи. У меня нож."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Вижу. Держишь как ложку."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"theo"
+text = "Мне не до шуток."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Мне тоже. Это твой жетон? Он лежал у туши."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"theo"
+text = "Лисса. Это её. Она повела нас через риф."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Где она?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"theo"
+text = "В туннеле. Я слышал её голос. Она звала меня. Я хотел идти, но нога…"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "И ты сидел здесь. Один."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"theo"
+text = "Я не трус."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Я не говорил, что трус. Я сказал, что ты сидел."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"theo"
+text = "Найди её. Пожалуйста. Я отдам всё, что у меня есть."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_14"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Оставь себе. Мне нужен жетон и то, что ты видел."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_15"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Тео смотрел на жетон в руке Санни. В его глазах было больше надежды, чем разума."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_16"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Я посмотрю. Не обещаю большего."
+duration = 0.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13"), SubResource("Line_14"), SubResource("Line_15"), SubResource("Line_16")]

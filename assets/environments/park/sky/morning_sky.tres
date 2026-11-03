@@ -1,0 +1,9 @@
+[gd_resource type="Sky" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/park/sky/kloofendal_misty_morning_2k.hdr" id="1_hdr"]
+
+[sub_resource type="PanoramaSkyMaterial" id="SkyMat_misty"]
+panorama = ExtResource("1_hdr")
+
+[resource]
+sky_material = SubResource("SkyMat_misty")

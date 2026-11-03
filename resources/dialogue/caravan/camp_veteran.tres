@@ -42,7 +42,7 @@ duration = 2.8
 [sub_resource type="Resource" id="Line_7"]
 script = ExtResource("2_line")
 speaker = &"narration"
-text = "Сломанный меч уже в руке Санни."
+text = "Сломанный меч лежит между ними. Ветеран ждёт."
 duration = 2.4
 
 [resource]

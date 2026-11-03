@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="SceneAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_event.gd" id="1_iipns"]
+[ext_resource type="Script" path="res://scripts/audio/scene_audio_profile.gd" id="2_o00m4"]
+
+[sub_resource type="Resource" id="Resource_ejgcn"]
+script = ExtResource("1_iipns")
+cue_id = &"b01_shroud_flare"
+position = Vector3(0, 1.2, 5.2)
+volume_db = -3.0
+persistent = true
+flag = &"shroud_summoned"
+
+[sub_resource type="Resource" id="Resource_bfndu"]
+script = ExtResource("1_iipns")
+cue_id = &"b01_statue_groan"
+position = Vector3(0, 1.2, 5.2)
+volume_db = -6.0
+flag = &"statue_seen"
+
+[sub_resource type="Resource" id="Resource_1ognu"]
+script = ExtResource("1_iipns")
+cue_id = &"b01_sea_lap"
+position = Vector3(0, -8, 0)
+volume_db = -5.0
+loop = true
+
+[resource]
+script = ExtResource("2_o00m4")
+id = &"b01_black_sea"
+scene_path = "res://scenes/locations/post_nightmare/black_sea_platform.tscn"
+location_id = &"black_sea_platform"
+music_id = &"m1_black_sea"
+ambience_id = &"m1_black_sea"
+music_intensity = 0.42
+reverb_profile = &"black_sea"
+loops = Array[ExtResource("1_iipns")]([SubResource("Resource_1ognu")])
+flag_events = Array[ExtResource("1_iipns")]([SubResource("Resource_ejgcn"), SubResource("Resource_bfndu")])
+interactions = {
+&"b01_descent": &"b02_rockfall_small",
+&"b01_shroud": &"b01_shroud_flare",
+&"b01_stars": &"b01_statue_groan",
+&"b01_sword": &"world_azure_blade",
+&"black_sea_descent": &"b02_rockfall_small",
+&"black_sea_shroud": &"b01_shroud_flare",
+&"black_sea_stars": &"b01_statue_groan",
+&"black_sea_sword": &"world_azure_blade",
+&"shroud": &"b01_shroud_flare"
+}

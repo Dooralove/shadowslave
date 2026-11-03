@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_adrhf"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_joint.tres" id="2_yjqdn"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_claw.tres" id="3_gbbma"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="4_7f8gk"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="5_esjp8"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_plate.tres" id="6_aihpr"]
+[ext_resource type="Resource" path="res://resources/loot/items/centurion_scythe_fragment.tres" id="7_3bxei"]
+[ext_resource type="Resource" path="res://resources/loot/items/starlight_legion_armor.tres" id="8_kb4fl"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="9_1kify"]
+
+[sub_resource type="Resource" id="Resource_m77pa"]
+script = ExtResource("1_adrhf")
+item = ExtResource("2_yjqdn")
+max_count = 2
+weight = 40.0
+
+[sub_resource type="Resource" id="Resource_mwbac"]
+script = ExtResource("1_adrhf")
+item = ExtResource("3_gbbma")
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_8p3k7"]
+script = ExtResource("1_adrhf")
+item = ExtResource("4_7f8gk")
+weight = 15.0
+
+[sub_resource type="Resource" id="Resource_x0ml7"]
+script = ExtResource("1_adrhf")
+item = ExtResource("5_esjp8")
+max_count = 2
+weight = 15.0
+
+[sub_resource type="Resource" id="Resource_fmqq3"]
+script = ExtResource("1_adrhf")
+item = ExtResource("5_esjp8")
+min_count = 3
+max_count = 3
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_1besv"]
+script = ExtResource("1_adrhf")
+item = ExtResource("6_aihpr")
+min_count = 2
+max_count = 2
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_binrb"]
+script = ExtResource("1_adrhf")
+item = ExtResource("7_3bxei")
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_axr60"]
+script = ExtResource("1_adrhf")
+item = ExtResource("8_kb4fl")
+weight = 100.0
+unique = true
+notes = "Канон: Память Центуриона, гл. 52."
+
+[resource]
+resource_name = "elite_carapace_centurion"
+script = ExtResource("9_1kify")
+id = &"elite_carapace_centurion"
+display_name = "Карапакс-Центурион"
+description = "Элита: больше кристаллов, обломок косы и Память Starlight Legion Armor."
+source_kind = "elite"
+canon_status = &"CANON"
+guaranteed = Array[ExtResource("1_adrhf")]([SubResource("Resource_fmqq3"), SubResource("Resource_1besv"), SubResource("Resource_binrb"), SubResource("Resource_axr60")])
+entries = Array[ExtResource("1_adrhf")]([SubResource("Resource_m77pa"), SubResource("Resource_mwbac"), SubResource("Resource_8p3k7"), SubResource("Resource_x0ml7")])
+tags = PackedStringArray("elite", "centurion", "future_zone")

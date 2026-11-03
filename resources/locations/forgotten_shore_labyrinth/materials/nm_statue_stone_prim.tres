@@ -1,0 +1,25 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/low_tide_rocks_diff_2k.jpg" id="1_fj54i"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/low_tide_rocks_arm_2k.jpg" id="2_qfotd"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/low_tide_rocks_nor_gl_2k.jpg" id="3_mpo5x"]
+
+[resource]
+resource_name = "nm_statue_stone_prim"
+albedo_color = Color(0.58, 0.58, 0.6, 1)
+albedo_texture = ExtResource("1_fj54i")
+metallic_specular = 0.42
+roughness = 0.98
+roughness_texture = ExtResource("2_qfotd")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 1.15
+normal_texture = ExtResource("3_mpo5x")
+ao_enabled = true
+ao_light_affect = 0.35
+ao_texture = ExtResource("2_qfotd")
+uv1_scale = Vector3(0.36, 0.36, 0.36)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 5.0
+uv1_world_triplanar = true
+texture_filter = 5

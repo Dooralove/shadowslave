@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_equipment.png" id="1_dw8ou"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_8eqcj"]
+
+[resource]
+resource_name = "leather_cuirass_used"
+script = ExtResource("2_8eqcj")
+id = &"leather_cuirass_used"
+display_name = "Кожаная куртка"
+category = 4
+stack_max = 1
+description = "Ещё крепкая куртка с нашитыми пластинами."
+canon_status = &"GD_FUTURE"
+tags = PackedStringArray("humanoid", "armor", "used")
+icon = ExtResource("1_dw8ou")

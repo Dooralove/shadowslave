@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ekam1s5ghmih"]
 
-[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_quest_screen.gd" id="1_quest"]
-[ext_resource type="Script" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="2_decor"]
+[ext_resource type="Script" uid="uid://ba00i2u8f40kb" path="res://scripts/ui/rpg_menu/rpg_quest_screen.gd" id="1_quest"]
+[ext_resource type="Script" uid="uid://722flge4ponq" path="res://scripts/ui/rpg_menu/rpg_decor_panel.gd" id="2_decor"]
 
 [sub_resource type="StyleBoxFlat" id="Style_progress_bg"]
 bg_color = Color(0.06, 0.065, 0.066, 0.95)
@@ -22,7 +22,7 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[node name="QuestScreen" type="Control"]
+[node name="QuestScreen" type="Control" unique_id=348468136]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_quest")
 
-[node name="Columns" type="HBoxContainer" parent="."]
+[node name="Columns" type="HBoxContainer" parent="." unique_id=1136510528]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 
-[node name="LeftPanel" type="PanelContainer" parent="Columns"]
+[node name="LeftPanel" type="PanelContainer" parent="Columns" unique_id=1635363489]
 custom_minimum_size = Vector2(252, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -48,230 +48,266 @@ theme_type_variation = &"RpgPanel"
 script = ExtResource("2_decor")
 accent = true
 
-[node name="LeftColumn" type="VBoxContainer" parent="Columns/LeftPanel"]
+[node name="LeftColumn" type="VBoxContainer" parent="Columns/LeftPanel" unique_id=1045906374]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Overline" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+[node name="Overline" type="Label" parent="Columns/LeftPanel/LeftColumn" unique_id=1501096746]
 layout_mode = 2
 theme_type_variation = &"OverlineLabel"
-text = "РАЗДЕЛ 05 · DEMO-ЖУРНАЛ"
+text = "РАЗДЕЛ 05 · ЖУРНАЛ"
 
-[node name="Title" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+[node name="Title" type="Label" parent="Columns/LeftPanel/LeftColumn" unique_id=638019689]
 layout_mode = 2
 theme_type_variation = &"ScreenTitleSmall"
 text = "ЗАДАНИЯ"
 
-[node name="Subtitle" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+[node name="Subtitle" type="Label" parent="Columns/LeftPanel/LeftColumn" unique_id=1541660980]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
-text = "КВЕСТЫ И ЦЕЛИ · ТОЛЬКО DEMO"
+text = "КВЕСТЫ, ЦЕЛИ И ЗАПИСИ"
 
-[node name="RuleTop" type="ColorRect" parent="Columns/LeftPanel/LeftColumn"]
+[node name="RuleTop" type="ColorRect" parent="Columns/LeftPanel/LeftColumn" unique_id=1058577875]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.27, 0.25, 0.21, 0.65)
 
-[node name="SummaryPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+[node name="CurrentPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn" unique_id=1271766580]
+unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"SubPanel"
 
-[node name="SummaryBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel"]
+[node name="CurrentBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/CurrentPanel" unique_id=1314141123]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/CurrentPanel/CurrentBox" unique_id=1569128887]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ТЕКУЩАЯ ЦЕЛЬ"
+
+[node name="CurrentObjective" type="Label" parent="Columns/LeftPanel/LeftColumn/CurrentPanel/CurrentBox" unique_id=208696298]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+theme_override_font_sizes/font_size = 13
+text = "Цель не задана"
+autowrap_mode = 3
+
+[node name="CurrentEvent" type="Label" parent="Columns/LeftPanel/LeftColumn/CurrentPanel/CurrentBox" unique_id=349407844]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПЕРВЫЙ КОШМАР"
+autowrap_mode = 3
+
+[node name="CurrentJournal" type="Label" parent="Columns/LeftPanel/LeftColumn/CurrentPanel/CurrentBox" unique_id=1642392957]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+autowrap_mode = 3
+
+[node name="SummaryPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn" unique_id=1567189297]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="SummaryBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel" unique_id=1175823570]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox" unique_id=710729802]
 layout_mode = 2
 theme_type_variation = &"SectionLabel"
 text = "СВОДКА"
 
-[node name="ActiveRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+[node name="ActiveRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox" unique_id=415409832]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow"]
+[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow" unique_id=1800386921]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 theme_override_colors/font_color = Color(0.816, 0.659, 0.435, 1)
 text = "◆"
 
-[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow"]
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow" unique_id=594150755]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
 text = "АКТИВНЫЕ"
 
-[node name="ActiveCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow"]
+[node name="ActiveCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/ActiveRow" unique_id=1889903256]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 text = "0"
 
-[node name="AvailableRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+[node name="AvailableRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox" unique_id=435124410]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow"]
+[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow" unique_id=1106638420]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 text = "◇"
 
-[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow"]
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow" unique_id=2078736354]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
 text = "ДОСТУПНЫЕ"
 
-[node name="AvailableCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow"]
+[node name="AvailableCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/AvailableRow" unique_id=565715457]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 text = "0"
 
-[node name="CompletedRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox"]
+[node name="CompletedRow" type="HBoxContainer" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox" unique_id=1329230178]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow"]
+[node name="Marker" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow" unique_id=185915908]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 theme_override_colors/font_color = Color(0.69, 0.64, 0.49, 1)
 text = "✓"
 
-[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow"]
+[node name="Label" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow" unique_id=1345265131]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
 text = "ЗАВЕРШЁННЫЕ"
 
-[node name="CompletedCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow"]
+[node name="CompletedCount" type="Label" parent="Columns/LeftPanel/LeftColumn/SummaryPanel/SummaryBox/CompletedRow" unique_id=103440360]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 text = "0"
 
-[node name="LegendNote" type="Label" parent="Columns/LeftPanel/LeftColumn"]
+[node name="LegendNote" type="Label" parent="Columns/LeftPanel/LeftColumn" unique_id=1948491855]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
-text = "Статусы и прогресс зафиксированы в демо-ресурсе и не меняются из интерфейса."
+text = "Статусы и прогресс обновляются из текущего прохождения."
 autowrap_mode = 3
 
-[node name="DemoPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn"]
+[node name="DemoPanel" type="PanelContainer" parent="Columns/LeftPanel/LeftColumn" unique_id=886147832]
 layout_mode = 2
 theme_type_variation = &"SubPanel"
 
-[node name="DemoBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/DemoPanel"]
+[node name="DemoBox" type="VBoxContainer" parent="Columns/LeftPanel/LeftColumn/DemoPanel" unique_id=1396950394]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoPanel/DemoBox"]
+[node name="Caption" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoPanel/DemoBox" unique_id=1185441649]
 layout_mode = 2
 theme_type_variation = &"SectionLabel"
-text = "DEMO-ЖУРНАЛ"
+text = "КАК ЧИТАТЬ ЖУРНАЛ"
 
-[node name="Note" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoPanel/DemoBox"]
+[node name="Note" type="Label" parent="Columns/LeftPanel/LeftColumn/DemoPanel/DemoBox" unique_id=585242347]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
-text = "Записи не связаны с квестами игры, сохранениями, сюжетом и наградами. Это только демонстрация страницы."
+text = "Активное задание можно вывести на HUD кнопкой «Следить». Завершённые события остаются в истории."
 autowrap_mode = 3
 
-[node name="LeftSpacer" type="Control" parent="Columns/LeftPanel/LeftColumn"]
+[node name="LeftSpacer" type="Control" parent="Columns/LeftPanel/LeftColumn" unique_id=1843214965]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="ReturnButton" type="Button" parent="Columns/LeftPanel/LeftColumn"]
+[node name="ReturnButton" type="Button" parent="Columns/LeftPanel/LeftColumn" unique_id=1715117755]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 theme_type_variation = &"SecondaryButton"
 text = "← В ИНВЕНТАРЬ"
 
-[node name="CenterPanel" type="PanelContainer" parent="Columns"]
+[node name="CenterPanel" type="PanelContainer" parent="Columns" unique_id=1874269827]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"RpgPanel"
 script = ExtResource("2_decor")
 
-[node name="CenterColumn" type="VBoxContainer" parent="Columns/CenterPanel"]
+[node name="CenterColumn" type="VBoxContainer" parent="Columns/CenterPanel" unique_id=1069864362]
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="CenterHeader" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+[node name="CenterHeader" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn" unique_id=2044099709]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Titles" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+[node name="Titles" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/CenterHeader" unique_id=1324239802]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 1
 
-[node name="Overline" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+[node name="Overline" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles" unique_id=1023791269]
 layout_mode = 2
 theme_type_variation = &"OverlineLabel"
-text = "DEMO-КВЕСТЫ · НЕ СЮЖЕТ"
+text = "ЖУРНАЛ КАМПАНИИ"
 
-[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles"]
+[node name="Title" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader/Titles" unique_id=1147287956]
 layout_mode = 2
 theme_type_variation = &"ScreenTitle"
-text = "ЖУРНАЛ ЗАДАНИЙ"
+text = "ЗАДАНИЯ"
 clip_text = true
 
-[node name="RecordsCount" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader"]
+[node name="RecordsCount" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterHeader" unique_id=81143746]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 text = "6 ЗАПИСЕЙ"
 vertical_alignment = 2
 
-[node name="RuleTop" type="ColorRect" parent="Columns/CenterPanel/CenterColumn"]
+[node name="RuleTop" type="ColorRect" parent="Columns/CenterPanel/CenterColumn" unique_id=356798426]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.27, 0.25, 0.21, 0.65)
 
-[node name="QuestScroll" type="ScrollContainer" parent="Columns/CenterPanel/CenterColumn"]
+[node name="QuestScroll" type="ScrollContainer" parent="Columns/CenterPanel/CenterColumn" unique_id=1301293509]
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
 follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="QuestList" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/QuestScroll"]
+[node name="QuestList" type="VBoxContainer" parent="Columns/CenterPanel/CenterColumn/QuestScroll" unique_id=8234935]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="CenterFooter" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn"]
+[node name="CenterFooter" type="HBoxContainer" parent="Columns/CenterPanel/CenterColumn" unique_id=1535359850]
 layout_mode = 2
 
-[node name="Controls" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+[node name="Controls" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter" unique_id=546262147]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
-text = "ЛКМ — ВЫБРАТЬ ЗАПИСЬ"
+text = "ЛКМ — ВЫБРАТЬ ЗАПИСЬ · ↑↓ — НАВИГАЦИЯ"
 
-[node name="StateNote" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
+[node name="StateNote" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter" unique_id=1677816698]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
-text = "ПРОГРЕСС НЕ ИЗМЕНЯЕТСЯ"
+text = "ПРОГРЕСС ОБНОВЛЯЕТСЯ ИГРОЙ"
 
-[node name="RightPanel" type="PanelContainer" parent="Columns"]
+[node name="RightPanel" type="PanelContainer" parent="Columns" unique_id=2077257532]
 custom_minimum_size = Vector2(398, 0)
 layout_mode = 2
 theme_type_variation = &"DeepPanel"
 script = ExtResource("2_decor")
 accent = true
 
-[node name="RightColumn" type="VBoxContainer" parent="Columns/RightPanel"]
+[node name="RightColumn" type="VBoxContainer" parent="Columns/RightPanel" unique_id=739458960]
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="DetailStack" type="Control" parent="Columns/RightPanel/RightColumn"]
+[node name="DetailStack" type="Control" parent="Columns/RightPanel/RightColumn" unique_id=2128164113]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="DetailScroll" type="ScrollContainer" parent="Columns/RightPanel/RightColumn/DetailStack"]
+[node name="DetailScroll" type="ScrollContainer" parent="Columns/RightPanel/RightColumn/DetailStack" unique_id=433501576]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -279,32 +315,32 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
 follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="DetailContent" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll"]
+[node name="DetailContent" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll" unique_id=195508220]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 7
 
-[node name="DetailSource" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="DetailSource" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=272106401]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"OverlineLabel"
-text = "ВЫБРАННАЯ ЗАПИСЬ · DEMO"
+text = "ВЫБРАННАЯ ЗАПИСЬ"
 
-[node name="CodeRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="CodeRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=549843021]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="DetailCode" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/CodeRow"]
+[node name="DetailCode" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/CodeRow" unique_id=1458442560]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 theme_override_font_sizes/font_size = 11
 text = "ЗАПИСЬ 01"
 
-[node name="DetailStatus" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/CodeRow"]
+[node name="DetailStatus" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/CodeRow" unique_id=520707290]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -312,26 +348,26 @@ theme_type_variation = &"TinyMutedLabel"
 text = "◆ АКТИВНО"
 horizontal_alignment = 2
 
-[node name="DetailTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="DetailTitle" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=1109940144]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ScreenTitleSmall"
 theme_override_font_sizes/font_size = 24
-text = "DEMO · НАЗВАНИЕ ЗАПИСИ"
+text = "ЗАПИСЬ НЕ ВЫБРАНА"
 autowrap_mode = 3
 
-[node name="DetailCategory" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="DetailCategory" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=875638133]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 text = "КАТЕГОРИЯ · ИНТЕРФЕЙС"
 
-[node name="RuleDetail" type="ColorRect" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="RuleDetail" type="ColorRect" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=127790818]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.27, 0.25, 0.21, 0.6)
 
-[node name="DetailSummary" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="DetailSummary" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=2039232682]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BodyLargeLabel"
@@ -339,147 +375,145 @@ theme_override_font_sizes/font_size = 15
 text = "Краткое описание записи."
 autowrap_mode = 3
 
-[node name="DetailDescription" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="DetailDescription" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=2042935470]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"MutedLabel"
 theme_override_font_sizes/font_size = 13
-text = "Пояснение демонстрационной записи."
+text = "Пояснение записи."
 autowrap_mode = 3
 
-[node name="ProgressPanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="ProgressPanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=1930644209]
 layout_mode = 2
 theme_type_variation = &"SubPanel"
 
-[node name="ProgressBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel"]
+[node name="ProgressBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel" unique_id=1585445242]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Top" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox"]
+[node name="Top" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox" unique_id=119049039]
 layout_mode = 2
 
-[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox/Top"]
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox/Top" unique_id=1678436013]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"SectionLabel"
-text = "ПРОГРЕСС · DEMO"
+text = "ПРОГРЕСС"
 
-[node name="ProgressValue" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox/Top"]
+[node name="ProgressValue" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox/Top" unique_id=435079797]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 text = "0 / 0"
 
-[node name="QuestProgress" type="ProgressBar" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox"]
+[node name="QuestProgress" type="ProgressBar" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ProgressPanel/ProgressBox" unique_id=691209478]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 theme_override_styles/background = SubResource("Style_progress_bg")
 theme_override_styles/fill = SubResource("Style_progress_fill")
 max_value = 1.0
-step = 0.01
-value = 0.0
 show_percentage = false
 
-[node name="ObjectivesSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="ObjectivesSection" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=144204108]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ObjectivesSection"]
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ObjectivesSection" unique_id=1639878090]
 layout_mode = 2
 theme_type_variation = &"SectionLabel"
-text = "ЦЕЛИ · DEMO"
+text = "ЦЕЛИ"
 
-[node name="ObjectivesRows" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ObjectivesSection"]
+[node name="ObjectivesRows" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/ObjectivesSection" unique_id=2115467415]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="NotePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="NotePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=1811332129]
 layout_mode = 2
 theme_type_variation = &"SubPanel"
 
-[node name="NoteBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel"]
+[node name="NoteBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel" unique_id=889796163]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel/NoteBox"]
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel/NoteBox" unique_id=519713328]
 layout_mode = 2
 theme_type_variation = &"SectionLabel"
-text = "DEMO-ЗАМЕТКА"
+text = "ЗАМЕТКА · ЦЕПОЧКА"
 
-[node name="DetailNote" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel/NoteBox"]
+[node name="DetailNote" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/NotePanel/NoteBox" unique_id=1949645961]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
 text = "Запись не связана с квестами игры."
 autowrap_mode = 3
 
-[node name="StatePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="StatePanel" type="PanelContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=856420592]
 layout_mode = 2
 theme_type_variation = &"SubPanel"
 
-[node name="StateBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel"]
+[node name="StateBox" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel" unique_id=198079666]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+[node name="Caption" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox" unique_id=572372433]
 layout_mode = 2
 theme_type_variation = &"SectionLabel"
-text = "СОСТОЯНИЕ DEMO"
+text = "СОСТОЯНИЕ"
 
-[node name="ProgressRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+[node name="ProgressRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox" unique_id=2094161165]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/ProgressRow"]
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/ProgressRow" unique_id=1189125611]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
 text = "ПРОГРЕСС"
 
-[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/ProgressRow"]
+[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/ProgressRow" unique_id=648732747]
 layout_mode = 2
 theme_type_variation = &"BronzeLabel"
 theme_override_font_sizes/font_size = 10
 text = "ФИКСИРОВАН"
 
-[node name="RewardsRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+[node name="RewardsRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox" unique_id=1180344236]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/RewardsRow"]
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/RewardsRow" unique_id=450753120]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
 text = "НАГРАДЫ"
 
-[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/RewardsRow"]
+[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/RewardsRow" unique_id=1958956990]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
-text = "НЕ ПОДКЛЮЧЕНЫ"
+text = "ИЗ ДАННЫХ ЗАДАНИЯ"
 
-[node name="LinkRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox"]
+[node name="LinkRow" type="HBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox" unique_id=1113996375]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/LinkRow"]
+[node name="Label" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/LinkRow" unique_id=631202655]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
 text = "СВЯЗЬ С ИГРОЙ"
 
-[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/LinkRow"]
+[node name="Value" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent/StatePanel/StateBox/LinkRow" unique_id=598399309]
 layout_mode = 2
 theme_type_variation = &"TinyMutedLabel"
-text = "НЕТ"
+text = "ДА"
 
-[node name="DetailSpacer" type="Control" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent"]
+[node name="DetailSpacer" type="Control" parent="Columns/RightPanel/RightColumn/DetailStack/DetailScroll/DetailContent" unique_id=1781013598]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EmptyDetail" type="CenterContainer" parent="Columns/RightPanel/RightColumn/DetailStack"]
+[node name="EmptyDetail" type="CenterContainer" parent="Columns/RightPanel/RightColumn/DetailStack" unique_id=1009582170]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -490,18 +524,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Box" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail"]
+[node name="Box" type="VBoxContainer" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail" unique_id=1657654405]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box"]
+[node name="Title" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box" unique_id=1116760444]
 layout_mode = 2
 theme_type_variation = &"DisplayValue"
 text = "ЗАПИСЬ НЕ ВЫБРАНА"
 horizontal_alignment = 1
 
-[node name="Hint" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box"]
+[node name="Hint" type="Label" parent="Columns/RightPanel/RightColumn/DetailStack/EmptyDetail/Box" unique_id=1132523266]
 layout_mode = 2
 theme_type_variation = &"MutedLabel"
 text = "Выберите запись в журнале заданий."

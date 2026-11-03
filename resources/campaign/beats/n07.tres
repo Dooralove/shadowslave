@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N07"
+part = &"act_1"
+part_title = "Акт I «Цепь»"
+canonical_block = 6
+title = "Стоянка у огня и паёк"
+beat_type = 2
+format_label = "К + сидячий радиус"
+objective = "Взять паёк"
+idle_objectives = Array[String](["Возьми хлеб и воду у огня", "Не ешь красные ягоды"])
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"camp_reached"])
+exit_conditions = Array[StringName]([&"camp_rations_taken", &"camp_bloodbane_seen", &"camp_explored"])
+staging_flags = Array[StringName]([&"camp_bloodbane_seen", &"camp_wagon_examined"])
+estimated_seconds = 90.0
+estimated_time_text = "~1,5 мин"
+scene_path = "res://scenes/campaign/caravan_site_arrival.tscn"
+can_die = false

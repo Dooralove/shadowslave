@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_40iwo"]
+[ext_resource type="Resource" path="res://resources/loot/items/water_skin.tres" id="2_ae1ur"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="3_bswhc"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="4_r5p0x"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="5_f1duw"]
+
+[sub_resource type="Resource" id="Resource_q86bc"]
+script = ExtResource("1_40iwo")
+item = ExtResource("2_ae1ur")
+weight = 1.4
+
+[sub_resource type="Resource" id="Resource_4dwsy"]
+script = ExtResource("1_40iwo")
+item = ExtResource("3_bswhc")
+weight = 0.8
+
+[sub_resource type="Resource" id="Resource_tdl4a"]
+script = ExtResource("1_40iwo")
+item = ExtResource("4_r5p0x")
+
+[resource]
+script = ExtResource("5_f1duw")
+id = &"academy_medical"
+display_name = "Медицинский шкаф"
+description = "Академический контейнер: бытовые припасы, инструменты, медикаменты."
+guaranteed = Array[ExtResource("1_40iwo")]([SubResource("Resource_tdl4a")])
+entries = Array[ExtResource("1_40iwo")]([SubResource("Resource_q86bc"), SubResource("Resource_4dwsy")])
+tags = PackedStringArray("academy", "container")

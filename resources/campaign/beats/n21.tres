@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N21"
+part = &"act_4"
+part_title = "Акт IV «Охота»"
+canonical_block = 17
+title = "Тропа над облаками: между Героем и Тираном"
+beat_type = 0
+format_label = "И (стелс)"
+objective = "Уйти от Героя"
+idle_objectives = Array[String](["Держись тени, избегай лунного света", "Иди тихо: Тиран слышит шаги", "Брось камень, чтобы отвлечь его"])
+guide_beacon_id = &"hero"
+checkpoint_id = &"CP-N21a"
+checkpoint_ids = Array[StringName]([&"CP-N21a", &"CP-N21b"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N21a": Vector3(1, 4.15, -54),
+&"CP-N21b": Vector3(1, 4.15, -56.5)
+})
+entry_conditions = Array[StringName]([&"cave_escaped"])
+exit_conditions = Array[StringName]([&"hero_confrontation_seen"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 150.0
+estimated_time_text = "~2,5 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = true

@@ -1,0 +1,23 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/p1/sunny_waking_nightmare.tscn" id="1_sunny"]
+[ext_resource type="Script" path="res://scripts/equipment/equipment_component.gd" id="2_equipment"]
+[ext_resource type="Resource" path="res://resources/equipment/loadouts/nightmare_alpha.tres" id="3_loadout"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/generated_v3.tres" id="4_rig"]
+[ext_resource type="Resource" path="res://resources/equipment/catalog_alpha.tres" id="5_catalog"]
+[ext_resource type="Resource" path="res://resources/equipment/ab/sunny_armor_alpha.tres" id="6_ab"]
+
+[node name="Sunny" instance=ExtResource("1_sunny")]
+
+[node name="Equipment" type="Node" parent="." node_paths=PackedStringArray("visual_root")]
+script = ExtResource("2_equipment")
+visual_root = NodePath("../Visual/ModelPoc")
+skeleton_path = NodePath("Model/Armature/Skeleton3D")
+rig_profile = ExtResource("4_rig")
+loadout = ExtResource("3_loadout")
+catalog = ExtResource("5_catalog")
+ab_test = ExtResource("6_ab")
+auto_apply = true
+weapon_drawn = true
+persist_to_run_state = false
+debug_log = true

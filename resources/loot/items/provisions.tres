@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_consumable.png" id="1_e7sdn"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_ehxhs"]
+
+[resource]
+resource_name = "provisions"
+script = ExtResource("2_ehxhs")
+id = &"provisions"
+display_name = "Провизия"
+category = 2
+stack_max = 3
+description = "Мясо, водоросли и сушёные части карапаксов. Еда у костра, не бафф."
+canon_status = &"CANON"
+tags = PackedStringArray("food", "camp")
+icon = ExtResource("1_e7sdn")

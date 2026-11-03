@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="EnvironmentArtProfile" format=3]
+
+[ext_resource type="Environment" path="res://assets/environments/post_nightmare/environments/art_p06_env.tres" id="1_itec3"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_asphalt.tres" id="2_6d6d5"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_material_swap.gd" id="3_y5wf7"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_concrete.tres" id="4_lips6"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_wall.tres" id="5_wkkub"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_metal.tres" id="6_x7eus"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_snow.tres" id="7_40lxf"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_glass.tres" id="8_xc0vw"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_screen.tres" id="9_repje"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_academy_red.tres" id="10_4x1nq"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_profile.gd" id="11_w6eti"]
+
+[sub_resource type="Resource" id="Resource_riucs"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "asphalt.tres"
+material = ExtResource("2_6d6d5")
+
+[sub_resource type="Resource" id="Resource_citxx"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "concrete.tres"
+material = ExtResource("4_lips6")
+
+[sub_resource type="Resource" id="Resource_uag6s"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "concrete_dark.tres"
+material = ExtResource("5_wkkub")
+
+[sub_resource type="Resource" id="Resource_4nh62"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "metal_dark.tres"
+material = ExtResource("6_x7eus")
+
+[sub_resource type="Resource" id="Resource_w4rau"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "metal_light.tres"
+material = ExtResource("6_x7eus")
+
+[sub_resource type="Resource" id="Resource_tt5ir"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "snow.tres"
+material = ExtResource("7_40lxf")
+
+[sub_resource type="Resource" id="Resource_vu66g"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "glass_blue.tres"
+material = ExtResource("8_xc0vw")
+
+[sub_resource type="Resource" id="Resource_v3tfb"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "screen_cyan_dim.tres"
+material = ExtResource("9_repje")
+
+[sub_resource type="Resource" id="Resource_fh7p3"]
+script = ExtResource("3_y5wf7")
+match_path_suffix = "fabric_blue.tres"
+material = ExtResource("10_4x1nq")
+
+[resource]
+resource_name = "art_p06_profile"
+script = ExtResource("11_w6eti")
+environment = ExtResource("1_itec3")
+material_swaps = [SubResource("Resource_riucs"), SubResource("Resource_citxx"), SubResource("Resource_uag6s"), SubResource("Resource_4nh62"), SubResource("Resource_w4rau"), SubResource("Resource_tt5ir"), SubResource("Resource_vu66g"), SubResource("Resource_v3tfb"), SubResource("Resource_fh7p3")]
+hide_name_prefixes = PackedStringArray()
+hide_name_contains = PackedStringArray()
+override_key_light = true
+key_light_name = "Moon"
+key_light_rotation_degrees = Vector3(-36, -28, 0)
+key_light_color = Color(0.58, 0.72, 1, 1)
+key_light_energy = 0.52
+water_name_contains = PackedStringArray("Water", "SeaBelow", "BlackWater", "DeepWater")
+glow_intensity = 0.38
+fog_density = 0.022

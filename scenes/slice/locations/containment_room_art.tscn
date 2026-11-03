@@ -1,272 +1,398 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bxp4e2qul6gdd"]
 
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/containment_room.tscn" id="1_base"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_floor.glb" id="2_floor"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_ceiling.glb" id="3_ceiling"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_panel_a.glb" id="4_wall_a"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_panel_b.glb" id="5_wall_b"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_panel_c.glb" id="6_wall_c"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_wall_window.glb" id="7_window"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_corner.glb" id="8_corner"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_door_frame.glb" id="9_frame"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/vault_door_inward.glb" id="10_door"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/restraint_chair_upright.glb" id="11_chair"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/restraint_chair_upright_straps.glb" id="12_straps"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_terminal.glb" id="13_terminal"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/vent_grille.glb" id="14_vent"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/ceiling_light_cell.glb" id="15_light"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_power_box.glb" id="16_power"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_ceiling_hatch.glb" id="17_hatch"]
-[ext_resource type="PackedScene" path="res://assets/environments/prologue/cell/cell_camera.glb" id="18_camera"]
+[ext_resource type="PackedScene" uid="uid://dih0kyqc8cmoc" path="res://assets/environments/prologue/cell/cell_floor.glb" id="2_floor"]
+[ext_resource type="PackedScene" uid="uid://c0hyonulf67ws" path="res://assets/environments/prologue/cell/cell_ceiling.glb" id="3_ceiling"]
+[ext_resource type="PackedScene" uid="uid://bymsfo07i43jf" path="res://assets/environments/prologue/cell/cell_wall_panel_a.glb" id="4_wall_a"]
+[ext_resource type="PackedScene" uid="uid://cmn4lkysc5oxe" path="res://assets/environments/prologue/cell/cell_wall_panel_b.glb" id="5_wall_b"]
+[ext_resource type="PackedScene" uid="uid://by32gte2yb6aa" path="res://assets/environments/prologue/cell/cell_wall_panel_c.glb" id="6_wall_c"]
+[ext_resource type="PackedScene" uid="uid://bo3p1u3u4dj3v" path="res://assets/environments/prologue/cell/cell_wall_window.glb" id="7_window"]
+[ext_resource type="PackedScene" uid="uid://ct73egawgcftk" path="res://assets/environments/prologue/cell/cell_corner.glb" id="8_corner"]
+[ext_resource type="PackedScene" uid="uid://dxcphvtvxen7l" path="res://assets/environments/prologue/cell/cell_door_frame.glb" id="9_frame"]
+[ext_resource type="PackedScene" uid="uid://cip5koxt3nas4" path="res://assets/environments/prologue/cell/vault_door_inward.glb" id="10_door"]
+[ext_resource type="PackedScene" uid="uid://yyrgioymuj4e" path="res://assets/environments/prologue/cell/restraint_chair_upright.glb" id="11_chair"]
+[ext_resource type="PackedScene" uid="uid://b14fql7nu3unw" path="res://assets/environments/prologue/cell/restraint_chair_upright_straps.glb" id="12_straps"]
+[ext_resource type="PackedScene" uid="uid://jpgwkfylqos0" path="res://assets/environments/prologue/cell/cell_terminal.glb" id="13_terminal"]
+[ext_resource type="PackedScene" uid="uid://dv6bvjtbtlae1" path="res://assets/environments/prologue/cell/vent_grille.glb" id="14_vent"]
+[ext_resource type="PackedScene" uid="uid://r7nl8vgk01xl" path="res://assets/environments/prologue/cell/ceiling_light_cell.glb" id="15_light"]
+[ext_resource type="PackedScene" uid="uid://c0iy6sfuuh6vr" path="res://assets/environments/prologue/cell/cell_power_box.glb" id="16_power"]
+[ext_resource type="PackedScene" uid="uid://r145lvm6jxqv" path="res://assets/environments/prologue/cell/cell_ceiling_hatch.glb" id="17_hatch"]
+[ext_resource type="PackedScene" uid="uid://dppdyu3qslw4k" path="res://assets/environments/prologue/cell/cell_camera.glb" id="18_camera"]
 [ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_floor_tri.tres" id="19_floor_tri"]
 [ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_wall_tri.tres" id="20_wall_tri"]
+[ext_resource type="PackedScene" path="res://scenes/slice/locations/containment_p2_dressing.tscn" id="21_p2"]
+[ext_resource type="Environment" path="res://assets/environments/prologue/materials/p2_cell_environment.tres" id="22_env"]
+[ext_resource type="Script" path="res://scripts/slice/locations/corridor_art.gd" id="22_ulq6s"]
+[ext_resource type="PackedScene" uid="uid://cbqgug0gm8tx4" path="res://assets/environments/prologue/lobby/desk_counter.glb" id="23_j7ral"]
+[ext_resource type="PackedScene" uid="uid://ci0e45lhtxs1p" path="res://assets/environments/prologue/lobby/terminal_desk.glb" id="24_rjut2"]
 
-[node name="ContainmentRoom" instance=ExtResource("1_base")]
+[node name="ContainmentRoom" unique_id=509237458 instance=ExtResource("1_base")]
 
-[node name="Floor" parent="Geometry"]
+[node name="WorldEnvironment" parent="." index="0"]
+environment = ExtResource("22_env")
+
+[node name="Floor" parent="Geometry" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 visible = false
 use_collision = false
 
-[node name="Ceiling" parent="Geometry"]
+[node name="Ceiling" parent="Geometry" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, 0)
 visible = false
 
-[node name="WallNorthL" parent="Geometry"]
-visible = false
-use_collision = false
-
-[node name="WallNorthR" parent="Geometry"]
+[node name="WallNorthL" parent="Geometry" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.4, -3.7)
 visible = false
 use_collision = false
 
-[node name="Lintel" parent="Geometry"]
+[node name="WallNorthR" parent="Geometry" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 1.4, -3.7)
 visible = false
 use_collision = false
 
-[node name="WallSouth" parent="Geometry"]
+[node name="Lintel" parent="Geometry" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -3.7)
 visible = false
 use_collision = false
 
-[node name="WallWest" parent="Geometry"]
+[node name="WallSouth" parent="Geometry" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 3.7)
 visible = false
 use_collision = false
 
-[node name="WallEast" parent="Geometry"]
+[node name="WallWest" parent="Geometry" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, 1.4, 0)
 visible = false
 use_collision = false
 
-[node name="CorridorFloor" parent="Geometry"]
-position = Vector3(0, -0.5, -4.5)
+[node name="WallEast" parent="Geometry" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, 1.4, 0)
+visible = false
+use_collision = false
+
+[node name="CorridorFloor" parent="Geometry" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -4.375)
+visible = false
+size = Vector3(1.9, 1, 6.25)
 material = ExtResource("19_floor_tri")
 
-[node name="CorridorWallL" parent="Geometry"]
-position = Vector3(-0.95, 1.4, -4.5)
+[node name="CorridorWallL" parent="Geometry" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 1.4, -4.5)
+visible = false
 material = ExtResource("20_wall_tri")
 
-[node name="CorridorWallR" parent="Geometry"]
-position = Vector3(0.95, 1.4, -4.5)
+[node name="CorridorWallR" parent="Geometry" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 1.4, -4.5)
+visible = false
 material = ExtResource("20_wall_tri")
 
-[node name="CorridorEnd" parent="Geometry"]
-position = Vector3(0, 1.4, -7.6)
+[node name="CorridorEnd" parent="Geometry" index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -7.6)
+visible = false
 material = ExtResource("20_wall_tri")
 
-[node name="CorridorCeiling" parent="Geometry"]
-position = Vector3(0, 2.6, -4.5)
+[node name="CorridorCeiling" parent="Geometry" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -4.375)
+visible = false
+size = Vector3(2.2, 0.3, 6.25)
 material = ExtResource("20_wall_tri")
 
-[node name="DoorPivot" parent="Geometry"]
-position = Vector3(-0.575, 0, -1.09)
+[node name="DoorPivot" parent="Geometry" index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575, 0, -1.09)
 
-[node name="VaultDoor" parent="Geometry/DoorPivot"]
+[node name="VaultDoor" parent="Geometry/DoorPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 1.1, 0)
 visible = false
 
-[node name="VaultDoorModel" parent="Geometry/DoorPivot" instance=ExtResource("10_door")]
-position = Vector3(0.02, 0.01, -0.17)
+[node name="Wheel" parent="Geometry/DoorPivot/VaultDoor" index="0"]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, -1, 0, 1, -3.6199901e-06, 0, 0, 0.14)
 
-[node name="Seat" parent="Chair"]
+[node name="VaultDoorModel" parent="Geometry/DoorPivot" index="1" unique_id=198498928 instance=ExtResource("10_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.01, -0.17)
+
+[node name="Chair" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Seat" parent="Chair" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47, 0)
 visible = false
 
-[node name="Back" parent="Chair"]
+[node name="Back" parent="Chair" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0.24)
 visible = false
 
-[node name="ArmL" parent="Chair"]
+[node name="ArmL" parent="Chair" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.68, 0)
 visible = false
 
-[node name="ArmR" parent="Chair"]
+[node name="ArmR" parent="Chair" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.68, 0)
 visible = false
 
-[node name="LegFL" parent="Chair"]
+[node name="LegFL" parent="Chair" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 0.22, -0.22)
 visible = false
 
-[node name="LegFR" parent="Chair"]
+[node name="LegFR" parent="Chair" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 0.22, -0.22)
 visible = false
 
-[node name="LegBL" parent="Chair"]
+[node name="LegBL" parent="Chair" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 0.22, 0.22)
 visible = false
 
-[node name="LegBR" parent="Chair"]
+[node name="LegBR" parent="Chair" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 0.22, 0.22)
 visible = false
 
-[node name="WristL" parent="Chair/Restraints"]
+[node name="WristL" parent="Chair/Restraints" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.72, -0.08)
 visible = false
 
-[node name="WristR" parent="Chair/Restraints"]
+[node name="WristR" parent="Chair/Restraints" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.72, -0.08)
 visible = false
 
-[node name="AnkleL" parent="Chair/Restraints"]
+[node name="AnkleL" parent="Chair/Restraints" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 0.1, -0.24)
 visible = false
 
-[node name="AnkleR" parent="Chair/Restraints"]
+[node name="AnkleR" parent="Chair/Restraints" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 0.1, -0.24)
 visible = false
 
-[node name="ChestStrap" parent="Chair/Restraints"]
+[node name="ChestStrap" parent="Chair/Restraints" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.2)
 visible = false
 
-[node name="StrapsModel" parent="Chair/Restraints" instance=ExtResource("12_straps")]
-position = Vector3(0, 0, 0.15)
-rotation = Vector3(0, 3.14159, 0)
+[node name="StrapsModel" parent="Chair/Restraints" index="5" unique_id=499391349 instance=ExtResource("12_straps")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 0, 0.15)
 
-[node name="ChairModel" parent="Chair" instance=ExtResource("11_chair")]
-position = Vector3(0, 0, 0.15)
-rotation = Vector3(0, 3.14159, 0)
+[node name="ChairModel" parent="Chair" index="9" unique_id=678271863 instance=ExtResource("11_chair")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 0, 0.15)
 
-[node name="Overhead" parent="Lights"]
-position = Vector3(0, 2.35, 1.3)
+[node name="Overhead" parent="Lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, -3.6199901e-06, 1, 0, -1, -3.6199901e-06, 0, 2.35, 1.3)
+light_color = Color(0.78, 0.88, 1, 1)
+light_energy = 7.0
+spot_range = 4.7
+spot_angle = 34.0
 
-[node name="Fill" parent="Lights"]
-position = Vector3(0, 2.3, -0.6)
+[node name="Fill" parent="Lights" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -0.6)
+light_energy = 0.22
 
-[node name="CorridorLight" parent="Lights"]
-position = Vector3(0, 2.3, -4.5)
+[node name="CorridorLight" parent="Lights" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -4.5)
 
-[node name="GuardA" parent="Guards"]
-position = Vector3(-1.45, 0, -0.65)
+[node name="GuardA" parent="Guards" index="0"]
+transform = Transform3D(-0.7346859, 0, -0.67840743, 0, 1, 0, 0.67840743, 0, -0.7346859, -1.45, 0, -0.65)
 
-[node name="GuardB" parent="Guards"]
-position = Vector3(1.35, 0, -0.65)
+[node name="Rifle" parent="Guards/GuardA" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 1.25, -0.4)
 
-[node name="Policeman" parent="."]
-position = Vector3(0, 0, -6.5)
+[node name="GuardB" parent="Guards" index="1"]
+transform = Transform3D(-0.7346859, 0, 0.67840743, 0, 1, 0, -0.67840743, 0, -0.7346859, 1.35, 0, -0.65)
 
-[node name="ChairFront" parent="Markers"]
-position = Vector3(0.45, 0, -0.4)
+[node name="Rifle" parent="Guards/GuardB" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 1.25, -0.4)
 
-[node name="RoomShot" parent="Shots"]
-position = Vector3(1.42, 2.2, 2.8)
+[node name="Policeman" parent="." index="5"]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 0, -6.5)
 
-[node name="LookAt" parent="Shots/RoomShot"]
-position = Vector3(-1.62, -1.3, -2.6)
+[node name="Chair" parent="Spawns" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.15)
 
-[node name="Art" type="Node3D" parent="."]
+[node name="ChairFront" parent="Markers" index="0"]
+transform = Transform3D(-0.8568887, 0, 0.51550144, 0, 1, 0, -0.51550144, 0, -0.8568887, 0.45, 0, -0.4)
 
-[node name="Floor" parent="Art" instance=ExtResource("2_floor")]
-position = Vector3(0, 0, 0.95)
-rotation = Vector3(0, 3.14159, 0)
+[node name="CuffA" parent="Markers/CuffMarks" index="0"]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, -0.75, 0, 0.9)
 
-[node name="Ceiling" parent="Art" instance=ExtResource("3_ceiling")]
-position = Vector3(0, 0, 0.95)
-rotation = Vector3(0, 3.14159, 0)
+[node name="CuffB" parent="Markers/CuffMarks" index="1"]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, 0.75, 0, 0.9)
 
-[node name="FarPanelA" parent="Art" instance=ExtResource("4_wall_a")]
-position = Vector3(1.25, 0, 3.15)
-rotation = Vector3(0, 3.14159, 0)
+[node name="RoomShot" parent="Shots" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42, 2.2, 2.8)
 
-[node name="FarWindow" parent="Art" instance=ExtResource("7_window")]
-position = Vector3(0, 0, 3.15)
-rotation = Vector3(0, 3.14159, 0)
+[node name="LookAt" parent="Shots/RoomShot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62, -1.3, -2.6)
 
-[node name="FarPanelB" parent="Art" instance=ExtResource("5_wall_b")]
-position = Vector3(-1.25, 0, 3.15)
-rotation = Vector3(0, 3.14159, 0)
+[node name="DoorShot" parent="Shots" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.5, 2.6)
 
-[node name="East0" parent="Art" instance=ExtResource("4_wall_a")]
-position = Vector3(1.8, 0, -0.7)
-rotation = Vector3(0, -1.5708, 0)
+[node name="LookAt" parent="Shots/DoorShot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, -0.3, -6.1)
 
-[node name="East1" parent="Art" instance=ExtResource("6_wall_c")]
-position = Vector3(1.8, 0, 0.4)
-rotation = Vector3(0, -1.5708, 0)
+[node name="Art" type="Node3D" parent="." index="9" unique_id=935362204]
 
-[node name="East2" parent="Art" instance=ExtResource("4_wall_a")]
-position = Vector3(1.8, 0, 1.5)
-rotation = Vector3(0, -1.5708, 0)
+[node name="Floor" parent="Art" index="0" unique_id=1380166294 instance=ExtResource("2_floor")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 0, 0.95)
 
-[node name="East3" parent="Art" instance=ExtResource("5_wall_b")]
-position = Vector3(1.8, 0, 2.6)
-rotation = Vector3(0, -1.5708, 0)
+[node name="Ceiling" parent="Art" index="1" unique_id=1563077742 instance=ExtResource("3_ceiling")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 0, 0.95)
 
-[node name="West0" parent="Art" instance=ExtResource("6_wall_c")]
-position = Vector3(-1.8, 0, -0.7)
-rotation = Vector3(0, 1.5708, 0)
+[node name="FarPanelA" parent="Art" index="2" unique_id=168351163 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 1.25, 0, 3.15)
 
-[node name="West1" parent="Art" instance=ExtResource("4_wall_a")]
-position = Vector3(-1.8, 0, 0.4)
-rotation = Vector3(0, 1.5708, 0)
+[node name="FarWindow" parent="Art" index="3" unique_id=1964662643 instance=ExtResource("7_window")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 0, 3.15)
 
-[node name="West2" parent="Art" instance=ExtResource("6_wall_c")]
-position = Vector3(-1.8, 0, 1.5)
-rotation = Vector3(0, 1.5708, 0)
+[node name="FarPanelB" parent="Art" index="4" unique_id=1048141985 instance=ExtResource("5_wall_b")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, -1.25, 0, 3.15)
 
-[node name="West3" parent="Art" instance=ExtResource("4_wall_a")]
-position = Vector3(-1.8, 0, 2.6)
-rotation = Vector3(0, 1.5708, 0)
+[node name="East0" parent="Art" index="5" unique_id=1138564004 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, 1.8, 0, -0.7)
 
-[node name="CornerFarEast" parent="Art" instance=ExtResource("8_corner")]
-position = Vector3(1.8, 0, 3.15)
-rotation = Vector3(0, 3.14159, 0)
+[node name="East1" parent="Art" index="6" unique_id=1911631434 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, 1.8, 0, 0.4)
 
-[node name="CornerFarWest" parent="Art" instance=ExtResource("8_corner")]
-position = Vector3(-1.8, 0, 3.15)
-rotation = Vector3(0, 1.5708, 0)
+[node name="East2" parent="Art" index="7" unique_id=973902154 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, 1.8, 0, 1.5)
 
-[node name="CornerDoorWest" parent="Art" instance=ExtResource("8_corner")]
-position = Vector3(-1.8, 0, -1.25)
+[node name="East3" parent="Art" index="8" unique_id=489191825 instance=ExtResource("5_wall_b")]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, 1.8, 0, 2.6)
 
-[node name="CornerDoorEast" parent="Art" instance=ExtResource("8_corner")]
-position = Vector3(1.8, 0, -1.25)
-rotation = Vector3(0, -1.5708, 0)
+[node name="West0" parent="Art" index="9" unique_id=1785103135 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, -0.7)
 
-[node name="DoorPanelEast" parent="Art" instance=ExtResource("4_wall_a")]
-position = Vector3(1.25, 0, -1.25)
+[node name="West1" parent="Art" index="10" unique_id=1404406250 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, 0.4)
 
-[node name="DoorFrame" parent="Art" instance=ExtResource("9_frame")]
-position = Vector3(0, 0, -1.25)
+[node name="West2" parent="Art" index="11" unique_id=668221128 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, 1.5)
 
-[node name="DoorPanelWest" parent="Art" instance=ExtResource("6_wall_c")]
-position = Vector3(-1.25, 0, -1.25)
+[node name="West3" parent="Art" index="12" unique_id=836413716 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, 2.6)
 
-[node name="Terminal" parent="Art" instance=ExtResource("13_terminal")]
-position = Vector3(-1.78, 0, -0.4)
-rotation = Vector3(0, 1.5708, 0)
+[node name="CornerFarEast" parent="Art" index="13" unique_id=543959566 instance=ExtResource("8_corner")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 1.8, 0, 3.15)
 
-[node name="Vent" parent="Art" instance=ExtResource("14_vent")]
-position = Vector3(-1.25, 2.16, 3.13)
-rotation = Vector3(0, 3.14159, 0)
+[node name="CornerFarWest" parent="Art" index="14" unique_id=822539920 instance=ExtResource("8_corner")]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, 3.15)
 
-[node name="CeilingLight" parent="Art" instance=ExtResource("15_light")]
-position = Vector3(0, 2.45, 1.3)
-rotation = Vector3(0, 3.14159, 0)
+[node name="CornerDoorWest" parent="Art" index="15" unique_id=318726901 instance=ExtResource("8_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, -1.25)
 
-[node name="PowerBox" parent="Art" instance=ExtResource("16_power")]
-position = Vector3(1.78, 0, -0.7)
-rotation = Vector3(0, -1.5708, 0)
+[node name="CornerDoorEast" parent="Art" index="16" unique_id=261819643 instance=ExtResource("8_corner")]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, 1.8, 0, -1.25)
 
-[node name="CeilingHatch" parent="Art" instance=ExtResource("17_hatch")]
-position = Vector3(-0.7, 2.45, 2.35)
-rotation = Vector3(0, 3.14159, 0)
+[node name="DoorPanelEast" parent="Art" index="17" unique_id=403561729 instance=ExtResource("4_wall_a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, -1.25)
 
-[node name="DomeCamera" parent="Art" instance=ExtResource("18_camera")]
-position = Vector3(1.5, 2.45, 2.85)
-rotation = Vector3(0, 0.785398, 0)
+[node name="DoorFrame" parent="Art" index="18" unique_id=818358714 instance=ExtResource("9_frame")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
 
-[node name="ObservationPost" type="CSGBox3D" parent="Art"]
-position = Vector3(0, 1.225, 4.5)
+[node name="DoorPanelWest" parent="Art" index="19" unique_id=1212251450 instance=ExtResource("6_wall_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, -1.25)
+
+[node name="Terminal" parent="Art" index="20" unique_id=2051051832 instance=ExtResource("13_terminal")]
+transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.78, 0, -0.4)
+
+[node name="Vent" parent="Art" index="21" unique_id=1876550730 instance=ExtResource("14_vent")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, -1.25, 2.16, 3.13)
+
+[node name="CeilingLight" parent="Art" index="22" unique_id=1272538010 instance=ExtResource("15_light")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, 0, 2.45, 1.3)
+
+[node name="PowerBox" parent="Art" index="23" unique_id=870597367 instance=ExtResource("16_power")]
+transform = Transform3D(-3.6199901e-06, 0, -1, 0, 1, 0, 1, 0, -3.6199901e-06, 1.78, 0, -0.7)
+
+[node name="CeilingHatch" parent="Art" index="24" unique_id=2026764546 instance=ExtResource("17_hatch")]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, -0.7, 2.45, 2.35)
+
+[node name="DomeCamera" parent="Art" index="25" unique_id=1823580977 instance=ExtResource("18_camera")]
+transform = Transform3D(0.7071069, 0, 0.70710665, 0, 1, 0, -0.70710665, 0, 0.7071069, 1.5, 2.45, 2.85)
+
+[node name="ObservationPost" type="CSGBox3D" parent="Art" index="26" unique_id=1164587205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.225, 4.5)
+visible = false
 flip_faces = true
 size = Vector3(3.6, 2.45, 2.2)
 material = ExtResource("20_wall_tri")
 
-[node name="PostLight" type="OmniLight3D" parent="Art/ObservationPost"]
-position = Vector3(0.6, 0.8, 0.3)
+[node name="PostLight" type="OmniLight3D" parent="Art/ObservationPost" index="0" unique_id=1789876619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.8, 0.3)
 light_color = Color(0.72, 0.8, 0.9, 1)
 light_energy = 0.35
 omni_range = 3.0
+
+[node name="Corridor" type="Node3D" parent="Art" index="27" unique_id=218056614]
+script = ExtResource("22_ulq6s")
+
+[node name="Floor" parent="Art/Corridor" index="0" unique_id=864885999 instance=ExtResource("2_floor")]
+transform = Transform3D(0.5278, 0, 0, 0, 1, 0, 0, 0, 1.4205, 0, 0, -4.375)
+
+[node name="Ceiling" parent="Art/Corridor" index="1" unique_id=1046620407 instance=ExtResource("3_ceiling")]
+transform = Transform3D(0.6111, 0, 0, 0, 1, 0, 0, 0, 1.4205, 0, 0.195, -4.375)
+
+[node name="WallL0" parent="Art/Corridor" index="2" unique_id=1882159997 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -2.05)
+
+[node name="WallR0" parent="Art/Corridor" index="3" unique_id=1976450546 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.95, 0, -2.05)
+
+[node name="WallL1" parent="Art/Corridor" index="4" unique_id=99576904 instance=ExtResource("5_wall_b")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -3.15)
+
+[node name="WallR1" parent="Art/Corridor" index="5" unique_id=880220073 instance=ExtResource("5_wall_b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.95, 0, -3.15)
+
+[node name="WallL2" parent="Art/Corridor" index="6" unique_id=1369430989 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -4.25)
+
+[node name="WallR2" parent="Art/Corridor" index="7" unique_id=1794560374 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.95, 0, -4.25)
+
+[node name="WallL3" parent="Art/Corridor" index="8" unique_id=1342411397 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -5.35)
+
+[node name="WallR3" parent="Art/Corridor" index="9" unique_id=1288226186 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.95, 0, -5.35)
+
+[node name="WallL4" parent="Art/Corridor" index="10" unique_id=70164062 instance=ExtResource("5_wall_b")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -6.45)
+
+[node name="WallR4" parent="Art/Corridor" index="11" unique_id=1059950722 instance=ExtResource("5_wall_b")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.95, 0, -6.45)
+
+[node name="WallLEnd" parent="Art/Corridor" index="12" unique_id=1648600367 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-1.7877959e-08, 0, 1, 0, 1, 0, -0.409, 0, -4.371139e-08, -0.95, 0, -7.225)
+
+[node name="WallREnd" parent="Art/Corridor" index="13" unique_id=994057528 instance=ExtResource("6_wall_c")]
+transform = Transform3D(-1.7877959e-08, 0, -1, 0, 1, 0, 0.409, 0, -4.371139e-08, 0.95, 0, -7.225)
+
+[node name="EndWest" parent="Art/Corridor" index="14" unique_id=2078178851 instance=ExtResource("6_wall_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, -7.45)
+
+[node name="EndEast" parent="Art/Corridor" index="15" unique_id=579725369 instance=ExtResource("6_wall_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, -7.45)
+
+[node name="ObservationPostArt" type="Node3D" parent="Art" index="28" unique_id=386069406]
+script = ExtResource("22_ulq6s")
+
+[node name="PostBack0" parent="Art/ObservationPostArt" index="0" unique_id=483649720 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2, 0, 5.55)
+
+[node name="PostBack1" parent="Art/ObservationPostArt" index="1" unique_id=1461678772 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 5.55)
+
+[node name="PostBack2" parent="Art/ObservationPostArt" index="2" unique_id=97961435 instance=ExtResource("4_wall_a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.2, 0, 5.55)
+
+[node name="PostFloor" parent="Art/ObservationPostArt" index="3" unique_id=354432469 instance=ExtResource("2_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 4.5)
+
+[node name="PostDesk" parent="Art/ObservationPostArt" index="4" unique_id=1577527468 instance=ExtResource("23_j7ral")]
+transform = Transform3D(-0.85, 0, -8.742278e-08, 0, 1, 0, 7.430936e-08, 0, -1, 0, 0, 4.6)
+
+[node name="PostTerminal" parent="Art/ObservationPostArt" index="5" unique_id=243772097 instance=ExtResource("24_rjut2")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.1, 4.6)
+
+[node name="PostLight" type="OmniLight3D" parent="Art/ObservationPostArt" index="6" unique_id=960577773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.9)
+light_color = Color(0.55, 0.7, 0.9, 1)
+light_energy = 0.45
+omni_range = 3.0
+
+[node name="P2" parent="." index="10" unique_id=1804591107 instance=ExtResource("21_p2")]

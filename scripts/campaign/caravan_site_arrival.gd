@@ -22,11 +22,12 @@ const COMPLETE_SEQUENCE := preload("res://resources/dialogue/caravan/camp_comple
 const WAGON_PLAN := preload("res://resources/dialogue/caravan/camp_wagon_plan.tres")
 const WAGON_FALL := preload("res://resources/dialogue/caravan/camp_wagon_fall.tres")
 const AFTERMATH_SEQUENCE := preload("res://resources/dialogue/caravan/camp_aftermath.tres")
+const BLOODBANE_SEQUENCE := preload("res://resources/dialogue/caravan/camp_bloodbane.tres")
+const SECOND_LARVA_SEQUENCE := preload("res://resources/dialogue/caravan/camp_second_larva.tres")
 const VETERAN_APPROACH := preload("res://resources/dialogue/caravan/camp_veteran.tres")
 const VETERAN_KILL := preload("res://resources/dialogue/caravan/camp_veteran_kill.tres")
 const VETERAN_LOOT := preload("res://resources/dialogue/caravan/camp_veteran_loot.tres")
-const NIGHT_SEQUENCE := preload("res://resources/dialogue/caravan/camp_night.tres")
-const NIGHT_POISON_SEQUENCE := preload("res://resources/dialogue/caravan/camp_night_poison.tres")
+const NIGHT_MONTAGE := preload("res://resources/dialogue/caravan/camp_night_montage.tres")
 const DAWN_SEQUENCE := preload("res://resources/dialogue/caravan/camp_dawn.tres")
 const SITE_MESSAGES := preload("res://resources/spell/caravan_site_messages.tres")
 const FALL_RESET_Y := -3.0
@@ -51,10 +52,12 @@ const FLAG_CHAINS_RELEASED := &"chains_released"
 @export var wagon_plan_sequence: DialogueSequence
 @export var wagon_fall_sequence: DialogueSequence
 @export var aftermath_sequence: DialogueSequence
+@export var bloodbane_sequence: DialogueSequence
+@export var second_larva_sequence: DialogueSequence
 @export var veteran_approach_sequence: DialogueSequence
 @export var veteran_kill_sequence: DialogueSequence
 @export var veteran_loot_sequence: DialogueSequence
-@export var night_sequence: DialogueSequence
+@export var night_montage_sequence: DialogueSequence
 @export var dawn_sequence: DialogueSequence
 @export var messages: SpellMessageCatalog
 
@@ -64,15 +67,19 @@ const FLAG_CHAINS_RELEASED := &"chains_released"
 @onready var _dialogue: DialogueRunner = $DialogueRunner
 @onready var _fade: FadeLayer = $Transition/Fade
 @onready var _flash: ColorRect = $Transition/Flash
-@onready var _note: Label = $PrototypeNote/Root/Note
 @onready var _wagon_camera: Camera3D = $WagonCamera
+@onready var _night_camera: Camera3D = $NightMontageCamera
+@onready var _timing: TimingChallenge = $TimingChallenge
 @onready var _dusk: ColorRect = $NightTint/Tint
 
 var _sequence_queue: Array[DialogueSequence] = []
 var _sequence_busy := false
 var _attack_running := false
 var _larva_running := false
+var _meal_running := false
+var _second_larva_running := false
 var _key_running := false
+var _rockfall_retry := false
 var _wagon_running := false
 var _veteran_running := false
 var _night_running := false
@@ -80,10 +87,13 @@ var _leaving := false
 var _saved_camera_yaw := 0.0
 var _saved_camera_pitch := 0.0
 var _saved_camera_look := true
+var beat_director: BeatDirector
 
 
 func _ready() -> void:
+	_ensure_beat_director()
 	if arrival_sequence == null:
+
 		arrival_sequence = CAMP_ARRIVAL
 	if hero_gaze_sequence == null:
 		hero_gaze_sequence = HERO_GAZE
@@ -105,14 +115,18 @@ func _ready() -> void:
 		wagon_fall_sequence = WAGON_FALL
 	if aftermath_sequence == null:
 		aftermath_sequence = AFTERMATH_SEQUENCE
+	if bloodbane_sequence == null:
+		bloodbane_sequence = BLOODBANE_SEQUENCE
+	if second_larva_sequence == null:
+		second_larva_sequence = SECOND_LARVA_SEQUENCE
 	if veteran_approach_sequence == null:
 		veteran_approach_sequence = VETERAN_APPROACH
 	if veteran_kill_sequence == null:
 		veteran_kill_sequence = VETERAN_KILL
 	if veteran_loot_sequence == null:
 		veteran_loot_sequence = VETERAN_LOOT
-	if night_sequence == null:
-		night_sequence = NIGHT_SEQUENCE
+	if night_montage_sequence == null:
+		night_montage_sequence = NIGHT_MONTAGE
 	if dawn_sequence == null:
 		dawn_sequence = DAWN_SEQUENCE
 	if messages == null:
@@ -128,9 +142,13 @@ func _ready() -> void:
 	if interactor:
 		interactor.focus_changed.connect(_ui.prompt.show_for)
 	_site.attack_requested.connect(_start_attack)
+	_site.meal_taken.connect(_handle_meal_taken)
+	_site.second_larva_finished.connect(_handle_second_larva_finished)
+	_site.tyrant_attention_caught.connect(_handle_tyrant_attention)
 	_site.larva_grabbed.connect(_handle_larva_grabbed)
 	_site.key_collected.connect(_handle_key_collected)
 	_site.wagon_push_requested.connect(_handle_wagon_push)
+	_timing.resolved.connect(_on_throw_resolved)
 	_site.veteran_found.connect(_handle_veteran_found)
 	_site.veteran_execution_requested.connect(_handle_veteran_execution)
 	_site.night_requested.connect(_handle_night)
@@ -156,6 +174,18 @@ func get_phase() -> StringName:
 	return _site.phase
 
 
+func _ensure_beat_director() -> void:
+	if beat_director != null:
+		return
+	beat_director = get_node_or_null("BeatDirector") as BeatDirector
+	if beat_director == null:
+		beat_director = BeatDirector.new()
+		beat_director.name = "BeatDirector"
+		add_child(beat_director)
+	beat_director.bind_player(_player)
+
+
+
 func _place_player() -> void:
 	var requested := LevelPortal.take_pending_spawn(SCENE_PATH)
 	var spawn := LevelPortal.resolve_spawn(_site, requested, DEFAULT_SPAWN)
@@ -171,13 +201,10 @@ func _place_player() -> void:
 	_player.combat_enabled = false
 
 	# Служебная подпись сегмента — только при отладочном запуске сцены; в кампании игрок её не видит.
-	_note.visible = false
 	if not NightmareRunState.has_flag(FLAG_CAMP_REACHED):
 		if debug_direct_scene:
 			NightmareRunState.set_flag(&"march_intro_seen")
 			NightmareRunState.set_flag(FLAG_CAMP_REACHED)
-			_note.text = "ОТЛАДОЧНЫЙ ЗАПУСК · S02–S06 можно проверить без перевала. В кампании сюда ведёт только CampArrival."
-			_note.visible = true
 		else:
 			push_warning("CaravanSiteArrival: нет camp_reached; сцена запущена напрямую")
 
@@ -188,8 +215,27 @@ func _place_player() -> void:
 
 func _begin_camp() -> void:
 	_site.begin_camp()
-	_ui.show_hint("Стоянка каравана. Осмотрите костёр, ягоды и повозку; затем вернитесь к огню.")
+	_ensure_beat_director()
+	beat_director.transition_to_beat(&"N07")
+	_ui.show_hint("")
 	_queue_sequence(arrival_sequence)
+	if NightmareRunState.has_flag(&"camp_rations_taken"):
+		# Возврат после чекпоинта/перезагрузки: паёк уже взят, сразу к N08.
+		_site.stage_camp_vision_recognition()
+		call_deferred(&"_start_attack")
+
+
+## N07: после пайка — короткая катсцена ягод, без объяснений и без чек-листа.
+func _handle_meal_taken() -> void:
+	if _meal_running or _leaving:
+		return
+	_meal_running = true
+	await _await_sequence(bloodbane_sequence)
+	_site.stage_camp_vision_recognition()
+	await _pause(0.35)
+	_meal_running = false
+	_start_attack()
+
 
 
 func _queue_sequence(sequence: DialogueSequence) -> void:
@@ -223,17 +269,49 @@ func _start_attack() -> void:
 	if _attack_running or _leaving:
 		return
 	_attack_running = true
+	_ensure_beat_director()
+	# Раньше это делал E-интерактив camp_attack. Теперь N07 запускает нападение
+	# постановкой, поэтому флаги и фаза ATTACK выставляются здесь же.
+	_site.call(&"_begin_attack")
+	beat_director.transition_to_beat(&"N08")
+	_site.set_interactable_enabled(&"camp_attack", false)
 	_player.input_enabled = false
 	_player.forced_velocity = Vector3.ZERO
 	_ui.show_hint("")
-	_note.visible = false
 	NightmareRunState.set_flag(&"hero_mountain_gaze")
 
-	await _await_sequence(hero_gaze_sequence)
-	_flash_screen(Color(0.62, 0.72, 1.0, 0.34), 0.5)
-	await _pause(0.35)
-	await _await_sequence(attack_sequence)
-	await _site.drop_rocks(fast_mode)
+	if not _rockfall_retry:
+		await _await_sequence(hero_gaze_sequence)
+		_flash_screen(Color(0.62, 0.72, 1.0, 0.34), 0.5)
+		await _pause(0.35)
+		await _await_sequence(attack_sequence)
+	# N08: три волны с пылью и звуком. Игрок успевает выйти из зоны.
+	var rockfall_hit := false
+	if fast_mode:
+		await _site.drop_rocks(true)
+	else:
+		_player.input_enabled = true
+		for wave in 3:
+			_site.begin_rockfall_warning()
+			await _pause(_site.get_rockfall_warning_time())
+			await _site.drop_rocks(false)
+			rockfall_hit = _site.resolve_rockfall()
+			if rockfall_hit:
+				break
+			if wave < 2:
+				_site.reset_rocks()
+				await _pause(0.15)
+		_player.input_enabled = false
+	if rockfall_hit:
+		# FallRecovery уже вернул Санни на CP-N08; повторяем только опасный
+		# отрезок, без повторного брифинга и взгляда на гору.
+		_rockfall_retry = true
+		await _pause(0.45)
+		_attack_running = false
+		_player.input_enabled = true
+		_start_attack()
+		return
+	_rockfall_retry = false
 	_stage_tyrant_camera()
 	_site.show_tyrant()
 	await _site.grow_tyrant(0.7, fast_mode)
@@ -244,10 +322,13 @@ func _start_attack() -> void:
 	await _pause(0.5)
 	await _await_sequence(metamorphosis_sequence)
 	_site.show_larva()
+	_unlock_bestiary_event(&"seen")
 	await _pause(0.6)
 	_site.begin_larva_phase()
+	beat_director.transition_to_beat(&"N09")
 	_restore_player_camera()
 	_player.input_enabled = true
+
 
 
 func _tyrant_swipe() -> void:
@@ -315,15 +396,32 @@ func _handle_key_collected() -> void:
 	NightmareRunState.set_flag(&"chain_restrained", false)
 	await _await_sequence(unlock_sequence)
 	await _await_sequence(complete_sequence)
-	_site.finish_episode()
 	_ui.show_hint("")
 	NightmareRunState.set_flag(&"camp_episode_completed")
+	# D04: вторая личинка — реальный бой после освобождения.
+	_player.combat_enabled = true
+	_player.input_enabled = true
+	_site.spawn_second_larva(_player)
+
+
+func _handle_second_larva_finished() -> void:
+	if _second_larva_running or _leaving:
+		return
+	_second_larva_running = true
+	_key_running = false
+	_player.combat_enabled = false
+	_player.input_enabled = false
+	await _await_sequence(second_larva_sequence)
+	_site.finish_episode()
+	_second_larva_running = false
 	_begin_wagon_plan()
 
 
 func _begin_wagon_plan() -> void:
 	if _leaving:
 		return
+	_ensure_beat_director()
+	beat_director.transition_to_beat(&"N10")
 	_site.begin_wagon_phase()
 	_player.input_enabled = true
 	await _await_sequence(wagon_plan_sequence)
@@ -335,10 +433,49 @@ func _handle_wagon_push() -> void:
 	if _wagon_running or _leaving:
 		return
 	_wagon_running = true
+	_ensure_beat_director()
+	beat_director.activate_checkpoint(&"CP-N10b")
 	_player.input_enabled = false
 	_player.forced_velocity = Vector3.ZERO
+	_site.set_tyrant_attention(false)
 	_ui.show_hint("")
 	NightmareRunState.set_flag(&"wagon_plan_started")
+	_timing.start()
+
+
+func _on_throw_resolved(success: bool) -> void:
+	if not _wagon_running or _leaving:
+		return
+	if not success:
+		_handle_throw_miss()
+		return
+	_commit_wagon_throw()
+
+
+func _handle_throw_miss() -> void:
+	_timing.reset()
+	_wagon_running = false
+	_site.reset_wagon_throw()
+	_player.input_enabled = true
+	var recovery := _player.get_node_or_null(^"FallRecovery") as FallRecovery
+	if recovery != null:
+		recovery.recover()
+	_site.set_tyrant_attention(true)
+	_ui.show_hint("Петля сорвалась. Вернитесь к повозке и попробуйте снова.")
+
+
+func _handle_tyrant_attention() -> void:
+	if _wagon_running or _leaving:
+		return
+	var recovery := _player.get_node_or_null(^"FallRecovery") as FallRecovery
+	if recovery != null:
+		recovery.recover()
+	_ui.show_hint("Тиран заметил движение. Назад, к огню.")
+	await _pause(0.6)
+	_site.set_tyrant_attention(true)
+
+
+func _commit_wagon_throw() -> void:
 	_stage_wagon_camera()
 	_site.stage_tyrant_for_wagon()
 	await _await_sequence(wagon_fall_sequence)
@@ -346,11 +483,14 @@ func _handle_wagon_push() -> void:
 	_flash_screen(Color(0.12, 0.12, 0.14, 0.7), 0.6)
 	await _pause(1.0)
 	_site.show_aftermath()
+	beat_director.transition_to_beat(&"N11")
 	_restore_player_camera()
 	_player.input_enabled = true
 	await _await_sequence(aftermath_sequence)
 	_site.begin_aftermath_search()
+	beat_director.transition_to_beat(&"N12")
 	_ui.show_hint("Соберите три фляги у мёртвых солдат. На тёмном краю кто-то стонет.")
+
 
 
 func _handle_veteran_found() -> void:
@@ -384,6 +524,8 @@ func _handle_night() -> void:
 	if _night_running or _leaving:
 		return
 	_night_running = true
+	_ensure_beat_director()
+	beat_director.transition_to_beat(&"N13")
 	_player.input_enabled = false
 	_player.forced_velocity = Vector3.ZERO
 	_ui.show_hint("")
@@ -394,13 +536,15 @@ func _handle_night() -> void:
 	_player.camera_rig.yaw = 0.0
 	_site.place_party_at_fire()
 	await _tween_dusk(Color(0.015, 0.02, 0.05, 0.58), 1.2)
-	# Симптомы появляются только после отравления общих фляг; ночь без него
-	# не начинается (см. CaravanSite.night_block_reason).
-	if NightmareRunState.has_flag(&"flasks_poisoned"):
-		await _await_sequence(NIGHT_POISON_SEQUENCE)
-	await _await_sequence(night_sequence)
-	await _pause(1.0)
+	_stage_night_camera()
+	# N13: монтаж Bloodbane за кадром. Флаги ставит постановка события.
+	_site.stage_bloodbane_montage()
+	await _await_sequence(night_montage_sequence)
+	await _pause(0.6)
+	_restore_player_camera()
+	await _pause(0.4)
 	_site.begin_dawn()
+	_show_dawn_spots()
 	await _tween_dusk(Color(0.95, 0.62, 0.42, 0.12), 1.4)
 	await _await_sequence(dawn_sequence)
 	_player.input_enabled = true
@@ -408,14 +552,36 @@ func _handle_night() -> void:
 	_ui.show_hint("Рассвет. Пора уходить вверх по дороге.")
 
 
+func _stage_night_camera() -> void:
+	if not is_instance_valid(_night_camera):
+		return
+	_saved_camera_yaw = _player.camera_rig.yaw
+	_saved_camera_pitch = _player.camera_rig.pitch
+	_saved_camera_look = _player.camera_rig.look_enabled
+	_player.camera_rig.look_enabled = false
+	_night_camera.global_position = Vector3(4.6, 3.4, 4.6)
+	var look_target := _site.get_fire_position() + Vector3(0.0, 0.9, 0.0)
+	_night_camera.look_at(look_target, Vector3.UP)
+	_night_camera.make_current()
+
+
+func _show_dawn_spots() -> void:
+	var spots := _player.get_node_or_null(^"BloodSpots")
+	if spots != null and spots.has_method(&"set_spots_visible"):
+		spots.call(&"set_spots_visible", NightmareRunState.has_flag(&"flasks_poisoned"))
+
+
 func _handle_dawn() -> void:
 	if _leaving:
 		return
 	_leaving = true
+	if beat_director != null and beat_director.current_beat != null:
+		beat_director.beat_completed.emit(beat_director.current_beat)
 	_player.input_enabled = false
 	_player.forced_velocity = Vector3.ZERO
 	_ui.show_hint("")
 	transition_started.emit()
+
 	if not transition_enabled:
 		return
 	await _fade.fade_to(1.0, 1.2)
@@ -458,8 +624,10 @@ func _stage_wagon_camera() -> void:
 	_saved_camera_pitch = _player.camera_rig.pitch
 	_saved_camera_look = _player.camera_rig.look_enabled
 	_player.camera_rig.look_enabled = false
-	_wagon_camera.global_position = Vector3(2.8, 3.2, -0.4)
-	_wagon_camera.look_at(Vector3(-6.0, 0.0, -2.6), Vector3.UP)
+	# Держим камеру вне повозки и вне траектории падения: прежняя точка
+	# оказывалась внутри кузова, когда телега проезжала мимо.
+	_wagon_camera.global_position = Vector3(9.0, 6.0, 9.0)
+	_wagon_camera.look_at(Vector3(-4.0, 1.2, -2.4), Vector3.UP)
 	_wagon_camera.make_current()
 
 
@@ -473,6 +641,12 @@ func _physics_process(_delta: float) -> void:
 		return
 	_player.global_position = seat.global_position + Vector3(0.0, 0.05, 0.0)
 	_player.velocity = Vector3.ZERO
+
+
+func _unlock_bestiary_event(event_id: StringName) -> void:
+	var guide := get_node_or_null("/root/CampaignGuide")
+	if guide != null and guide.has_method(&"unlock_bestiary_by_event"):
+		guide.call(&"unlock_bestiary_by_event", event_id)
 
 
 func _pause(seconds: float) -> void:

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_npc.gd" id="1_npc"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="2_mannequin"]
+[ext_resource type="Script" path="res://scripts/interaction/interactable.gd" id="3_interactable"]
+
+[node name="QuestNpc" type="Node3D"]
+script = ExtResource("1_npc")
+npc_id = &"npc"
+
+[node name="Mannequin" parent="." instance=ExtResource("2_mannequin")]
+archetype = "mass_female"
+pose = "idle"
+
+[node name="Interactable" type="Node3D" parent="."]
+position = Vector3(0, 1.0, 0)
+script = ExtResource("3_interactable")
+interaction_id = &"npc"
+prompt = "Поговорить"
+radius = 2.2
+enabled = true

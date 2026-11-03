@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/nightmare/decor/decor_no_collision.gd" id="1_decor"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/boulder_split_a.glb" id="2_base"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/temple/column_intact.glb" id="3_column"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/temple/column_broken_b.glb" id="4_column_broken"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/temple/entablature_a.glb" id="5_entablature"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/temple/wall_block_intact.glb" id="6_wall"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/temple/roof_slab_a.glb" id="7_roof"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/mountain/snow_drift_crest_c.glb" id="8_snow"]
+
+[node name="RuinWatchtowerA" type="Node3D"]
+script = ExtResource("1_decor")
+
+[node name="Base" parent="." instance=ExtResource("2_base")]
+transform = Transform3D(16, 0, 0, 0, 4, 0, 0, 0, 16, 0, -2, 0)
+
+[node name="ColumnWest" parent="." instance=ExtResource("3_column")]
+transform = Transform3D(2.3, 0, 0, 0, 2.2, 0, 0, 0, 2.3, -5, 1.3, 0)
+
+[node name="ColumnEast" parent="." instance=ExtResource("3_column")]
+transform = Transform3D(2.3, 0, 0, 0, 2.2, 0, 0, 0, 2.3, 5, 1.3, 0)
+
+[node name="ColumnFallen" parent="." instance=ExtResource("4_column_broken")]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 1.6, 4)
+
+[node name="Wall" parent="." instance=ExtResource("6_wall")]
+transform = Transform3D(2.7, 0, 0, 0, 2.4, 0, 0, 0, 1.2, -2, 1.5, -4)
+
+[node name="Entablature" parent="." instance=ExtResource("5_entablature")]
+transform = Transform3D(2.5, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 23, 0)
+
+[node name="RoofA" parent="." instance=ExtResource("7_roof")]
+transform = Transform3D(3.0, 0, 0, 0, 2.2, 0, 0, 0, 2.0, -2.6, 22.4, 0)
+
+[node name="RoofB" parent="." instance=ExtResource("7_roof")]
+transform = Transform3D(2.2, 0, 0, 0, 1.7, 0, 0, 0, 1.5, 3.2, 23.6, 1.2)
+
+[node name="Snow" parent="." instance=ExtResource("8_snow")]
+transform = Transform3D(5.5, 0, 0, 0, 2.6, 0, 0, 0, 4.2, 1, 3.2, 4)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/guide/thought_bubble.gd" id="1_bubble"]
+
+[node name="ThoughtBubble" type="Label3D"]
+billboard = 1
+no_depth_test = false
+fixed_size = false
+pixel_size = 0.0045
+font_size = 30
+outline_size = 10
+modulate = Color(0.86, 0.9, 1, 0)
+text = ""
+width = 560.0
+autowrap_mode = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_bubble")

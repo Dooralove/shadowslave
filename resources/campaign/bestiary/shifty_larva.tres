@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BestiaryEntry" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/bestiary_entry.gd" id="1_bestiary"]
+
+[resource]
+script = ExtResource("1_bestiary")
+id = &"shifty_larva"
+title = "Личинка Шифти"
+text = "Вторая личинка, поднявшаяся из тела Шифти. Её смерть — отдельное деяние в оценке."
+unlock_event = &"defeated"
+event_label = "Победил"
+category = "Первый Кошмар"
+weakness = "Появляется после падения Шифти."

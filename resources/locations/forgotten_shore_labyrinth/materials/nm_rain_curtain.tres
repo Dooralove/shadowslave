@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://assets/environments/nightmare/materials/nm_rain_curtain.gdshader" id="1_rain"]
+
+[resource]
+resource_name = "nm_rain_curtain"
+shader = ExtResource("1_rain")
+shader_parameter/rain_color = Color(0.34, 0.4, 0.48, 1)
+shader_parameter/mist_color = Color(0.2, 0.25, 0.31, 1)
+shader_parameter/opacity = 0.38
+shader_parameter/streak_density = 420.0
+shader_parameter/fall_speed = 2.4

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EquipmentCatalog" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/equipment_catalog.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://resources/equipment/armor/caravan_alpha_v3.tres" id="2_body_a"]
+[ext_resource type="Resource" path="res://resources/equipment/armor/coral_alpha_v3.tres" id="3_body_b"]
+[ext_resource type="Resource" path="res://resources/equipment/weapons/short_sword_alpha.tres" id="4_weapon"]
+[ext_resource type="Resource" path="res://resources/equipment/accessories/water_flask_alpha.tres" id="5_accessory"]
+
+[resource]
+script = ExtResource("1_catalog")
+items = [ExtResource("2_body_a"), ExtResource("3_body_b"), ExtResource("4_weapon"), ExtResource("5_accessory")]

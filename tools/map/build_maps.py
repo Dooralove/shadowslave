@@ -18,6 +18,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
 import paint as P  # noqa: E402
+import world_parchment as WP  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 ASSETS = os.path.join(ROOT, "assets", "ui", "map")
@@ -40,75 +41,21 @@ def px(u, v):
     return (u * WORLD_W, v * WORLD_H)
 
 
-# --- География Царства снов (нормализовано к растру Царства, 0..1) -----------
-
-COAST = [(0.0, 0.80), (0.10, 0.83), (0.22, 0.86), (0.34, 0.885), (0.44, 0.90), (0.55, 0.92),
-         (0.66, 0.945), (0.78, 0.955), (0.90, 0.965), (1.0, 0.97)]
-SEA = COAST + [(1.0, 1.0), (0.0, 1.0)]
-
-CRATER = dict(center=(0.30, 0.155), radius_px=128.0, labyrinth_px=64.0)
+# --- География Царства снов -------------------------------------------------
+# Контуры и подписи живут в tools/map/world_parchment.py: оттуда же берётся
+# живопись, поэтому данные Godot и картинка не расходятся.
 
 REALM_REGIONS = [
-    dict(id="region_forgotten_shore", title="ЗАБЫТЫЙ БЕРЕГ", subtitle="Север · кратер",
-         description="Огромный кратер к северу от Полых гор. В центре — Багровый шпиль в кольце Лабиринта, на восточном краю кратера — Тёмный город, на западном — Пепельный курган.",
-         outline=[(0.02, 0.02), (0.60, 0.02), (0.62, 0.12), (0.60, 0.28), (0.40, 0.31), (0.20, 0.30), (0.02, 0.27)],
-         label=(0.30, 0.285)),
-    dict(id="region_nightmare_desert", title="ПУСТЫНЯ КОШМАРОВ", subtitle="Северо-восток",
-         description="Выжженная пустыня белого песка к востоку от Забытого берега, вдоль Полых гор. По преданию — место великой битвы.",
-         outline=[(0.60, 0.02), (0.99, 0.02), (0.99, 0.30), (0.80, 0.32), (0.60, 0.28), (0.62, 0.12)],
-         label=(0.80, 0.10)),
-    dict(id="region_hollow_mountains", title="ПОЛЫЕ ГОРЫ", subtitle="Зона смерти",
-         description="Хребет длиной в тысячи километров. Отделяет Забытый берег от остального Царства и останавливает продвижение людей на север.",
-         outline=[(0.02, 0.27), (0.20, 0.30), (0.40, 0.31), (0.60, 0.28), (0.80, 0.32), (0.99, 0.30),
-                  (0.99, 0.45), (0.80, 0.46), (0.60, 0.44), (0.40, 0.46), (0.20, 0.45), (0.02, 0.44)],
-         label=(0.50, 0.375)),
-    dict(id="region_song_domain", title="ВЛАДЕНИЯ ПЕСНИ", subtitle="Великий клан Песни",
-         description="Обширный анклав клана Песни на северо-западе от Бастиона. Столица Вороново Сердце стоит на склонах горного хребта у северной границы владений.",
-         outline=[(0.02, 0.44), (0.20, 0.45), (0.38, 0.46), (0.40, 0.60), (0.37, 0.75), (0.34, 0.885),
-                  (0.22, 0.86), (0.10, 0.83), (0.02, 0.80)],
-         label=(0.19, 0.70)),
-    dict(id="region_godgrave", title="МОГИЛА БОГА", subtitle="Цепь зон смерти",
-         description="Цепь зон смерти между владениями Меча и Песни: узкая на севере, где лежат останки божества, и широкая на юге, у Штормового моря.",
-         outline=[(0.38, 0.46), (0.60, 0.44), (0.60, 0.60), (0.62, 0.75), (0.66, 0.945), (0.55, 0.92),
-                  (0.44, 0.90), (0.34, 0.885), (0.37, 0.75), (0.40, 0.60)],
-         label=(0.50, 0.77)),
-    dict(id="region_chained_isles", title="СКОВАННЫЕ ОСТРОВА", subtitle="Север владений Доблести",
-         description="Парящие острова, связанные гигантскими железными цепями. Лежат у северного края земель клана Доблести, на границе с Полыми горами.",
-         outline=[(0.60, 0.44), (0.80, 0.46), (0.99, 0.45), (0.99, 0.72), (0.80, 0.74), (0.62, 0.75), (0.60, 0.60)],
-         label=(0.80, 0.53)),
-    dict(id="region_sword_domain", title="ВЛАДЕНИЯ МЕЧА", subtitle="Великий клан Доблести",
-         description="Земли клана Доблести. В их сердце — Бастион; на юге владения выходят к Штормовому морю.",
-         outline=[(0.62, 0.75), (0.80, 0.74), (0.99, 0.72), (0.99, 0.97), (0.90, 0.965), (0.78, 0.955), (0.66, 0.945)],
-         label=(0.82, 0.80)),
-    dict(id="region_stormsea", title="ШТОРМОВОЕ МОРЕ", subtitle="Владения Дома Ночи",
-         description="Море на юге Царства. С ним граничат и владения Меча, и владения Песни.",
-         outline=SEA,
-         label=(0.31, 0.945)),
+    dict(
+        id=reg["id"], title=reg["title"], subtitle=reg["subtitle"],
+        description=reg["description"], outline=reg["outline"], label=reg["label"],
+    )
+    for reg in WP.REGIONS
 ]
 
 REALM_LANDMARKS = [
-    ("crimson_spire", "Багровый шпиль", "В центре Лабиринта, посреди кратера Забытого берега.", (0.30, 0.155), QUEST),
-    ("dark_city", "Тёмный город", "Руины на восточном краю кратера; над городом стоит замок.", (0.30 + 128 / WORLD_W, 0.155), LANDMARK),
-    ("ashen_barrow", "Пепельный курган", "Напротив Тёмного города, на западном краю кратера.", (0.30 - 128 / WORLD_W, 0.155), LANDMARK),
-    ("black_skull", "Цитадель Чёрного Черепа", "Цитадель в Пустыне Кошмаров.", (0.77, 0.19), LANDMARK),
-    ("tomb_of_ariel", "Гробница Ариэля", "Гробница в глубине пустыни.", (0.92, 0.17), DANGER),
-    ("ravenheart", "Вороново Сердце", "Столица владений Песни на склонах хребта.", (0.17, 0.51), CAMP),
-    ("moonriver", "Равнина Лунной Реки", "Равнина во владениях Песни.", (0.25, 0.64), LANDMARK),
-    ("nameless_temple", "Безымянный храм", "Храм в зоне смерти Могилы Бога.", (0.495, 0.53), DANGER),
-    ("night_temple", "Храм Ночи", "Храм на Скованных островах.", (0.68, 0.51), LANDMARK),
-    ("tower_of_longing", "Башня Тоски", "Башня на Скованных островах.", (0.815, 0.60), LANDMARK),
-    ("noctis", "Святилище Ноктиса", "Святилище на Скованных островах.", (0.735, 0.68), LANDMARK),
-    ("bastion", "Бастион", "Цитадель в сердце владений Доблести.", (0.79, 0.86), CAMP),
-]
-
-GODGRAVE_BONES = dict(
-    skull=(0.49, 0.475),
-    spine=[(0.49, 0.49), (0.495, 0.55), (0.50, 0.61), (0.505, 0.67)],
-)
-
-RIVERS = [
-    [(0.27, 0.46), (0.255, 0.55), (0.24, 0.64), (0.215, 0.74), (0.20, 0.845)],
-    [(0.93, 0.73), (0.88, 0.80), (0.83, 0.87), (0.80, 0.955)],
+    (pid, label, desc, (u, v), kind)
+    for pid, label, desc, u, v, kind, _icon, _light in WP.PLACES
 ]
 
 
@@ -168,197 +115,9 @@ CITY_ROUTE = [p[3] for p in CITY_POINTS]
 
 # --- Живопись -----------------------------------------------------------------
 
-def bone_shape(H, W, rng):
-    """Останки божества: череп, позвоночник, рёбра и кости рук, полузасыпанные."""
-    sx, sy = px(*GODGRAVE_BONES["skull"])
-    spine = P.smooth_curve([px(*p) for p in GODGRAVE_BONES["spine"]], 10)
-    bones = P.line_mask(H, W, spine, 11, 2.5)
-    skull = np.clip(1.0 - np.sqrt(P.ellipse_mask(H, W, sx, sy, 30, 24)), 0, 1) ** 0.35
-    sockets = np.maximum(
-        np.clip(1.0 - np.sqrt(P.ellipse_mask(H, W, sx - 10, sy - 2, 7, 6)), 0, 1),
-        np.clip(1.0 - np.sqrt(P.ellipse_mask(H, W, sx + 10, sy - 2, 7, 6)), 0, 1),
-    )
-    rib_count = 9
-    for i in range(rib_count):
-        t = (i + 1) / (rib_count + 2)
-        x0, y0 = spine[int(t * (len(spine) - 1))]
-        length = 120 * math.sin(math.pi * (0.25 + 0.75 * t)) + 30
-        for side in (-1, 1):
-            curve = []
-            for k in range(9):
-                s = k / 8.0
-                curve.append((x0 + side * length * math.sin(s * 1.5), y0 + 22 * s + 46 * s * s))
-            bones = np.maximum(bones, P.line_mask(H, W, curve, 7 - i * 0.3, 1.6))
-    for side in (-1, 1):
-        shoulder = (spine[4][0] + side * 60, spine[4][1] - 6)
-        elbow = (shoulder[0] + side * 110, shoulder[1] + 70)
-        hand = (elbow[0] + side * 40, elbow[1] + 110)
-        bones = np.maximum(bones, P.line_mask(H, W, [spine[4], shoulder, elbow, hand], 8, 2.0))
-    bones = np.maximum(bones, skull)
-    buried = np.clip((P.fbm(H, W, 18.0, 3, rng) - 0.3) * 3.0, 0, 1)
-    return bones * buried, sockets
-
-
 def paint_realm(path):
-    H, W = WORLD_H, WORLD_W
-    rng = np.random.default_rng(1729)
-    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-
-    def region_mask(rid, blur=36.0, warp_px=60.0, cell=180.0):
-        reg = next(r for r in REALM_REGIONS if r["id"] == rid)
-        m = P.polygon_mask(H, W, [px(*p) for p in reg["outline"]], blur)
-        return np.clip(P.warp(m, warp_px, cell, rng), 0, 1)
-
-    sea = np.clip(region_mask("region_stormsea", 4.0, 34.0, 120.0) * 1.6 - 0.3, 0, 1)
-    land = 1.0 - sea
-    fs = region_mask("region_forgotten_shore")
-    nd = region_mask("region_nightmare_desert")
-    hm = region_mask("region_hollow_mountains", 46.0, 70.0, 220.0)
-    song = region_mask("region_song_domain")
-    gg = region_mask("region_godgrave")
-    ci = region_mask("region_chained_isles", 30.0, 70.0, 200.0)
-    sw = region_mask("region_sword_domain")
-
-    # Рельеф: пологие равнины, мощный хребет с предгорьями.
-    base = P.fbm(H, W, 320.0, 6, rng)
-    detail = P.fbm(H, W, 40.0, 4, rng)
-    hills = P.ridged(H, W, 160.0, 6, rng)
-    mountains = P.ridged(H, W, 85.0, 7, rng)
-    peaks = np.clip(hm * 1.6 - 0.3, 0, 1)
-    foothills = np.clip(hm * 2.0, 0, 1) - peaks
-    height = base * 0.10 + detail * 0.025 + hills * 0.05 * (song + sw)
-    height += peaks * (0.30 + mountains * 1.05) + foothills * hills * 0.32
-    northern_song = np.clip(1.0 - (yy / H - 0.44) * 5.0, 0, 1)
-    height += song * northern_song * mountains * 0.45
-
-    # Забытый берег: кратер с Лабиринтом из алых кораллов в центре.
-    cx, cy = px(*CRATER["center"])
-    r = CRATER["radius_px"]
-    e = np.sqrt(P.ellipse_mask(H, W, cx, cy, r, r * 0.92))
-    e = P.warp(e, 9.0, 70.0, rng)
-    rim = np.exp(-((e - 1.0) / 0.11) ** 2)
-    basin = np.clip(1.0 - e, 0, 1)
-    ash_dunes = P.ridged(H, W, 55.0, 4, rng)
-    height += fs * (rim * 0.45 - basin * 0.42 + ash_dunes * 0.06)
-    lab_e = e * r / CRATER["labyrinth_px"]
-    walls = (P.ridged(H, W, 7.0, 2, rng) > 0.55).astype(np.float32)
-    labyrinth = np.clip((1.0 - lab_e) * 4.0, 0, 1)
-    height += labyrinth * walls * 0.05
-
-    # Пустыня: мелкие изогнутые дюны.
-    dune_warp = P.fbm(H, W, 90.0, 4, rng) * 120.0
-    dunes = (np.sin((xx * 0.8 + yy * 0.5 + dune_warp) * 0.23) * 0.5 + 0.5) ** 2
-    dunes *= np.clip(P.fbm(H, W, 70.0, 3, rng) * 1.6 - 0.3, 0, 1)
-    height = height * (1.0 - nd) + nd * (base * 0.10 + dunes * 0.022)
-
-    # Могила Бога: останки божества.
-    bones, sockets = bone_shape(H, W, rng)
-    bones *= np.clip(gg * 1.5, 0, 1)
-    height += bones * 0.16 - gg * detail * 0.02
-
-    # Скованные острова: парящие островки над бездной, цепи между ними.
-    rng_i = np.random.default_rng(77)
-    centers = []
-    tries = 0
-    while len(centers) < 16 and tries < 4000:
-        tries += 1
-        u, v = rng_i.uniform(0.62, 0.98), rng_i.uniform(0.47, 0.74)
-        x, y = px(u, v)
-        if ci[int(y), int(x)] < 0.7:
-            continue
-        if all(math.hypot(x - a, y - b) > 70 for a, b in centers):
-            centers.append((x, y))
-    islands = np.zeros((H, W), np.float32)
-    for x, y in centers:
-        rad = rng_i.uniform(20, 40)
-        blob = np.clip(1.0 - np.sqrt(P.ellipse_mask(H, W, x, y, rad, rad * rng_i.uniform(0.6, 0.9))), 0, 1)
-        islands = np.maximum(islands, blob)
-    islands = np.clip(P.warp(islands, 12.0, 30.0, rng) * 4.0, 0, 1)
-    abyss = np.clip(ci * 1.4 - 0.2, 0, 1) * (1.0 - islands)
-    isle_height = 0.12 + hills * 0.25 + detail * 0.05
-    height = height * (1.0 - abyss) * (1.0 - ci * islands) + ci * islands * isle_height - abyss * 0.05
-
-    height = height * land
-
-    # Цвет по биомам.
-    grass = P.ramp(height + detail * 0.05, [(0.0, (60, 74, 46)), (0.12, (78, 92, 56)), (0.25, (104, 106, 72)), (0.5, (128, 122, 98))])
-    rock = P.ramp(height, [(0.05, (88, 80, 66)), (0.35, (104, 96, 82)), (0.7, (132, 126, 116)),
-                           (0.95, (200, 204, 210)), (1.3, (238, 240, 244))])
-    ash = P.ramp(height + ash_dunes * 0.05, [(-0.3, (34, 30, 34)), (0.0, (82, 76, 72)), (0.15, (108, 100, 92)), (0.45, (136, 128, 118))])
-    sand = P.ramp(height, [(0.0, (180, 154, 108)), (0.03, (206, 184, 136)), (0.07, (226, 210, 168))])
-    dead = P.ramp(detail, [(0.3, (70, 62, 56)), (0.5, (90, 80, 70)), (0.7, (112, 102, 90))])
-    patch = P.fbm(H, W, 26.0, 2, rng)
-    fields = P.ramp(patch, [(0.35, (92, 104, 58)), (0.5, (150, 134, 78)), (0.62, (112, 116, 64)), (0.75, (162, 146, 90))])
-
-    color = grass
-    forest = np.clip((P.fbm(H, W, 90.0, 5, rng) - 0.48) * 6.0, 0, 1)
-    canopy = P.fbm(H, W, 3.5, 2, rng)
-    forest_col = P.ramp(canopy, [(0.3, (28, 42, 28)), (0.55, (42, 58, 36)), (0.75, (64, 80, 48))])
-    color = P.mix(color, fields, sw * 0.7 * (1.0 - forest))
-    color = P.mix(color, forest_col, forest * np.clip(song + sw * 0.7, 0, 1) * (1.0 - peaks))
-    color = P.mix(color, rock, np.clip(hm * 1.5, 0, 1))
-    color = P.mix(color, ash, fs)
-    crater_sea = P.ramp(P.fbm(H, W, 16.0, 3, rng), [(0.3, (18, 16, 24)), (0.7, (36, 22, 30))])
-    color = P.mix(color, crater_sea, fs * np.clip(basin * 5.0, 0, 1))
-    coral = P.ramp(P.fbm(H, W, 5.0, 2, rng), [(0.3, (96, 22, 24)), (0.7, (150, 40, 36))])
-    color = P.mix(color, coral, labyrinth * walls)
-    city_shape = np.clip(1.0 - np.sqrt(P.ellipse_mask(H, W, cx + r * 0.98, cy, 30, 26)), 0, 1)
-    city = (P.fbm(H, W, 2.5, 1, rng) > 0.5) * city_shape
-    color = P.mix(color, P.tint((48, 46, 50)) * np.ones_like(color), np.clip(city_shape * 2.0, 0, 1) * 0.6)
-    color = P.mix(color, P.tint((92, 88, 86)) * np.ones_like(color), city * 0.8)
-    barrow = np.clip(1.0 - np.sqrt(P.ellipse_mask(H, W, cx - r * 0.98, cy, 30, 24)), 0, 1)
-    height += barrow * 0.18
-    color = P.mix(color, P.tint((150, 146, 140)) * np.ones_like(color), barrow * 0.6)
-    color = P.mix(color, sand, nd)
-    color = P.mix(color, dead, gg)
-    color = P.mix(color, P.tint((198, 188, 166)) * np.ones_like(color), np.clip(bones * 1.2, 0, 1) * 0.85)
-    color = P.mix(color, P.tint((20, 18, 16)) * np.ones_like(color), sockets * gg)
-    void = P.ramp(P.fbm(H, W, 30.0, 5, rng), [(0.2, (8, 10, 16)), (0.55, (20, 24, 36)), (0.85, (52, 58, 74))])
-    color = P.mix(color, void, abyss)
-    isle_col = P.ramp(isle_height, [(0.1, (72, 84, 58)), (0.25, (98, 104, 74)), (0.4, (128, 124, 102))])
-    color = P.mix(color, isle_col, ci * islands)
-
-    chains = np.zeros((H, W), np.float32)
-    for a in range(len(centers)):
-        near = sorted(range(len(centers)), key=lambda k: math.hypot(centers[k][0] - centers[a][0],
-                                                                    centers[k][1] - centers[a][1]))[1:3]
-        for b in near:
-            chains = np.maximum(chains, P.line_mask(H, W, [centers[a], centers[b]], 2, 0.5))
-    color = P.mix(color, P.tint((118, 112, 104)) * np.ones_like(color), chains * abyss * 0.8)
-
-    # Светотень; у островов — отбрасываемая в бездну тень.
-    shade = P.hillshade(height, scale=420.0)
-    ambient = np.clip(1.0 - P.ridged(H, W, 220.0, 3, rng) * 0.25, 0.75, 1.0)
-    lit = 0.40 + 0.80 * shade
-    lit = lit * (1.0 - abyss) + abyss * 1.0
-    color = color * (lit * ambient)[..., None] * land[..., None] + color * sea[..., None]
-    isle_shadow = np.roll(np.roll(islands, 10, axis=0), 8, axis=1) * (1.0 - islands) * abyss
-    color = color * (1.0 - isle_shadow[..., None] * 0.6)
-
-    # Реки.
-    for index, river in enumerate(RIVERS):
-        curve = P.meander(P.smooth_curve([px(*p) for p in river], 24), 14.0, 9 + index)
-        wide = P.line_mask(H, W, curve, 7, 1.0)
-        core = P.line_mask(H, W, curve, 3, 0.6)
-        color = P.mix(color, P.tint((30, 44, 46)) * np.ones_like(color), wide * land)
-        color = P.mix(color, P.tint((64, 104, 112)) * np.ones_like(color), core * land)
-
-    # Море: глубина по расстоянию до берега, светлая кромка прибоя.
-    dist = P.distance_to(land > 0.5)
-    deep = P.ramp(np.clip(dist / 90.0, 0, 1), [(0.0, (60, 96, 100)), (0.25, (34, 62, 74)), (1.0, (16, 32, 44))])
-    waves = P.fbm(H, W, 12.0, 3, rng)
-    deep = deep * (0.88 + waves[..., None] * 0.22)
-    color = P.mix(color, deep, sea)
-    foam = np.exp(-(dist / 2.5) ** 2) * sea
-    color = P.mix(color, P.tint((170, 180, 168)) * np.ones_like(color), foam * 0.55)
-
-    # Неизведанное: «никто не знает, что на западе и севере» — туман у краёв.
-    edge = np.minimum(xx, yy)
-    mist = np.clip(1.0 - edge / 70.0, 0, 1) ** 1.5 * (0.6 + P.fbm(H, W, 40.0, 3, rng) * 0.6)
-    color = P.mix(color, P.tint((30, 32, 36)) * np.ones_like(color), mist)
-
-    color = P.finish(color, rng, grain=0.07, vignette=0.30, desaturate=0.18)
-    P.save(color, path)
+    """Живопись общей карты: пергамент, тушь, акварельные регионы."""
+    WP.render(path)
 
 
 def paint_first_nightmare(path):
@@ -535,6 +294,8 @@ def map_block(name, m, as_root=False):
     out += texture_line
     if "background_rect" in m:
         out.append("background_rect = Rect2(%s)" % ", ".join(f(v) for v in m["background_rect"]))
+    if m.get("baked_labels"):
+        out.append("baked_labels = true")
     out += ['features = Array[ExtResource("3_feature")]([%s])' % ", ".join('SubResource("%s")' % s for s in feat_ids),
             'markers = Array[ExtResource("1_marker")]([%s])' % ", ".join('SubResource("%s")' % s for s in mark_ids),
             'placements = Array[ExtResource("5_placement")]([%s])' % ", ".join('SubResource("%s")' % s for s in place_ids),
@@ -553,10 +314,11 @@ def realm_to_area(u, v):
 
 def write_world():
     markers = [(mid, label, desc, realm_to_area(*uv), kind) for mid, label, desc, uv, kind in REALM_LANDMARKS]
-    m = dict(id="world", title="ЦАРСТВО СНОВ", subtitle="Общая карта мира · схема",
-             description="Царство снов — весь мир истории. Расположение регионов — схема по описаниям из глав; регионы без карты пока в разработке.",
+    m = dict(id="world", title="ЦАРСТВО СНОВ", subtitle="Мир Shadow Slave · рисованная карта",
+             description="Царство снов — весь мир истории. Подписи и рисунки нанесены на карту; регионы без собственной карты пока в разработке.",
              bg="0.03, 0.04, 0.05, 1", land="0.2, 0.2, 0.17, 1", accent="0.78, 0.63, 0.38, 1", style="kingdom",
-             bounds=(0, 0, 1, 1), texture="6_tex", background_rect=(0, 0, REALM_FRACTION, 1), markers=markers)
+             bounds=(0, 0, 1, 1), texture="6_tex", background_rect=(0, 0, REALM_FRACTION, 1),
+             baked_labels=True, markers=markers)
     text = HEADER.format(cls="MapDefinition")
     text += '[ext_resource type="Texture2D" path="res://assets/ui/map/dream_realm.png" id="6_tex"]\n\n'
     text += "\n".join(map_block("World", m, as_root=True))
@@ -614,8 +376,8 @@ def write_region(reg, outside):
 
 
 def write_atlas(region_ids):
-    locs = ["forgotten_shore", "caravan_road", "caravan_site", "ambush_site", "pilgrim_path",
-            "shadow_sanctuary", "drowned_city"]
+    loc_dir = os.path.join(RES, "locations")
+    locs = sorted(name[:-5] for name in os.listdir(loc_dir) if name.endswith(".tres"))
     out = ['[gd_resource type="Resource" script_class="MapAtlas" format=3]', "",
            '[ext_resource type="Script" path="res://scripts/map/map_atlas.gd" id="1_atlas"]',
            '[ext_resource type="Resource" path="res://resources/map/world_map.tres" id="2_world"]',

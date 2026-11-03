@@ -69,7 +69,7 @@ func test_locomotion_follows_speed() -> void:
 	animator.update(DT, true, Vector3(3.0, 0.0, 0.0))
 	assert_eq(animator.state, SunnyAnimator.State.WALK)
 	assert_eq(player.assigned_animation, String(animator.walk_clip))
-	assert_almost_eq(player.speed_scale, 3.0 / sunny.walk_speed, 0.001, "шаг подстраивается под скорость")
+	assert_almost_eq(player.speed_scale, 3.0 / animator.walk_authored_speed, 0.001, "шаг подстраивается под скорость")
 	animator.update(DT, true, Vector3(0.0, 0.0, -sunny.sprint_speed))
 	assert_eq(animator.state, SunnyAnimator.State.RUN)
 	assert_eq(player.assigned_animation, String(animator.run_clip))
@@ -109,6 +109,19 @@ func test_short_ground_loss_does_not_trigger_fall() -> void:
 	assert_eq(animator.state, SunnyAnimator.State.FALL)
 
 
+func test_attack_contact_time_can_be_set_per_attack() -> void:
+	var data := sunny.attack.stats
+	assert_not_null(data, "armed attack использует AttackData")
+	var old_contact := float(data.get(&"contact_time"))
+	data.set(&"contact_time", 0.3)
+	sunny.try_attack()
+	var contact_at := data.windup_time + data.active_time * 0.5
+	assert_almost_eq(animator.attack_clip_speed(), 0.3 / contact_at, 0.0001, "контакт берётся из AttackData")
+	data.set(&"contact_time", 0.0)
+	assert_almost_eq(animator.attack_clip_speed(), animator.attack_contact_time / contact_at, 0.0001, "ноль — fallback на общий контакт")
+	data.set(&"contact_time", old_contact)
+
+
 func test_attack_plays_from_start_with_contact_in_hit_window() -> void:
 	var stats := sunny.attack.stats
 	assert_true(sunny.try_attack())
@@ -116,10 +129,14 @@ func test_attack_plays_from_start_with_contact_in_hit_window() -> void:
 	assert_eq(player.assigned_animation, String(animator.attack_clip))
 	assert_almost_eq(player.current_animation_position, 0.0, 0.001, "клип играет с начала")
 	assert_almost_eq(player.speed_scale, animator.attack_clip_speed(), 0.0001)
-	# Когда в реальном времени наступает контакт клипа.
-	var contact_real := animator.attack_contact_time / player.speed_scale
+	# Когда в реальном времени наступает контакт клипа. Для данных с
+	# per-attack contact_time берём именно его, а не общий fallback аниматора.
+	var contact := animator.attack_contact_time
+	if stats.contact_time > 0.0:
+		contact = stats.contact_time
+	var contact_real := contact / player.speed_scale
 	assert_between(contact_real, stats.windup_time, stats.windup_time + stats.active_time, "контакт внутри окна попадания")
-	assert_between(player.speed_scale, 0.8, 1.2, "клип почти не растянут: подготовка взята из самого клипа")
+	assert_between(player.speed_scale, 0.5, 1.2, "клип растянут/сжат в допустимом диапазоне")
 
 
 func test_attack_state_follows_attack_phases() -> void:

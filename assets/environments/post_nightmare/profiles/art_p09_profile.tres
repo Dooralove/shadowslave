@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="EnvironmentArtProfile" format=3]
+
+[ext_resource type="Environment" path="res://assets/environments/post_nightmare/environments/art_p09_env.tres" id="1_hw1ba"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_tile.tres" id="2_8d2f3"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_material_swap.gd" id="3_6nkg1"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_wall.tres" id="4_6vd2r"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_dark.tres" id="5_hkxmt"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_metal.tres" id="6_qkmpp"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_fabric.tres" id="7_v4wkk"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_wood_light.tres" id="8_actn1"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_glass.tres" id="9_us0lw"]
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_profile.gd" id="10_ku3d1"]
+
+[sub_resource type="Resource" id="Resource_jmb58"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "tile.tres"
+material = ExtResource("2_8d2f3")
+
+[sub_resource type="Resource" id="Resource_biahg"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "tile_wet.tres"
+material = ExtResource("2_8d2f3")
+
+[sub_resource type="Resource" id="Resource_xopvp"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "paint_white.tres"
+material = ExtResource("4_6vd2r")
+
+[sub_resource type="Resource" id="Resource_b0iey"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "white.tres"
+material = ExtResource("4_6vd2r")
+
+[sub_resource type="Resource" id="Resource_0i7xw"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "concrete_dark.tres"
+material = ExtResource("5_hkxmt")
+
+[sub_resource type="Resource" id="Resource_goigb"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "metal_light.tres"
+material = ExtResource("6_qkmpp")
+
+[sub_resource type="Resource" id="Resource_7k433"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "metal_dark.tres"
+material = ExtResource("6_qkmpp")
+
+[sub_resource type="Resource" id="Resource_pj7pv"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "fabric_blue.tres"
+material = ExtResource("7_v4wkk")
+
+[sub_resource type="Resource" id="Resource_o7iap"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "fabric_grey.tres"
+material = ExtResource("7_v4wkk")
+
+[sub_resource type="Resource" id="Resource_vp3v5"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "wood_light.tres"
+material = ExtResource("8_actn1")
+
+[sub_resource type="Resource" id="Resource_s3noq"]
+script = ExtResource("3_6nkg1")
+match_path_suffix = "glass_blue.tres"
+material = ExtResource("9_us0lw")
+
+[resource]
+resource_name = "art_p09_profile"
+script = ExtResource("10_ku3d1")
+environment = ExtResource("1_hw1ba")
+material_swaps = [SubResource("Resource_jmb58"), SubResource("Resource_biahg"), SubResource("Resource_xopvp"), SubResource("Resource_b0iey"), SubResource("Resource_0i7xw"), SubResource("Resource_goigb"), SubResource("Resource_7k433"), SubResource("Resource_pj7pv"), SubResource("Resource_o7iap"), SubResource("Resource_vp3v5"), SubResource("Resource_s3noq")]
+hide_name_prefixes = PackedStringArray()
+hide_name_contains = PackedStringArray()
+water_name_contains = PackedStringArray("Water", "SeaBelow", "BlackWater", "DeepWater")
+glow_intensity = 0.28
+fog_density = 0.007

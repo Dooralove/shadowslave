@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="QuestCatalog" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_catalog.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://resources/quests/first_day.tres" id="2_first_day"]
+[ext_resource type="Resource" path="res://resources/quests/first_blood.tres" id="3_first_blood"]
+[ext_resource type="Resource" path="res://resources/quests/azure_blade.tres" id="4_azure_blade"]
+[ext_resource type="Resource" path="res://resources/quests/crystal_cache.tres" id="5_crystal_cache"]
+[ext_resource type="Resource" path="res://resources/quests/hunt_pack.tres" id="6_hunt_pack"]
+[ext_resource type="Resource" path="res://resources/quests/camp_rest.tres" id="7_camp_rest"]
+[ext_resource type="Resource" path="res://resources/quests/bridge_stand.tres" id="8_bridge_stand"]
+[ext_resource type="Resource" path="res://resources/quests/sq_fs_01_ninth_token.tres" id="9_sq01"]
+[ext_resource type="Resource" path="res://resources/quests/sq_fs_02_echo_tunnel.tres" id="10_sq02"]
+[ext_resource type="Resource" path="res://resources/quests/sq_fs_03_truth_without_lies.tres" id="11_sq03"]
+[ext_resource type="Resource" path="res://resources/quests/sq_fs_04_salt_box.tres" id="12_sq04"]
+[ext_resource type="Resource" path="res://resources/quests/sq_fs_05_bone_bridge_master.tres" id="13_sq05"]
+
+[resource]
+script = ExtResource("1_catalog")
+scope = &"forgotten_shore"
+quests = [ExtResource("2_first_day"), ExtResource("3_first_blood"), ExtResource("4_azure_blade"), ExtResource("5_crystal_cache"), ExtResource("6_hunt_pack"), ExtResource("7_camp_rest"), ExtResource("8_bridge_stand"), ExtResource("9_sq01"), ExtResource("10_sq02"), ExtResource("11_sq03"), ExtResource("12_sq04"), ExtResource("13_sq05")]

@@ -37,6 +37,9 @@ func start() -> void:
 	_started = true
 	# Новое прохождение начинается с чистого состояния, включая R-перезапуск.
 	NightmareRunState.reset()
+	var guide := get_node_or_null("/root/CampaignGuide")
+	if guide != null and guide.has_method(&"reset_campaign"):
+		guide.call(&"reset_campaign")
 	LevelPortal.clear_pending_spawn()
 	LevelPortal.clear_active_transition()
 	campaign_started.emit()

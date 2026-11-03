@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Сначала была вода. Чёрная, без звёзд. Она тянула вниз."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Потом — камень. Шея колосса. Над головой — семь звёзд."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Где я?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Внизу лежало море. У горизонта — ничего. В камень был вросший меч."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "[Царство Снов]"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Академия. Капсула. Значит, это не сон."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"narration"
+text = "Он был без брони. Только тень и память о плаще."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Плащ. Ну конечно."
+duration = 0.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8")]

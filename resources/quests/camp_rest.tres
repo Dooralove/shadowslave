@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="3_reward"]
+
+[sub_resource type="Resource" id="Obj_rest"]
+script = ExtResource("2_objective")
+id = &"rest_at_fire"
+text = "Отдохнуть у костра"
+kind = 2
+target_id = &"campfire"
+required_count = 1
+
+[sub_resource type="Resource" id="Reward_rest"]
+script = ExtResource("3_reward")
+flag = &"camp_rested"
+heal_amount = 100.0
+text = "Отдых у костра: здоровье восстановлено"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"camp_rest"
+scope = &"forgotten_shore"
+code = "06"
+title = "Дыхание у огня"
+category = 1
+summary = "Лагерь на холме даёт передышку перед западным переходом."
+description = "Костёр — не кнопка сохранения и не телепорт. Он восстанавливает силы и отмечает безопасную точку, к которой можно вернуться после смерти."
+prerequisites = Array[StringName]([&"shore_camp_reached"])
+required_quests = Array[StringName]([])
+auto_start = true
+show_available = true
+objectives = [SubResource("Obj_rest")]
+rewards = [SubResource("Reward_rest")]
+completion_flag = &"camp_rested"

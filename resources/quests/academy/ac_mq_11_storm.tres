@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_tvobf"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_l26yk"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_kvwa7"]
+
+[sub_resource type="Resource" id="Resource_1ptap"]
+script = ExtResource("1_tvobf")
+id = &"alarm"
+text = "Понять, что произошло"
+target_id = &"academy_reached_alarm"
+
+[sub_resource type="Resource" id="Resource_n83t5"]
+script = ExtResource("1_tvobf")
+id = &"release"
+text = "Открыть дверь вручную"
+kind = 2
+target_id = &"manual_release"
+
+[sub_resource type="Resource" id="Resource_tj8e7"]
+script = ExtResource("1_tvobf")
+id = &"rescue"
+text = "Вывести кадетов"
+target_id = &"cadet_rescued"
+
+[sub_resource type="Resource" id="Resource_c88vx"]
+script = ExtResource("2_l26yk")
+item_id = &"field_medkit"
+text = "Полевая аптечка"
+
+[sub_resource type="Resource" id="Resource_oc4ar"]
+script = ExtResource("2_l26yk")
+currency_id = &"credits"
+currency_amount = 30
+text = "30 кредитов"
+
+[resource]
+script = ExtResource("3_kvwa7")
+id = &"ac_mq_11_storm"
+scope = &"academy"
+code = "AC-MQ-11"
+title = "Ночь шторма"
+category = 0
+summary = "Открыть заблокированный блок и вывести кадетов."
+description = "Шторм валит антенну. Дверь в нижний блок заблокирована; Мира и Рен остались внутри."
+prerequisites = Array[StringName]([&"ac_mq_09_complete", &"ac_mq_10_complete"])
+show_available = false
+objectives = [SubResource("Resource_1ptap"), SubResource("Resource_n83t5"), SubResource("Resource_tj8e7")]
+rewards = [SubResource("Resource_c88vx"), SubResource("Resource_oc4ar")]
+completion_flag = &"ac_mq_11_complete"

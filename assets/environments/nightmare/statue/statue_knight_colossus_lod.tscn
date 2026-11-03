@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/locations/post_nightmare/statue_knight_lod.gd" id="1_lod"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/statue/statue_knight_colossus.glb" id="2_lod0"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/statue/statue_knight_colossus_lod1.glb" id="3_lod1"]
+[ext_resource type="PackedScene" path="res://assets/environments/nightmare/statue/statue_knight_colossus_lod2.glb" id="4_lod2"]
+
+[node name="StatueKnightLOD" type="Node3D"]
+script = ExtResource("1_lod")
+lod0 = ExtResource("2_lod0")
+lod1 = ExtResource("3_lod1")
+lod2 = ExtResource("4_lod2")

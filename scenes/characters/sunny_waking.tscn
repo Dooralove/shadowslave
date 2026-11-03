@@ -7,8 +7,8 @@
 
 [node name="Sunny" instance=ExtResource("1_base")]
 allow_sprint = false
-allow_jump = false
-combat_enabled = false
+allow_jump = true
+combat_enabled = true
 
 [node name="Animator" parent="."]
 idle_clip = &"Unarmed_Idle"

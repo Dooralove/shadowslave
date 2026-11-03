@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/cutscene/content/m1/p05_mirror.gd" id="2_script"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"m1/p05_mirror"
+display_name = "P05 — зеркало"
+description = "Санни смотрит в зеркало и видит свой Порок; открывается Shadow Sight."
+chapter = &"M1"
+cutscene_script = ExtResource("2_script")
+skip_policy = 1
+max_duration = 25.0
+min_skip_time = 0.5
+completion_flags = Array[StringName]([&"p05_mirror_seen", &"shadow_sight_unlocked"])
+skip_summary = Array[String](["Санни видит в зеркале свой Порок."])
+hide_hud = true
+letterbox = true
+once = true
+once_flag = &"p05_mirror_seen"
+realign_camera_on_finish = true

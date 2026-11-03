@@ -1,19 +1,265 @@
-[gd_scene format=3]
+[gd_scene load_steps=18 format=3]
 
-[ext_resource type="Script" path="res://scripts/slice/slice_location.gd" id="1_loc"]
+[ext_resource type="Script" path="res://scripts/slice/locations/spell_void.gd" id="1_void"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p25_void_motes.tscn" id="2_motes"]
+[ext_resource type="PackedScene" path="res://assets/characters/p1/sunny_p1_model.tscn" id="3_sunny"]
+[ext_resource type="GradientTexture1D" path="res://resources/environment/p4_grade_lut.tres" id="p4_lut"]
 
 [sub_resource type="Environment" id="Env_void"]
 background_mode = 1
-background_color = Color(0, 0, 0, 1)
+background_color = Color(0.001, 0.002, 0.008, 1)
 ambient_light_source = 1
-tonemap_mode = 2
+ambient_light_color = Color(0.035, 0.055, 0.11, 1)
+ambient_light_energy = 0.28
+reflected_light_source = 1
+tonemap_mode = 4
+tonemap_exposure = 1.15
+glow_enabled = true
+glow_intensity = 1.1
+glow_bloom = 0.22
+glow_hdr_threshold = 0.6
+ssao_enabled = true
+ssao_radius = 1.8
+ssao_intensity = 1.8
+ssil_enabled = true
+ssil_radius = 1.8
+ssil_intensity = 1.2
+ssr_enabled = true
+ssr_max_steps = 64
+ssr_fade_in = 0.1
+ssr_fade_out = 0.2
+fog_enabled = true
+fog_light_color = Color(0.015, 0.025, 0.065, 1)
+fog_density = 0.012
+fog_aerial_perspective = 0.1
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.018
+volumetric_fog_albedo = Color(0.28, 0.45, 0.85, 1)
+volumetric_fog_length = 34.0
+volumetric_fog_anisotropy = 0.35
+
+adjustment_enabled = true
+adjustment_color_correction = ExtResource("p4_lut")
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.006, 0.009, 0.02, 1)
+roughness = 0.18
+metallic = 0.15
+
+[sub_resource type="PlaneMesh" id="Floor"]
+material = SubResource("Mat_floor")
+size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="Mat_rune"]
+shading_mode = 0
+albedo_color = Color(0.02, 0.05, 0.12, 1)
+emission_enabled = true
+emission = Color(0.22, 0.6, 1, 1)
+emission_energy_multiplier = 4.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_rune_dim"]
+shading_mode = 0
+albedo_color = Color(0.02, 0.04, 0.1, 1)
+emission_enabled = true
+emission = Color(0.12, 0.34, 0.85, 1)
+emission_energy_multiplier = 1.8
+
+[sub_resource type="TorusMesh" id="Ring_inner"]
+material = SubResource("Mat_rune")
+inner_radius = 0.64
+outer_radius = 0.665
+rings = 64
+ring_segments = 18
+
+[sub_resource type="TorusMesh" id="Ring_mid"]
+material = SubResource("Mat_rune_dim")
+inner_radius = 1.42
+outer_radius = 1.445
+rings = 80
+ring_segments = 18
+
+[sub_resource type="TorusMesh" id="Ring_outer"]
+material = SubResource("Mat_rune")
+inner_radius = 3.12
+outer_radius = 3.145
+rings = 96
+ring_segments = 18
+
+[sub_resource type="BoxMesh" id="Spoke"]
+material = SubResource("Mat_rune_dim")
+size = Vector3(0.022, 0.012, 6.12)
+
+[sub_resource type="BoxMesh" id="Glyph"]
+material = SubResource("Mat_rune")
+size = Vector3(0.12, 0.012, 0.26)
+
+[sub_resource type="TorusMesh" id="Ring_halo"]
+material = SubResource("Mat_rune_dim")
+inner_radius = 2.05
+outer_radius = 2.065
+rings = 80
+ring_segments = 18
 
 [node name="SpellVoid" type="Node3D"]
-script = ExtResource("1_loc")
+script = ExtResource("1_void")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Env_void")
 
+[node name="VoidFloor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.06, 0)
+cast_shadow = 0
+mesh = SubResource("Floor")
+
+[node name="RuneCircle" type="Node3D" parent="."]
+position = Vector3(0, 0.02, 0)
+
+[node name="RingInner" type="MeshInstance3D" parent="RuneCircle"]
+cast_shadow = 0
+mesh = SubResource("Ring_inner")
+
+[node name="RingMid" type="MeshInstance3D" parent="RuneCircle"]
+cast_shadow = 0
+mesh = SubResource("Ring_mid")
+
+[node name="RingHalo" type="MeshInstance3D" parent="RuneCircle"]
+cast_shadow = 0
+mesh = SubResource("Ring_halo")
+
+[node name="RingOuter" type="MeshInstance3D" parent="RuneCircle"]
+cast_shadow = 0
+mesh = SubResource("Ring_outer")
+
+[node name="Spoke0" type="MeshInstance3D" parent="RuneCircle"]
+rotation = Vector3(0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("Spoke")
+
+[node name="Spoke1" type="MeshInstance3D" parent="RuneCircle"]
+rotation = Vector3(0, 0.5236, 0)
+cast_shadow = 0
+mesh = SubResource("Spoke")
+
+[node name="Spoke2" type="MeshInstance3D" parent="RuneCircle"]
+rotation = Vector3(0, 1.0472, 0)
+cast_shadow = 0
+mesh = SubResource("Spoke")
+
+[node name="Spoke3" type="MeshInstance3D" parent="RuneCircle"]
+rotation = Vector3(0, 1.5708, 0)
+cast_shadow = 0
+mesh = SubResource("Spoke")
+
+[node name="Spoke4" type="MeshInstance3D" parent="RuneCircle"]
+rotation = Vector3(0, 2.0944, 0)
+cast_shadow = 0
+mesh = SubResource("Spoke")
+
+[node name="Spoke5" type="MeshInstance3D" parent="RuneCircle"]
+rotation = Vector3(0, 2.618, 0)
+cast_shadow = 0
+mesh = SubResource("Spoke")
+
+[node name="Glyph0" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(0, 0.03, -3.55)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph1" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(2.51, 0.03, -2.51)
+rotation = Vector3(0, 0.7854, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph2" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(3.55, 0.03, 0)
+rotation = Vector3(0, 1.5708, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph3" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(2.51, 0.03, 2.51)
+rotation = Vector3(0, 2.3562, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph4" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(0, 0.03, 3.55)
+rotation = Vector3(0, 3.1416, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph5" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(-2.51, 0.03, 2.51)
+rotation = Vector3(0, 3.927, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph6" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(-3.55, 0.03, 0)
+rotation = Vector3(0, 4.7124, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Glyph7" type="MeshInstance3D" parent="RuneCircle"]
+position = Vector3(-2.51, 0.03, -2.51)
+rotation = Vector3(0, 5.4978, 0)
+cast_shadow = 0
+mesh = SubResource("Glyph")
+
+[node name="Halo" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.9, 0)
+rotation = Vector3(1.5708, 0, 0)
+scale = Vector3(0.6, 0.6, 0.6)
+cast_shadow = 0
+mesh = SubResource("Ring_halo")
+
+[node name="SunnyVoid" parent="." instance=ExtResource("3_sunny")]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="VoidMotes" parent="." instance=ExtResource("2_motes")]
+position = Vector3(0, 0.02, 0)
+
+[node name="RuneLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 1.15, 0)
+light_color = Color(0.32, 0.6, 1, 1)
+light_energy = 2.4
+omni_range = 5.5
+omni_attenuation = 1.3
+light_volumetric_fog_energy = 1.2
+
+[node name="RimLight" type="SpotLight3D" parent="."]
+position = Vector3(0, 4.5, -2.0)
+rotation = Vector3(-0.95, 0, 0)
+light_color = Color(0.4, 0.68, 1, 1)
+light_energy = 5.0
+light_volumetric_fog_energy = 1.4
+spot_range = 12.0
+spot_angle = 30.0
+spot_angle_attenuation = 1.2
+
 [node name="Spawns" type="Node3D" parent="."]
 
 [node name="Center" type="Marker3D" parent="Spawns"]
+
+[node name="Shots" type="Node3D" parent="."]
+
+[node name="SpellShot" type="Camera3D" parent="Shots"]
+position = Vector3(0, 2.15, 6.2)
+fov = 54.0
+near = 0.05
+far = 80.0
+
+[node name="LookAt" type="Marker3D" parent="Shots/SpellShot"]
+position = Vector3(0, -1.05, -6.2)
+
+[node name="CloseShot" type="Camera3D" parent="Shots"]
+position = Vector3(0.75, 1.62, 2.45)
+fov = 48.0
+near = 0.05
+far = 80.0
+
+[node name="LookAt" type="Marker3D" parent="Shots/CloseShot"]
+position = Vector3(-0.75, -0.47, -2.45)

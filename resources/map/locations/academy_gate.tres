@@ -1,0 +1,131 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-20, 0, 20, 0, 20, 24, -20, 24)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-7, -26, 7, -26, 7, 0, -7, 0)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-9, -4, -2, -4, -2, 4, -9, 4)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(2, -4, 9, -4, 9, 4, 2, 4)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(-19, -0.7, -9, -0.7, -9, 0.7, -19, 0.7)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 1
+points = PackedVector2Array(9, -0.7, 19, -0.7, 19, 0.7, 9, 0.7)
+closed = true
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 24, 0, 8, 0, 0, 0, -8, 0, -26)
+closed = false
+
+[sub_resource type="Resource" id="Feature_7"]
+script = ExtResource("3_feature")
+kind = 5
+points = PackedVector2Array(-18, -40, 18, -40, 18, -32, -18, -32)
+closed = true
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"start"
+label = "Подход к воротам"
+description = "Площадь перед воротами Академии."
+use_world_position = true
+world_position = Vector2(0, 20)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"gate"
+label = "Ворота"
+description = "Главный проход через стену и арка со звездой."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"checkpoint"
+label = "Пост проверки"
+description = "Столовая проверки в восточной башне."
+use_world_position = true
+world_position = Vector2(5.5, 0)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"academy"
+label = "Корпус Академии"
+description = "Дальний силуэт за внутренней дорогой."
+use_world_position = true
+world_position = Vector2(0, -34)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"inner_road"
+label = "Внутренняя дорога"
+description = "Путь от ворот к корпусам."
+use_world_position = true
+world_position = Vector2(0, -12)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"from_approach"
+label = "Со стороны улицы"
+description = "Точка появления у южного края площади."
+use_world_position = true
+world_position = Vector2(0, 21.5)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"from_campus"
+label = "Со стороны кампуса"
+description = "Точка появления у северного прохода."
+use_world_position = true
+world_position = Vector2(0, -24.3)
+kind = 4
+
+[resource]
+script = ExtResource("2_def")
+id = &"academy_gate"
+title = "ВОРОТА АКАДЕМИИ"
+subtitle = "Площадь, стена и пост проверки"
+description = "Прототип подхода к Академии: широкая площадь, стена с аркой, две сторожевые башни и дорога к дальним корпусам."
+background_color = Color(0.055, 0.06, 0.075, 1)
+land_color = Color(0.26, 0.245, 0.235, 1)
+accent_color = Color(0.78, 0.66, 0.42, 1)
+terrain_style = &"city"
+world_bounds = Rect2(-22, -42, 44, 68)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_gate.tscn")

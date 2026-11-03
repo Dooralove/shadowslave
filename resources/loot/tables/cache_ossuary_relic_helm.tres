@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_of67b"]
+[ext_resource type="Resource" path="res://resources/loot/items/reef_warden_greaves.tres" id="2_bg728"]
+[ext_resource type="Resource" path="res://resources/loot/items/reef_warden_plate.tres" id="3_exeu2"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="4_el267"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="5_s7ol5"]
+[ext_resource type="Resource" path="res://resources/loot/items/ancient_coral_plate.tres" id="6_fdja3"]
+[ext_resource type="Resource" path="res://resources/loot/items/reef_warden_helm.tres" id="7_74ur1"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="8_f4jln"]
+
+[sub_resource type="Resource" id="Resource_piqhu"]
+script = ExtResource("1_of67b")
+item = ExtResource("2_bg728")
+weight = 15.0
+condition_min = 0.8
+unique = true
+notes = "Реликтовый сет; GD_FUTURE."
+
+[sub_resource type="Resource" id="Resource_rmmai"]
+script = ExtResource("1_of67b")
+item = ExtResource("3_exeu2")
+weight = 10.0
+condition_min = 0.8
+unique = true
+notes = "Реликтовый сет; GD_FUTURE."
+
+[sub_resource type="Resource" id="Resource_c15y0"]
+script = ExtResource("1_of67b")
+item = ExtResource("4_el267")
+weight = 20.0
+
+[sub_resource type="Resource" id="Resource_6rpao"]
+script = ExtResource("1_of67b")
+item = ExtResource("5_s7ol5")
+max_count = 3
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_g2dwc"]
+script = ExtResource("1_of67b")
+item = ExtResource("5_s7ol5")
+min_count = 4
+max_count = 6
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_imcb2"]
+script = ExtResource("1_of67b")
+item = ExtResource("6_fdja3")
+weight = 100.0
+condition_min = 0.7
+notes = "Материал сета."
+
+[sub_resource type="Resource" id="Resource_r5lw2"]
+script = ExtResource("1_of67b")
+item = ExtResource("7_74ur1")
+weight = 100.0
+condition_min = 0.8
+unique = true
+notes = "Реликтовый сет; GD_FUTURE."
+
+[resource]
+resource_name = "cache_ossuary_relic_helm"
+script = ExtResource("8_f4jln")
+id = &"cache_ossuary_relic_helm"
+display_name = "Саркофаг Кораллового Стража — шлем"
+description = "Саркофаг высокого убежища. Гарантирует шлем сета; остальные части — бонус. GD-расширение, не канон."
+guaranteed = Array[ExtResource("1_of67b")]([SubResource("Resource_g2dwc"), SubResource("Resource_imcb2"), SubResource("Resource_r5lw2")])
+entries = Array[ExtResource("1_of67b")]([SubResource("Resource_piqhu"), SubResource("Resource_rmmai"), SubResource("Resource_c15y0"), SubResource("Resource_6rpao")])
+tags = PackedStringArray("ossuary", "relic", "z15")

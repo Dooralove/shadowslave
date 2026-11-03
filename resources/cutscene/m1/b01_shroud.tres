@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CutsceneDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/cutscene_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/cutscene/content/m1/b01_shroud.gd" id="2_script"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"m1/b01_shroud"
+display_name = "B01 — призыв Плаща"
+description = "Санни призывает Плащ на платформе Чёрного моря."
+chapter = &"M1"
+cutscene_script = ExtResource("2_script")
+skip_policy = 1
+max_duration = 25.0
+min_skip_time = 0.5
+completion_flags = Array[StringName]([&"shroud_summoned"])
+skip_summary = Array[String](["Санни призывает Плащ."])
+hide_hud = true
+letterbox = true
+once = true
+once_flag = &"shroud_summoned"
+realign_camera_on_finish = true

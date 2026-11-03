@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Grad_smoke"]
+offsets = PackedFloat32Array(0, 0.25, 0.7, 1)
+colors = PackedColorArray(0.42, 0.44, 0.48, 0.0, 0.62, 0.65, 0.7, 0.32, 0.72, 0.76, 0.82, 0.16, 0.8, 0.84, 0.9, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_smoke"]
+gradient = SubResource("Grad_smoke")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_smoke"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("Tex_smoke")
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="ParticleProcessMaterial" id="Process_smoke"]
+emission_shape = 1
+emission_sphere_radius = 0.35
+direction = Vector3(0.05, 1, 0.05)
+spread = 18.0
+initial_velocity_min = 0.25
+initial_velocity_max = 0.65
+gravity = Vector3(0.03, 0.65, 0.02)
+turbulence_enabled = true
+turbulence_noise_strength = 0.5
+turbulence_noise_scale = 3.0
+scale_min = 0.7
+scale_max = 1.8
+color_ramp = SubResource("Tex_smoke")
+
+[sub_resource type="QuadMesh" id="Mesh_smoke"]
+material = SubResource("Mat_smoke")
+size = Vector2(0.95, 0.95)
+
+[node name="CampSmoke" type="Node3D"]
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 50
+lifetime = 6.5
+preprocess = 6.5
+local_coords = false
+visibility_aabb = AABB(-8, -1, -8, 16, 22, 16)
+process_material = SubResource("Process_smoke")
+draw_pass_1 = SubResource("Mesh_smoke")

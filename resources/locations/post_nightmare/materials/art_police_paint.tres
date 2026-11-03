@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/nm_stone_worked_albedo_2k.jpg" id="1_nvh3q"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rock_surface_arm_2k.jpg" id="2_uu6s3"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/rock_surface_nor_gl_2k.jpg" id="3_ehnj0"]
+
+[resource]
+resource_name = "art_police_paint"
+albedo_color = Color(0.72, 0.75, 0.78, 1)
+albedo_texture = ExtResource("1_nvh3q")
+metallic_texture = ExtResource("2_uu6s3")
+metallic_texture_channel = 2
+roughness = 0.92
+roughness_texture = ExtResource("2_uu6s3")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 0.9
+normal_texture = ExtResource("3_ehnj0")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 5

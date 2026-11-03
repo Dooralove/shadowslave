@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1_attack"]
+
+[resource]
+script = ExtResource("1_attack")
+damage = 14.0
+damage_type = &"pierce"
+cooldown = 1.15
+windup_time = 0.0
+active_time = 0.2
+reach = 0.95
+radius = 0.75
+attack_name = "Укус личинки"
+kind = 0
+stamina_cost = 0.0
+guard_damage = 20.0
+blockable = true
+hitstop = 0.05

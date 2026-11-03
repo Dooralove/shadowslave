@@ -36,6 +36,12 @@ enum Style {
 @export_file("*.tscn") var destination_scene := ""
 @export var destination_spawn: StringName = &""
 @export_range(0.0, 5.0, 0.05) var fade_out_duration := 0.8
+## Затемнение уже загруженной сцены начинается с чёрного кадра и плавно
+## открывает кадр. Это скрывает позиционирование игрока и убирает резкий
+## скачок между двумя greybox-локациями.
+@export_range(0.0, 5.0, 0.05) var fade_in_duration := 0.3
+## Загрузить PackedScene до затемнения, чтобы смена сцены не ждала диск.
+@export var preload_destination := true
 
 @export var transition_style: Style = Style.FADE
 ## id постановки для Style.CUTSCENE; должна существовать у родительской локации.
@@ -63,6 +69,9 @@ enum Style {
 @export var one_shot_flag: StringName = &""
 ## Какие флаги нужны, чтобы портал сработал.
 @export var required_flags: Array[StringName] = []
+## Что показать игроку, если портал закрыт required flags. Сцена может
+## переопределить текст под конкретную дверь.
+@export_multiline var locked_message := "Проход ещё закрыт."
 ## Что выставить при успешном переходе (например, открытая дверь).
 @export var set_flags_on_use: Array[StringName] = []
 
@@ -71,6 +80,9 @@ enum Style {
 
 static var _pending_scene := ""
 static var _pending_spawn: StringName = &""
+## Длительность fade-in для следующей сцены; -1 — сцена загружается без
+## специального затемнения (обычный запуск или сцена без FadeLayer).
+static var _pending_arrival_fade := -1.0
 ## Один запрос смены сцены на кадр/переход. Ссылка слабая: после загрузки
 ## новая сцена не наследует старый портал, а освобождённый узел перестаёт
 ## блокировать следующие переходы.
@@ -83,6 +95,7 @@ var _player_locked := false
 var _saved_input := true
 var _saved_forced_velocity := Vector3.ZERO
 var _ignore_body_until_frame := 0
+var _player_inside := false
 
 
 func _ready() -> void:
@@ -94,10 +107,15 @@ func _ready() -> void:
 		_ignore_body_until_frame = Engine.get_physics_frames() + body_trigger_ignore_frames
 		if not body_entered.is_connected(_on_body_entered):
 			body_entered.connect(_on_body_entered)
+		if not body_exited.is_connected(_on_body_exited):
+			body_exited.connect(_on_body_exited)
 	if interactable != null and not interactable.interacted.is_connected(_on_interactable_interacted):
 		interactable.interacted.connect(_on_interactable_interacted)
 	if one_shot_flag != &"" and NightmareRunState.has_flag(one_shot_flag):
 		_used = true
+	var run_state := get_node_or_null(^"/root/NightmareRunState")
+	if run_state != null and not run_state.flag_changed.is_connected(_on_flag_changed):
+		run_state.flag_changed.connect(_on_flag_changed)
 
 
 func is_available() -> bool:
@@ -109,6 +127,13 @@ func is_available() -> bool:
 		return false
 	if one_shot and one_shot_flag != &"" and NightmareRunState.has_flag(one_shot_flag):
 		return false
+	for flag in required_flags:
+		if not NightmareRunState.has_flag(flag):
+			return false
+	return true
+
+
+func _has_required_flags() -> bool:
 	for flag in required_flags:
 		if not NightmareRunState.has_flag(flag):
 			return false
@@ -128,10 +153,21 @@ func is_running() -> bool:
 func activate(body: Node3D = null) -> bool:
 	if _running or _has_active_transition():
 		return false
+	if not enabled:
+		return false
+	if not _has_required_flags():
+		if not locked_message.strip_edges().is_empty():
+			var quests := get_node_or_null(^"/root/QuestSystem")
+			if quests != null and quests.has_method(&"show_message"):
+				quests.call(&"show_message", locked_message, &"warning")
+		return false
 	if not is_available():
 		return false
 	if not _destination_is_valid():
 		_abort("destination scene does not exist: %s" % destination_scene, true)
+		return false
+	if preload_destination and not _preload_destination():
+		_abort("destination scene is not a loadable PackedScene: %s" % destination_scene, true)
 		return false
 
 	var player := _resolve_player(body)
@@ -157,7 +193,9 @@ func activate(body: Node3D = null) -> bool:
 
 	# Сцену может сменить только сам SceneTree. Запрос spawn кладётся до смены,
 	# чтобы оболочка назначения успела применить его в своём _ready().
-	set_pending_spawn(destination_scene, destination_spawn)
+	# FadeLayer назначения сам прочитает длительность прибытия и начнёт с
+	# чёрного кадра; так между сценами нет вспышки открытого кадра.
+	set_pending_spawn(destination_scene, destination_spawn, fade_in_duration)
 	var error := _commit_scene_change(destination_scene)
 	if error != OK:
 		clear_pending_spawn()
@@ -182,6 +220,13 @@ func _commit_scene_change(scene_path: String) -> int:
 
 func _destination_is_valid() -> bool:
 	return not destination_scene.is_empty() and ResourceLoader.exists(destination_scene)
+
+
+## Прогрев кэша ресурсов до затемнения. SceneTree всё равно создаст новый
+## экземпляр, но чтение с диска уже не попадёт в момент смены сцены.
+func _preload_destination() -> bool:
+	var packed := ResourceLoader.load(destination_scene) as PackedScene
+	return packed != null
 
 
 func _resolve_player(body: Node3D) -> SunnyController:
@@ -233,12 +278,34 @@ func _report_error(message: String) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if not trigger_on_body or not body.is_in_group(player_group):
 		return
+	_player_inside = true
 	# Первые кадры после загрузки сцены: если игрок появился внутри прохода,
 	# не отправляем его обратно тем же переходом. После выхода/повторного
 	# входа body_entered сработает снова и портал будет доступен.
 	if Engine.get_physics_frames() < _ignore_body_until_frame:
 		return
 	activate(body)
+
+
+func _on_body_exited(body: Node3D) -> void:
+	if body.is_in_group(player_group):
+		_player_inside = false
+
+
+## Диалог/осмотр может выставить required flag, когда игрок уже стоит в
+## проёме. body_entered в этот момент повторно не придёт, поэтому проверяем
+## доступность по сигналу state и завершаем ранее начатое действие.
+func _on_flag_changed(flag_name: StringName, value: bool) -> void:
+	if not value or not _player_inside:
+		return
+	# Не обходим spawn protection: игрок, появившийся внутри портала, не
+	# должен зациклить переход, даже если флаг выставлен в первых кадрах.
+	if Engine.get_physics_frames() < _ignore_body_until_frame:
+		return
+	if not required_flags.has(flag_name):
+		return
+	if is_available():
+		activate()
 
 
 func _on_interactable_interacted(_id: StringName) -> void:
@@ -304,9 +371,11 @@ static func _has_active_transition() -> bool:
 
 ## Запрос spawn для следующей сцены. Живёт в статическом поле, потому что
 ## SceneTree не умеет передавать параметры в change_scene_to_file().
-static func set_pending_spawn(scene_path: String, spawn: StringName) -> void:
+## arrival_fade < 0 — не включать специальный fade-in.
+static func set_pending_spawn(scene_path: String, spawn: StringName, arrival_fade := -1.0) -> void:
 	_pending_scene = scene_path
 	_pending_spawn = spawn
+	_pending_arrival_fade = arrival_fade
 
 
 static func peek_pending_spawn(scene_path := "") -> StringName:
@@ -327,9 +396,21 @@ static func take_pending_spawn(scene_path: String) -> StringName:
 	return spawn
 
 
+## Читает длительность fade-in только для своей сцены. FadeLayer вызывает
+## это в _ready() до того, как локация заберёт spawn. Возвращает -1, если
+## прибытие не требует специального затемнения.
+static func take_arrival_fade(scene_path: String) -> float:
+	if _pending_scene != scene_path:
+		return -1.0
+	var duration := _pending_arrival_fade
+	_pending_arrival_fade = -1.0
+	return duration
+
+
 static func clear_pending_spawn() -> void:
 	_pending_scene = ""
 	_pending_spawn = &""
+	_pending_arrival_fade = -1.0
 
 
 ## Ищет `Spawns/<spawn_name>` у переданной локации. При отсутствии запрошенной

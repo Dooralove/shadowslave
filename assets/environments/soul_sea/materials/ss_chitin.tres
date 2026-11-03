@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "ss_chitin"
+albedo_color = Color(0.0120, 0.0170, 0.0260, 1.0)
+metallic = 0.28
+roughness = 0.42

@@ -67,13 +67,21 @@
 | L11 | Щель и скрытая пещера | `pilgrim_path_art.tscn` `CAVE` | S10 | гл. 12–13: узкая щель за высокими камнями, маленькая пещера, без огня |
 | L12 | Верхняя тропа | `pilgrim_path_art.tscn` `HERO_DEATH` | S11 | гл. 13–14: та же тропа выше, луна, узкий карниз |
 | L13 | Вершина и подход к храму | `pilgrim_path_art.tscn` `TEMPLE_APPROACH`, `sanctuary_arrival` | S12 | гл. 14: плоская скала под снегом, храм в центре, тысячи костей людей и чудовищ, разбитые высокие ворота |
+
+> 2026-11-03: на участке `StealthSection/Covers` (L10–L12) три чёрных CSG-укрытия заменены
+> Hyper3D-моделями `stealth_cover_{a,b,c}.glb`; исходные CSG оставлены невидимыми
+> коллизионными прокси. Реестр и проверки — `docs/art/placeholder_registry.md`.
 | L14 | Храм: зал и алтарь | `shadow_sanctuary_art.tscn` | S13 | гл. 14: зал, частично обрушенная крыша, лунные круги, снег и лёд на полу, алтарь из цельного чёрного мрамора |
 | L15 | Пространство оценки | `appraisal_arrival.tscn` | S14 | гл. 15: звёзды и серебряные нити — 3D-арена не нужна |
 | L16 | Пробуждение | `finale_arrival.tscn` | S15 | без локации |
 | — | Засада-песочница (не канон) | `ambush_site_demo.tscn` | — | не канонический маршрут; использует горную библиотеку |
 
-Карты `forgotten_shore` и `drowned_city` из атласа карт — заглушки будущих частей; описаний окружения
-в документации нет, ассеты не планируются до появления брифов.
+Карта `forgotten_shore` больше не заглушка: бриф и greybox первого фрагмента готовы, план и первая партия
+кораллового кита — `docs/art/labyrinth_model_map.md`; `drowned_city` остаётся заглушкой будущих частей.
+
+Море Души (`scenes/soul_sea/soul_sea.tscn`) — отдельный внутренний хаб, не физическая локация. Карта его моделей —
+`docs/art/soul_sea_model_map.md` (ассеты не производятся). Смежные `black_sea_platform` и `tide_descent` — отдельные
+локации Чёрного моря; их общие модули статуи и коралла не дублируют `labyrinth_model_map.md`.
 
 ## 2. Общая библиотека горы (партия 1) — L05–L13
 
@@ -130,6 +138,58 @@
 Шейдеры и сцены эффектов (собственные): ночное небо `materials/nm_night_sky.gdshader`, облака `nm_cloud_sea`,
 `scenes/environment/nm_snowfall.tscn`, `nm_cloud_sea.tscn`, `nm_fire_flame.tscn`; фасады квартала —
 `park/materials/city_facade.gdshader` (S3.4 частично, §L01).
+
+## 2а. Forgotten Shore: коралловый кит (партия C1/C2, 2026-11-02)
+
+Собственные модели проекта, Blender 5.1; сборщик `assets/environments/nightmare/source/build_coral_kit.py`,
+библиотека `nm_coral_lib.py`, материалы `nm_coral_materials.py`. Все `.glb` — в
+`assets/environments/nightmare/coral/`; исходник — `source/coral_kit.blend`; превью —
+`docs/art/previews/forgotten_shore/`.
+
+| Семейство | Файлы | Треуг. | Статус |
+|---|---|---:|---|
+| Высокие стены | `coral_wall_tall_a/b/c` | 58 032 | экспортирован, импортирован, превью |
+| Низкие стены | `coral_wall_low_a/b/c` | 26 268 | экспортирован, импортирован, превью |
+| Массы | `coral_mass_a…e` | 59 700 | экспортирован, импортирован, превью |
+| Лезвия | `coral_blade_a…d`, `coral_blade_hero` | 54 016 | экспортирован, импортирован, превью |
+| Полки | `coral_ledge_a…d` | 28 024 | экспортирован, импортирован, превью |
+| Рампы | `coral_ramp_a/b/c` | 26 268 | экспортирован, импортирован, превью |
+| Арки | `coral_arch_a/b/c` | 40 536 | экспортирован, импортирован |
+| Туннели | `coral_tunnel_shell_a/b/c` | 11 280 | экспортирован, импортирован |
+| Грунт | `ground_patch_a…d`, `ground_patch_large_a/b` | 20 068 | экспортирован, импортирован |
+| Грязь | `mud_pool_a…c`, `mud_bank_a/b` | 5 458 | экспортирован, импортирован |
+| Кости | `bone_rib_*`, `bone_vertebra_*`, `bone_pile_*`, `bone_shell_*` | 8 534 | экспортирован, импортирован |
+| Лагерь | `campfire_a`, `bedroll_a…c`, `windbreak_a/b` | 3 094 | экспортирован, импортирован |
+| Hero-столбы | `coral_pillar_camp`, `coral_spire_west` | 42 759 | blockout; не финальный арт |
+
+Итого: **60 GLB, 384 037 треугольников, ~12,4 МБ**. Материалы: `nm_coral_live`, `nm_coral_dead`,
+`nm_coral_crust`, `nm_coral_ground`, `nm_mud_wet`, `nm_bone_aged`; шейдер `nm_coral_triplanar`.
+Текстуры-субстраты — CC0 Poly Haven `coral_fort_wall_01/02/03`, `coral_ground_02`, `coral_mud_01`
+(см. `docs/ASSET_LICENSES.md`). В сцену локации и в `labyrinth_first_fragment` пока **не встроены**;
+FPS полной сцены и коллизии не проверялись.
+
+## 2б. Море Души: кит P0–P1 (2026-11-02)
+
+Собственные модели проекта, Blender 5.1; сборщик `assets/environments/soul_sea/source/build_soul_sea_kit.py`,
+геометрия `ss_lib.py`, материалы `ss_materials.py`. Все `.glb` — в `assets/environments/soul_sea/kit/`;
+исходник — `source/soul_sea_kit.blend`; превью — `docs/art/previews/soul_sea/`.
+
+| Группа | Файлы | Tri LOD0 | Статус |
+|---|---|---:|---|
+| Помост и кромка | `ss_dais_hero`, `ss_dais_edge_a/b/c`, `ss_step_a/b`, `ss_plinth_a/b/c` | 10 633 | экспортирован, импортирован, материал привязан |
+| Скалы и обелиски | `ss_shoal_rock_a…d`, `ss_obelisk_a/b/c`, `ss_obelisk_hero` | 16 454 | экспортирован, импортирован |
+| Память и Эхо | `ss_memory_sphere_hero`, `ss_memory_sphere_a/b/c`, `ss_memory_orbit_ring_a/b/c`, `ss_memory_thread_a/b/c`, `ss_memory_mote_a/b`, `ss_echo_sphere_a/b/c` | 16 288 | экспортирован, импортирован |
+| Сигналы орбит | `ss_memory_orbit_sigil_a/b/c` | 3 780 | экспортирован, импортирован |
+| Тени | `ss_shade_slave_a/b/c`, `ss_shade_slaver_a/b`, `ss_shade_mountain_king`, `ss_shade_carapace_scavenger_a/b/c`, `ss_shade_carapace_centurion`, `ss_shade_centipede_a/b`, `ss_shade_worm_knot_a/b`, `ss_shade_blood_flower_a/b`, `ss_shade_rank_far_a/b/c`, `ss_shade_colossus_far_a/b/c` | 128 220 | экспортирован, импортирован; silhouette-базы |
+| Рябь, туман | `ss_ripple_decal_a/b/c`, `ss_mist_card_a/b/c` | 2 250 | экспортирован, импортирован |
+
+Итого: **63 GLB, 177 625 треугольников, 73 внешних material surface**. Материалы: `ss_obsidian`,
+`ss_basalt`, `ss_shadow`, `ss_memory`, `ss_echo`, `ss_sigil`, `ss_chitin`, `ss_ripple`, `ss_mist`.
+В `scenes/soul_sea/soul_sea.tscn` кит пока **не встроен**; витрина — `scenes/dev/soul_sea_asset_preview.tscn`.
+Проверки: `tools/audit/soul_sea_kit_check.gd` — 63/0/73; полный GUT — 73 скрипта, 572 теста,
+570 pass / 2 fail (оба в `test_post_nightmare_locations.gd`, Black Sea; к Soul Sea не относятся);
+headless-импорт — exit 0. LOD/MultiMesh, финальный скульпт теней и интеграция в игровую сцену —
+**NOT TESTED**.
 
 ## 3. Локации: что нужно, что есть, что интерпретируется
 
@@ -410,3 +470,14 @@ godot --path . res://scenes/dev/prologue_asset_preview.tscn -- --capture=<пап
    для кресла брифа — задача анимации.
 4. Все сюжетные локации Кошмара встроены (2026-10-27): состояние, ограничения и не использованные ассеты —
    `docs/art/level_audit.md`. Дальше: модели кварталов парка (S3.4), персонажи и существа вместо манекенов.
+
+## 2026-11-03 — Loot containers (GD)
+
+| Asset | Role | Zone / placement | Status | Source |
+|---|---|---|---|---|
+| `assets/models/containers/chest_wood_iron.glb` | tide-wrack strongbox | Z02, Z11, Z14, Z17 | accepted GD prop | Hyper3D CLI `4a6852b4-d4ab-47d2-b466-fdb0cc07070a`, Blender MCP cleanup |
+| `assets/models/containers/loot_barrel_cluster.glb` | hidden barrel cluster | Z09, Z13, Z16 | accepted GD prop | Hyper3D CLI `b716c37b-4a83-45d5-8317-ed9ee6325f01`, Blender MCP cleanup |
+| `assets/models/containers/ancient_tomb_sarcophagus.glb` | coral ossuary / sarcophagus | Z06, Z15, Z18 | accepted GD prop, not canon | Hyper3D CLI `60280f7a-5b6a-4bb3-b61a-3a0d37388f7c`, Blender MCP cleanup |
+
+- **Scenes:** `scenes/loot/containers/*.tscn`; **data:** `resources/loot/tables/*.tres`; **placement:** `Gameplay/Interactables/Secrets` in `labyrinth_first_fragment.tscn`.
+- **Verification:** Blender previews + Godot `asset_preview.gd`; bottom-centre origin; `Body`/`Lid` split with hinge origin and animated lids (100° / 75°); `StaticBody3D` collision; `loot_secret_audit.gd` 10/10; `route_reachability` 18/18 zones, 61/61 POIs. Manual playthrough NOT TESTED.

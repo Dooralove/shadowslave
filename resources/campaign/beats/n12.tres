@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N12"
+part = &"act_2"
+part_title = "Акт II «Ночь»"
+canonical_block = 11
+title = "Мародёрство, ветеран и Серебряный колокольчик"
+beat_type = 0
+format_label = "И"
+objective = "Собрать фляги у мёртвых солдат"
+idle_objectives = Array[String](["Обыщи тела за кругом света", "Собери три фляги", "Подойди к ветерану"])
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"tasks_assigned"])
+exit_conditions = Array[StringName]([&"veteran_dead", &"silver_bell_obtained"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 150.0
+estimated_time_text = "~2,5 мин"
+scene_path = "res://scenes/campaign/caravan_site_arrival.tscn"
+can_die = false

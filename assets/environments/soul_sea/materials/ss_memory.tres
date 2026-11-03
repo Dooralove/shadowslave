@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://scenes/soul_sea/soul_sea_memory.gdshader" id="1_shader"]
+
+[resource]
+resource_name = "ss_memory"
+shader = ExtResource("1_shader")
+shader_parameter/core_color = Color(1.0000, 0.8400, 0.5600, 1.0)
+shader_parameter/edge_color = Color(0.9200, 0.3800, 0.1400, 1.0)
+shader_parameter/emission_color = Color(1.0000, 0.5500, 0.2400, 1.0)
+shader_parameter/energy = 1.6
+shader_parameter/swirl = 0.45

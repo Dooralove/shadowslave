@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="2_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="3_marker"]
+
+[sub_resource type="Resource" id="Feature_path"]
+script = ExtResource("2_feature")
+kind = 0
+points = PackedVector2Array(-1.6, -52.0, 1.6, -52.0, 1.6, 0.0, -1.6, 0.0)
+closed = true
+
+[sub_resource type="Resource" id="Feature_ledge"]
+script = ExtResource("2_feature")
+kind = 2
+points = PackedVector2Array(-2.4, -52.0, 2.4, -52.0, 2.4, -44.0, -2.4, -44.0)
+closed = true
+
+[sub_resource type="Resource" id="Marker_summit"]
+script = ExtResource("3_marker")
+id = &"summit"
+label = "Вершина"
+description = "Точка, куда ведёт видение."
+use_world_position = true
+world_position = Vector2(0, -50)
+kind = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"mountain_vision"
+title = "ГОРНОЕ ВИДЕНИЕ"
+subtitle = "Тропа к вершине"
+description = "Видение горной тропы: узкий карниз и вершина впереди."
+background_color = Color(0.05, 0.06, 0.09, 1)
+land_color = Color(0.24, 0.25, 0.26, 1)
+accent_color = Color(0.7, 0.56, 0.34, 1)
+terrain_style = &"snow"
+world_bounds = Rect2(-6, -56, 12, 58)
+features = Array[ExtResource("2_feature")]([SubResource("Feature_path"), SubResource("Feature_ledge")])
+markers = Array[ExtResource("3_marker")]([SubResource("Marker_summit")])
+scene_paths = PackedStringArray("res://scenes/slice/locations/mountain_vision.tscn", "res://scenes/slice/locations/mountain_vision_art.tscn")
+world_rect = Rect2(0.1, 0.1, 0.8, 0.8)

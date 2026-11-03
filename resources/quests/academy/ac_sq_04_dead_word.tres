@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_iedc2"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_j3upe"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_8fe5o"]
+
+[sub_resource type="Resource" id="Resource_jjong"]
+script = ExtResource("1_iedc2")
+id = &"plaque"
+text = "Изучить плиту"
+kind = 2
+target_id = &"library_plaque"
+
+[sub_resource type="Resource" id="Resource_0yjw2"]
+script = ExtResource("2_j3upe")
+flag = &"dead_languages"
+text = "Мёртвые языки"
+
+[sub_resource type="Resource" id="Resource_ho7dg"]
+script = ExtResource("2_j3upe")
+flag = &"library_restricted"
+text = "Доступ в закрытый архив"
+
+[resource]
+script = ExtResource("3_8fe5o")
+id = &"ac_sq_04_dead_word"
+scope = &"academy"
+code = "AC-SQ-04"
+title = "Слово из мёртвого языка"
+summary = "Перевести надпись на старой плите."
+description = "На плите в библиотеке вырезано слово на мёртвом языке. Джулиус просит помочь с переводом."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_jjong")]
+rewards = [SubResource("Resource_0yjw2"), SubResource("Resource_ho7dg")]
+completion_flag = &"ac_sq_04_complete"

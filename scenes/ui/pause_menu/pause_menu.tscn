@@ -1,0 +1,161 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/pause_menu.gd" id="1_pause"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_pause")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.008, 0.01, 0.012, 0.82)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1080, 700)
+layout_mode = 2
+theme_type_variation = &"RpgPanel"
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 26
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Center/Panel/Margin/Column"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Titles" type="VBoxContainer" parent="Center/Panel/Margin/Column/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="Overline" type="Label" parent="Center/Panel/Margin/Column/Header/Titles"]
+layout_mode = 2
+theme_type_variation = &"OverlineLabel"
+text = "ИГРА ОСТАНОВЛЕНА"
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Column/Header/Titles"]
+layout_mode = 2
+theme_type_variation = &"ScreenTitle"
+text = "ПАУЗА"
+
+[node name="EscHint" type="Label" parent="Center/Panel/Margin/Column/Header"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ESC — ПРОДОЛЖИТЬ"
+vertical_alignment = 2
+
+[node name="RuleTop" type="ColorRect" parent="Center/Panel/Margin/Column"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.32, 0.29, 0.23, 0.7)
+
+[node name="ObjectivePanel" type="PanelContainer" parent="Center/Panel/Margin/Column"]
+layout_mode = 2
+theme_type_variation = &"SubPanel"
+
+[node name="ObjectiveBox" type="VBoxContainer" parent="Center/Panel/Margin/Column/ObjectivePanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Caption" type="Label" parent="Center/Panel/Margin/Column/ObjectivePanel/ObjectiveBox"]
+layout_mode = 2
+theme_type_variation = &"SectionLabel"
+text = "ТЕКУЩАЯ ЦЕЛЬ"
+
+[node name="Objective" type="Label" parent="Center/Panel/Margin/Column/ObjectivePanel/ObjectiveBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BodyLargeLabel"
+text = "Цель не задана."
+autowrap_mode = 3
+
+[node name="ObjectiveMeta" type="Label" parent="Center/Panel/Margin/Column/ObjectivePanel/ObjectiveBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПЕРВЫЙ КОШМАР"
+
+[node name="Body" type="HBoxContainer" parent="Center/Panel/Margin/Column"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="Left" type="VBoxContainer" parent="Center/Panel/Margin/Column/Body"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Nav" type="VBoxContainer" parent="Center/Panel/Margin/Column/Body/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Divider" type="ColorRect" parent="Center/Panel/Margin/Column/Body"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+color = Color(0.24, 0.22, 0.19, 0.7)
+
+[node name="ContentScroll" type="ScrollContainer" parent="Center/Panel/Margin/Column/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin/Column/Body/ContentScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RuleBottom" type="ColorRect" parent="Center/Panel/Margin/Column"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.24, 0.22, 0.19, 0.55)
+
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Column"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="FooterNote" type="Label" parent="Center/Panel/Margin/Column/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TinyMutedLabel"
+text = "↑↓ — выбор · Enter — подтвердить · Esc — вернуться в игру"
+autowrap_mode = 3
+
+[node name="StageNote" type="Label" parent="Center/Panel/Margin/Column/Footer"]
+layout_mode = 2
+theme_type_variation = &"TinyMutedLabel"
+text = "ПРОГРЕСС НЕ ПЕРЕЗАПИСЫВАЕТСЯ"
+horizontal_alignment = 2

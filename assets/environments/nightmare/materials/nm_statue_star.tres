@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "nm_statue_star"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.6800, 0.6500, 0.5838, 1.0)
+roughness = 0.34
+metallic = 0.25
+emission_enabled = true
+emission = Color(0.3492, 0.3133, 0.2209, 1.0)
+emission_energy_multiplier = 0.85

@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_xts87"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_plate.tres" id="2_aamkm"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="3_857pl"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="4_2dw4t"]
+[ext_resource type="Resource" path="res://resources/loot/items/blood_fiend_fang.tres" id="5_3tx4o"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="6_hr82u"]
+
+[sub_resource type="Resource" id="Resource_mlcex"]
+script = ExtResource("1_xts87")
+item = ExtResource("2_aamkm")
+weight = 20.0
+
+[sub_resource type="Resource" id="Resource_5ry4w"]
+script = ExtResource("1_xts87")
+item = ExtResource("3_857pl")
+weight = 20.0
+
+[sub_resource type="Resource" id="Resource_ibme6"]
+script = ExtResource("1_xts87")
+item = ExtResource("4_2dw4t")
+min_count = 2
+max_count = 2
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_pvrce"]
+script = ExtResource("1_xts87")
+item = ExtResource("5_3tx4o")
+weight = 100.0
+
+[resource]
+resource_name = "enemy_blood_fiend"
+script = ExtResource("6_hr82u")
+id = &"enemy_blood_fiend"
+display_name = "Кровавый Демон"
+description = "Хищник, который чувствует кровь. Клык — трофей, не оружие."
+source_kind = "enemy"
+canon_status = &"CANON"
+guaranteed = Array[ExtResource("1_xts87")]([SubResource("Resource_ibme6"), SubResource("Resource_pvrce")])
+entries = Array[ExtResource("1_xts87")]([SubResource("Resource_mlcex"), SubResource("Resource_5ry4w")])
+tags = PackedStringArray("blood_fiend", "future_zone")

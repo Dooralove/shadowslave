@@ -34,9 +34,14 @@ enum Kind {
 ## Если задано, маркер виден только когда этот флаг выставлен в игре.
 ## Пустое значение — маркер виден всегда.
 @export var show_when_flag: StringName = &""
+## Если задано, маркер скрывается, когда флаг выставлен. Нужен для убитых
+## противников, подобранных предметов и закрытых проходов.
+@export var hide_when_flag: StringName = &""
 
 
 func is_visible_with(flags: Dictionary) -> bool:
+	if hide_when_flag != &"" and bool(flags.get(hide_when_flag, false)):
+		return false
 	if show_when_flag == &"":
 		return true
 	return bool(flags.get(show_when_flag, false))

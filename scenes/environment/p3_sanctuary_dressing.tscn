@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_dust_motes.tscn" id="1_dust"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_snow_gust.tscn" id="2_snow"]
+[ext_resource type="Material" path="res://assets/environments/nightmare/materials/p3_marble_polished.tres" id="3_marble"]
+
+[sub_resource type="PlaneMesh" id="PolishedPlane"]
+material = ExtResource("3_marble")
+size = Vector2(4.0, 16.0)
+
+[node name="P3SanctuaryDressing" type="Node3D"]
+
+[node name="PolishedNave" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.035, 0.5)
+cast_shadow = 0
+mesh = SubResource("PolishedPlane")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+position = Vector3(0, 5.0, -2.0)
+size = Vector3(18, 11, 20)
+origin_offset = Vector3(0, 0, 0)
+interior = true
+box_projection = true
+enable_shadows = true
+intensity = 0.9
+max_distance = 60.0
+
+[node name="DustMotes" parent="." instance=ExtResource("1_dust")]
+position = Vector3(0, 2.0, -2.0)
+scale = Vector3(0.9, 0.75, 0.9)
+
+[node name="BreachSnow" parent="." instance=ExtResource("2_snow")]
+position = Vector3(0, 7.0, -1.5)
+scale = Vector3(0.42, 0.42, 0.42)
+
+[node name="P3BeamMain" type="SpotLight3D" parent="."]
+position = Vector3(0.6, 7.8, -0.5)
+rotation = Vector3(-1.5708, 0.04, 0)
+light_color = Color(0.62, 0.74, 1, 1)
+light_energy = 22.0
+light_volumetric_fog_energy = 2.4
+spot_range = 13.0
+spot_angle = 18.0
+spot_angle_attenuation = 1.2
+spot_attenuation = 0.9
+
+[node name="P3BeamEast" type="SpotLight3D" parent="."]
+position = Vector3(6.2, 7.8, 4.2)
+rotation = Vector3(-1.5708, -0.05, 0.06)
+light_color = Color(0.58, 0.7, 1, 1)
+light_energy = 14.0
+light_volumetric_fog_energy = 1.8
+spot_range = 12.0
+spot_angle = 15.0
+spot_angle_attenuation = 1.2
+spot_attenuation = 0.9
+
+[node name="P3BeamNorth" type="SpotLight3D" parent="."]
+position = Vector3(0, 7.8, -3.8)
+rotation = Vector3(-1.45, 0.0, 0)
+light_color = Color(0.66, 0.76, 1, 1)
+light_energy = 16.0
+light_volumetric_fog_energy = 2.0
+spot_range = 12.0
+spot_angle = 11.0
+spot_angle_attenuation = 1.2
+spot_attenuation = 0.9
+
+[node name="AltarShaft" type="SpotLight3D" parent="."]
+position = Vector3(0, 6.8, -4.9)
+rotation = Vector3(-1.5708, 0, 0)
+light_color = Color(0.72, 0.8, 1, 1)
+light_energy = 9.0
+light_volumetric_fog_energy = 1.2
+spot_range = 8.0
+spot_angle = 9.0
+spot_angle_attenuation = 1.4
+spot_attenuation = 1.0
+
+[node name="AltarGlow" type="OmniLight3D" parent="."]
+position = Vector3(0, 2.35, -4.9)
+light_color = Color(0.58, 0.7, 1, 1)
+light_energy = 2.4
+omni_range = 5.4
+omni_attenuation = 1.35
+light_volumetric_fog_energy = 0.8
+
+[node name="ReflectionFill" type="OmniLight3D" parent="."]
+position = Vector3(0, 7.0, 1.5)
+light_color = Color(0.34, 0.44, 0.66, 1)
+light_energy = 0.8
+omni_range = 14.0
+omni_attenuation = 1.2

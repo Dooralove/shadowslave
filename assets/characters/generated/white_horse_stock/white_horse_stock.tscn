@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/generated/white_horse_stock/white_horse_stock.glb" id="1_model"]
+[ext_resource type="Script" path="res://assets/characters/generated/white_horse_stock/stock_horse.gd" id="2_script"]
+
+[node name="StockHorse" type="Node3D"]
+script = ExtResource("2_script")
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+transform = Transform3D(-0.78, 0, 0, 0, 0.78, 0, 0, 0, -0.78, 0, 0, 0)

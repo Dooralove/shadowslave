@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_equipment.png" id="1_ohku4"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_vtotb"]
+
+[resource]
+resource_name = "bone_spear"
+script = ExtResource("2_vtotb")
+id = &"bone_spear"
+display_name = "Костяное копьё"
+category = 4
+stack_max = 1
+description = "Обломок ребра с заточенным концом. Временное оружие первых часов."
+canon_status = &"CANON"
+tags = PackedStringArray("weapon", "improvised")
+icon = ExtResource("1_ohku4")

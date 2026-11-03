@@ -1,0 +1,86 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-6, -21, 6, -21, 6, 21, -6, 21)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-5.2, -13.5, 5.2, -13.5, 5.2, 13.5, -5.2, 13.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-16, -16, -8, -16, -8, 16, -16, 16)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(8, -16, 16, -16, 16, 16, 8, 16)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 20, 0, 10, 0, 0, 0, -10, 0, -20)
+closed = false
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"start"
+label = "Задние ворота"
+description = "Вход на кампус со стороны главных ворот."
+use_world_position = true
+world_position = Vector2(0, 18.5)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"gallery"
+label = "Крытая галерея"
+description = "Центральный проход между боковыми корпусами."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"sleeper"
+label = "Спальный центр"
+description = "Северный фасад с тамбуром и спуском внутрь."
+use_world_position = true
+world_position = Vector2(0, -20)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"flag"
+label = "Флаг Академии"
+description = "Южная площадь кампуса."
+use_world_position = true
+world_position = Vector2(-7, 17)
+kind = 0
+
+[resource]
+script = ExtResource("2_def")
+id = &"academy_campus"
+title = "КАМПУС АКАДЕМИИ"
+subtitle = "Галерея и спальный центр"
+description = "Внутренний кампус между задними воротами Академии и спальным центром: крытая галерея, боковые корпуса и снежная площадь."
+background_color = Color(0.07, 0.085, 0.1, 1)
+land_color = Color(0.36, 0.39, 0.43, 1)
+accent_color = Color(0.78, 0.68, 0.48, 1)
+terrain_style = &"snow"
+world_bounds = Rect2(-16, -24, 32, 48)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_campus.tscn")

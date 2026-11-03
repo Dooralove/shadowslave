@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/environments/soul_sea/materials/ss_mist.gdshader" id="1_mist"]
+
+[resource]
+resource_name = "ss_mist"
+shader = ExtResource("1_mist")
+shader_parameter/tint = Color(0.3400, 0.4400, 0.5800, 1.0)
+shader_parameter/opacity = 0.10
+shader_parameter/edge_softness = 0.38
+shader_parameter/noise_strength = 0.35

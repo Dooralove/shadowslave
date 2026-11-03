@@ -12,7 +12,7 @@
       },
       "blender": {
         "type": "local",
-        "command": ["uvx", "mcp-for-blender"],
+        "command": ["uvx", "mcp-for-blender==2.2.6"],
         "cwd": ".",
         "timeout": {
           "startup": 60000

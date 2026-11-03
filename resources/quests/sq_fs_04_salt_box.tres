@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="3_reward"]
+
+[sub_resource type="Resource" id="Obj_ledge"]
+script = ExtResource("2_objective")
+id = &"reach_ledge"
+text = "Посмотреть вниз с приливного карниза"
+kind = 3
+target_id = &"sq_fs_04_ledge"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_tide"]
+script = ExtResource("2_objective")
+id = &"wait_low"
+text = "Дождаться отлива"
+kind = 5
+target_id = &"sq_fs_04_low_tide"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_levers"]
+script = ExtResource("2_objective")
+id = &"set_levers"
+text = "Выставить костяные рычаги"
+kind = 5
+target_id = &"sq_fs_04_levers_correct"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_box"]
+script = ExtResource("2_objective")
+id = &"open_box"
+text = "Открыть шкатулку"
+kind = 2
+target_id = &"sq_fs_04_box_open"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_chart"]
+script = ExtResource("2_objective")
+id = &"read_chart"
+text = "Изучить приливную карту"
+kind = 2
+target_id = &"sq_fs_04_chart"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Reward_salt"]
+script = ExtResource("3_reward")
+currency_id = &"soul_shard"
+currency_amount = 2
+text = "2 осколка души"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"sq_fs_04_salt_box"
+scope = &"forgotten_shore"
+code = "11"
+title = "Соляная шкатулка"
+category = 1
+summary = "В отлив на низком пороге открывается старый приливной тайник."
+description = "С высокого карниза Z11 видно блеск на низком пороге. Соляная шкатулка заперта тремя костяными рычагами; открыть её можно только в отлив. Внутри — приливная карта и кость-указатель, которые помогают в истории костяного моста."
+prerequisites = Array[StringName]([])
+required_quests = Array[StringName]([])
+auto_start = false
+show_available = false
+objectives = [SubResource("Obj_ledge"), SubResource("Obj_tide"), SubResource("Obj_levers"), SubResource("Obj_box"), SubResource("Obj_chart")]
+rewards = [SubResource("Reward_salt")]
+completion_flag = &"sq_fs_04_complete"

@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="2_feature"]
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="3_marker"]
+
+[sub_resource type="Resource" id="Feature_room"]
+script = ExtResource("2_feature")
+kind = 0
+points = PackedVector2Array(-3.9, -3.9, 3.9, -3.9, 3.9, 3.9, -3.9, 3.9)
+closed = true
+
+[sub_resource type="Resource" id="Feature_corridor"]
+script = ExtResource("2_feature")
+kind = 1
+points = PackedVector2Array(-1.0, -10.5, 1.0, -10.5, 1.0, -3.9, -1.0, -3.9)
+closed = true
+
+[sub_resource type="Resource" id="Marker_chair"]
+script = ExtResource("3_marker")
+id = &"chair"
+label = "Кресло"
+description = "Место допроса."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"containment_room"
+title = "КОМНАТА СДЕРЖИВАНИЯ"
+subtitle = "Допрос"
+description = "Закрытая комната с креслом и коридором к выходу."
+background_color = Color(0.05, 0.055, 0.07, 1)
+land_color = Color(0.2, 0.21, 0.24, 1)
+accent_color = Color(0.72, 0.55, 0.31, 1)
+terrain_style = &"stone"
+world_bounds = Rect2(-4, -11, 8, 15)
+features = Array[ExtResource("2_feature")]([SubResource("Feature_room"), SubResource("Feature_corridor")])
+markers = Array[ExtResource("3_marker")]([SubResource("Marker_chair")])
+scene_paths = PackedStringArray("res://scenes/slice/locations/containment_room.tscn", "res://scenes/slice/locations/containment_room_art.tscn")
+world_rect = Rect2(0.15, 0.15, 0.7, 0.7)

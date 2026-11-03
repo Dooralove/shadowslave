@@ -13,6 +13,7 @@ const CAMP_SCENE := "res://scenes/campaign/caravan_site_arrival.tscn"
 const PILGRIM_SCENE := "res://scenes/campaign/pilgrim_path_arrival.tscn"
 const SANCTUARY_SCENE := "res://scenes/campaign/sanctuary_arrival.tscn"
 const SUNNY_SCENE := "res://scenes/characters/sunny_waking.tscn"
+const FADE_FIXTURE := "res://tests/fixtures/transition_arrival_fade.tscn"
 
 
 class RecordingPortal extends LevelPortal:
@@ -311,6 +312,35 @@ func test_pending_spawn_is_consumed_only_by_matching_scene() -> void:
 
 	assert_eq(LevelPortal.take_pending_spawn("res://scene_a.tscn"), &"SpawnA")
 	assert_eq(LevelPortal.peek_pending_spawn(), &"", "после чтения запрос очищен")
+
+
+func test_arrival_fade_is_consumed_once_without_spawn() -> void:
+	LevelPortal.set_pending_spawn(DEST_SCENE, &"Landing", 0.4)
+
+	assert_eq(LevelPortal.take_arrival_fade("res://other.tscn"), -1.0,
+		"чужая сцена не забирает fade")
+	assert_eq(LevelPortal.take_arrival_fade(DEST_SCENE), 0.4)
+	assert_eq(LevelPortal.take_arrival_fade(DEST_SCENE), -1.0,
+		"повторное чтение не запускает второй fade")
+	assert_eq(LevelPortal.peek_pending_spawn(DEST_SCENE), &"Landing",
+		"fade не съедает точку входа")
+
+
+func test_fade_layer_starts_black_and_opens_on_arrival() -> void:
+	LevelPortal.set_pending_spawn(FADE_FIXTURE, &"", 0.08)
+	var root := (load(FADE_FIXTURE) as PackedScene).instantiate()
+	add_child_autofree(root)
+	var fade := root.get_node_or_null(^"Fade") as FadeLayer
+	assert_not_null(fade)
+	if fade == null:
+		return
+	assert_almost_eq(fade.color.a, 1.0, 0.05, "сцена начинается с чёрного кадра")
+	# Ждём завершения шторки, а не фиксированные 0.16 с: под нагрузкой полного
+	# прогона твин может не успеть, и тест падает по таймингу.
+	var deadline := Time.get_ticks_msec() + 2000
+	while fade.color.a > 0.02 and Time.get_ticks_msec() < deadline:
+		await get_tree().process_frame
+	assert_almost_eq(fade.color.a, 0.0, 0.02, "шторка открывает кадр назначения")
 
 
 func test_sanctuary_wrapper_places_player_on_entrance_marker() -> void:

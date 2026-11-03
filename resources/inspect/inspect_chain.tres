@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="InspectableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inspect/inspectable_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"inspect_chain"
+display_name = "Разорванная цепь"
+kind = 1
+highlight_color = Color(0.78, 0.84, 0.94, 1)
+highlight_strength = 0.72
+pulse_speed = 1.7
+detection_radius = 3.2
+auto_inspect = true
+beat_id = &"N10"
+required_flags = Array[StringName]([])
+forbidden_flags = Array[StringName]([])
+completed_flag = &"wagon_loop_ready"
+completed_item = &""
+thought_id = &"thought_chain"
+thought_once = true
+suppress_beacon_id = &""

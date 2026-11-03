@@ -11,6 +11,13 @@
 [ext_resource type="Script" path="res://scripts/player/sunny_animator.gd" id="9_animator"]
 [ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="10_spark"]
 [ext_resource type="Script" path="res://scripts/player/fall_recovery.gd" id="11_fall"]
+[ext_resource type="Script" path="res://scripts/combat/stamina_component.gd" id="12_stamina"]
+[ext_resource type="Script" path="res://scripts/combat/combat_controller.gd" id="13_combat"]
+[ext_resource type="Resource" path="res://resources/combat/combat_settings.tres" id="14_settings"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/sunny_light_armed.tres" id="15_armed"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/sunny_light_unarmed.tres" id="16_unarmed"]
+[ext_resource type="Script" path="res://scripts/world/condition_feedback.gd" id="17_condition"]
+[ext_resource type="Script" path="res://scripts/audio/surface_detector.gd" id="18_surface"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.35
@@ -91,9 +98,34 @@ body = NodePath("..")
 animation_player = NodePath("../Visual/Model/AnimationPlayer")
 attack = NodePath("../Visual/MeleeAttack")
 health = NodePath("../Health")
+combo_clips = Array[StringName]([&"1H_Melee_Attack_Slice_Horizontal", &"1H_Melee_Attack_Slice_Diagonal", &"1H_Melee_Attack_Chop"])
+combo_window = 1.2
+dodge_hold_time = 0.8
 
 [node name="FallRecovery" type="Node" parent="."]
 script = ExtResource("11_fall")
+
+[node name="Stamina" type="Node" parent="."]
+script = ExtResource("12_stamina")
+
+[node name="CombatController" type="Node" parent="." node_paths=PackedStringArray("body", "attack", "health", "stamina", "hurtbox", "animator", "fall_recovery")]
+script = ExtResource("13_combat")
+body = NodePath("..")
+attack = NodePath("../Visual/MeleeAttack")
+health = NodePath("../Health")
+stamina = NodePath("../Stamina")
+hurtbox = NodePath("../Hurtbox")
+animator = NodePath("../Animator")
+fall_recovery = NodePath("../FallRecovery")
+settings = ExtResource("14_settings")
+armed_attack = ExtResource("15_armed")
+unarmed_attack = ExtResource("16_unarmed")
+
+[node name="ConditionFeedback" type="Node" parent="."]
+script = ExtResource("17_condition")
+
+[node name="SurfaceDetector" type="Node" parent="."]
+script = ExtResource("18_surface")
 
 [node name="CameraRig" type="Node3D" parent="."]
 position = Vector3(0, 1.5, 0)

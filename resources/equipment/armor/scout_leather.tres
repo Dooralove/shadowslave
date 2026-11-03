@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/armor_item.gd" id="1_armor"]
+[ext_resource type="PackedScene" path="res://assets/characters/equipment/armor/scout_leather.glb" id="2_visual"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/generated_v3.tres" id="3_rig"]
+[ext_resource type="Resource" path="res://resources/equipment/stats/scout_leather_stats.tres" id="4_stats"]
+
+[resource]
+script = ExtResource("1_armor")
+id = &"scout_leather"
+display_name = "Доспех разведчика"
+slot = 0
+visual_scene = ExtResource("2_visual")
+rig_profile = ExtResource("3_rig")
+hide_parts = PackedStringArray()
+hide_surfaces = PackedInt32Array(1, 2, 3)
+tags = PackedStringArray("armor", "light", "leather", "scout", "generated")
+ab_variant = &"scout"
+notes = "Hyper3D image-to-3D: лёгкий кожаный доспех с зелёным капюшоном и плащом. Пустой манекен, голова удалена; базовое тело скрыто, голова персонажа остаётся."
+mode = 0
+coverage = PackedStringArray("torso", "arms", "legs", "feet", "head")
+stats = ExtResource("4_stats")
+rarity = 1
+set_id = &"scout_leather"
+required_strength = 0.0
+description = "Лёгкий кожаный доспех разведчика: зелёный капюшон, кожаная кираса, наручи и высокие сапоги."
+lore = "Разведчики Пограничья ценят тишину выше стали. Этот доспех шьют из выделанной кожи и красят в цвет мха."
+rarity_color = Color(0.45, 0.72, 0.4, 1)

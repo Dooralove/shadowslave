@@ -1,0 +1,159 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/combat_hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/vitals_bar.tscn" id="2_vitals"]
+[ext_resource type="Shader" path="res://assets/ui/vitals/vitals_vignette.gdshader" id="3_vignette"]
+
+[sub_resource type="StyleBoxFlat" id="Style_bar_bg"]
+bg_color = Color(0.04, 0.043, 0.045, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.21, 0.2, 0.184, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="Style_player_fill"]
+bg_color = Color(0.45, 0.65, 0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_stamina_fill"]
+bg_color = Color(0.85, 0.67, 0.36, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_enemy_fill"]
+bg_color = Color(0.72, 0.3, 0.22, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
+shader = ExtResource("3_vignette")
+shader_parameter/intensity = 0.0
+shader_parameter/pulse = 0.0
+shader_parameter/tint = Color(0.52, 0.055, 0.045, 1)
+shader_parameter/viewport_size = Vector2(1600, 900)
+
+[node name="CombatHud" type="CanvasLayer"]
+layer = 8
+script = ExtResource("1_hud")
+
+[node name="Vignette" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_vignette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlayerPanel" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 380.0
+offset_bottom = 150.0
+grow_horizontal = 1
+grow_vertical = 1
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="VitalsBar" parent="Root/PlayerPanel" instance=ExtResource("2_vitals")]
+custom_minimum_size = Vector2(360, 130)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerLabel" type="Label" parent="Root/PlayerPanel"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 15
+text = "Санни"
+
+[node name="PlayerHealth" type="ProgressBar" parent="Root/PlayerPanel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(300, 14)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("Style_bar_bg")
+theme_override_styles/fill = SubResource("Style_player_fill")
+value = 100.0
+show_percentage = false
+
+[node name="PlayerStamina" type="ProgressBar" parent="Root/PlayerPanel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(300, 8)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("Style_bar_bg")
+theme_override_styles/fill = SubResource("Style_stamina_fill")
+value = 100.0
+show_percentage = false
+
+[node name="EnemyPanel" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 1
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="EnemyLabel" type="Label" parent="Root/EnemyPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.88, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 15
+text = "Противник"
+horizontal_alignment = 1
+
+[node name="EnemyHealth" type="ProgressBar" parent="Root/EnemyPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 14)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("Style_bar_bg")
+theme_override_styles/fill = SubResource("Style_enemy_fill")
+value = 100.0
+show_percentage = false
+
+[node name="Message" type="Label" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -70.0
+offset_right = 320.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 44
+horizontal_alignment = 1
+vertical_alignment = 1

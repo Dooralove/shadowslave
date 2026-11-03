@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapRegion" format=3]
+[gd_resource type="Resource" script_class="MapRegion" load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
 [ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
@@ -6,14 +6,41 @@
 [ext_resource type="Script" path="res://scripts/map/map_region.gd" id="4_region"]
 [ext_resource type="Script" path="res://scripts/map/map_placement.gd" id="5_placement"]
 
+[sub_resource type="Resource" id="RegionMap_P0"]
+script = ExtResource("5_placement")
+location_id = &"labyrinth_first_fragment"
+label = "ЛАБИРИНТ · ПЕРВЫЙ ФРАГМЕНТ"
+center = Vector2(800, 200)
+pixels_per_meter = 1.0
+rotation_degrees = 0.0
+label_offset = Vector2(0, -168)
+
+[sub_resource type="Resource" id="RegionMap"]
+script = ExtResource("2_def")
+id = &"region_forgotten_shore_map"
+title = "ЗАБЫТЫЙ БЕРЕГ"
+subtitle = "Кратер · Лабиринт"
+description = "Первый фрагмент Лабиринта: подножие статуи, восточные развилки, охотничьи угодья и подъём к утёсам."
+background_color = Color(0.03, 0.035, 0.04, 1)
+land_color = Color(0.55, 0.56, 0.58, 1)
+accent_color = Color(0.78, 0.63, 0.38, 1)
+terrain_style = &"coral"
+world_bounds = Rect2(0, 0, 1600, 400)
+preserve_aspect = false
+features = Array[ExtResource("3_feature")]([])
+markers = Array[ExtResource("1_marker")]([])
+placements = Array[ExtResource("5_placement")]([SubResource("RegionMap_P0")])
+scene_paths = PackedStringArray()
+
 [resource]
 script = ExtResource("4_region")
 id = &"region_forgotten_shore"
 title = "ЗАБЫТЫЙ БЕРЕГ"
-subtitle = "Север · кратер"
-description = "Огромный кратер к северу от Полых гор. В центре — Багровый шпиль в кольце Лабиринта, на восточном краю кратера — Тёмный город, на западном — Пепельный курган."
-status = 1
+subtitle = "Кратер · Лабиринт"
+description = "Кратер к северу от Полых гор. В центре — Багровый шпиль в кольце Лабиринта, на восточном краю — Тёмный город, в глубине кратера — Безымянный остров."
+status = 0
 outside_realm = false
-outline = PackedVector2Array(0.016, 0.02, 0.48, 0.02, 0.496, 0.12, 0.48, 0.28, 0.32, 0.31, 0.16, 0.3, 0.016, 0.27)
-label_position = Vector2(0.24, 0.285)
-location_ids = Array[StringName]([])
+outline = PackedVector2Array(0.0992, 0.356, 0.1328, 0.398, 0.176, 0.424, 0.2256, 0.438, 0.28, 0.446, 0.336, 0.438, 0.392, 0.442, 0.448, 0.448, 0.504, 0.44, 0.552, 0.428, 0.5872, 0.402, 0.608, 0.438, 0.6096, 0.482, 0.5904, 0.52, 0.552, 0.548, 0.504, 0.564, 0.448, 0.576, 0.392, 0.58, 0.336, 0.572, 0.28, 0.56, 0.2256, 0.54, 0.176, 0.514, 0.1328, 0.482, 0.1056, 0.438)
+label_position = Vector2(0.352, 0.452)
+location_ids = Array[StringName]([&"labyrinth_first_fragment"])
+region_map = SubResource("RegionMap")

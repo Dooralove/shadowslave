@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N08"
+part = &"act_1"
+part_title = "Акт I «Цепь»"
+canonical_block = 7
+title = "Камнепад и появление Тирана"
+beat_type = 0
+format_label = "И + К"
+objective = "Уцелеть"
+idle_objectives = Array[String](["Смотри на тени на снегу", "Уклоняйся от льдин, не разрывая цепь"])
+checkpoint_id = &"CP-N08"
+checkpoint_ids = Array[StringName]([&"CP-N08"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N08": Vector3(0.6, 0.05, 1.8)
+})
+entry_conditions = Array[StringName]([&"camp_explored"])
+exit_conditions = Array[StringName]([&"attack_started", &"broad_slave_dead"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 60.0
+estimated_time_text = "~1 мин"
+scene_path = "res://scenes/campaign/caravan_site_arrival.tscn"
+can_die = true

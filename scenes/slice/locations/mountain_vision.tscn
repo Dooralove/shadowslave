@@ -44,6 +44,10 @@ albedo_color = Color(0.35, 0.33, 0.3, 1)
 metallic = 0.8
 roughness = 0.5
 
+[sub_resource type="StandardMaterial3D" id="Mat_wagon"]
+albedo_color = Color(0.28, 0.18, 0.12, 1)
+roughness = 0.85
+
 [node name="MountainVision" type="Node3D"]
 script = ExtResource("1_loc")
 
@@ -140,6 +144,72 @@ material = SubResource("Mat_snow")
 [node name="Bones" type="Node3D" parent="Road"]
 visible = false
 
+[node name="FutureCamp" type="Node3D" parent="Road"]
+visible = false
+position = Vector3(0.8, 0, -31)
+
+[node name="Wagon" type="Node3D" parent="Road/FutureCamp"]
+
+[node name="Body" type="CSGBox3D" parent="Road/FutureCamp/Wagon"]
+position = Vector3(0, 1.0, 0)
+size = Vector3(2.6, 1.1, 1.6)
+material = SubResource("Mat_wagon")
+
+[node name="Floor" type="CSGBox3D" parent="Road/FutureCamp/Wagon"]
+position = Vector3(0, 0.4, 0)
+size = Vector3(2.9, 0.12, 1.8)
+material = SubResource("Mat_wagon")
+
+[node name="WheelA" type="CSGCylinder3D" parent="Road/FutureCamp/Wagon"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 1.1, 0.55, -0.95)
+radius = 0.55
+height = 0.14
+sides = 12
+material = SubResource("Mat_wagon")
+
+[node name="WheelB" type="CSGCylinder3D" parent="Road/FutureCamp/Wagon"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 1.1, 0.55, 0.95)
+radius = 0.55
+height = 0.14
+sides = 12
+material = SubResource("Mat_wagon")
+
+[node name="WheelC" type="CSGCylinder3D" parent="Road/FutureCamp/Wagon"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -1.1, 0.55, -0.95)
+radius = 0.55
+height = 0.14
+sides = 12
+material = SubResource("Mat_wagon")
+
+[node name="WheelD" type="CSGCylinder3D" parent="Road/FutureCamp/Wagon"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -1.1, 0.55, 0.95)
+radius = 0.55
+height = 0.14
+sides = 12
+material = SubResource("Mat_wagon")
+
+[node name="ChockL" type="CSGBox3D" parent="Road/FutureCamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.12, 1.15)
+size = Vector3(0.35, 0.24, 0.24)
+material = SubResource("Mat_wagon")
+
+[node name="ChockR" type="CSGBox3D" parent="Road/FutureCamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.12, -0.45)
+size = Vector3(0.35, 0.24, 0.24)
+material = SubResource("Mat_wagon")
+
+[node name="BoneA" type="CSGBox3D" parent="Road/FutureCamp"]
+position = Vector3(-1.4, 0.04, 1.3)
+rotation = Vector3(0, 0.5, 0)
+size = Vector3(0.5, 0.08, 0.1)
+material = SubResource("Mat_bone")
+
+[node name="BoneB" type="CSGBox3D" parent="Road/FutureCamp"]
+position = Vector3(-1.0, 0.04, 1.65)
+rotation = Vector3(0, -0.3, 0)
+size = Vector3(0.45, 0.08, 0.1)
+material = SubResource("Mat_bone")
+
 [node name="BoneA" type="CSGBox3D" parent="Road/Bones"]
 position = Vector3(0.6, 0.05, -12)
 rotation = Vector3(0, 0.7, 0)
@@ -189,7 +259,7 @@ pose = "walk"
 
 [node name="SlaveB" parent="Road/Caravan" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 1.6)
-width_scale = 1.3
+width_scale = 1.12
 archetype = "slave"
 pose = "walk"
 

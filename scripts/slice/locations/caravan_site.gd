@@ -11,6 +11,9 @@ extends SliceLocation
 signal sequence_requested(sequence: DialogueSequence)
 signal hint_requested(text: String)
 signal camp_explored
+signal meal_taken
+signal second_larva_finished
+signal tyrant_attention_caught
 signal attack_requested
 signal larva_grabbed
 signal key_collected
@@ -55,12 +58,12 @@ const PHASE_COMPLETE := &"COMPLETE"
 const FLASK_FLAGS := [&"flask_a_collected", &"flask_b_collected", &"flask_c_collected"]
 
 const CAMP_RATIONS := preload("res://resources/dialogue/caravan/camp_rations.tres")
-const CAMP_BLOODBANE := preload("res://resources/dialogue/caravan/camp_bloodbane.tres")
 const CAMP_WAGON := preload("res://resources/dialogue/caravan/camp_wagon.tres")
+const SECOND_LARVA_SCENE := preload("res://scenes/enemies/larva_enemy.tscn")
 
 @export var ration_sequence: DialogueSequence
-@export var bloodbane_sequence: DialogueSequence
 @export var wagon_sequence: DialogueSequence
+
 
 @onready var fire_light: OmniLight3D = $Props/Fire/FireLight
 @onready var flame_a: Node3D = $Props/Fire/FlameA
@@ -74,6 +77,7 @@ const CAMP_WAGON := preload("res://resources/dialogue/caravan/camp_wagon.tres")
 @onready var four_larvae: Node3D = $Props/FourLarvae
 @onready var tyrant: MountainKing = $Tyrant
 @onready var rocks: Node3D = $Props/Rocks
+@onready var rockfall: RockfallHazard = $Props/Rocks/RockfallHazard
 @onready var chain_anchor: Node3D = $Spawns/ChainAnchor
 @onready var wagon: Node3D = $Props/Wagon
 @onready var wedge_l: Node3D = $Props/Wagon/WedgeL
@@ -98,15 +102,25 @@ var phase: StringName = PHASE_CAMP
 var _time := 0.0
 var _rock_targets: Dictionary = {}
 var _tyrant_home := Vector3.ZERO
+var _tyrant_attention_active := false
+@export var tyrant_attention_radius := 0.9
+var second_larva: TestEnemy
+var _second_larva_finishing := false
+var _night_edges: Array[TriggerZone] = []
 
 
 func _ready() -> void:
 	super._ready()
 	interacted.connect(_on_interacted)
+	var triggers := get_node_or_null("Triggers")
+	if triggers != null:
+		for node in triggers.get_children():
+			if node is TriggerZone:
+				var zone := node as TriggerZone
+				_night_edges.append(zone)
+				zone.triggered.connect(_on_night_edge_triggered)
 	if ration_sequence == null:
 		ration_sequence = CAMP_RATIONS
-	if bloodbane_sequence == null:
-		bloodbane_sequence = CAMP_BLOODBANE
 	if wagon_sequence == null:
 		wagon_sequence = CAMP_WAGON
 	_prepare_props()
@@ -138,6 +152,8 @@ func _prepare_props() -> void:
 		tyrant.collision_mask = 0
 		tyrant.visible = false
 	for rock in rocks.get_children():
+		if rock is RockfallHazard:
+			continue
 		_rock_targets[rock] = (rock as Node3D).position
 		(rock as Node3D).position += Vector3(0.0, 9.0, 0.0)
 		(rock as Node3D).visible = false
@@ -145,18 +161,23 @@ func _prepare_props() -> void:
 
 func begin_camp() -> void:
 	_set_phase(PHASE_CAMP)
-	for id in [&"camp_rations", &"camp_bloodbane", &"camp_wagon"]:
+	_apply_phase_audio()
+	for id in [&"camp_rations"]:
 		var interactable := get_interactable(id)
 		if interactable:
 			interactable.enabled = not _is_camp_interaction_seen(id)
-	set_interactable_enabled(&"camp_attack", all_camp_interactions_seen())
+	# N07 v2: костёр и ягоды — постановка, а не чек-лист осмотров.
+	set_interactable_enabled(&"camp_bloodbane", false)
+	set_interactable_enabled(&"camp_wagon", false)
+	set_interactable_enabled(&"camp_attack", false)
 	set_interactable_enabled(&"chain_larva", false)
 	set_interactable_enabled(&"hero_key", false)
 	set_interactable_enabled(&"wagon_wedges", false)
 	set_interactable_enabled(&"wagon_loop", false)
 	set_interactable_enabled(&"wagon_push", false)
-	for id in [&"flask_a", &"flask_b", &"flask_c", &"poison_flasks", &"veteran", &"veteran_sword", &"night_fire", &"dawn_exit"]:
+	for id in [&"flask_a", &"flask_b", &"flask_c", &"veteran", &"veteran_sword", &"dawn_exit"]:
 		set_interactable_enabled(id, false)
+	_arm_night_edges(false)
 	_refresh_camp_progress(false)
 
 
@@ -183,8 +204,6 @@ func _on_interacted(id: StringName) -> void:
 	match id:
 		&"camp_rations":
 			_take_rations()
-		&"camp_bloodbane":
-			_examine_bloodbane()
 		&"camp_wagon":
 			_examine_wagon()
 		&"camp_attack":
@@ -205,14 +224,10 @@ func _on_interacted(id: StringName) -> void:
 			_collect_flask(1)
 		&"flask_c":
 			_collect_flask(2)
-		&"poison_flasks":
-			_poison_flasks()
 		&"veteran":
 			_discover_veteran()
 		&"veteran_sword":
 			_take_veteran_sword()
-		&"night_fire":
-			_request_night()
 		&"dawn_exit":
 			_request_dawn()
 
@@ -227,17 +242,7 @@ func _take_rations() -> void:
 		sequence_requested.emit(ration_sequence)
 	hint_requested.emit("Хлеб жёсткий, вода отдаёт железом. Лучше, чем ничего.")
 	_refresh_camp_progress()
-
-
-func _examine_bloodbane() -> void:
-	if NightmareRunState.has_flag(FLAG_BLOODBANE):
-		return
-	NightmareRunState.set_flag(FLAG_BLOODBANE)
-	set_interactable_enabled(&"camp_bloodbane", false)
-	if bloodbane_sequence:
-		sequence_requested.emit(bloodbane_sequence)
-	hint_requested.emit("Bloodbane. Смертельный яд. Красные ягоды на снегу — предупреждение, а не еда.")
-	_refresh_camp_progress()
+	meal_taken.emit()
 
 
 func _examine_wagon() -> void:
@@ -249,6 +254,17 @@ func _examine_wagon() -> void:
 		sequence_requested.emit(wagon_sequence)
 	hint_requested.emit("Повозка стоит боком. Задние колёса — у самого обрыва, под ними клинья.")
 	_refresh_camp_progress()
+
+
+## Постановка N07 (список v2, D02): узнавание ягод Bloodbane и повозки с клиньями
+## через взгляд Санни и вспышку кадра из видения, без ручного чек-листа осмотра.
+func stage_camp_vision_recognition() -> void:
+	NightmareRunState.set_flag(FLAG_BLOODBANE)
+	NightmareRunState.set_flag(FLAG_WAGON)
+	set_interactable_enabled(&"camp_bloodbane", false)
+	set_interactable_enabled(&"camp_wagon", false)
+	_refresh_camp_progress(false)
+
 
 
 func _refresh_camp_progress(announce := true) -> void:
@@ -270,8 +286,9 @@ func _begin_attack() -> void:
 	NightmareRunState.set_flag(FLAG_ATTACK)
 	NightmareRunState.set_flag(FLAG_CAMP_COMPLETED)
 	set_interactable_enabled(&"camp_attack", false)
-	for id in [&"camp_rations", &"camp_bloodbane", &"camp_wagon", &"poison_flasks", &"chain_larva", &"hero_key", &"wagon_wedges", &"wagon_loop", &"wagon_push"]:
+	for id in [&"camp_rations", &"camp_bloodbane", &"camp_wagon", &"chain_larva", &"hero_key", &"wagon_wedges", &"wagon_loop", &"wagon_push"]:
 		set_interactable_enabled(id, false)
+	_arm_night_edges(false)
 	_set_phase(PHASE_ATTACK)
 	attack_requested.emit()
 
@@ -297,12 +314,132 @@ func _set_phase(next_phase: StringName) -> void:
 		return
 	phase = next_phase
 	phase_changed.emit(phase)
+	_apply_phase_audio()
+
+
+func _apply_phase_audio() -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	if director.has_method(&"set_reverb_profile"):
+		director.call(&"set_reverb_profile", &"outdoor")
+	match phase:
+		PHASE_CAMP:
+			_audio_music(&"camp", 2.0)
+			_audio_ambience(&"camp", 2.0)
+			_audio_intensity(0.35)
+		PHASE_ATTACK:
+			_audio_music(&"caravan", 2.0)
+			_audio_ambience(&"camp", 2.0)
+			_audio_intensity(0.85)
+		PHASE_LARVA:
+			_audio_intensity(1.0)
+		PHASE_WAGON:
+			_audio_intensity(0.8)
+		PHASE_AFTERMATH:
+			_audio_music(&"camp", 2.0)
+			_audio_ambience(&"camp", 2.0)
+			_audio_intensity(0.3)
+		PHASE_NIGHT:
+			_audio_stop_music(2.0)
+			_audio_ambience(&"camp", 2.0)
+			_audio_intensity(0.0)
+		PHASE_DAWN:
+			_audio_music(&"camp", 2.0)
+			_audio_ambience(&"camp", 2.0)
+			_audio_intensity(0.45)
+		PHASE_COMPLETE:
+			_audio_stop_music(2.0)
+			_audio_stop_ambience(2.0)
+	if director.has_method(&"play_sfx"):
+		match phase:
+			PHASE_ATTACK:
+				var roar_position: Vector3 = tyrant.global_position if is_instance_valid(tyrant) else global_position
+				director.call(&"play_sfx", &"combat_tyrant_roar", roar_position, -4.0)
+			PHASE_LARVA:
+				var screech_position: Vector3 = larva.global_position if is_instance_valid(larva) else global_position
+				director.call(&"play_sfx", &"combat_larva_screech", screech_position)
+			PHASE_DAWN:
+				if director.has_method(&"play_ui"):
+					director.call(&"play_ui", &"ui_quest_update")
+
+
+func _audio_music(cue_id: StringName, fade: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"play_music"):
+		director.call(&"play_music", cue_id, fade)
+
+
+func _audio_ambience(zone_id: StringName, fade: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"play_ambience"):
+		director.call(&"play_ambience", zone_id, fade)
+
+
+func _audio_intensity(value: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"set_music_intensity"):
+		director.call(&"set_music_intensity", value)
+
+
+func _audio_stop_music(fade: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"stop_music"):
+		director.call(&"stop_music", fade)
+
+
+func _audio_stop_ambience(fade: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"stop_ambience"):
+		director.call(&"stop_ambience", fade)
 
 
 func begin_larva_phase() -> void:
 	_set_phase(PHASE_LARVA)
 	set_interactable_enabled(&"chain_larva", true)
 	hint_requested.emit("Цепь ослабла. Набросьте её на шею твари — E.")
+
+
+## Вторая личинка N09/D04: настоящий враг на боевой основе, а не декор.
+func spawn_second_larva(target: Node3D) -> TestEnemy:
+	if is_instance_valid(second_larva):
+		return second_larva
+	hide_four_larvae()
+	var enemy := (SECOND_LARVA_SCENE as PackedScene).instantiate() as TestEnemy
+	enemy.name = "SecondLarva"
+	enemy.target = target
+	add_child(enemy)
+	enemy.global_position = Vector3(2.2, 0.05, -1.1)
+	enemy.health.damaged.connect(_on_second_larva_damaged)
+	enemy.health.died.connect(_on_second_larva_died)
+	second_larva = enemy
+	_second_larva_finishing = false
+	return enemy
+
+
+func _on_second_larva_damaged(_amount: float) -> void:
+	if second_larva == null or _second_larva_finishing:
+		return
+	if second_larva.health.current_health <= second_larva.health.max_health * 0.35:
+		_finish_second_larva()
+
+
+func _on_second_larva_died() -> void:
+	_finish_second_larva()
+
+
+func _finish_second_larva() -> void:
+	if second_larva == null or _second_larva_finishing:
+		return
+	_second_larva_finishing = true
+	second_larva.attack.disable()
+	second_larva.set_physics_process(false)
+	if not second_larva.health.is_dead():
+		second_larva.health.take_damage(second_larva.health.max_health)
+	second_larva.visible = false
+	# Отдельный флаг: оценка не должна считать эту личинку лишним деянием.
+	NightmareRunState.set_flag(&"second_larva_killed")
+	second_larva_finished.emit()
 
 
 func finish_episode() -> void:
@@ -316,6 +453,9 @@ func finish_episode() -> void:
 
 func begin_wagon_phase() -> void:
 	_set_phase(PHASE_WAGON)
+	# N10/D05: Тиран стоит у повозки и реагирует на слишком близкое движение.
+	stage_tyrant_for_wagon()
+	set_tyrant_attention(true)
 	# Эпизод нападения закончен: четыре личинки не должны оставаться в кадре
 	# во время обсуждения плана с повозкой и во всех последующих фазах.
 	hide_four_larvae()
@@ -328,7 +468,7 @@ func begin_wagon_phase() -> void:
 	elif not NightmareRunState.has_flag(FLAG_LOOP):
 		hint_requested.emit("Клинья убраны. Свейте петлю из разорванного конца цепи — E.")
 	else:
-		hint_requested.emit("Петля готова. Встаньте у передка повозки и толкните её — E.")
+		hint_requested.emit("Петля готова. Один бросок — E.")
 
 
 func _remove_wedges() -> void:
@@ -349,7 +489,7 @@ func _prepare_loop() -> void:
 	set_interactable_enabled(&"wagon_loop", false)
 	chain_loop.visible = true
 	set_interactable_enabled(&"wagon_push", true)
-	hint_requested.emit("Скользящая петля готова. Толкните повозку в сторону обрыва — E.")
+	hint_requested.emit("Скользящая петля готова. Один бросок — E.")
 
 
 func _push_wagon() -> void:
@@ -362,6 +502,15 @@ func _push_wagon() -> void:
 	wagon_push_requested.emit()
 
 
+## После промаха петля остаётся готовой: игрок возвращается на CP-N10b и бросает снова.
+func reset_wagon_throw() -> void:
+	if phase != PHASE_WAGON:
+		return
+	set_interactable_enabled(&"wagon_push", NightmareRunState.has_flag(FLAG_LOOP) and not NightmareRunState.has_flag(FLAG_WAGON_FALL))
+	set_interactable_enabled(&"wagon_wedges", false)
+	set_interactable_enabled(&"wagon_loop", false)
+
+
 ## Выставляет Тирана у обрыва для постановки с повозкой. В отличие от первого
 ## появления, здесь он уже не «выглядывает» из-за стены, а стоит на площадке.
 func stage_tyrant_for_wagon() -> void:
@@ -371,6 +520,14 @@ func stage_tyrant_for_wagon() -> void:
 	tyrant.rotation = Vector3(0.0, -1.35, 0.0)
 	tyrant.scale = Vector3.ONE
 	tyrant.visible = true
+
+
+func set_tyrant_attention(active: bool) -> void:
+	_tyrant_attention_active = active
+
+
+func is_tyrant_attention_active() -> bool:
+	return _tyrant_attention_active
 
 
 func animate_wagon_fall(fast := false) -> void:
@@ -412,6 +569,7 @@ func _mark_wagon_fall_seen() -> void:
 
 func show_aftermath() -> void:
 	_set_phase(PHASE_AFTERMATH)
+	set_tyrant_attention(false)
 	wagon.visible = false
 	tyrant.visible = false
 	chain_loop.visible = false
@@ -420,9 +578,9 @@ func show_aftermath() -> void:
 	larva.visible = false
 	white_horse.visible = false
 	dark_horse.visible = false
-	# Без лошадей Герой и Ветеран стоят, а не сидят в воздухе.
-	(hero as Mannequin).pose = "idle"
-	(veteran as Mannequin).pose = "idle"
+	# Герой ранен и опускается на колено; Ветеран лежит у края, а не стоит.
+	(hero as Mannequin).pose = "kneel"
+	(veteran as Mannequin).pose = "dead"
 	for node in [$NPCs/SoldierA, $NPCs/SoldierB, $NPCs/SlaveA, $NPCs/SlaveB, $NPCs/SlaveC]:
 		(node as Node3D).visible = false
 	hero.position = Vector3(1.2, 0.0, 1.5)
@@ -466,10 +624,8 @@ func _refresh_aftermath() -> void:
 	set_interactable_enabled(&"veteran", not found and not dead)
 	set_interactable_enabled(&"veteran_sword", found and not sword_taken and not dead)
 	veteran_sword.visible = found and not sword_taken and not dead
-	# Костёр остаётся доступной точкой и до готовности: игрок должен получить
-	# причину, почему ночь ещё не начинается, а не упереться в молчаливый отказ.
-	set_interactable_enabled(&"poison_flasks", can_poison_flasks())
-	set_interactable_enabled(&"night_fire", NightmareRunState.has_flag(FLAG_TASKS))
+	# Ночь начинается не кнопкой у костра, а когда игрок подходит к краю.
+	_arm_night_edges(NightmareRunState.has_flag(FLAG_TASKS) and phase == PHASE_AFTERMATH)
 	set_interactable_enabled(&"dawn_exit", false)
 
 
@@ -481,52 +637,19 @@ func collected_flasks() -> int:
 	return count
 
 
-func can_poison_flasks() -> bool:
-	return (
-		phase == PHASE_AFTERMATH
-		and NightmareRunState.has_flag(FLAG_ATTACK)
-		and NightmareRunState.has_flag(FLAG_BLOODBANE)
-		and collected_flasks() >= 3
-		and not NightmareRunState.has_flag(FLAG_FLASKS_POISONED)
-	)
-
-
-func poison_block_hint() -> String:
-	if phase != PHASE_AFTERMATH:
-		return "Сначала нужно пережить нападение."
-	if not NightmareRunState.has_flag(FLAG_ATTACK):
-		return "Сначала нужно пережить нападение."
-	if not NightmareRunState.has_flag(FLAG_BLOODBANE):
-		return "Сначала осмотрите Bloodbane."
-	if collected_flasks() < 3:
-		return "Сначала соберите три фляги у мёртвых солдат."
-	if NightmareRunState.has_flag(FLAG_FLASKS_POISONED):
-		return "Общие фляги уже отравлены."
-	return ""
-
-
-func _poison_flasks() -> void:
-	if NightmareRunState.has_flag(FLAG_FLASKS_POISONED):
-		return
-	if not can_poison_flasks():
-		var reason := poison_block_hint()
-		if not reason.is_empty():
-			hint_requested.emit(reason)
-		return
+## Постановка N13 (список v2, D06): ночной монтаж Bloodbane выставляет
+## последствия за кадром. Точки E и старой подсказки здесь больше нет.
+func stage_bloodbane_montage() -> void:
+	NightmareRunState.set_flag(FLAG_BLOODBANE)
 	NightmareRunState.set_flag(FLAG_FLASKS_POISONED)
 	NightmareRunState.set_flag(FLAG_SUNNY_FLASK_CLEAN)
-	set_interactable_enabled(&"poison_flasks", false)
-	hint_requested.emit("Общие фляги отравлены. Своя фляга осталась чистой.")
-	_refresh_aftermath()
 
 
 func can_start_night() -> bool:
 	return (
 		phase == PHASE_AFTERMATH
 		and NightmareRunState.has_flag(FLAG_ATTACK)
-		and NightmareRunState.has_flag(FLAG_BLOODBANE)
 		and collected_flasks() >= 3
-		and NightmareRunState.has_flag(FLAG_FLASKS_POISONED)
 		and NightmareRunState.has_flag(FLAG_VETERAN_DEAD)
 	)
 
@@ -536,10 +659,6 @@ func night_block_reason() -> String:
 		return "Сначала нужно пережить нападение."
 	if collected_flasks() < 3:
 		return "Сначала соберите три фляги у мёртвых солдат."
-	if not NightmareRunState.has_flag(FLAG_BLOODBANE):
-		return "Сначала осмотрите Bloodbane."
-	if not NightmareRunState.has_flag(FLAG_FLASKS_POISONED):
-		return "Сначала отравьте общие фляги Bloodbane."
 	if not NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
 		return "Сначала разберитесь с раненым ветераном."
 	return ""
@@ -562,11 +681,17 @@ func _collect_flask(index: int) -> void:
 		hint_requested.emit("Фляга с водой. Ещё %d." % (3 - count))
 	elif not NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
 		hint_requested.emit("Три фляги собраны. На тёмном краю всё ещё слышен стон.")
-	elif not NightmareRunState.has_flag(FLAG_FLASKS_POISONED):
-		hint_requested.emit("Фляги собраны. Осталось отравить общие фляги Bloodbane.")
+		_set_campaign_objective("Подойти к раненому ветерану на тёмном краю.")
 	else:
-		hint_requested.emit("Припасы собраны. Пора к огню.")
+		hint_requested.emit("Припасы собраны. Пора к краю.")
+		_set_campaign_objective("Вернуться к повозке и продолжить путь.")
 	_refresh_aftermath()
+
+
+func _set_campaign_objective(text: String) -> void:
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	if guide != null and guide.has_method(&"set_external_objective"):
+		guide.call(&"set_external_objective", text, &"campaign")
 
 
 func _discover_veteran() -> void:
@@ -618,20 +743,39 @@ func execute_veteran() -> void:
 	hint_requested.emit("Колокольчик звенит в ладони. Накидка и сапоги ещё хранят тепло.")
 
 
+func request_night() -> void:
+	_request_night()
+
+
+func _on_night_edge_triggered(id: StringName) -> void:
+	if id == &"night_edge":
+		_request_night()
+
+
+func _arm_night_edges(value: bool) -> void:
+	for zone in _night_edges:
+		zone.enabled = value
+
+
 func _request_night() -> void:
 	if phase != PHASE_AFTERMATH:
 		return
-	# Костёр остаётся видимым, пока ночь не готова: причина показывается игроку,
-	# а не теряется молчаливым отказом.
+	# Причина отказа показывается до события; край снова активен, чтобы игрок
+	# мог вернуться после сбора фляг или разговора с ветераном.
 	var reason := night_block_reason()
 	if not reason.is_empty():
 		hint_requested.emit(reason)
+		_arm_night_edges(true)
 		return
+	# N13: монтаж Bloodbane — постановка события, а не E-точка.
+	stage_bloodbane_montage()
 	NightmareRunState.set_flag(FLAG_NIGHT)
 	_set_phase(PHASE_NIGHT)
-	for id in [&"flask_a", &"flask_b", &"flask_c", &"veteran", &"veteran_sword", &"night_fire", &"dawn_exit"]:
+	_arm_night_edges(false)
+	for id in [&"flask_a", &"flask_b", &"flask_c", &"veteran", &"veteran_sword", &"dawn_exit"]:
 		set_interactable_enabled(id, false)
 	night_requested.emit()
+
 
 
 func place_party_at_fire() -> void:
@@ -663,10 +807,15 @@ func _request_dawn() -> void:
 	NightmareRunState.set_flag(&"camp_aftermath_completed")
 	_set_phase(PHASE_COMPLETE)
 	set_interactable_enabled(&"dawn_exit", false)
+	# Цель лагеря больше не актуальна: следующая сцена ставит свою.
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	if guide != null and guide.has_method(&"clear_external_objective"):
+		guide.call(&"clear_external_objective", &"campaign")
 	dawn_requested.emit()
 
 
 func drop_rocks(fast := false) -> void:
+	reset_rocks()
 	for rock in _rock_targets:
 		(rock as Node3D).visible = true
 	if fast:
@@ -681,6 +830,26 @@ func drop_rocks(fast := false) -> void:
 		tween.tween_property(rock, "rotation", (rock as Node3D).rotation + Vector3(0.4, 0.8, 0.25), 0.75)
 		index += 1
 	await tween.finished
+
+
+func reset_rocks() -> void:
+	for rock in _rock_targets:
+		var node := rock as Node3D
+		node.position = _rock_targets[rock] + Vector3(0.0, 9.0, 0.0)
+		node.visible = false
+	rockfall.reset()
+
+
+func begin_rockfall_warning() -> void:
+	rockfall.start_warning()
+
+
+func resolve_rockfall() -> bool:
+	return rockfall.resolve_impact()
+
+
+func get_rockfall_warning_time() -> float:
+	return rockfall.warning_time
 
 
 func show_tyrant() -> void:
@@ -778,6 +947,11 @@ func get_chain_anchor_position() -> Vector3:
 
 func _process(delta: float) -> void:
 	_time += delta
+	if _tyrant_attention_active and is_instance_valid(tyrant) and tyrant.visible:
+		var player := get_tree().get_first_node_in_group(&"player") as Node3D
+		if player != null and player.global_position.distance_to(tyrant.global_position) <= tyrant_attention_radius:
+			_tyrant_attention_active = false
+			tyrant_attention_caught.emit()
 	if fire_light:
 		fire_light.light_energy = 1.55 + sin(_time * 10.0) * 0.12 + sin(_time * 23.0) * 0.05
 	if flame_a and flame_b:

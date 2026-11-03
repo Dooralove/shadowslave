@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_preview.gd" id="1_1a4oh"]
+
+[node name="ArtPreview" type="Node3D" unique_id=1119244367]
+script = ExtResource("1_1a4oh")
+location_scene_path = "res://scenes/locations/post_nightmare/academy_gate.tscn"
+art_scene_path = "res://scenes/environment/post_nightmare/academy_gate_art.tscn"
+location_node_name = "AcademyGate"

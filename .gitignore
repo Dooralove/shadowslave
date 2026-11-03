@@ -46,3 +46,25 @@ desktop.ini
 
 # Material Maker + MaterialPilot pilot (isolated, not committed)
 /experiments/
+
+# Hyper3D web UI staging: raw GLB/concepts, imported only after review
+/incoming_models/
+
+# Godot extracts embedded glTF images next to the source file.
+# Regenerate from the .glb instead of committing these derived files.
+assets/environments/nightmare/statue/statue_knight_colossus_*.jpg
+assets/environments/nightmare/statue/statue_knight_colossus_*.png
+assets/environments/nightmare/statue/statue_knight_colossus_*.jpg.import
+assets/environments/nightmare/statue/statue_knight_colossus_*.png.import
+assets/environments/nightmare/statue/stone_knight_source_*
+
+# Godot extracts embedded glTF images next to generated character GLBs.
+# Regenerate from the .glb instead of committing these derived files.
+assets/characters/generated/**/*_texture_*.png
+assets/characters/generated/**/*_texture_*.png.import
+
+# Local release artifacts: rebuild with export_presets.cfg; never commit.
+/build/
+
+# Local archives/backups (multi-GB); never commit.
+*.rar

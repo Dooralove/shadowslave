@@ -37,6 +37,11 @@ func is_open() -> bool:
 	return _open
 
 
+func _cutscene_locked() -> bool:
+	var director := get_node_or_null(^"/root/CutsceneDirector")
+	return director != null and director.has_method(&"is_locked") and bool(director.call(&"is_locked"))
+
+
 func _prototype_modal_active() -> bool:
 	var inventory := get_tree().get_first_node_in_group(&"inventory_modal")
 	if inventory != null and inventory.has_method(&"is_open") and bool(inventory.call(&"is_open")):
@@ -53,6 +58,8 @@ func open_map() -> bool:
 
 	if _prototype_modal_active():
 		return false
+	if _cutscene_locked():
+		return false
 
 	# Карта и меню персонажа — взаимоисключающие модальные слои.
 	_close_player_menu_for_switch()
@@ -65,7 +72,7 @@ func open_map() -> bool:
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_open = true
-	_update_player_marker(get_tree().current_scene)
+	_update_player_marker(_current_scene_root())
 	screen.open_for_location(location)
 	map_opened.emit(location)
 	return true
@@ -89,7 +96,17 @@ func _close_player_menu_for_switch() -> void:
 
 
 func resolve_current_location() -> MapDefinition:
-	return resolve_location_for(get_tree().current_scene)
+	return resolve_location_for(_current_scene_root())
+
+
+## В редакторском запуске current_scene может быть не назначен на первом
+## кадре. Тогда корнем считаем родителя живого игрока — это та же 3D-сцена.
+func _current_scene_root() -> Node:
+	var scene := get_tree().current_scene
+	if scene != null:
+		return scene
+	var player := get_tree().get_first_node_in_group(&"player") as Node
+	return player.get_parent() if player != null else null
 
 
 ## Публичный метод для тестов и особых сцен: карта определяется по корню
@@ -131,7 +148,7 @@ func player_state(scene_root: Node) -> Dictionary:
 ## мировых XZ сцены) и игрок в тех же координатах. Мини-карта рисует область
 ## вокруг игрока из location.features/markers; общая карта эти данные не меняет.
 func minimap_snapshot() -> Dictionary:
-	var scene := get_tree().current_scene
+	var scene := _current_scene_root()
 	var state := player_state(scene)
 	return {
 		"location": resolve_location_for(scene),
@@ -144,8 +161,17 @@ func minimap_snapshot() -> Dictionary:
 func _unhandled_input(event: InputEvent) -> void:
 	if screen == null:
 		return
+	if _cutscene_locked():
+		return
 
 	if event.is_action_pressed(&"open_map"):
+		# В игровом меню карта — вкладка единого окна. Полноэкранный
+		# MapScreen остаётся запасным путём и публичным API для тестов.
+		var player_menu := get_node_or_null("/root/PlayerMenuSystem")
+		if player_menu != null and player_menu.has_method(&"show_section"):
+			if bool(player_menu.call(&"show_section", &"map")):
+				get_viewport().set_input_as_handled()
+				return
 		if _open:
 			close_map()
 		else:

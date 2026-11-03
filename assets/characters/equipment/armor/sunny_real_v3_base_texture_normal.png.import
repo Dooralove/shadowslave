@@ -1,0 +1,44 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bcfc8gwixhfpj"
+path.s3tc="res://.godot/imported/sunny_real_v3_base_texture_normal.png-ca143921c9f75d443cef2697878e32b1.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "fb3facb1dbc10fbf4ceff8882d3f9a1b"
+}
+
+[deps]
+
+source_file="res://assets/characters/equipment/armor/sunny_real_v3_base_texture_normal.png"
+dest_files=["res://.godot/imported/sunny_real_v3_base_texture_normal.png-ca143921c9f75d443cef2697878e32b1.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://assets/characters/equipment/armor/sunny_real_v3_base_texture_normal.png"
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

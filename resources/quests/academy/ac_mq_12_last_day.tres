@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_pi8ve"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_iu4f0"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_ny4ke"]
+
+[sub_resource type="Resource" id="Resource_xy0xu"]
+script = ExtResource("1_pi8ve")
+id = &"coffee"
+text = "Взять кофе"
+kind = 2
+target_id = &"coffee_machine"
+
+[sub_resource type="Resource" id="Resource_1lcrp"]
+script = ExtResource("1_pi8ve")
+id = &"cassia"
+text = "Поговорить с Кассией"
+kind = 4
+target_id = &"cassia_birthday"
+
+[sub_resource type="Resource" id="Resource_68cnc"]
+script = ExtResource("1_pi8ve")
+id = &"farewell"
+text = "Попрощаться с Джулиусом"
+kind = 4
+target_id = &"julius_farewell"
+
+[sub_resource type="Resource" id="Resource_noual"]
+script = ExtResource("1_pi8ve")
+id = &"hollow"
+text = "Пройти галерею Hollow"
+target_id = &"academy_reached_hollow"
+
+[sub_resource type="Resource" id="Resource_oesmb"]
+script = ExtResource("1_pi8ve")
+id = &"capsule"
+text = "Лечь в капсулу"
+kind = 2
+target_id = &"sleeper_capsule"
+
+[sub_resource type="Resource" id="Resource_2q56v"]
+script = ExtResource("2_iu4f0")
+flag = &"birthday_17"
+text = "Семнадцать лет"
+
+[sub_resource type="Resource" id="Resource_o0hp7"]
+script = ExtResource("2_iu4f0")
+flag = &"hollow_seen"
+text = "Галерея Hollow"
+
+[sub_resource type="Resource" id="Resource_gmos2"]
+script = ExtResource("2_iu4f0")
+flag = &"capsule_entered"
+text = "Капсула сна"
+
+[resource]
+script = ExtResource("3_ny4ke")
+id = &"ac_mq_12_last_day"
+scope = &"academy"
+code = "AC-MQ-12"
+title = "Семнадцать"
+category = 0
+summary = "Прожить последний день и лечь в капсулу."
+description = "Кофе, день рождения, прощание с Джулиусом, галерея Hollow и капсула."
+prerequisites = Array[StringName]([&"ac_mq_11_complete"])
+show_available = false
+objectives = [SubResource("Resource_xy0xu"), SubResource("Resource_1lcrp"), SubResource("Resource_68cnc"), SubResource("Resource_noual"), SubResource("Resource_oesmb")]
+rewards = [SubResource("Resource_2q56v"), SubResource("Resource_o0hp7"), SubResource("Resource_gmos2")]
+completion_flag = &"academy_complete"

@@ -1,7 +1,7 @@
 # Межсценовые переходы и точки входа
 
-Дата: 2026-10-26  
-Статус: **компонент и контракт реализованы; headless-тесты зелёные; полный ручной графический проход NOT TESTED.**
+Дата: 2026-10-26, обновлено 2026-11-01  
+Статус: **компонент и контракт реализованы; цепочка после Первого Кошмара подключена; headless-тесты зелёные; полный ручной графический проход NOT TESTED.**
 
 Документ описывает техническую основу переходов между сценами. Он не меняет
 art-сцены, `.blend`, GLB, материалы и не задаёт композицию локаций.
@@ -194,9 +194,9 @@ godot --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/test_lev
 
 ## 7. Ограничения и что осталось
 
-- В art-сцены портал пока не добавлен: это работа сборки локаций, а не
-  технической основы. Нельзя менять `.blend`, GLB, материалы и текстуры ради
-  портала.
+- В прологовые art-сцены портал пока не добавлен: это работа сборки локаций,
+  а не технической основы. В сценах после Первого Кошмара порталы уже стоят в
+  `.tscn`; art-геометрию и материалы ради портала менять не нужно.
 - Тесты не вызывают настоящий `change_scene_to_file()`: `RecordingPortal`
   переопределяет `_commit_scene_change()`. Полный ручной графический проход
   NOT TESTED.
@@ -212,3 +212,58 @@ godot --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/test_lev
 - Блокировка ввода рассчитана на `SunnyController` (группа `player`,
   `input_enabled`, `forced_velocity`). Для другого контроллера нужно расширить
   `_resolve_player()` и `_lock_player()` в `LevelPortal`.
+
+## 8. Цепочка после Первого Кошмара (2026-11-01)
+
+Маршрут из восьми сцен:
+
+`police_precinct` → `academy_approach` → `academy_gate` → `academy_campus`
+→ `academy_sleeper_center` → `black_sea_platform` → `tide_descent`
+→ `coral_labyrinth`.
+
+Три связующие сцены — `academy_approach`, `academy_campus`, `tide_descent` —
+остаются расширяемыми серыми прокладками, а не финальным арт-эталоном. Пять
+основных локаций сохраняют авторские `Spawns`, `Shots`, `Markers`,
+`WorldEnvironment`, `Player` и `UI/Fade`; порталы лежат в `.tscn` и не
+генерируются строителем.
+
+| Откуда | Портал | Куда | Spawn назначения |
+|---|---|---|---|
+| `police_precinct` | `ToAcademyApproach` | `academy_approach` | `FromPrecinct` |
+| `academy_approach` | `ToPrecinct` | `police_precinct` | `FromApproach` |
+| `academy_approach` | `ToAcademyGate` | `academy_gate` | `FromApproach` |
+| `academy_gate` | `ToApproach` | `academy_approach` | `FromGate` |
+| `academy_gate` | `ToCampus` | `academy_campus` | `FromGate` |
+| `academy_campus` | `ToGate` | `academy_gate` | `FromCampus` |
+| `academy_campus` | `ToSleeper` | `academy_sleeper_center` | `FromCampus` |
+| `academy_sleeper_center` | `ToCampus` | `academy_campus` | `FromSleeper` |
+| `academy_sleeper_center` | `ToBlackSea` | `black_sea_platform` | `FromSleeper` |
+| `black_sea_platform` | `ToCoral` | `tide_descent` | `FromPlatform` |
+| `tide_descent` | `ToPlatform` | `black_sea_platform` | `FromCoral` |
+| `tide_descent` | `ToCoral` | `coral_labyrinth` | `FromPlatform` |
+| `coral_labyrinth` | `ToPlatform` | `tide_descent` | `FromCoral` |
+
+- **Темп.** Обычные проходы используют короткое затемнение: `0.22` с наружу
+  и `0.28–0.3` с внутри. Переход из палаты снов в
+  Чёрное море — сюжетный порог: `1.35` с наружу и `1.55` с внутри. `LevelPortal`
+  предзагружает сцену назначения, а `FadeLayer` следующей сцены начинает кадр
+  с чёрного, поэтому между сценами нет вспышки.
+- **Направление взгляда.** `Marker3D` точки прибытия задаёт не только позицию,
+  но и `rotation.y`; `SunnyController.apply_spawn_orientation()` ставит модель,
+  а `ThirdPersonCamera.set_yaw()` — камеру. Поэтому игрок продолжает путь
+  лицом вглубь локации, а не смотрит в только что пройденный проём.
+- **Чёрное море.** `black_sea_platform` следует канону глав 30–32: круглая
+  площадка около 12 м — срез шеи колоссальной статуи рыцаря; голова
+  отсутствует, на нагруднике семь звёзд, меч опущен к земле, вокруг чёрная
+  вода без луны и звёзд. Промышленный пирс, контейнеры, кран и турели удалены.
+- **Спуск.** `tide_descent` — минимальный открытый спуск по рельефу статуи,
+  без тоннеля под наплечником. Его дальнейшая художественная детализация
+  вынесена за рамки этой задачи и не считается финальной.
+- **Проверка.** `test_post_nightmare_locations.gd` — 7/7, 473 assert, exit 0;
+  `test_level_transition.gd` — 22/22, 83 assert, exit 0. Полный GUT — 49
+  скриптов, 397/397 тестов, 4910 assert, exit 0. Через Godot MCP проверены
+  реальные переходы `black_sea_platform → tide_descent → coral_labyrinth` и
+  `tide_descent → black_sea_platform` перемещением игрока в зону портала;
+  игрок появился на ожидаемых маркерах.
+  Полный ручной проход всей цепочки от участка до лабиринта и обратно —
+  **NOT TESTED**.

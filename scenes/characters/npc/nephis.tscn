@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/mannequin.gd" id="1_mannequin"]
+
+[node name="Nephis" type="Node3D"]
+script = ExtResource("1_mannequin")
+archetype = "mass_female"
+pose = "guard"
+height_scale = 1.03
+width_scale = 0.95
+placeholder = true
+uniform_color = Color(0.94, 0.94, 0.92, 1)
+hair_color = Color(0.9, 0.9, 0.92, 1)
+skin_color = Color(1, 0.9, 0.85, 1)
+accent_color = Color(0.75, 0.78, 0.85, 1)
+accessory = "spear_cloak"

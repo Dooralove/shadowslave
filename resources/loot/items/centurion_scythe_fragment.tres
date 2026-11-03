@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_material.png" id="1_5osk7"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_cxwus"]
+
+[resource]
+resource_name = "centurion_scythe_fragment"
+script = ExtResource("2_cxwus")
+id = &"centurion_scythe_fragment"
+display_name = "Обломок косы центуриона"
+stack_max = 3
+description = "Кусок чёрной косы. Слишком тяжёлый для кармана, слишком ценный, чтобы бросить."
+canon_status = &"CANON"
+tags = PackedStringArray("trophy", "elite")
+icon = ExtResource("1_5osk7")

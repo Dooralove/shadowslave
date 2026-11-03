@@ -5,11 +5,14 @@
 [resource]
 script = ExtResource("1_map")
 clips = {
-&"chained_walk": &"Walk",
-&"idle": &"sunny/Idle_Relaxed",
-&"pick_up": &"PickUp_Table",
-&"restrained_idle": &"Sitting_Idle",
-&"sit_idle": &"Sitting_Idle",
-&"stand_up": &"Sitting_Exit",
-&"walk": &"Walk"
+&"chained_walk": &"WalkClean",
+&"equip": &"HumanStandingIdle",
+&"idle": &"HumanStandingIdle",
+&"pick_up": &"HumanStandingIdle",
+&"restrained_idle": &"HumanSit",
+&"shroud": &"HumanStandingIdle",
+&"sit_idle": &"HumanSit",
+&"sleep": &"HumanSit",
+&"stand_up": &"HumanStandingIdle",
+&"walk": &"WalkClean"
 }

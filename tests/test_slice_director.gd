@@ -11,6 +11,7 @@ var beats: Array = []
 
 func before_each() -> void:
 	NightmareRunState.reset()
+	CampaignGuide.reset_campaign()
 	beats.clear()
 	director = (load(PROLOGUE) as PackedScene).instantiate() as SliceDirector
 	director.autostart = false
@@ -21,6 +22,7 @@ func before_each() -> void:
 
 func after_each() -> void:
 	NightmareRunState.reset()
+	CampaignGuide.reset_campaign()
 
 
 ## Один шаг «игрока»: пролистать реплику, закрыть руны или выполнить ожидаемое действие.
@@ -99,16 +101,15 @@ func test_bench_is_look_only() -> void:
 	assert_true(director.actor.active, "поза задаётся постановкой")
 
 
-func test_free_walk_has_no_combat_sprint_or_jump() -> void:
+func test_free_walk_allows_combat_and_jump_but_not_sprint() -> void:
 	director.start()
 	await _run_until(SliceDirector.Beat.B05_BIN)
 	assert_eq(director.mode, SliceDirector.Mode.FREE)
 	assert_true(director.player.input_enabled)
 	assert_true(director.player.is_physics_processing())
-	assert_false(director.player.combat_enabled)
-	assert_false(director.player.allow_sprint)
-	assert_false(director.player.allow_jump)
-	assert_false(director.player.try_attack(), "в прологе нет боя")
+	assert_true(director.player.combat_enabled, "игрок может атаковать вне боя")
+	assert_false(director.player.allow_sprint, "спринт в прологе выключен")
+	assert_true(director.player.allow_jump, "прыжок доступен")
 
 
 func test_restrained_scene_locks_movement_but_allows_look() -> void:
@@ -121,11 +122,19 @@ func test_restrained_scene_locks_movement_but_allows_look() -> void:
 	assert_true(director.actor.active, "Санни пристёгнут к стулу")
 
 
+func test_briefing_records_rules_of_nightmare_in_journal() -> void:
+	director.start()
+	await _run_until(SliceDirector.Beat.B13_DARKNESS)
+	assert_true(NightmareRunState.has_flag(&"journal_rules_known"))
+	assert_true(CampaignGuide.has_journal_entry(&"rules_of_nightmare"))
+
+
 func test_briefing_raises_drowsiness() -> void:
 	director.start()
 	await _run_until(SliceDirector.Beat.B12_BRIEFING)
 	var start := director.ui.drowsiness.intensity
-	for i in 8:
+	# Брифинг сжат до 8 реплик; проверяем рост на первых четырёх, не уходя в B13.
+	for i in 4:
 		director.runner.advance()
 	assert_gt(director.ui.drowsiness.intensity, start, "сонливость растёт с каждой репликой брифинга")
 

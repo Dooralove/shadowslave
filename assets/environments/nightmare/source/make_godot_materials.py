@@ -35,25 +35,40 @@ ROOT = NM.parents[2]
 MAT_DIR = NM / "materials"
 TEX_DIR = MAT_DIR / "textures"
 SHADER = "nm_layered_triplanar.gdshader"
+SHADER_CORAL = "nm_coral_triplanar.gdshader"
+SHADER_STATUE = "nm_statue_triplanar.gdshader"
 ASSET_DIRS = ["mountain", "caravan", "remains", "flora", "temple", "trail", "backdrop", "site", "path"]
 ONLY = None  # префиксы файлов для --bind (None — все .glb папок)
+TEX_ONLY = None  # префиксы текстур, которые трогает write_texture_imports (None — все)
 ENV = ROOT / "assets" / "environments"
 FAMILIES = {
     "prologue": dict(root=ENV / "prologue", module=ENV / "prologue" / "source" / "pr_materials.py",
                      dirs=["cell", "lobby"], only=None),
     "park": dict(root=ENV / "park", module=None, dirs=["props"], only=("tree_", "lamp_", "station_", "bollard_")),
+    "coral": dict(root=NM, module=NM / "source" / "nm_coral_materials.py",
+                  dirs=["coral"], only=None,
+                  tex_only=("nm_coral_", "nm_bone_aged_", "coral_ground_02_", "coral_mud_01_",
+                            "coral_fort_wall_")),
+    "statue": dict(root=NM, module=NM / "source" / "nm_statue_materials.py",
+                   dirs=["statue"], only=None,
+                   tex_only=("low_tide_rocks_", "nm_statue_")),
+    # Море Души: .tres создаются вручную (ss_obsidian/ss_basalt/ss_shadow/...),
+    # --bind только привязывает их к GLB по именам слотов.
+    "soul_sea": dict(root=ENV / "soul_sea", module=None, dirs=["kit"], only=None,
+                     bind_only=True),
 }
 
 
 def use_family(name):
     """Переключить пути и таблицу материалов на другой набор ассетов."""
-    global M, NM, MAT_DIR, TEX_DIR, ASSET_DIRS, ONLY
+    global M, NM, MAT_DIR, TEX_DIR, ASSET_DIRS, ONLY, TEX_ONLY
     fam = FAMILIES[name]
     NM = fam["root"]
     MAT_DIR = NM / "materials"
     TEX_DIR = MAT_DIR / "textures"
     ASSET_DIRS = fam["dirs"]
     ONLY = fam["only"]
+    TEX_ONLY = fam.get("tex_only")
     M = None
     if fam["module"]:
         spec = importlib.util.spec_from_file_location(fam["module"].stem, fam["module"])
@@ -130,6 +145,89 @@ def layered_tres(name, spec):
             f"{p}snow_vertex_weight = 1.0",
         ]
     lines += [f"{p}dirt_strength = 1.0", f"{p}triplanar_sharpness = 6.0", ""]
+    return "\n".join(lines)
+
+
+def coral_tres(name, spec):
+    base = M.TEXSETS[spec["base"]]
+    ext = [("Shader", MAT_DIR / SHADER_CORAL)]
+    for key in ("albedo", "normal", "arm"):
+        ext.append(("Texture2D", tex_file(base[key])))
+    lines = ['[gd_resource type="ShaderMaterial" format=3]', ""]
+    ids = {}
+    for i, (kind, p) in enumerate(ext, 1):
+        rid = f"{i}_{Path(p).stem[:24]}"
+        ids[Path(p).name] = rid
+        lines.append(f'[ext_resource type="{kind}" path="{res(p)}" id="{rid}"]')
+    lines += ["", '[sub_resource type="FastNoiseLite" id="FastNoiseLite_macro"]', "frequency = 0.012",
+              "fractal_octaves = 3", "", '[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_macro"]',
+              "width = 256", "height = 256", "seamless = true", 'noise = SubResource("FastNoiseLite_macro")', "",
+              "[resource]", f'resource_name = "{name}"', f'shader = ExtResource("{ids[SHADER_CORAL]}")']
+    p = "shader_parameter/"
+    lines += [
+        f'{p}base_albedo = ExtResource("{ids[base["albedo"]]}")',
+        f'{p}base_normal = ExtResource("{ids[base["normal"]]}")',
+        f'{p}base_orm = ExtResource("{ids[base["arm"]]}")',
+        f"{p}base_tint = {color(spec.get('tint', (1, 1, 1)))}",
+        f"{p}base_tile_m = {base['tile']}",
+        f"{p}base_normal_strength = {spec.get('normal', 1.0)}",
+        f"{p}base_roughness_scale = {spec.get('rough_scale', 1.0)}",
+        f"{p}base_roughness_offset = {spec.get('rough_offset', 0.0)}",
+        f"{p}base_metallic = {spec.get('metallic', 0.0)}",
+        f'{p}macro_noise = SubResource("NoiseTexture2D_macro")',
+        f"{p}macro_tile_m = 8.0",
+        f"{p}macro_strength = 0.25",
+        f"{p}tip_color = {color(spec.get('tip_color', (0.72, 0.43, 0.40)))}",
+        f"{p}tip_strength = {spec.get('tip_strength', 0.55)}",
+        f"{p}dead_color = {color(spec.get('dead_color', (0.42, 0.33, 0.31)))}",
+        f"{p}dead_strength = {spec.get('dead_strength', 0.55)}",
+        f"{p}sss_strength = {spec.get('sss', 0.2)}",
+        f"{p}wet_height = -8.0",
+        f"{p}wet_softness = 1.2",
+        f"{p}wet_strength = {spec.get('wet_strength', 0.45)}",
+        f"{p}dirt_strength = 1.0",
+        f"{p}triplanar_sharpness = 6.0", ""]
+    return "\n".join(lines)
+
+
+def statue_tres(name, spec):
+    base = M.TEXSETS[spec["base"]]
+    ext = [("Shader", MAT_DIR / SHADER_STATUE)]
+    for key in ("albedo", "normal", "arm"):
+        ext.append(("Texture2D", tex_file(base[key])))
+    lines = ['[gd_resource type="ShaderMaterial" format=3]', ""]
+    ids = {}
+    for i, (kind, p) in enumerate(ext, 1):
+        rid = f"{i}_{Path(p).stem[:24]}"
+        ids[Path(p).name] = rid
+        lines.append(f'[ext_resource type="{kind}" path="{res(p)}" id="{rid}"]')
+    lines += ["", '[sub_resource type="FastNoiseLite" id="FastNoiseLite_macro"]', "frequency = 0.008",
+              "fractal_octaves = 4", "", '[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_macro"]',
+              "width = 256", "height = 256", "seamless = true", 'noise = SubResource("FastNoiseLite_macro")', "",
+              "[resource]", f'resource_name = "{name}"', f'shader = ExtResource("{ids[SHADER_STATUE]}")']
+    p = "shader_parameter/"
+    lines += [
+        f'{p}base_albedo = ExtResource("{ids[base["albedo"]]}")',
+        f'{p}base_normal = ExtResource("{ids[base["normal"]]}")',
+        f'{p}base_orm = ExtResource("{ids[base["arm"]]}")',
+        f"{p}base_tint = {color(spec.get('tint', (1, 1, 1)))}",
+        f"{p}base_tile_m = {base['tile']}",
+        f"{p}base_normal_strength = {spec.get('normal', 1.0)}",
+        f"{p}base_roughness_scale = {spec.get('rough_scale', 1.0)}",
+        f"{p}base_roughness_offset = {spec.get('rough_offset', 0.0)}",
+        f"{p}base_metallic = {spec.get('metallic', 0.0)}",
+        f'{p}macro_noise = SubResource("NoiseTexture2D_macro")',
+        f"{p}macro_tile_m = 18.0",
+        f"{p}macro_strength = 0.30",
+        f"{p}wet_height = -72.0",
+        f"{p}wet_softness = 4.0",
+        f"{p}wet_strength = {spec.get('wet_strength', 0.55)}",
+        f"{p}salt_fade_start = -40.0",
+        f"{p}salt_fade_end = 60.0",
+        f"{p}salt_strength = {spec.get('salt_strength', 0.35)}",
+        f"{p}salt_color = {color((0.55, 0.58, 0.62))}",
+        f"{p}dirt_strength = 1.0",
+        f"{p}triplanar_sharpness = 6.0", ""]
     return "\n".join(lines)
 
 
@@ -220,6 +318,8 @@ def write_texture_imports():
         if "emission_texture" in spec:
             used.add(spec["emission_texture"])
     for tex in sorted(list(TEX_DIR.glob("*.jpg")) + list(TEX_DIR.glob("*.png"))):
+        if TEX_ONLY and not any(tex.name.startswith(p) for p in TEX_ONLY):
+            continue
         imp = tex.with_name(tex.name + ".import")
         if tex.name in used:
             if imp.exists() and 'importer="texture"' in imp.read_text(encoding="utf-8"):
@@ -238,6 +338,10 @@ def write_materials():
             continue  # материал живёт в другом наборе (рукописный .tres парка)
         if kind == "layered":
             text = layered_tres(name, spec)
+        elif kind == "coral":
+            text = coral_tres(name, spec)
+        elif kind == "statue":
+            text = statue_tres(name, spec)
         elif kind == "uv":
             text = uv_tres(name, spec)
         else:
@@ -281,8 +385,13 @@ def bind():
 
 
 if __name__ == "__main__":
+    family_name = None
     if "--family" in sys.argv:
-        use_family(sys.argv[sys.argv.index("--family") + 1])
+        family_name = sys.argv[sys.argv.index("--family") + 1]
+        use_family(family_name)
+    if family_name and FAMILIES[family_name].get("bind_only") and "--bind" not in sys.argv:
+        print(f"family '{family_name}' is bind-only: run with --bind; .tres are authored manually")
+        sys.exit(0)
     if "--bind" in sys.argv:
         bind()
     else:

@@ -31,6 +31,9 @@ const MARCH_CAMP := preload("res://resources/dialogue/caravan/march_camp.tres")
 ## Насколько Санни может уйти вперёд/назад относительно темпа цепи, м.
 @export var march_lead_limit := 1.2
 @export var march_trail_limit := 1.2
+## Ритм лёгких рывков цепи, когда игрок уходит к границе коридора, с.
+@export var march_cadence_interval := 0.55
+@export var march_tug_distance := 0.07
 ## Обязательные реплики S01. Порядок задаётся trigger_local_z.
 @export var march_beats: Array[CaravanMarchBeat] = []
 
@@ -39,7 +42,6 @@ const MARCH_CAMP := preload("res://resources/dialogue/caravan/march_camp.tres")
 @onready var _ui: PrologueUI = $UI
 @onready var _dialogue: DialogueRunner = $DialogueRunner
 @onready var _exit_trigger: Area3D = $CaravanRoad/Road/Triggers/CampArrival
-@onready var _note: Label = $PrototypeNote/Root/Note
 @onready var _whip_flash: ColorRect = $WhipFlashLayer/WhipFlash
 
 var _started := false
@@ -49,9 +51,13 @@ var _convoy_speed := 0.0
 var _dialogue_queue: Array[DialogueSequence] = []
 var _dialogue_busy := false
 var _triggered_beats: Dictionary = {}
+var _cadence_left := 0.0
+var _march_tension := 0.0
+var beat_director: BeatDirector
 
 
 func _ready() -> void:
+	_ensure_beat_director()
 	_place_player()
 	_convoy_local_z = _player_local_z()
 	_convoy_speed = _caravan.march_speed
@@ -66,17 +72,26 @@ func _ready() -> void:
 		start()
 
 
+func _ensure_beat_director() -> void:
+	if beat_director != null:
+		return
+	beat_director = get_node_or_null("BeatDirector") as BeatDirector
+	if beat_director == null:
+		beat_director = BeatDirector.new()
+		beat_director.name = "BeatDirector"
+		add_child(beat_director)
+	beat_director.bind_player(_player)
+
+
+
 func start() -> void:
 	if _started:
 		return
 	_started = true
 	# Служебная подпись сегмента — только при отладочном запуске сцены; в кампании игрок её не видит.
-	_note.visible = false
 	if not NightmareRunState.has_flag(&"prologue_completed"):
 		if debug_direct_scene:
 			NightmareRunState.set_flag(&"prologue_completed")
-			_note.text = "ОТЛАДОЧНЫЙ ЗАПУСК · пролог не пройден. S01 можно проверить отдельно; в кампании сюда ведёт только финал пролога."
-			_note.visible = true
 		else:
 			push_warning("FirstNightmarePass: нет prologue_completed; сцена запущена напрямую")
 	_caravan.set_march_follower(_player)
@@ -85,7 +100,11 @@ func start() -> void:
 	_player.combat_enabled = false
 	_player.enable_chain_restraint(_caravan.march_velocity())
 	_caravan.start_march()
+	_audio_scene()
+	_ensure_beat_director()
+	beat_director.transition_to_beat(&"N06")
 	_ui.show_hint("Цель: идти вверх по дороге к стоянке каравана. WASD — движение, мышь — обзор.")
+
 	await _ui.fade.fade_to(0.0, 1.0)
 
 
@@ -99,6 +118,10 @@ func is_march_intro_seen() -> bool:
 
 func get_convoy_local_z() -> float:
 	return _convoy_local_z
+
+
+func get_march_tension() -> float:
+	return _march_tension
 
 
 func _place_player() -> void:
@@ -126,6 +149,8 @@ func _physics_process(delta: float) -> void:
 	_convoy_local_z = maxf(_convoy_local_z - _convoy_speed * delta, CONVOY_STOP_Z)
 	var local: Vector3 = road.to_local(_player.global_position)
 	_trigger_beats(local.z)
+	var offset := local.z - _convoy_local_z
+	_update_cadence(delta, offset)
 	local.z = clampf(
 		local.z,
 		_convoy_local_z - march_lead_limit,
@@ -134,6 +159,21 @@ func _physics_process(delta: float) -> void:
 	_player.global_position = road.to_global(local)
 	if local.z <= exit_local_z:
 		_begin_transition()
+
+
+## Ритм марша: у границы коридора цепь коротко дёргается, но не роняет и не ранит.
+func _update_cadence(delta: float, offset: float) -> void:
+	var threshold := march_lead_limit * 0.8
+	_march_tension = 0.0
+	if offset < -threshold:
+		_march_tension = -1.0
+	elif offset > march_trail_limit * 0.8:
+		_march_tension = 1.0
+	_cadence_left = maxf(_cadence_left - delta, 0.0)
+	if _march_tension == 0.0 or _cadence_left > 0.0:
+		return
+	_cadence_left = march_cadence_interval
+	_caravan.call(&"apply_chain_tug", _march_tension * march_tug_distance)
 
 
 func _player_local_z() -> float:
@@ -217,7 +257,30 @@ func _play_next_sequence() -> void:
 		_play_next_sequence()
 
 
+func _audio_scene() -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	if director.has_method(&"play_music"):
+		director.call(&"play_music", &"caravan", 2.0)
+	if director.has_method(&"play_ambience"):
+		director.call(&"play_ambience", &"caravan", 2.0)
+
+
+func _audio_stop() -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	if director.has_method(&"stop_music"):
+		director.call(&"stop_music", 1.0)
+	if director.has_method(&"stop_ambience"):
+		director.call(&"stop_ambience", 1.0)
+
+
 func _flash_whip() -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"play_sfx"):
+		director.call(&"play_sfx", &"world_whip", _player.global_position, -2.0)
 	_whip_flash.visible = true
 	_whip_flash.color.a = 0.62
 	var tween := create_tween()
@@ -234,15 +297,18 @@ func _begin_transition() -> void:
 	if _leaving:
 		return
 	_leaving = true
+	_audio_stop()
 	transition_started.emit()
 	_player.input_enabled = false
 	_player.forced_velocity = Vector3.ZERO
 	_player.clear_chain_restraint()
 	_caravan.stop_march()
 	_ui.show_hint("Привал. Цепь натянута, колонна останавливается.")
-	_note.visible = false
 	NightmareRunState.set_flag(FLAG_MARCH_INTRO)
 	NightmareRunState.set_flag(FLAG_CAMP_REACHED)
+	if beat_director != null and beat_director.current_beat != null:
+		beat_director.beat_completed.emit(beat_director.current_beat)
+
 
 	if not transition_enabled:
 		return

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/equipment/armor_item.gd" id="1_armor"]
+[ext_resource type="PackedScene" path="res://assets/characters/equipment/armor/heavy_plate.glb" id="2_visual"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/generated_v3.tres" id="3_rig"]
+[ext_resource type="Resource" path="res://resources/equipment/stats/heavy_plate_stats.tres" id="4_stats"]
+
+[resource]
+script = ExtResource("1_armor")
+id = &"heavy_plate"
+display_name = "Тяжёлые латы"
+slot = 0
+visual_scene = ExtResource("2_visual")
+rig_profile = ExtResource("3_rig")
+hide_parts = PackedStringArray()
+hide_surfaces = PackedInt32Array(0, 1, 2, 3)
+tags = PackedStringArray("armor", "heavy", "plate", "knight", "generated")
+ab_variant = &"heavy"
+notes = "Hyper3D image-to-3D: полный латный доспех с горжетом, наплечниками, набедренниками и закрытым шлемом. Тело манекена и лицо удалены; базовое тело скрыто."
+mode = 0
+coverage = PackedStringArray("torso", "arms", "legs", "feet", "head")
+stats = ExtResource("4_stats")
+rarity = 3
+set_id = &"heavy_plate"
+required_strength = 14.0
+description = "Тяжёлые латы: полный стальной доспех, закрытый шлем и кольчужный подклад."
+lore = "В этих латах рыцарь не бежит. Он идёт, и земля помнит каждый шаг."
+rarity_color = Color(0.9, 0.68, 0.25, 1)

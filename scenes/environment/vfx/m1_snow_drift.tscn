@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_snow"]
+offsets = PackedFloat32Array(0, 0.25, 0.8, 1)
+colors = PackedColorArray(0.9, 0.94, 1, 0.0, 0.86, 0.92, 1, 0.52, 0.72, 0.82, 0.94, 0.24, 0.6, 0.72, 0.86, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_snow"]
+gradient = SubResource("Gradient_snow")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_snow"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("Tex_snow")
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Mesh_snow"]
+material = SubResource("Mat_snow")
+size = Vector2(0.11, 0.11)
+
+[sub_resource type="ParticleProcessMaterial" id="Process_snow"]
+emission_shape = 3
+emission_box_extents = Vector3(14, 1.5, 14)
+direction = Vector3(0.35, -0.15, 0.08)
+spread = 28.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.8
+gravity = Vector3(0, -0.7, 0)
+scale_min = 0.5
+scale_max = 1.4
+color_ramp = SubResource("Tex_snow")
+turbulence_enabled = true
+turbulence_noise_strength = 0.4
+turbulence_noise_scale = 2.0
+
+[node name="M1SnowDrift" type="Node3D"]
+
+[node name="Snow" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 520
+lifetime = 5.0
+preprocess = 5.0
+fixed_fps = 30
+interpolate = true
+local_coords = false
+visibility_aabb = AABB(-16, -4, -16, 32, 18, 32)
+process_material = SubResource("Process_snow")
+draw_pass_1 = SubResource("Mesh_snow")

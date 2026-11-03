@@ -1,0 +1,125 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-17, 6, 17, 6, 17, 16, -17, 16)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-10, -6, 10, -6, 10, 6, -10, 6)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2, -6, 2, -6, 2, -10, -2, -10)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-7, -10, 7, -10, 7, -20, -7, -20)
+closed = true
+
+[sub_resource type="Resource" id="Feature_4"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-9, -3.5, -9, -0.5, -19, -0.5, -19, -3.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_5"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 16.4, 0, 14, 0, 6, 0, 0, 0, -10, 0, -15)
+closed = false
+
+[sub_resource type="Resource" id="Feature_6"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-5, 16, 5, 16, 5, 18, -5, 18)
+closed = true
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"start"
+label = "Начало"
+description = "Точка появления у входа на участок."
+use_world_position = true
+world_position = Vector2(0, 14)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"entrance"
+label = "Главный вход"
+description = "Приёмная и стойка дежурного."
+use_world_position = true
+world_position = Vector2(0, 6)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"cells"
+label = "Камеры"
+description = "Коридор камер за приёмной."
+use_world_position = true
+world_position = Vector2(0, -15)
+kind = 2
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"interrogation"
+label = "Допросная"
+description = "Комната с односторонним зеркалом."
+use_world_position = true
+world_position = Vector2(-16, -2)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_4"]
+script = ExtResource("1_marker")
+id = &"yard"
+label = "Двор"
+description = "Дежурная машина и служебный контейнер."
+use_world_position = true
+world_position = Vector2(10.5, 11.5)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_5"]
+script = ExtResource("1_marker")
+id = &"from_approach"
+label = "Возвращение с улицы"
+description = "Точка появления у южного выхода участка."
+use_world_position = true
+world_position = Vector2(0, 13.5)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_6"]
+script = ExtResource("1_marker")
+id = &"south_exit"
+label = "Южный выход"
+description = "Проход к улице и машине Джетта."
+use_world_position = true
+world_position = Vector2(0, 16.4)
+kind = 3
+
+[resource]
+script = ExtResource("2_def")
+id = &"police_precinct"
+title = "ПОЛИЦЕЙСКИЙ УЧАСТОК"
+subtitle = "Приёмная, камеры и допросная"
+description = "Прототип городского участка: двор с дежурной машиной, приёмная, коридор камер и допросная. Планировка собрана из модулей и готова к замене реквизита."
+background_color = Color(0.045, 0.055, 0.065, 1)
+land_color = Color(0.2, 0.215, 0.225, 1)
+accent_color = Color(0.53, 0.62, 0.72, 1)
+terrain_style = &"city"
+world_bounds = Rect2(-20, -28, 40, 46)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/police_precinct.tscn")

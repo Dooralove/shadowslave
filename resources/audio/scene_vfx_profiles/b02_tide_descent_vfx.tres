@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SceneVfxProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_event.gd" id="1_kuts3"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_tide_foam.tscn" id="2_c6wgy"]
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_profile.gd" id="3_x0r30"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/tide_spray.tscn" id="4_vi7b0"]
+
+[sub_resource type="Resource" id="Resource_cdnr0"]
+script = ExtResource("1_kuts3")
+scene = ExtResource("2_c6wgy")
+position = Vector3(0, -5.6, -20.5)
+scale = 0.9
+loop = true
+
+[sub_resource type="Resource" id="Resource_lehm3"]
+script = ExtResource("1_kuts3")
+scene = ExtResource("4_vi7b0")
+position = Vector3(0, -4, -20)
+trigger = &"tide_descent_warning"
+
+[resource]
+script = ExtResource("3_x0r30")
+id = &"b02_tide_descent_vfx"
+scene_path = "res://scenes/locations/post_nightmare/tide_descent.tscn"
+location_id = &"tide_descent"
+loops = Array[ExtResource("1_kuts3")]([SubResource("Resource_cdnr0")])
+trigger_effects = Array[ExtResource("1_kuts3")]([SubResource("Resource_lehm3")])

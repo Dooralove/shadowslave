@@ -51,6 +51,13 @@ func set_pitch(value: float) -> void:
 	_apply_rotation()
 
 
+## Задать направление взгляда без ввода. Нужно при появлении на
+## Spawns/<name>, чтобы камера не разворачивалась после смены сцены.
+func set_yaw(value: float) -> void:
+	yaw = wrapf(value, -PI, PI)
+	_apply_rotation()
+
+
 ## Базис на горизонтальной плоскости по направлению камеры — для движения персонажа.
 func get_planar_basis() -> Basis:
 	return Basis(Vector3.UP, yaw)

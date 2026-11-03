@@ -1,0 +1,136 @@
+[gd_resource type="Resource" script_class="LabyrinthAudioZoneSet" format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/labyrinth_audio_zone_set.gd" id="1_jkd3n"]
+[ext_resource type="Script" path="res://scripts/audio/labyrinth_audio_zone.gd" id="2_vsf8c"]
+
+[sub_resource type="Resource" id="Resource_3wel6"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z01"
+rect = Rect2(12, -12, 33, 24)
+intensity = 0.3
+
+[sub_resource type="Resource" id="Resource_6ncyf"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z02"
+rect = Rect2(8, 15, 22, 23)
+intensity = 0.3
+detail = &"world_bone_creak"
+reverb_profile = &"bone_cave"
+
+[sub_resource type="Resource" id="Resource_sg6gb"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z03"
+rect = Rect2(-12, -12, 24, 24)
+intensity = 0.35
+reverb_profile = &"coral_cave"
+
+[sub_resource type="Resource" id="Resource_adyqq"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z04"
+rect = Rect2(-45, -55, 30, 25)
+intensity = 0.35
+detail = &"world_water_drip"
+reverb_profile = &"water"
+
+[sub_resource type="Resource" id="Resource_ampq7"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z05"
+rect = Rect2(-45, 11, 30, 24)
+detail = &"world_bone_creak"
+reverb_profile = &"bone_cave"
+
+[sub_resource type="Resource" id="Resource_rgxm3"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z06"
+rect = Rect2(-55, 40, 15, 12)
+intensity = 0.35
+
+[sub_resource type="Resource" id="Resource_r1e0x"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z07"
+rect = Rect2(-55, -62, 60, 14)
+
+[sub_resource type="Resource" id="Resource_5u5gs"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z08"
+rect = Rect2(-80, -18, 30, 36)
+reverb_profile = &"coral_cave"
+
+[sub_resource type="Resource" id="Resource_7m1bl"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z09"
+rect = Rect2(-85, 18, 30, 4)
+intensity = 0.45
+reverb_profile = &"tunnel"
+
+[sub_resource type="Resource" id="Resource_wj6kj"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z10"
+rect = Rect2(-125, -30, 40, 50)
+intensity = 0.45
+detail = &"world_coral_groan"
+reverb_profile = &"coral_cave"
+
+[sub_resource type="Resource" id="Resource_uhi84"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z11"
+rect = Rect2(-150, -30, 25, 60)
+intensity = 0.5
+detail = &"world_water_drip"
+reverb_profile = &"water"
+
+[sub_resource type="Resource" id="Resource_43pko"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z12"
+rect = Rect2(-200, -25, 50, 50)
+intensity = 0.55
+
+[sub_resource type="Resource" id="Resource_r2t53"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z13"
+rect = Rect2(-550, -120, 350, 240)
+intensity = 0.7
+detail = &"world_storm_rumble"
+reverb_profile = &"storm"
+
+[sub_resource type="Resource" id="Resource_mn1s6"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z14"
+rect = Rect2(-650, -40, 100, 80)
+intensity = 0.55
+detail = &"world_bone_creak"
+reverb_profile = &"bone_cave"
+
+[sub_resource type="Resource" id="Resource_erte5"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z15"
+rect = Rect2(-750, -80, 100, 120)
+intensity = 0.5
+reverb_profile = &"refuge"
+
+[sub_resource type="Resource" id="Resource_e46wj"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z16"
+rect = Rect2(-1050, -150, 300, 300)
+intensity = 0.8
+detail = &"world_storm_rumble"
+reverb_profile = &"storm"
+
+[sub_resource type="Resource" id="Resource_e8o4s"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z17"
+rect = Rect2(-1300, -80, 250, 160)
+intensity = 0.95
+detail = &"world_storm_rumble"
+reverb_profile = &"storm"
+
+[sub_resource type="Resource" id="Resource_hfjih"]
+script = ExtResource("2_vsf8c")
+id = &"labyrinth_z18"
+rect = Rect2(-1450, -100, 150, 200)
+intensity = 0.7
+detail = &"world_rockfall"
+
+[resource]
+script = ExtResource("1_jkd3n")
+zones = Array[ExtResource("2_vsf8c")]([SubResource("Resource_3wel6"), SubResource("Resource_6ncyf"), SubResource("Resource_sg6gb"), SubResource("Resource_adyqq"), SubResource("Resource_ampq7"), SubResource("Resource_rgxm3"), SubResource("Resource_r1e0x"), SubResource("Resource_5u5gs"), SubResource("Resource_7m1bl"), SubResource("Resource_wj6kj"), SubResource("Resource_uhi84"), SubResource("Resource_43pko"), SubResource("Resource_r2t53"), SubResource("Resource_mn1s6"), SubResource("Resource_erte5"), SubResource("Resource_e46wj"), SubResource("Resource_e8o4s"), SubResource("Resource_hfjih")])

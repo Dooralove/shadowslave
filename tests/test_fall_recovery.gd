@@ -66,6 +66,53 @@ func test_scripted_fall_is_ignored() -> void:
 	assert_signal_not_emitted(recovery, "recovered", "во время постановки возврата нет")
 
 
+func test_death_with_active_checkpoint_recovers_immediately() -> void:
+	var n08 := load("res://resources/campaign/beats/n08.tres") as BeatData
+	assert_not_null(n08)
+	assert_true(recovery.apply_beat_checkpoint(n08))
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N08")
+	var expected_pos := n08.get_checkpoint_position(&"CP-N08")
+	sunny.global_position = Vector3(2.2, 0.05, -1.5)
+	watch_signals(recovery)
+	sunny.health.take_damage(sunny.health.max_health)
+	assert_signal_emitted_with_parameters(recovery, "recovered", [expected_pos])
+	assert_false(sunny.is_dead(), "смерть при активном чекпоинте возвращает Санни к жизни")
+	assert_true(sunny.controls_enabled)
+	assert_eq(sunny.global_position, expected_pos)
+
+
+func test_death_recovery_restores_idle_animation_pose() -> void:
+	var animator := sunny.get_node("Animator") as SunnyAnimator
+	var player := animator.animation_player
+	sunny.health.take_damage(sunny.health.max_health)
+	assert_eq(animator.state, SunnyAnimator.State.DEAD)
+	assert_eq(player.assigned_animation, String(animator.death_clip))
+	recovery.recover()
+	assert_eq(animator.state, SunnyAnimator.State.IDLE, "после возврата аниматор снова в IDLE")
+	assert_eq(player.assigned_animation, String(animator.idle_clip), "death-клип заменён на idle")
+	assert_true(animator.is_physics_processing(), "аниматор снова обновляется")
+
+
+func test_checkpoint_survives_cutscene_and_scripted_teleport_without_false_recovery() -> void:
+	var checkpoint := Vector3(-1.5, 0.05, 1.0)
+	recovery.set_named_checkpoint(&"CP-N15a", checkpoint)
+	watch_signals(recovery)
+
+	sunny.input_enabled = false
+	sunny.global_position = Vector3(0.0, -25.0, 0.0)
+	await wait_physics_frames(15)
+	assert_signal_not_emitted(recovery, "recovered", "катсцена не вызывает ложного возврата")
+	assert_true(recovery.has_checkpoint(), "явный чекпоинт не стирается катсценой")
+	assert_eq(recovery.get_checkpoint_id(), &"CP-N15a")
+
+	sunny.input_enabled = true
+	sunny.global_position = Vector3(0.0, 0.05, 0.0)
+	await wait_physics_frames(10)
+	assert_signal_not_emitted(recovery, "recovered", "телепорт скриптом не вызывает ложного возврата")
+	assert_eq(recovery.recovery_point(), checkpoint, "после катсцены и телепорта активен тот же чекпоинт")
+
+
+
 func _platform(center: Vector3, size: Vector3) -> StaticBody3D:
 	var body := StaticBody3D.new()
 	var shape := CollisionShape3D.new()

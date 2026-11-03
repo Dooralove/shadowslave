@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"P01"
+part = &"prologue"
+part_title = "Пролог «Город»"
+canonical_block = 1
+title = "Скамейка и улица"
+beat_type = 0
+format_label = "И"
+objective = "Допить кофе → Перейти улицу"
+idle_objectives = Array[String](["Сделай глоток кофе", "Встань и выброси стакан", "Перейди улицу к участку"])
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([])
+exit_conditions = Array[StringName]([&"station_entered"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 120.0
+estimated_time_text = "~2 мин"
+scene_path = "res://scenes/campaign/campaign_entry.tscn"
+can_die = false

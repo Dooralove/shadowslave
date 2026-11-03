@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scenes/dev/equipment_lab.gd" id="1_lab"]
+[ext_resource type="PackedScene" path="res://assets/characters/generated/sunny_nightmare_v2/sunny_nightmare_v2.tscn" id="2_sunny"]
+[ext_resource type="Script" path="res://scripts/equipment/equipment_component.gd" id="3_equipment"]
+[ext_resource type="Resource" path="res://resources/equipment/loadouts/nightmare_alpha.tres" id="4_loadout"]
+[ext_resource type="Resource" path="res://resources/equipment/rig_profiles/generated_v3.tres" id="5_rig"]
+[ext_resource type="Resource" path="res://resources/equipment/ab/sunny_armor_alpha.tres" id="6_ab"]
+[ext_resource type="Resource" path="res://resources/equipment/catalog_alpha.tres" id="7_catalog"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(12, 12)
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.055, 0.06, 0.07, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor_grid"]
+albedo_color = Color(0.11, 0.12, 0.13, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_grid"]
+size = Vector3(12, 0.01, 0.015)
+
+[node name="EquipmentLab" type="Node3D" node_paths=PackedStringArray("model", "equipment")]
+script = ExtResource("1_lab")
+model = NodePath("Sunny")
+equipment = NodePath("Equipment")
+ab_test = ExtResource("6_ab")
+catalog = ExtResource("7_catalog")
+
+[node name="Sunny" parent="." instance=ExtResource("2_sunny")]
+
+[node name="Equipment" type="Node" parent="." node_paths=PackedStringArray("visual_root")]
+script = ExtResource("3_equipment")
+visual_root = NodePath("../Sunny")
+skeleton_path = NodePath("Model/Armature/Skeleton3D")
+rig_profile = ExtResource("5_rig")
+loadout = ExtResource("4_loadout")
+catalog = ExtResource("7_catalog")
+ab_test = ExtResource("6_ab")
+auto_apply = true
+weapon_drawn = true
+debug_log = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(1.35, 1.25, 4.2)
+current = true
+fov = 38.0
+
+[node name="Key" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-32, 28, 0)
+light_color = Color(1, 0.92, 0.82, 1)
+light_energy = 1.35
+shadow_enabled = true
+
+[node name="Fill" type="OmniLight3D" parent="."]
+position = Vector3(-2.2, 1.8, 2.8)
+light_color = Color(0.45, 0.62, 0.82, 1)
+light_energy = 1.6
+omni_range = 7.0
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.005, 0)
+mesh = SubResource("PlaneMesh_floor")
+material_override = SubResource("Mat_floor")
+
+[node name="Grid" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.006, 0)
+mesh = SubResource("BoxMesh_grid")
+material_override = SubResource("Mat_floor_grid")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Info" type="Label" parent="UI"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 520.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 18
+text = "EQUIPMENT ALPHA"

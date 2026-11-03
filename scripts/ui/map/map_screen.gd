@@ -14,7 +14,7 @@ signal location_viewed(location: MapDefinition)
 const KICKER_REGION := "КАРТА РЕГИОНА"
 const KICKER_WORLD := "ОБЩАЯ КАРТА"
 const HINT_REGION := "M / ESC — закрыть  ·  C — персонаж  ·  клик по значку — подробности"
-const HINT_WORLD := "M / ESC — закрыть  ·  доступный регион открывает свою карту  ·  остальные в разработке"
+const HINT_WORLD := "M / ESC — закрыть  ·  колесо — приближение, перетаскивание — сдвиг  ·  доступный регион открывает свою карту"
 const BUTTON_WORLD := "КАРТА МИРА"
 const BUTTON_REGION := "КАРТА РЕГИОНА"
 
@@ -125,7 +125,7 @@ func show_region(region: MapRegion) -> bool:
 	showing_world = false
 	displayed_region = region
 	displayed_map = map
-	map_canvas.show_local(map, _current_location_id(), {}, KICKER_REGION, false)
+	map_canvas.show_local(map, _current_location_id(), _game_flags(), KICKER_REGION, false)
 	_apply_player()
 	_update_header()
 	_build_marker_list()
@@ -149,6 +149,17 @@ func _current_location_id() -> StringName:
 func _current_region_id() -> StringName:
 	var region := current_region()
 	return region.id if region != null else &""
+
+
+func _game_flags() -> Dictionary:
+	var run_state := get_node_or_null(^"/root/NightmareRunState")
+	if run_state == null or not run_state.has_method(&"snapshot"):
+		return {}
+	var snapshot: Variant = run_state.call(&"snapshot")
+	if snapshot is Dictionary:
+		var flags: Variant = (snapshot as Dictionary).get("flags", {})
+		return flags if flags is Dictionary else {}
+	return {}
 
 
 ## Игрок показывается только на карте своего региона — в точке, куда его
@@ -206,7 +217,7 @@ func _build_marker_list() -> void:
 
 	var group := ButtonGroup.new()
 	var current_group := &"__none__"
-	for marker in displayed_map.visible_markers({}):
+	for marker in displayed_map.visible_markers(_game_flags()):
 		if marker.location_id != current_group:
 			current_group = marker.location_id
 			var placement := displayed_map.placement_for(marker.location_id)

@@ -1,0 +1,86 @@
+[gd_resource type="Resource" script_class="DialogueSequence" format=3]
+
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_sequence.gd" id="1_seq"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogue_line.gd" id="2_line"]
+
+[sub_resource type="Resource" id="Line_1"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Дальше пешком. Я не въезжаю на территорию без приглашения."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_2"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Что мне нужно знать?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_3"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Три вещи. Первая: не рассказывай о Пороке. Люди любят чужие слабости больше, чем свои."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_4"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Но я не могу врать."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_5"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Тогда говори правду так, чтобы её принимали за ложь. Это единственная ложь, которую он пропустит."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_6"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Вторая: выбери выживание в дикой местности. Ты не воин. Ты тот, кто возвращается."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_7"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Третья: держись за людей. В Царстве Снов никто не выживает в одиночку. Даже те, кто думает иначе."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_8"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Вы идёте?"
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_9"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "Нет. Я уже была там, где мне не рады. Иди. И не умри. Это будет плохо выглядеть в отчёте."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_10"]
+script = ExtResource("2_line")
+speaker = &"jett"
+text = "И не показывай тень без нужды. Люди боятся того, что не понимают."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_11"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Служебная машина пахнет кофе и чужими проблемами."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_12"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Стена выше, чем обещали. Внутри — те, кто ещё не умер."
+duration = 0.0
+
+[sub_resource type="Resource" id="Line_13"]
+script = ExtResource("2_line")
+speaker = &"sunny"
+text = "Академия Пробуждённых. Звучит как приглашение, а читается как приговор."
+duration = 0.0
+
+[resource]
+script = ExtResource("1_seq")
+lines = [SubResource("Line_1"), SubResource("Line_2"), SubResource("Line_3"), SubResource("Line_4"), SubResource("Line_5"), SubResource("Line_6"), SubResource("Line_7"), SubResource("Line_8"), SubResource("Line_9"), SubResource("Line_10"), SubResource("Line_11"), SubResource("Line_12"), SubResource("Line_13")]

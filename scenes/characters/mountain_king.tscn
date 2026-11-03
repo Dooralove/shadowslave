@@ -8,6 +8,8 @@
 [ext_resource type="Resource" path="res://resources/enemies/mountain_king_attack.tres" id="6_attack_stats"]
 [ext_resource type="Script" path="res://scripts/combat/hit_flash.gd" id="7_flash"]
 [ext_resource type="Script" path="res://scripts/combat/hit_spark.gd" id="8_spark"]
+[ext_resource type="PackedScene" path="res://assets/characters/generated/mountain_king_v2/mountain_king_v2.tscn" id="9_model"]
+[ext_resource type="Script" path="res://scripts/characters/character_lod_visibility.gd" id="10_lod"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 1.0
@@ -136,6 +138,16 @@ position = Vector3(0, 2, 0)
 shape = SubResource("CapsuleShape3D_body")
 
 [node name="Visual" type="Node3D" parent="."]
+
+[node name="Model" type="Node3D" parent="Visual"]
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="ModelRoot" parent="Visual/Model" instance=ExtResource("9_model")]
+
+[node name="LodVisibility" type="Node" parent="Visual/Model"]
+script = ExtResource("10_lod")
+lod1_distance = 20.0
+lod2_distance = 45.0
 
 [node name="Body" type="MeshInstance3D" parent="Visual"]
 position = Vector3(0, 2.2, 0)

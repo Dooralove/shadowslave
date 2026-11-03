@@ -42,6 +42,7 @@ func present(bark: BarkLine, duration := -1.0) -> void:
 	visible = true
 	subtitles.modulate.a = 1.0
 	subtitles.show_line(display_name(bark.speaker), bark.text, false)
+	_play_bark_voice(bark)
 
 	var hold := default_duration if duration <= 0.0 else duration
 	_tween = create_tween()
@@ -52,11 +53,29 @@ func present(bark: BarkLine, duration := -1.0) -> void:
 
 func hide_bark() -> void:
 	_display_id += 1
+	_stop_bark_voice()
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
 	subtitles.hide_line()
 	subtitles.modulate.a = 1.0
 	visible = false
+
+
+func _play_bark_voice(bark: BarkLine) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null or not director.has_method(&"play_voice"):
+		return
+	var voice_id := StringName("bark_%s" % bark.id)
+	director.call(&"play_voice", voice_id)
+
+
+func _stop_bark_voice() -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	var voice_node: Node = director.get("voice") as Node
+	if voice_node != null and voice_node.has_method(&"stop"):
+		voice_node.call(&"stop")
 
 
 func display_name(speaker: StringName) -> String:
@@ -66,6 +85,7 @@ func display_name(speaker: StringName) -> String:
 func _finish(display_id: int) -> void:
 	if display_id != _display_id:
 		return
+	_stop_bark_voice()
 	subtitles.hide_line()
 	subtitles.modulate.a = 1.0
 	visible = false

@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/locations/academy/academy_playable_location.gd" id="1_root"]
+[ext_resource type="PackedScene" path="res://scenes/locations/academy/academy_sleeper_center_building.tscn" id="2_art"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/quests/gameplay_hud.tscn" id="4_hud"]
+[ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="5_fade"]
+[ext_resource type="Script" path="res://scripts/locations/academy/academy_gameplay_director.gd" id="6_director"]
+
+[node name="AcademySleeperCenterPlayable" type="Node3D"]
+script = ExtResource("1_root")
+location_id = &"academy_sleeper_center"
+display_name = "Sleeper Center"
+map_id = &"academy_sleeper_center"
+build_on_ready = false
+show_debug_labels = false
+academy_scene_kind = &"sleeper"
+
+[node name="Art" parent="." instance=ExtResource("2_art")]
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 10.3)
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Start" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 10.3)
+
+[node name="FromGrounds" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 10.3)
+
+[node name="FromCampus" type="Marker3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 10.3)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("5_fade")
+
+[node name="GameplayHud" parent="." instance=ExtResource("4_hud")]
+
+[node name="AcademyGameplayDirector" type="Node3D" parent="."]
+script = ExtResource("6_director")
+scene_kind = "sleeper"

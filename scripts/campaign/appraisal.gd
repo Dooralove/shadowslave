@@ -31,9 +31,11 @@ const DORMANT_HUMANS_REQUIRED := 3
 
 var _completed := false
 var _skip_line := false
+var beat_director: BeatDirector
 
 
 func _ready() -> void:
+	_ensure_beat_director()
 	if messages == null:
 		messages = APPRAISAL_MESSAGES
 	if not can_appraise():
@@ -46,7 +48,10 @@ func _ready() -> void:
 		if redirect_without_gate:
 			get_tree().change_scene_to_file(CAMPAIGN_ENTRY)
 		return
+	beat_director.transition_to_beat(&"N25")
+	_audio_scene()
 	NightmareRunState.set_flag(&"appraisal_started")
+
 	_hint.visible = false
 	_message.text = ""
 	if fade_in:
@@ -64,7 +69,18 @@ func is_completed() -> bool:
 	return _completed
 
 
+func _ensure_beat_director() -> void:
+	if beat_director != null:
+		return
+	beat_director = get_node_or_null("BeatDirector") as BeatDirector
+	if beat_director == null:
+		beat_director = BeatDirector.new()
+		beat_director.name = "BeatDirector"
+		add_child(beat_director)
+
+
 func can_appraise() -> bool:
+
 	return NightmareRunState.require(REQUIRED_FLAGS) and defeated_dormant_humans() >= DORMANT_HUMANS_REQUIRED
 
 
@@ -85,8 +101,29 @@ func defeated_dormant_humans() -> int:
 	return count
 
 
+## D14: личинки — отдельные деяния сверх трёх дремлющих людей. Первая
+## личинка на стоянке (larva_killed) и личинка из тела Шифти
+## (shifty_larva_killed) считаются обе. Вторая личинка на стоянке
+## (second_larva_killed) сюда не входит: её добивает Герой.
+func defeated_larva() -> int:
+	var count := 0
+	if NightmareRunState.has_flag(&"larva_killed"):
+		count += 1
+	if NightmareRunState.has_flag(&"shifty_larva_killed"):
+		count += 1
+	return count
+
+
+func defeated_creatures() -> int:
+	return defeated_dormant_humans() + defeated_larva()
+
+
 func _run() -> void:
 	var valid: Array[SpellMessage] = messages.get_valid_messages() if messages else []
+	if defeated_larva() <= 0:
+		valid = valid.filter(func(message: SpellMessage) -> bool:
+			return message.id != &"appraisal_deed_larva"
+		)
 	for index in valid.size():
 		_skip_line = false
 		var message := valid[index]
@@ -110,16 +147,51 @@ func _run() -> void:
 	NightmareRunState.set_flag(&"shadow_bond_known")
 	NightmareRunState.set_flag(&"first_seal_broken")
 	NightmareRunState.set_item(&"puppeteer_shroud")
+	_play_ui(&"ui_skill_unlock")
+	_audio_stop(2.0)
 	_hint.visible = true
 	_hint.text = "Оценка завершена. Enter / Space — пробуждение."
 	await _wait(end_delay)
 	_completed = true
+	if beat_director != null and beat_director.current_beat != null:
+		beat_director.beat_completed.emit(beat_director.current_beat)
 	finished.emit()
+
 	if not transition_enabled:
 		return
 	if not fast_mode:
 		await _fade.fade_to(1.0, 1.2)
 	get_tree().change_scene_to_file(FINALE_SCENE)
+
+
+func _audio_scene() -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	if director.has_method(&"play_music"):
+		director.call(&"play_music", &"appraisal", 2.0)
+	if director.has_method(&"play_ambience"):
+		director.call(&"play_ambience", &"sanctuary", 2.0)
+	if director.has_method(&"set_reverb_profile"):
+		director.call(&"set_reverb_profile", &"sanctuary")
+
+
+func _play_ui(cue_id: StringName) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director != null and director.has_method(&"play_ui"):
+		director.call(&"play_ui", cue_id)
+
+
+func _audio_stop(fade: float) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	if director.has_method(&"stop_music"):
+		director.call(&"stop_music", fade)
+	if director.has_method(&"stop_ambience"):
+		director.call(&"stop_ambience", fade)
+	if director.has_method(&"set_reverb_profile"):
+		director.call(&"set_reverb_profile", &"outdoor")
 
 
 func _wait(seconds: float) -> void:

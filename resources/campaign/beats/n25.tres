@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N25"
+part = &"finale"
+part_title = "Финал"
+canonical_block = 19
+title = "Звёздная оценка Заклятия"
+beat_type = 2
+format_label = "Интерактивная К"
+objective = ""
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"temple_reached", &"trial_completed"])
+exit_conditions = Array[StringName]([&"appraisal_completed", &"true_name_lost_from_light", &"aspect_shadow_slave", &"first_seal_broken"])
+staging_flags = Array[StringName]([&"appraisal_completed", &"final_appraisal_glorious", &"true_name_lost_from_light", &"aspect_shadow_slave", &"shadow_bond_known", &"first_seal_broken"])
+estimated_seconds = 120.0
+estimated_time_text = "~2 мин"
+scene_path = "res://scenes/campaign/appraisal_arrival.tscn"
+can_die = false

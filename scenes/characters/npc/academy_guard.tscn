@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/slice/mannequin.gd" id="1_mannequin"]
+
+[node name="AcademyGuard" type="Node3D"]
+script = ExtResource("1_mannequin")
+archetype = "police_guard"
+pose = "check"
+height_scale = 1.04
+width_scale = 1.02
+placeholder = true
+uniform_color = Color(0.1, 0.14, 0.28, 1)
+hair_color = Color(0.08, 0.06, 0.05, 1)
+skin_color = Color(1, 0.86, 0.78, 1)
+accent_color = Color(0.7, 0.58, 0.2, 1)

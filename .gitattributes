@@ -8,6 +8,7 @@
 *.blend filter=lfs diff=lfs merge=lfs -text
 *.blend1 filter=lfs diff=lfs merge=lfs -text
 *.wav filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.kra filter=lfs diff=lfs merge=lfs -text
@@ -20,10 +21,17 @@
 
 # Текстуры прототипа S2 (2K PNG) — через LFS. Существующие PNG KayKit не затрагиваются.
 assets/characters/sunny_realistic_poc/**/*.png filter=lfs diff=lfs merge=lfs -text
+assets/characters/p1/**/*.png filter=lfs diff=lfs merge=lfs -text
+assets/characters/p1/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+assets/characters/equipment/**/*.png filter=lfs diff=lfs merge=lfs -text
+assets/characters/equipment/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 
 # CC0 textures for environments (S3+): JPEG and PNG via LFS.
 assets/environments/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 assets/environments/**/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Generated prop textures extracted from GLB (loot containers): PNG via LFS.
+assets/models/**/*.png filter=lfs diff=lfs merge=lfs -text
 
 # Превью-рендеры ассетов (docs/art/previews/): JPEG/PNG через LFS.
 docs/art/previews/**/*.jpg filter=lfs diff=lfs merge=lfs -text
@@ -32,5 +40,15 @@ docs/art/previews/**/*.png filter=lfs diff=lfs merge=lfs -text
 # Рисованные подложки карт (tools/map/build_maps.py) — PNG через LFS.
 assets/ui/map/**/*.png filter=lfs diff=lfs merge=lfs -text
 
+# Vitals HUD: rendered/procedural PNG sprites are binary.
+assets/ui/vitals/**/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Loot category icons: procedural PNGs are binary.
+assets/ui/loot/**/*.png filter=lfs diff=lfs merge=lfs -text
+
 # Текстуры типовых NPC-заглушек (извлечены импортом из GLB) — через LFS.
 assets/characters/placeholders/**/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Текстуры противников, извлечённые импортом из GLB, — через LFS.
+assets/characters/enemies/**/*.png filter=lfs diff=lfs merge=lfs -text
+assets/characters/enemies/**/*.jpg filter=lfs diff=lfs merge=lfs -text

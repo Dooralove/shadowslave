@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+
+[sub_resource type="Resource" id="Obj_trail"]
+script = ExtResource("2_objective")
+id = &"find_trail"
+text = "Осмотреть следы у костяного моста"
+kind = 2
+target_id = &"sq_fs_05_trail"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_lair"]
+script = ExtResource("2_objective")
+id = &"find_lair"
+text = "Найти логово старого карапакса"
+kind = 2
+target_id = &"sq_fs_05_lair"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_resolve"]
+script = ExtResource("2_objective")
+id = &"resolve"
+text = "Закрыть историю моста"
+kind = 5
+target_id = &"sq_fs_05_resolved"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_kill"]
+script = ExtResource("2_objective")
+id = &"kill_alpha"
+text = "Убить Старого Панциря"
+kind = 0
+target_id = &"sq_fs_05_old_shell"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_tide"]
+script = ExtResource("2_objective")
+id = &"tide_trap"
+text = "Устроить приливную ловушку"
+kind = 5
+target_id = &"sq_fs_05_tide_trap"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_spare"]
+script = ExtResource("2_objective")
+id = &"spare"
+text = "Обойти хозяина моста"
+kind = 5
+target_id = &"sq_fs_05_alpha_spared"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_reward"]
+script = ExtResource("2_objective")
+id = &"collect_reward"
+text = "Забрать панцирный резец"
+kind = 2
+target_id = &"sq_fs_05_reward"
+required_count = 1
+optional = true
+
+[resource]
+script = ExtResource("1_quest")
+id = &"sq_fs_05_bone_bridge_master"
+scope = &"forgotten_shore"
+code = "12"
+title = "Хозяин костяного моста"
+category = 1
+summary = "Под костяным мостом живёт старый карапакс, который использует прилив как оружие."
+description = "Старый Панцирь загоняет добычу в канал и ждёт воду. Санни может убить его, устроить приливную ловушку или обойти по мосту. Каждый исход меняет состояние низкой тропы."
+prerequisites = Array[StringName]([])
+required_quests = Array[StringName]([])
+auto_start = false
+show_available = false
+objectives = [SubResource("Obj_trail"), SubResource("Obj_lair"), SubResource("Obj_resolve"), SubResource("Obj_kill"), SubResource("Obj_tide"), SubResource("Obj_spare"), SubResource("Obj_reward")]
+rewards = []
+completion_flag = &"sq_fs_05_complete"

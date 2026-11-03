@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_su88a"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_3f77e"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_byr50"]
+
+[sub_resource type="Resource" id="Resource_exp2t"]
+script = ExtResource("1_su88a")
+id = &"enter_dorm"
+text = "Войти в дортуар"
+target_id = &"academy_reached_dormitory"
+
+[sub_resource type="Resource" id="Resource_kqxj6"]
+script = ExtResource("1_su88a")
+id = &"sleep"
+text = "Лечь спать"
+kind = 2
+target_id = &"room_bed"
+
+[sub_resource type="Resource" id="Resource_0qaa2"]
+script = ExtResource("2_3f77e")
+flag = &"rest_unlocked"
+text = "Отдых в комнате 07"
+
+[sub_resource type="Resource" id="Resource_1btko"]
+script = ExtResource("2_3f77e")
+currency_id = &"credits"
+currency_amount = 5
+text = "5 кредитов"
+
+[resource]
+script = ExtResource("3_byr50")
+id = &"ac_mq_04_first_night"
+scope = &"academy"
+code = "AC-MQ-04"
+title = "Первая ночь"
+category = 0
+summary = "Найти комнату 07 и лечь спать."
+description = "В дортуаре двенадцать капсул. В комнате 07 — койка, стол, зеркало и экран-окно. Ночью тень поднимает руку."
+prerequisites = Array[StringName]([&"ac_mq_03_complete"])
+show_available = false
+objectives = [SubResource("Resource_exp2t"), SubResource("Resource_kqxj6")]
+rewards = [SubResource("Resource_0qaa2"), SubResource("Resource_1btko")]
+completion_flag = &"ac_mq_04_complete"

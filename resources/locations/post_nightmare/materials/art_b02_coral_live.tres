@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/coral_fort_wall_01_diff_2k.jpg" id="1_8fn8f"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/coral_fort_wall_01_arm_2k.jpg" id="2_3l58d"]
+[ext_resource type="Texture2D" path="res://assets/environments/nightmare/materials/textures/coral_fort_wall_01_nor_gl_2k.jpg" id="3_ka3ww"]
+
+[resource]
+resource_name = "art_b02_coral_live"
+albedo_color = Color(0.44, 0.15, 0.16, 1)
+albedo_texture = ExtResource("1_8fn8f")
+metallic_texture = ExtResource("2_3l58d")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_3l58d")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 1.4
+normal_texture = ExtResource("3_ka3ww")
+uv1_scale = Vector3(2.2, 2.2, 2.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 5

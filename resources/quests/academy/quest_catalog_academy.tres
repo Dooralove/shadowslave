@@ -1,0 +1,932 @@
+[gd_resource type="Resource" script_class="QuestCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_d4q3w"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_53r3u"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_3d18d"]
+[ext_resource type="Script" path="res://scripts/quests/quest_catalog.gd" id="4_w0pqp"]
+
+[sub_resource type="Resource" id="Resource_4s2v7"]
+script = ExtResource("1_d4q3w")
+id = &"talk_guard"
+text = "Пройти проверку на КПП"
+kind = 4
+target_id = &"gate_guard"
+
+[sub_resource type="Resource" id="Resource_ix2ae"]
+script = ExtResource("1_d4q3w")
+id = &"enter_campus"
+text = "Войти в кампус"
+target_id = &"academy_reached_campus"
+
+[sub_resource type="Resource" id="Resource_qlakg"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[sub_resource type="Resource" id="Resource_1o2lu"]
+script = ExtResource("2_53r3u")
+flag = &"academy_pass"
+text = "Пропуск на территорию"
+
+[sub_resource type="Resource" id="Resource_pp04v"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_01_red_gate"
+scope = &"academy"
+code = "AC-MQ-01"
+title = "Красные ворота"
+category = 0
+summary = "Пройти проверку на КПП и войти в Академию."
+description = "Санни приходит к Академии Пробуждённых. Охрана проверяет имя и статус; за воротами начинается кампус."
+show_available = false
+objectives = [SubResource("Resource_4s2v7"), SubResource("Resource_ix2ae")]
+rewards = [SubResource("Resource_qlakg"), SubResource("Resource_1o2lu")]
+completion_flag = &"ac_mq_01_complete"
+
+[sub_resource type="Resource" id="Resource_8yrer"]
+script = ExtResource("1_d4q3w")
+id = &"terminal"
+text = "Получить направление у терминала"
+kind = 2
+target_id = &"campus_terminal"
+
+[sub_resource type="Resource" id="Resource_ueauj"]
+script = ExtResource("1_d4q3w")
+id = &"reach_sleeper"
+text = "Дойти до Sleeper Center"
+target_id = &"academy_reached_sleeper_entry"
+
+[sub_resource type="Resource" id="Resource_xvxbw"]
+script = ExtResource("1_d4q3w")
+id = &"register"
+text = "Зарегистрироваться"
+kind = 4
+target_id = &"sleeper_receptionist"
+
+[sub_resource type="Resource" id="Resource_iposs"]
+script = ExtResource("2_53r3u")
+flag = &"room_key"
+text = "Ключ от комнаты 07"
+
+[sub_resource type="Resource" id="Resource_rsxg5"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 15
+text = "15 кредитов"
+
+[sub_resource type="Resource" id="Resource_e2v22"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_02_city_within"
+scope = &"academy"
+code = "AC-MQ-02"
+title = "Город в городе"
+category = 0
+summary = "Найти Sleeper Center и зарегистрироваться."
+description = "Кампус оказывается городом в городе. Терминал выдаёт направление, стойка регистрации — комнату и форму."
+prerequisites = Array[StringName]([&"ac_mq_01_complete"])
+show_available = false
+objectives = [SubResource("Resource_8yrer"), SubResource("Resource_ueauj"), SubResource("Resource_xvxbw")]
+rewards = [SubResource("Resource_iposs"), SubResource("Resource_rsxg5")]
+completion_flag = &"ac_mq_02_complete"
+
+[sub_resource type="Resource" id="Resource_ie5xo"]
+script = ExtResource("1_d4q3w")
+id = &"listen_rock"
+text = "Выслушать Рока"
+kind = 4
+target_id = &"rock_induction"
+
+[sub_resource type="Resource" id="Resource_vh7ce"]
+script = ExtResource("1_d4q3w")
+id = &"answer_kasper"
+text = "Ответить Касперу"
+kind = 4
+target_id = &"kasper_induction"
+
+[sub_resource type="Resource" id="Resource_ksyej"]
+script = ExtResource("1_d4q3w")
+id = &"see_cassia"
+text = "Заметить Кассию"
+target_id = &"cassia_seen"
+
+[sub_resource type="Resource" id="Resource_etmkw"]
+script = ExtResource("2_53r3u")
+flag = &"academy_schedule"
+text = "Расписание занятий"
+
+[sub_resource type="Resource" id="Resource_phn6u"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 20
+text = "20 кредитов"
+
+[sub_resource type="Resource" id="Resource_ankb4"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_03_induction"
+scope = &"academy"
+code = "AC-MQ-03"
+title = "Индукция"
+category = 0
+summary = "Пройти индукцию и не выдать себя."
+description = "Рок объясняет правила Царства Снов. Каспер спрашивает, кто уже убивал. Кассия сидит в углу."
+prerequisites = Array[StringName]([&"ac_mq_02_complete"])
+show_available = false
+objectives = [SubResource("Resource_ie5xo"), SubResource("Resource_vh7ce"), SubResource("Resource_ksyej")]
+rewards = [SubResource("Resource_etmkw"), SubResource("Resource_phn6u")]
+completion_flag = &"ac_mq_03_complete"
+
+[sub_resource type="Resource" id="Resource_exp2t"]
+script = ExtResource("1_d4q3w")
+id = &"enter_dorm"
+text = "Войти в дортуар"
+target_id = &"academy_reached_dormitory"
+
+[sub_resource type="Resource" id="Resource_kqxj6"]
+script = ExtResource("1_d4q3w")
+id = &"sleep"
+text = "Лечь спать"
+kind = 2
+target_id = &"room_bed"
+
+[sub_resource type="Resource" id="Resource_0qaa2"]
+script = ExtResource("2_53r3u")
+flag = &"rest_unlocked"
+text = "Отдых в комнате 07"
+
+[sub_resource type="Resource" id="Resource_1btko"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 5
+text = "5 кредитов"
+
+[sub_resource type="Resource" id="Resource_xym7g"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_04_first_night"
+scope = &"academy"
+code = "AC-MQ-04"
+title = "Первая ночь"
+category = 0
+summary = "Найти комнату 07 и лечь спать."
+description = "В дортуаре двенадцать капсул. В комнате 07 — койка, стол, зеркало и экран-окно. Ночью тень поднимает руку."
+prerequisites = Array[StringName]([&"ac_mq_03_complete"])
+show_available = false
+objectives = [SubResource("Resource_exp2t"), SubResource("Resource_kqxj6")]
+rewards = [SubResource("Resource_0qaa2"), SubResource("Resource_1btko")]
+completion_flag = &"ac_mq_04_complete"
+
+[sub_resource type="Resource" id="Resource_68cs3"]
+script = ExtResource("1_d4q3w")
+id = &"read_schedule"
+text = "Прочитать расписание"
+kind = 2
+target_id = &"schedule_board"
+
+[sub_resource type="Resource" id="Resource_fvjui"]
+script = ExtResource("1_d4q3w")
+id = &"interview"
+text = "Пройти интервью"
+kind = 4
+target_id = &"administrator"
+
+[sub_resource type="Resource" id="Resource_mhirp"]
+script = ExtResource("2_53r3u")
+flag = &"library_pass"
+text = "Допуск в библиотеку"
+
+[sub_resource type="Resource" id="Resource_woh5v"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 25
+text = "25 кредитов"
+
+[sub_resource type="Resource" id="Resource_wetcd"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_05_schedule"
+scope = &"academy"
+code = "AC-MQ-05"
+title = "Расписание и интервью"
+category = 0
+summary = "Выбрать курс и пройти интервью."
+description = "На доске — Wilderness Survival, боевая подготовка и мёртвые языки. Администратор задаёт вопросы об Аспекте."
+prerequisites = Array[StringName]([&"ac_mq_04_complete"])
+show_available = false
+objectives = [SubResource("Resource_68cs3"), SubResource("Resource_fvjui")]
+rewards = [SubResource("Resource_mhirp"), SubResource("Resource_woh5v")]
+completion_flag = &"ac_mq_05_complete"
+
+[sub_resource type="Resource" id="Resource_ry1ao"]
+script = ExtResource("1_d4q3w")
+id = &"read_board"
+text = "Прочитать табло"
+kind = 2
+target_id = &"ranking_board"
+
+[sub_resource type="Resource" id="Resource_3y0mq"]
+script = ExtResource("1_d4q3w")
+id = &"talk_kasper"
+text = "Поговорить с Каспером"
+kind = 4
+target_id = &"kasper_dining"
+
+[sub_resource type="Resource" id="Resource_qtk5x"]
+script = ExtResource("2_53r3u")
+flag = &"nephis_true_name_seen"
+text = "True Name Нефис"
+
+[sub_resource type="Resource" id="Resource_8p31k"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[sub_resource type="Resource" id="Resource_4qgxl"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_06_true_name"
+scope = &"academy"
+code = "AC-MQ-06"
+title = "Имя на табло"
+category = 0
+summary = "Понять, кто такая Нефис."
+description = "На табло появляется True Name Нефис — Changing Star. Каспер кланяется. Кассия сидит одна."
+prerequisites = Array[StringName]([&"ac_mq_05_complete"])
+show_available = false
+objectives = [SubResource("Resource_ry1ao"), SubResource("Resource_3y0mq")]
+rewards = [SubResource("Resource_qtk5x"), SubResource("Resource_8p31k")]
+completion_flag = &"ac_mq_06_complete"
+
+[sub_resource type="Resource" id="Resource_byd3x"]
+script = ExtResource("1_d4q3w")
+id = &"talk_julius"
+text = "Поговорить с Джулиусом"
+kind = 4
+target_id = &"julius"
+
+[sub_resource type="Resource" id="Resource_pycrx"]
+script = ExtResource("1_d4q3w")
+id = &"stars"
+text = "Изучить карту звёзд"
+kind = 2
+target_id = &"star_map"
+
+[sub_resource type="Resource" id="Resource_x728i"]
+script = ExtResource("1_d4q3w")
+id = &"fire"
+text = "Развести огонь"
+kind = 2
+target_id = &"fire_pit"
+
+[sub_resource type="Resource" id="Resource_uqsqt"]
+script = ExtResource("2_53r3u")
+flag = &"star_navigation"
+text = "Звёздная навигация"
+
+[sub_resource type="Resource" id="Resource_n82fh"]
+script = ExtResource("2_53r3u")
+flag = &"firemaking"
+text = "Разведение огня"
+
+[sub_resource type="Resource" id="Resource_47r6s"]
+script = ExtResource("2_53r3u")
+flag = &"water_finding"
+text = "Поиск воды"
+
+[sub_resource type="Resource" id="Resource_p4yxb"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_07_wilderness"
+scope = &"academy"
+code = "AC-MQ-07"
+title = "Уроки выживания"
+category = 0
+summary = "Освоить огонь, воду и звёздную навигацию."
+description = "Джулиус ведёт почти пустой класс. Он учит читать звёзды, разводить огонь и находить воду."
+prerequisites = Array[StringName]([&"ac_mq_05_complete"])
+show_available = false
+objectives = [SubResource("Resource_byd3x"), SubResource("Resource_pycrx"), SubResource("Resource_x728i")]
+rewards = [SubResource("Resource_uqsqt"), SubResource("Resource_n82fh"), SubResource("Resource_47r6s")]
+completion_flag = &"ac_mq_07_complete"
+
+[sub_resource type="Resource" id="Resource_r6h85"]
+script = ExtResource("1_d4q3w")
+id = &"strike"
+text = "Ударить по датчику"
+kind = 2
+target_id = &"strike_meter"
+
+[sub_resource type="Resource" id="Resource_kgt7p"]
+script = ExtResource("1_d4q3w")
+id = &"talk_rock"
+text = "Выслушать Рока"
+kind = 4
+target_id = &"rock_dojo"
+
+[sub_resource type="Resource" id="Resource_k0ejv"]
+script = ExtResource("2_53r3u")
+flag = &"dojo_token"
+text = "Доступ в додзё после отбоя"
+
+[sub_resource type="Resource" id="Resource_e7od4"]
+script = ExtResource("2_53r3u")
+flag = &"parry_basics"
+text = "Основы парирования"
+
+[sub_resource type="Resource" id="Resource_oj3o6"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 20
+text = "20 кредитов"
+
+[sub_resource type="Resource" id="Resource_a3o85"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_08_measure"
+scope = &"academy"
+code = "AC-MQ-08"
+title = "Мера силы"
+category = 0
+summary = "Пройти тест удара в додзё."
+description = "Нефис бьёт на 16, Каспер — на 21, Санни — на 10–11. Рок говорит, что сила — не всё."
+prerequisites = Array[StringName]([&"ac_mq_05_complete"])
+show_available = false
+objectives = [SubResource("Resource_r6h85"), SubResource("Resource_kgt7p")]
+rewards = [SubResource("Resource_k0ejv"), SubResource("Resource_e7od4"), SubResource("Resource_oj3o6")]
+completion_flag = &"ac_mq_08_complete"
+
+[sub_resource type="Resource" id="Resource_62ode"]
+script = ExtResource("1_d4q3w")
+id = &"scout_1"
+text = "Осмотреть коридор"
+kind = 2
+target_id = &"shadow_point_1"
+
+[sub_resource type="Resource" id="Resource_d1igw"]
+script = ExtResource("1_d4q3w")
+id = &"scout_2"
+text = "Осмотреть фильтры"
+kind = 2
+target_id = &"shadow_point_2"
+
+[sub_resource type="Resource" id="Resource_07fys"]
+script = ExtResource("1_d4q3w")
+id = &"scout_3"
+text = "Осмотреть архив"
+kind = 2
+target_id = &"shadow_point_3"
+
+[sub_resource type="Resource" id="Resource_rbgaq"]
+script = ExtResource("2_53r3u")
+flag = &"shadow_scout"
+text = "Тень-разведчик"
+
+[sub_resource type="Resource" id="Resource_r86p0"]
+script = ExtResource("2_53r3u")
+flag = &"maintenance_key"
+text = "Ключ от сервисных тоннелей"
+
+[sub_resource type="Resource" id="Resource_ic1oy"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 15
+text = "15 кредитов"
+
+[sub_resource type="Resource" id="Resource_1oteu"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_09_shadow"
+scope = &"academy"
+code = "AC-MQ-09"
+title = "Тень в коридорах"
+category = 0
+summary = "Освоить тень-разведчика в сервисных коридорах."
+description = "Ночью тень тянется к вентиляции. Три точки разведки ведут к старой табличке с именами."
+prerequisites = Array[StringName]([&"ac_mq_04_complete"])
+show_available = false
+objectives = [SubResource("Resource_62ode"), SubResource("Resource_d1igw"), SubResource("Resource_07fys")]
+rewards = [SubResource("Resource_rbgaq"), SubResource("Resource_r86p0"), SubResource("Resource_ic1oy")]
+completion_flag = &"ac_mq_09_complete"
+
+[sub_resource type="Resource" id="Resource_si34t"]
+script = ExtResource("1_d4q3w")
+id = &"watch"
+text = "Посмотреть спарринг"
+target_id = &"academy_reached_dojo"
+
+[sub_resource type="Resource" id="Resource_r5kxd"]
+script = ExtResource("1_d4q3w")
+id = &"locker"
+text = "Поговорить с Каспером в раздевалке"
+kind = 4
+target_id = &"kasper_locker"
+
+[sub_resource type="Resource" id="Resource_sj7ah"]
+script = ExtResource("2_53r3u")
+flag = &"immortal_flame_known"
+text = "История клана Immortal Flame"
+
+[sub_resource type="Resource" id="Resource_t2crt"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 25
+text = "25 кредитов"
+
+[sub_resource type="Resource" id="Resource_p3fu4"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_10_sparring"
+scope = &"academy"
+code = "AC-MQ-10"
+title = "Спарринг"
+category = 0
+summary = "Посмотреть бой Каспера и Нефис."
+description = "Нефис почти побеждает без Аспекта. В раздевалке Каспер рассказывает о клане Immortal Flame."
+prerequisites = Array[StringName]([&"ac_mq_08_complete"])
+show_available = false
+objectives = [SubResource("Resource_si34t"), SubResource("Resource_r5kxd")]
+rewards = [SubResource("Resource_sj7ah"), SubResource("Resource_t2crt")]
+completion_flag = &"ac_mq_10_complete"
+
+[sub_resource type="Resource" id="Resource_1ptap"]
+script = ExtResource("1_d4q3w")
+id = &"alarm"
+text = "Понять, что произошло"
+target_id = &"academy_reached_alarm"
+
+[sub_resource type="Resource" id="Resource_n83t5"]
+script = ExtResource("1_d4q3w")
+id = &"release"
+text = "Открыть дверь вручную"
+kind = 2
+target_id = &"manual_release"
+
+[sub_resource type="Resource" id="Resource_tj8e7"]
+script = ExtResource("1_d4q3w")
+id = &"rescue"
+text = "Вывести кадетов"
+target_id = &"cadet_rescued"
+
+[sub_resource type="Resource" id="Resource_c88vx"]
+script = ExtResource("2_53r3u")
+item_id = &"field_medkit"
+text = "Полевая аптечка"
+
+[sub_resource type="Resource" id="Resource_oc4ar"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 30
+text = "30 кредитов"
+
+[sub_resource type="Resource" id="Resource_k1gqb"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_11_storm"
+scope = &"academy"
+code = "AC-MQ-11"
+title = "Ночь шторма"
+category = 0
+summary = "Открыть заблокированный блок и вывести кадетов."
+description = "Шторм валит антенну. Дверь в нижний блок заблокирована; Мира и Рен остались внутри."
+prerequisites = Array[StringName]([&"ac_mq_09_complete", &"ac_mq_10_complete"])
+show_available = false
+objectives = [SubResource("Resource_1ptap"), SubResource("Resource_n83t5"), SubResource("Resource_tj8e7")]
+rewards = [SubResource("Resource_c88vx"), SubResource("Resource_oc4ar")]
+completion_flag = &"ac_mq_11_complete"
+
+[sub_resource type="Resource" id="Resource_xy0xu"]
+script = ExtResource("1_d4q3w")
+id = &"coffee"
+text = "Взять кофе"
+kind = 2
+target_id = &"coffee_machine"
+
+[sub_resource type="Resource" id="Resource_1lcrp"]
+script = ExtResource("1_d4q3w")
+id = &"cassia"
+text = "Поговорить с Кассией"
+kind = 4
+target_id = &"cassia_birthday"
+
+[sub_resource type="Resource" id="Resource_68cnc"]
+script = ExtResource("1_d4q3w")
+id = &"farewell"
+text = "Попрощаться с Джулиусом"
+kind = 4
+target_id = &"julius_farewell"
+
+[sub_resource type="Resource" id="Resource_noual"]
+script = ExtResource("1_d4q3w")
+id = &"hollow"
+text = "Пройти галерею Hollow"
+target_id = &"academy_reached_hollow"
+
+[sub_resource type="Resource" id="Resource_oesmb"]
+script = ExtResource("1_d4q3w")
+id = &"capsule"
+text = "Лечь в капсулу"
+kind = 2
+target_id = &"sleeper_capsule"
+
+[sub_resource type="Resource" id="Resource_2q56v"]
+script = ExtResource("2_53r3u")
+flag = &"birthday_17"
+text = "Семнадцать лет"
+
+[sub_resource type="Resource" id="Resource_o0hp7"]
+script = ExtResource("2_53r3u")
+flag = &"hollow_seen"
+text = "Галерея Hollow"
+
+[sub_resource type="Resource" id="Resource_gmos2"]
+script = ExtResource("2_53r3u")
+flag = &"capsule_entered"
+text = "Капсула сна"
+
+[sub_resource type="Resource" id="Resource_kk3iv"]
+script = ExtResource("3_3d18d")
+id = &"ac_mq_12_last_day"
+scope = &"academy"
+code = "AC-MQ-12"
+title = "Семнадцать"
+category = 0
+summary = "Прожить последний день и лечь в капсулу."
+description = "Кофе, день рождения, прощание с Джулиусом, галерея Hollow и капсула."
+prerequisites = Array[StringName]([&"ac_mq_11_complete"])
+show_available = false
+objectives = [SubResource("Resource_xy0xu"), SubResource("Resource_1lcrp"), SubResource("Resource_68cnc"), SubResource("Resource_noual"), SubResource("Resource_oesmb")]
+rewards = [SubResource("Resource_2q56v"), SubResource("Resource_o0hp7"), SubResource("Resource_gmos2")]
+completion_flag = &"academy_complete"
+
+[sub_resource type="Resource" id="Resource_txwxa"]
+script = ExtResource("1_d4q3w")
+id = &"vent"
+text = "Обыскать вентиляцию"
+kind = 2
+target_id = &"laundry_vent"
+
+[sub_resource type="Resource" id="Resource_l2ar8"]
+script = ExtResource("2_53r3u")
+item_id = &"provisions"
+item_count = 2
+text = "Провизия ×2"
+
+[sub_resource type="Resource" id="Resource_dhph8"]
+script = ExtResource("2_53r3u")
+flag = &"ac_rep_outcast_1"
+text = "Доверие «обречённых»"
+
+[sub_resource type="Resource" id="Resource_2knsk"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_01_lucky_charm"
+scope = &"academy"
+code = "AC-SQ-01"
+title = "Талисман"
+summary = "Найти талисман Миры в вентиляции прачечной."
+description = "Мира потеряла латунный талисман — единственную вещь от брата. Он упал в вентиляцию."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_txwxa")]
+rewards = [SubResource("Resource_l2ar8"), SubResource("Resource_dhph8")]
+completion_flag = &"ac_sq_01_complete"
+
+[sub_resource type="Resource" id="Resource_vy7rd"]
+script = ExtResource("1_d4q3w")
+id = &"locker"
+text = "Обыскать шкафчики додзё"
+kind = 2
+target_id = &"dojo_locker"
+
+[sub_resource type="Resource" id="Resource_o1a1o"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[sub_resource type="Resource" id="Resource_8mhs5"]
+script = ExtResource("2_53r3u")
+flag = &"ac_rep_outcast_1"
+text = "Доверие «обречённых»"
+
+[sub_resource type="Resource" id="Resource_omhc2"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_02_borrowed_uniform"
+scope = &"academy"
+code = "AC-SQ-02"
+title = "Чужая форма"
+summary = "Найти форму Рена в шкафчиках додзё."
+description = "Группа Legacy «одолжила» форму Рена для посвящения. Он слишком напуган, чтобы сообщить."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_vy7rd")]
+rewards = [SubResource("Resource_o1a1o"), SubResource("Resource_8mhs5")]
+completion_flag = &"ac_sq_02_complete"
+
+[sub_resource type="Resource" id="Resource_g4qwh"]
+script = ExtResource("1_d4q3w")
+id = &"archive"
+text = "Найти карту в архиве"
+kind = 2
+target_id = &"restricted_archive"
+
+[sub_resource type="Resource" id="Resource_wvk8o"]
+script = ExtResource("2_53r3u")
+flag = &"star_navigation"
+text = "Звёздная навигация"
+
+[sub_resource type="Resource" id="Resource_xgxm3"]
+script = ExtResource("2_53r3u")
+flag = &"ac_rep_faculty_1"
+text = "Доверие преподавателей"
+
+[sub_resource type="Resource" id="Resource_6lt8t"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_03_star_chart"
+scope = &"academy"
+code = "AC-SQ-03"
+title = "Карта, которой нет"
+summary = "Найти карту звёзд в закрытом архиве."
+description = "Джулиус потерял карту, которую рисовал для Санни. Она попала в закрытый архив."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_g4qwh")]
+rewards = [SubResource("Resource_wvk8o"), SubResource("Resource_xgxm3")]
+completion_flag = &"ac_sq_03_complete"
+
+[sub_resource type="Resource" id="Resource_jjong"]
+script = ExtResource("1_d4q3w")
+id = &"plaque"
+text = "Изучить плиту"
+kind = 2
+target_id = &"library_plaque"
+
+[sub_resource type="Resource" id="Resource_0yjw2"]
+script = ExtResource("2_53r3u")
+flag = &"dead_languages"
+text = "Мёртвые языки"
+
+[sub_resource type="Resource" id="Resource_ho7dg"]
+script = ExtResource("2_53r3u")
+flag = &"library_restricted"
+text = "Доступ в закрытый архив"
+
+[sub_resource type="Resource" id="Resource_1ivx8"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_04_dead_word"
+scope = &"academy"
+code = "AC-SQ-04"
+title = "Слово из мёртвого языка"
+summary = "Перевести надпись на старой плите."
+description = "На плите в библиотеке вырезано слово на мёртвом языке. Джулиус просит помочь с переводом."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_jjong")]
+rewards = [SubResource("Resource_0yjw2"), SubResource("Resource_ho7dg")]
+completion_flag = &"ac_sq_04_complete"
+
+[sub_resource type="Resource" id="Resource_63jdm"]
+script = ExtResource("1_d4q3w")
+id = &"ghost"
+text = "Проверить шум"
+kind = 2
+target_id = &"dojo_night_point"
+
+[sub_resource type="Resource" id="Resource_edyv7"]
+script = ExtResource("2_53r3u")
+flag = &"parry_basics"
+text = "Основы парирования"
+
+[sub_resource type="Resource" id="Resource_5bsgr"]
+script = ExtResource("2_53r3u")
+flag = &"dojo_token"
+text = "Доступ в додзё после отбоя"
+
+[sub_resource type="Resource" id="Resource_0nxlb"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_05_dojo_ghost"
+scope = &"academy"
+code = "AC-SQ-05"
+title = "Призрак в додзё"
+summary = "Проверить ночной шум в додзё."
+description = "После отбоя в додзё слышны удары. Это Рен тренируется тайком, чтобы не попасть в «обречённые»."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_63jdm")]
+rewards = [SubResource("Resource_edyv7"), SubResource("Resource_5bsgr")]
+completion_flag = &"ac_sq_05_complete"
+
+[sub_resource type="Resource" id="Resource_5sfbl"]
+script = ExtResource("1_d4q3w")
+id = &"duel"
+text = "Пройти тренировочную лестницу"
+kind = 2
+target_id = &"ladder_point"
+
+[sub_resource type="Resource" id="Resource_fyr1o"]
+script = ExtResource("2_53r3u")
+flag = &"academy_rank"
+text = "Место в рейтинге"
+
+[sub_resource type="Resource" id="Resource_wvixj"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 20
+text = "20 кредитов"
+
+[sub_resource type="Resource" id="Resource_bn8w6"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_06_second_from_last"
+scope = &"academy"
+code = "AC-SQ-06"
+title = "Второй с конца"
+summary = "Пройти три тренировочных боя."
+description = "Рок предлагает неофициальную лестницу. Победа не делает Санни героем, но меняет место в списке."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_5sfbl")]
+rewards = [SubResource("Resource_fyr1o"), SubResource("Resource_wvixj")]
+completion_flag = &"ac_sq_06_complete"
+
+[sub_resource type="Resource" id="Resource_71wnx"]
+script = ExtResource("1_d4q3w")
+id = &"bet"
+text = "Ответить на пари"
+kind = 2
+target_id = &"kasper_bet_point"
+
+[sub_resource type="Resource" id="Resource_ef4co"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 30
+text = "30 кредитов"
+
+[sub_resource type="Resource" id="Resource_qv2gt"]
+script = ExtResource("2_53r3u")
+flag = &"kasper_favor"
+text = "Услуга Каспера"
+
+[sub_resource type="Resource" id="Resource_ag8e5"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_07_kasper_bet"
+scope = &"academy"
+code = "AC-SQ-07"
+title = "Пари Каспера"
+summary = "Принять или отклонить пари Каспера."
+description = "Каспер предлагает пари: Санни не продержится три удара против кадета из его группы."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_71wnx")]
+rewards = [SubResource("Resource_ef4co"), SubResource("Resource_qv2gt")]
+completion_flag = &"ac_sq_07_complete"
+
+[sub_resource type="Resource" id="Resource_gyd7b"]
+script = ExtResource("1_d4q3w")
+id = &"tea"
+text = "Найти чай на кухне"
+kind = 2
+target_id = &"kitchen_tea"
+
+[sub_resource type="Resource" id="Resource_qv7uo"]
+script = ExtResource("2_53r3u")
+flag = &"ac_rep_cassia_1"
+text = "Доверие Кассии"
+
+[sub_resource type="Resource" id="Resource_nk7a1"]
+script = ExtResource("2_53r3u")
+item_id = &"water_skin"
+text = "Фляга"
+
+[sub_resource type="Resource" id="Resource_c8gyt"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_08_tea_for_cassia"
+scope = &"academy"
+code = "AC-SQ-08"
+title = "Чай для слепой"
+summary = "Найти травяной чай для Кассии."
+description = "Автомат сломан. Санни идёт на кухню, находит чай и заваривает. Маленький жест, который Кассия запомнит."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_gyd7b")]
+rewards = [SubResource("Resource_qv7uo"), SubResource("Resource_nk7a1")]
+completion_flag = &"ac_sq_08_complete"
+
+[sub_resource type="Resource" id="Resource_m7qe2"]
+script = ExtResource("1_d4q3w")
+id = &"find"
+text = "Обыскать старый фильтрационный блок"
+target_id = &"academy_reached_filtration"
+
+[sub_resource type="Resource" id="Resource_ciybr"]
+script = ExtResource("2_53r3u")
+item_id = &"field_medkit"
+text = "Полевая аптечка"
+
+[sub_resource type="Resource" id="Resource_cuyjd"]
+script = ExtResource("2_53r3u")
+flag = &"ac_rep_outcast_2"
+text = "Доверие «обречённых»"
+
+[sub_resource type="Resource" id="Resource_wwet6"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_09_missing_cadet"
+scope = &"academy"
+code = "AC-SQ-09"
+title = "Пропавший кадет"
+summary = "Найти Рена в старом фильтрационном блоке."
+description = "Мира говорит, что Рен пропал после отбоя. Тень ведёт Санни в сервисные тоннели."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_m7qe2")]
+rewards = [SubResource("Resource_ciybr"), SubResource("Resource_cuyjd")]
+completion_flag = &"ac_sq_09_complete"
+
+[sub_resource type="Resource" id="Resource_cg1uj"]
+script = ExtResource("1_d4q3w")
+id = &"bin"
+text = "Обыскать корзину с бельём"
+kind = 2
+target_id = &"laundry_bin"
+
+[sub_resource type="Resource" id="Resource_5wl3a"]
+script = ExtResource("2_53r3u")
+flag = &"maintenance_key"
+text = "Ключ от сервисных тоннелей"
+
+[sub_resource type="Resource" id="Resource_miyn3"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 15
+text = "15 кредитов"
+
+[sub_resource type="Resource" id="Resource_ek0jm"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_10_maintenance_key"
+scope = &"academy"
+code = "AC-SQ-10"
+title = "Ключ от подвалов"
+summary = "Найти ключ сержанта Хольта в корзине с бельём."
+description = "Хольт потерял ключ от сервисных тоннелей и не хочет сообщать начальству."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_cg1uj")]
+rewards = [SubResource("Resource_5wl3a"), SubResource("Resource_miyn3")]
+completion_flag = &"ac_sq_10_complete"
+
+[sub_resource type="Resource" id="Resource_cpy16"]
+script = ExtResource("1_d4q3w")
+id = &"letter"
+text = "Найти письмо"
+kind = 2
+target_id = &"hollow_letter"
+
+[sub_resource type="Resource" id="Resource_pgtpy"]
+script = ExtResource("2_53r3u")
+flag = &"ac_rep_cassia_2"
+text = "Доверие Кассии"
+
+[sub_resource type="Resource" id="Resource_c1ify"]
+script = ExtResource("2_53r3u")
+flag = &"hollow_letter_resolved"
+text = "Письмо из галереи"
+
+[sub_resource type="Resource" id="Resource_sc6bf"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_11_hollow_letter"
+scope = &"academy"
+code = "AC-SQ-11"
+title = "Письмо из галереи"
+summary = "Найти письмо в галерее Hollow."
+description = "В руке одного из Hollow зажат конверт, адресованный матери. Кассия чувствует, что это важно."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_cpy16")]
+rewards = [SubResource("Resource_pgtpy"), SubResource("Resource_c1ify")]
+completion_flag = &"ac_sq_11_complete"
+
+[sub_resource type="Resource" id="Resource_r1eqg"]
+script = ExtResource("1_d4q3w")
+id = &"turret"
+text = "Дойти до восточной турели"
+target_id = &"academy_reached_east_turret"
+
+[sub_resource type="Resource" id="Resource_5jg22"]
+script = ExtResource("2_53r3u")
+currency_id = &"credits"
+currency_amount = 10
+text = "10 кредитов"
+
+[sub_resource type="Resource" id="Resource_ep8k4"]
+script = ExtResource("2_53r3u")
+flag = &"old_academy_map"
+text = "Старая карта Академии"
+
+[sub_resource type="Resource" id="Resource_rupmr"]
+script = ExtResource("3_3d18d")
+id = &"ac_sq_12_wall_walk"
+scope = &"academy"
+code = "AC-SQ-12"
+title = "Прогулка по стене"
+summary = "Дойти до восточной турели по стене."
+description = "Стражник спорит, что Санни не дойдёт до восточной турели до удара колокола. Это не насмешка, а скука."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_r1eqg")]
+rewards = [SubResource("Resource_5jg22"), SubResource("Resource_ep8k4")]
+completion_flag = &"ac_sq_12_complete"
+
+[resource]
+script = ExtResource("4_w0pqp")
+scope = &"academy"
+quests = [SubResource("Resource_pp04v"), SubResource("Resource_e2v22"), SubResource("Resource_ankb4"), SubResource("Resource_xym7g"), SubResource("Resource_wetcd"), SubResource("Resource_4qgxl"), SubResource("Resource_p4yxb"), SubResource("Resource_a3o85"), SubResource("Resource_1oteu"), SubResource("Resource_p3fu4"), SubResource("Resource_k1gqb"), SubResource("Resource_kk3iv"), SubResource("Resource_2knsk"), SubResource("Resource_omhc2"), SubResource("Resource_6lt8t"), SubResource("Resource_1ivx8"), SubResource("Resource_0nxlb"), SubResource("Resource_bn8w6"), SubResource("Resource_ag8e5"), SubResource("Resource_c8gyt"), SubResource("Resource_wwet6"), SubResource("Resource_ek0jm"), SubResource("Resource_sc6bf"), SubResource("Resource_rupmr")]

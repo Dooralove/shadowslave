@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+
+[sub_resource type="Resource" id="Obj_token"]
+script = ExtResource("2_objective")
+id = &"find_token"
+text = "Осмотреть девятый жетон у туши"
+kind = 2
+target_id = &"sq_fs_01_token"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_theo"]
+script = ExtResource("2_objective")
+id = &"meet_theo"
+text = "Найти Тео в сухом кармане"
+kind = 4
+target_id = &"theo"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_trail"]
+script = ExtResource("2_objective")
+id = &"read_trail"
+text = "Проследить путь выживших"
+kind = 2
+target_id = &"sq_fs_01_trail"
+required_count = 3
+optional = true
+
+[resource]
+script = ExtResource("1_quest")
+id = &"sq_fs_01_ninth_token"
+scope = &"forgotten_shore"
+code = "08"
+title = "Девятый жетон"
+category = 1
+summary = "Латунный жетон у туши ведёт к последнему выжившему из группы «Девятые»."
+description = "Санни находит у туши жетон с номером IX и следы, ведущие через костяной проход в сухой карман. Там прячется раненый Тео Вейл, который просит найти его сестру Лиссу. Это начало цепочки «Девятые»."
+prerequisites = Array[StringName]([])
+required_quests = Array[StringName]([])
+auto_start = false
+show_available = false
+objectives = [SubResource("Obj_token"), SubResource("Obj_theo"), SubResource("Obj_trail")]
+rewards = []
+completion_flag = &"sq_fs_01_complete"

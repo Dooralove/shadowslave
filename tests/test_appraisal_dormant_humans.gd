@@ -111,3 +111,62 @@ func test_deeds_survive_snapshot_restore_for_re_entry() -> void:
 	var appraisal := _appraisal()
 	assert_eq(appraisal.defeated_dormant_humans(), 3, "состояние деяний восстанавливается после перехода")
 	assert_true(appraisal.can_appraise())
+
+
+func test_n13_beat_staging_sets_flasks_poisoned_and_unlocks_appraisal() -> void:
+	_grant(GATE_FLAGS)
+	NightmareRunState.set_flag(&"veteran_dead")
+	NightmareRunState.set_flag(&"shifty_dead")
+	NightmareRunState.set_flag(&"scholar_abandoned")
+	assert_eq(_appraisal().defeated_dormant_humans(), 1, "без постановки N13 засчитан только ветеран")
+
+	var director := BeatDirector.new()
+	add_child_autofree(director)
+	assert_true(director.stage_beat(&"N13"))
+	assert_true(NightmareRunState.has_flag(&"flasks_poisoned"), "постановка N13 выставляет flasks_poisoned")
+	assert_true(NightmareRunState.has_flag(&"sunny_flask_clean"))
+
+	var appraisal := _appraisal()
+	assert_eq(appraisal.defeated_dormant_humans(), 3, "с постановкой N13 засчитаны все три дремлющих человека")
+	assert_true(appraisal.can_appraise())
+
+
+func test_second_camp_larva_is_not_a_dormant_human_deed() -> void:
+	NightmareRunState.set_flag(&"second_larva_killed")
+	assert_eq(_appraisal().defeated_dormant_humans(), 0, "вторая личинка на стоянке не входит в оценку людей")
+
+
+func test_three_scenarios_humans_larva_and_second_larva() -> void:
+	# Сценарий 1: без flasks_poisoned собственное падение/оставление не считается,
+	# остаётся только казнённый ветеран.
+	NightmareRunState.set_flag(&"veteran_dead")
+	NightmareRunState.set_flag(&"shifty_dead")
+	NightmareRunState.set_flag(&"scholar_abandoned")
+	var appraisal := _appraisal()
+	assert_eq(appraisal.defeated_dormant_humans(), 1, "без flasks_poisoned — только ветеран")
+
+	# Сценарий 2: отравление включает Шифти и Учёного, итого три дремлющих.
+	NightmareRunState.set_flag(&"flasks_poisoned")
+	assert_eq(appraisal.defeated_dormant_humans(), 3, "три дремлющих человека от flasks_poisoned")
+
+	# Сценарий 3: личинка из тела Шифти — отдельное лишнее деяние, вторая
+	# личинка на стоянке в счёт не входит.
+	NightmareRunState.set_flag(&"shifty_larva_killed")
+	assert_eq(appraisal.defeated_dormant_humans(), 3, "личинка не подменяет трёх людей")
+	assert_eq(appraisal.defeated_larva(), 1, "личинка Шифти учитывается отдельно")
+	assert_eq(appraisal.defeated_creatures(), 4, "три человека + личинка Шифти")
+	NightmareRunState.set_flag(&"second_larva_killed")
+	assert_eq(appraisal.defeated_creatures(), 4, "вторая личинка на стоянке не учитывается")
+
+
+func test_night_montage_flag_keeps_the_three_dormant_count() -> void:
+	_grant(GATE_FLAGS)
+	NightmareRunState.set_flag(&"veteran_dead")
+	NightmareRunState.set_flag(&"shifty_dead")
+	NightmareRunState.set_flag(&"scholar_abandoned")
+	var site := (load("res://scenes/locations/caravan_site/caravan_site.tscn") as PackedScene).instantiate() as CaravanSite
+	add_child_autofree(site)
+	await wait_process_frames(2)
+	site.stage_bloodbane_montage()
+	assert_true(NightmareRunState.has_flag(&"flasks_poisoned"))
+	assert_eq(_appraisal().defeated_dormant_humans(), 3, "монтаж не меняет счёт трёх дремлющих")

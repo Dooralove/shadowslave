@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_fmi3g"]
+[ext_resource type="Resource" path="res://resources/loot/items/oil_flask.tres" id="2_g0mdq"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="3_cmnhs"]
+[ext_resource type="Resource" path="res://resources/loot/items/carapace_plate.tres" id="4_jixhp"]
+[ext_resource type="Resource" path="res://resources/loot/items/rope.tres" id="5_2c2kt"]
+[ext_resource type="Resource" path="res://resources/loot/items/torch.tres" id="6_o2gsg"]
+[ext_resource type="Resource" path="res://resources/loot/items/field_medkit.tres" id="7_25h4u"]
+[ext_resource type="Resource" path="res://resources/loot/items/provisions.tres" id="8_b7hkx"]
+[ext_resource type="Resource" path="res://resources/loot/items/water_skin.tres" id="9_woul1"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="10_t1dqn"]
+
+[sub_resource type="Resource" id="Resource_nitur"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("2_g0mdq")
+weight = 25.0
+
+[sub_resource type="Resource" id="Resource_4idv6"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("3_cmnhs")
+max_count = 2
+weight = 30.0
+
+[sub_resource type="Resource" id="Resource_b16od"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("4_jixhp")
+weight = 15.0
+
+[sub_resource type="Resource" id="Resource_dbmdo"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("5_2c2kt")
+weight = 10.0
+
+[sub_resource type="Resource" id="Resource_fier0"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("6_o2gsg")
+weight = 10.0
+
+[sub_resource type="Resource" id="Resource_sw36l"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("7_25h4u")
+weight = 10.0
+
+[sub_resource type="Resource" id="Resource_nppi6"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("8_b7hkx")
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_xb0jq"]
+script = ExtResource("1_fmi3g")
+item = ExtResource("9_woul1")
+weight = 100.0
+
+[resource]
+resource_name = "cache_barrel_cluster"
+script = ExtResource("10_t1dqn")
+id = &"cache_barrel_cluster"
+display_name = "Тайные бочки"
+description = "Три бочки, спрятанные за коралловой массой. Внутри — то, что пережило соль."
+guaranteed = Array[ExtResource("1_fmi3g")]([SubResource("Resource_nppi6"), SubResource("Resource_xb0jq")])
+entries = Array[ExtResource("1_fmi3g")]([SubResource("Resource_nitur"), SubResource("Resource_4idv6"), SubResource("Resource_b16od"), SubResource("Resource_dbmdo"), SubResource("Resource_fier0"), SubResource("Resource_sw36l")])
+bonus_rolls = 2
+tags = PackedStringArray("salvage", "z09", "z13", "z16")

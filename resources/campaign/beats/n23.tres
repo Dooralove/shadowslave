@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N23"
+part = &"act_4"
+part_title = "Акт IV «Охота»"
+canonical_block = 17
+title = "Подъём раненым к вершине"
+beat_type = 0
+format_label = "И"
+objective = "Подняться к вершине"
+idle_objectives = Array[String](["Поднимайся к храму", "Не останавливайся, даже когда силы кончатся", "Дойди до ступеней"])
+guide_beacon_id = &"temple"
+checkpoint_id = &"CP-N23"
+checkpoint_ids = Array[StringName]([&"CP-N23"])
+checkpoint_positions = Dictionary[StringName, Vector3]({
+&"CP-N23": Vector3(1, 4.15, -59)
+})
+entry_conditions = Array[StringName]([&"hero_dead"])
+exit_conditions = Array[StringName]([&"temple_reached", &"pilgrim_path_completed"])
+staging_flags = Array[StringName]([])
+estimated_seconds = 150.0
+estimated_time_text = "~2,5 мин"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = true

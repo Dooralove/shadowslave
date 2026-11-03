@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N13"
+part = &"act_2"
+part_title = "Акт II «Ночь»"
+canonical_block = 12
+title = "Край обрыва и монтаж Bloodbane"
+beat_type = 3
+format_label = "И + К"
+objective = "Подойти к краю"
+idle_objectives = Array[String](["Подойди к краю обрыва", "Прислушайся к шороху внизу"])
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"veteran_dead", &"silver_bell_obtained"])
+exit_conditions = Array[StringName]([&"flasks_poisoned", &"sunny_flask_clean", &"night_passed", &"dawn_departure"])
+staging_flags = Array[StringName]([&"flasks_poisoned", &"sunny_flask_clean", &"night_started", &"night_passed", &"dawn_departure"])
+estimated_seconds = 60.0
+estimated_time_text = "~1 мин"
+scene_path = "res://scenes/campaign/caravan_site_arrival.tscn"
+can_die = false

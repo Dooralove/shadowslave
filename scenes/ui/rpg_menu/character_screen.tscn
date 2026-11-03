@@ -448,7 +448,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TinyMutedLabel"
-text = "Модель: assets/characters/sunny_realistic_poc/sunny_poc_model.tscn"
+text = "Модель: assets/characters/p1/sunny_p1_model.tscn"
 
 [node name="CameraHint" type="Label" parent="Columns/CenterPanel/CenterColumn/CenterFooter"]
 layout_mode = 2

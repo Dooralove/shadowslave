@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="QuestDefinition" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="2_objective"]
+
+[sub_resource type="Resource" id="Obj_voice"]
+script = ExtResource("2_objective")
+id = &"hear_voice"
+text = "Войти в слепой туннель"
+kind = 3
+target_id = &"sq_fs_02_tunnel"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_polyp"]
+script = ExtResource("2_objective")
+id = &"find_polyp"
+text = "Понять, откуда идёт голос"
+kind = 5
+target_id = &"sq_fs_02_polyp_found"
+required_count = 1
+optional = true
+
+[sub_resource type="Resource" id="Obj_kill"]
+script = ExtResource("2_objective")
+id = &"destroy_polyp"
+text = "Уничтожить пересмешника"
+kind = 0
+target_id = &"echo_polyp"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_cloak"]
+script = ExtResource("2_objective")
+id = &"take_cloak"
+text = "Забрать плащ Лиссы"
+kind = 2
+target_id = &"sq_fs_02_cloak"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_core"]
+script = ExtResource("2_objective")
+id = &"take_core"
+text = "Забрать ядро пересмешника"
+kind = 2
+target_id = &"sq_fs_02_echo_core"
+required_count = 1
+
+[sub_resource type="Resource" id="Obj_tendrils"]
+script = ExtResource("2_objective")
+id = &"cut_tendrils"
+text = "Срезать тендрилы"
+kind = 5
+target_id = &"sq_fs_02_tendrils_cut"
+required_count = 1
+optional = true
+
+[resource]
+script = ExtResource("1_quest")
+id = &"sq_fs_02_echo_tunnel"
+scope = &"forgotten_shore"
+code = "09"
+title = "Голос из слепого туннеля"
+category = 1
+summary = "Голос Лиссы зовёт из темноты, но у него нет тела."
+description = "В слепом туннеле Z09 голос повторяет слова Лиссы и знает имя Тео. Источник — коралловый пересмешник, который приманивает добычу голосами. Санни может убить его, срезать тендрилы или пройти мимо; плащ и ядро докажут правду."
+prerequisites = Array[StringName]([&"sq_fs_01_complete"])
+required_quests = Array[StringName]([])
+auto_start = false
+show_available = false
+objectives = [SubResource("Obj_voice"), SubResource("Obj_polyp"), SubResource("Obj_kill"), SubResource("Obj_cloak"), SubResource("Obj_core"), SubResource("Obj_tendrils")]
+rewards = []
+completion_flag = &"sq_fs_02_complete"

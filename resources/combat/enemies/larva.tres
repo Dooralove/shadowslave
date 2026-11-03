@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_data.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://resources/combat/attacks/larva_bite.tres" id="2_bite"]
+
+[resource]
+script = ExtResource("1_enemy")
+id = &"larva"
+display_name = "Личинка"
+max_health = 55.0
+detection_range = 9.0
+lose_range = 14.0
+attack_distance = 1.35
+move_speed = 2.3
+turn_speed = 7.0
+telegraph_time = 0.65
+recovery_time = 0.95
+attack = ExtResource("2_bite")

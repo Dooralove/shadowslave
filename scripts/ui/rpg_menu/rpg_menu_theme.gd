@@ -21,6 +21,15 @@ const BRONZE_BRIGHT := Color(0.816, 0.659, 0.435)
 const BRONZE_DIM := Color(0.435, 0.341, 0.231)
 const RUST := Color(0.612, 0.404, 0.345)
 const SUCCESS := Color(0.69, 0.64, 0.49)
+## Тёплое золото выбранной категории — язык «Ведьмака 3», а не канонический
+## цвет интерфейса. Используется только в навигации и подтабах.
+const GOLD := Color(0.78, 0.63, 0.30)
+const GOLD_BRIGHT := Color(0.90, 0.77, 0.45)
+const GOLD_DEEP := Color(0.55, 0.41, 0.16)
+## Тёмные чернила для светлой пергаментной панели описания.
+const INK := Color(0.10, 0.09, 0.07)
+const PARCHMENT := Color(0.88, 0.845, 0.75)
+const PARCHMENT_DEEP := Color(0.80, 0.755, 0.64)
 const RARITY_COMMON := Color(0.62, 0.6, 0.55)
 const RARITY_NOTABLE := Color(0.69, 0.65, 0.5)
 const RARITY_RARE := Color(0.57, 0.63, 0.65)
@@ -31,9 +40,12 @@ static var _body_font: Font
 static var _body_bold_font: Font
 static var _micro_font: Font
 static var _spaced_font: Font
+static var _cached_theme: Theme
 
 
 static func build() -> Theme:
+	if _cached_theme != null:
+		return _cached_theme
 	_ensure_fonts()
 
 	var theme := Theme.new()
@@ -50,7 +62,9 @@ static func build() -> Theme:
 	_add_label_variations(theme)
 	_add_button_variations(theme)
 	_add_input_and_panels(theme)
+	_add_settings_controls(theme)
 	_add_scroll_and_tooltip(theme)
+	_cached_theme = theme
 	return theme
 
 
@@ -223,8 +237,106 @@ static func _add_label_variations(theme: Theme) -> void:
 	theme.set_font_size(&"font_size", &"DraftLabel", 13)
 	theme.set_color(&"font_color", &"DraftLabel", BRONZE_BRIGHT)
 
+	# Верхняя сводка игрока: короткие подписи и значения без «уровня» и опыта.
+	theme.set_type_variation(&"SummaryCaption", &"Label")
+	theme.set_font(&"font", &"SummaryCaption", _micro_font)
+	theme.set_font_size(&"font_size", &"SummaryCaption", 9)
+	theme.set_color(&"font_color", &"SummaryCaption", DIM)
+
+	theme.set_type_variation(&"SummaryValue", &"Label")
+	theme.set_font(&"font", &"SummaryValue", _body_bold_font)
+	theme.set_font_size(&"font_size", &"SummaryValue", 13)
+	theme.set_color(&"font_color", &"SummaryValue", TEXT_BRIGHT)
+
+	# Пергаментная карточка статьи глоссария. Светлая панель внутри тёмного
+	# меню повторяет композицию справочника «Ведьмака 3».
+	theme.set_type_variation(&"ParchmentOverline", &"Label")
+	theme.set_font(&"font", &"ParchmentOverline", _spaced_font)
+	theme.set_font_size(&"font_size", &"ParchmentOverline", 9)
+	theme.set_color(&"font_color", &"ParchmentOverline", Color(0.38, 0.34, 0.26))
+
+	theme.set_type_variation(&"ParchmentTitle", &"Label")
+	theme.set_font(&"font", &"ParchmentTitle", _display_font)
+	theme.set_font_size(&"font_size", &"ParchmentTitle", 31)
+	theme.set_color(&"font_color", &"ParchmentTitle", INK)
+
+	theme.set_type_variation(&"ParchmentBody", &"Label")
+	theme.set_font(&"font", &"ParchmentBody", _body_font)
+	theme.set_font_size(&"font_size", &"ParchmentBody", 15)
+	theme.set_color(&"font_color", &"ParchmentBody", Color(0.18, 0.16, 0.13))
+
+	theme.set_type_variation(&"ParchmentMuted", &"Label")
+	theme.set_font(&"font", &"ParchmentMuted", _body_font)
+	theme.set_font_size(&"font_size", &"ParchmentMuted", 12)
+	theme.set_color(&"font_color", &"ParchmentMuted", Color(0.38, 0.34, 0.27))
+
+	theme.set_type_variation(&"ParchmentHint", &"Label")
+	theme.set_font(&"font", &"ParchmentHint", _spaced_font)
+	theme.set_font_size(&"font_size", &"ParchmentHint", 10)
+	theme.set_color(&"font_color", &"ParchmentHint", Color(0.34, 0.29, 0.21))
+
 
 static func _add_button_variations(theme: Theme) -> void:
+	# Верхние категории: выбранная залита тёплым золотом, остальные почти
+	# растворяются в фоне. Иконка и подпись внутри кнопки создаются кодом,
+	# поэтому цвета шрифта здесь — только резерв для клавиатурного фокуса.
+	var tab_normal := _box(Color(0.055, 0.058, 0.06, 0.55), Color(0.18, 0.17, 0.15, 0.55), 1, 12.0, 7.0)
+	var tab_hover := _box(Color(0.12, 0.115, 0.10, 0.86), BRONZE_DIM, 1, 12.0, 7.0)
+	var tab_pressed := _box(GOLD, GOLD_BRIGHT, 0, 12.0, 7.0)
+	theme.set_type_variation(&"WitcherTab", &"Button")
+	theme.set_font(&"font", &"WitcherTab", _body_bold_font)
+	theme.set_font_size(&"font_size", &"WitcherTab", 11)
+	theme.set_color(&"font_color", &"WitcherTab", MUTED)
+	theme.set_color(&"font_hover_color", &"WitcherTab", TEXT_BRIGHT)
+	theme.set_color(&"font_pressed_color", &"WitcherTab", INK)
+	theme.set_color(&"font_hover_pressed_color", &"WitcherTab", INK)
+	theme.set_color(&"font_focus_color", &"WitcherTab", TEXT_BRIGHT)
+	theme.set_stylebox(&"normal", &"WitcherTab", tab_normal)
+	theme.set_stylebox(&"hover", &"WitcherTab", tab_hover)
+	theme.set_stylebox(&"pressed", &"WitcherTab", tab_pressed)
+	theme.set_stylebox(&"hover_pressed", &"WitcherTab", tab_pressed)
+	theme.set_stylebox(&"focus", &"WitcherTab", _focus_box())
+
+	# Подтабы глоссария: узкие прямоугольники, выбранный — золотой.
+	var sub_normal := _box(Color(0.045, 0.047, 0.05, 0.72), Color(0.22, 0.21, 0.18, 0.8), 1, 16.0, 8.0)
+	var sub_hover := _box(Color(0.12, 0.115, 0.10, 0.9), BRONZE, 1, 16.0, 8.0)
+	var sub_pressed := _box(GOLD, GOLD_BRIGHT, 1, 16.0, 8.0)
+	theme.set_type_variation(&"WitcherSubTab", &"Button")
+	theme.set_font(&"font", &"WitcherSubTab", _body_bold_font)
+	theme.set_font_size(&"font_size", &"WitcherSubTab", 11)
+	theme.set_color(&"font_color", &"WitcherSubTab", MUTED)
+	theme.set_color(&"font_hover_color", &"WitcherSubTab", TEXT_BRIGHT)
+	theme.set_color(&"font_pressed_color", &"WitcherSubTab", INK)
+	theme.set_color(&"font_hover_pressed_color", &"WitcherSubTab", INK)
+	theme.set_color(&"font_focus_color", &"WitcherSubTab", TEXT_BRIGHT)
+	theme.set_stylebox(&"normal", &"WitcherSubTab", sub_normal)
+	theme.set_stylebox(&"hover", &"WitcherSubTab", sub_hover)
+	theme.set_stylebox(&"pressed", &"WitcherSubTab", sub_pressed)
+	theme.set_stylebox(&"hover_pressed", &"WitcherSubTab", sub_pressed)
+	theme.set_stylebox(&"focus", &"WitcherSubTab", _focus_box())
+
+	# Кнопки на пергаментной панели: тёмная подпись и светлая заливка,
+	# чтобы действие читалось на кремовом фоне статьи.
+	var parchment_normal := _box(Color(0.76, 0.71, 0.58, 0.55), Color(0.34, 0.28, 0.18, 0.7), 1, 16.0, 9.0)
+	var parchment_hover := _box(Color(0.83, 0.78, 0.64, 0.85), Color(0.30, 0.24, 0.15, 0.85), 1, 16.0, 9.0)
+	var parchment_pressed := _box(GOLD, GOLD_BRIGHT, 1, 16.0, 9.0)
+	var parchment_disabled := _box(Color(0.78, 0.745, 0.65, 0.35), Color(0.48, 0.42, 0.32, 0.35), 1, 16.0, 9.0)
+	theme.set_type_variation(&"ParchmentButton", &"Button")
+	theme.set_font(&"font", &"ParchmentButton", _body_bold_font)
+	theme.set_font_size(&"font_size", &"ParchmentButton", 11)
+	theme.set_color(&"font_color", &"ParchmentButton", INK)
+	theme.set_color(&"font_hover_color", &"ParchmentButton", INK)
+	theme.set_color(&"font_pressed_color", &"ParchmentButton", INK)
+	theme.set_color(&"font_hover_pressed_color", &"ParchmentButton", INK)
+	theme.set_color(&"font_focus_color", &"ParchmentButton", INK)
+	theme.set_color(&"font_disabled_color", &"ParchmentButton", Color(0.42, 0.38, 0.31))
+	theme.set_stylebox(&"normal", &"ParchmentButton", parchment_normal)
+	theme.set_stylebox(&"hover", &"ParchmentButton", parchment_hover)
+	theme.set_stylebox(&"pressed", &"ParchmentButton", parchment_pressed)
+	theme.set_stylebox(&"hover_pressed", &"ParchmentButton", parchment_pressed)
+	theme.set_stylebox(&"disabled", &"ParchmentButton", parchment_disabled)
+	theme.set_stylebox(&"focus", &"ParchmentButton", _focus_box())
+
 	var nav_normal := _box(Color.TRANSPARENT, Color.TRANSPARENT, 0, 14.0, 12.0)
 	nav_normal.border_width_bottom = 2
 	nav_normal.border_color = Color.TRANSPARENT
@@ -437,6 +549,12 @@ static func _add_input_and_panels(theme: Theme) -> void:
 	theme.set_type_variation(&"ChromePanel", &"PanelContainer")
 	theme.set_stylebox(&"panel", &"ChromePanel", _box(Color.TRANSPARENT, BRONZE_DIM, 1, 22.0, 18.0))
 
+	theme.set_type_variation(&"ParchmentPanel", &"PanelContainer")
+	theme.set_stylebox(&"panel", &"ParchmentPanel", _box(PARCHMENT, Color(0.34, 0.28, 0.18), 1, 0.0, 0.0))
+
+	theme.set_type_variation(&"ParchmentInset", &"PanelContainer")
+	theme.set_stylebox(&"panel", &"ParchmentInset", _box(PARCHMENT_DEEP, Color(0.38, 0.31, 0.19, 0.7), 1, 14.0, 12.0))
+
 	theme.set_stylebox(&"panel", &"PanelContainer", _box(PANEL, LINE_SOFT, 1, 16.0, 14.0))
 
 	var bar_bg := _box(Color(0.04, 0.043, 0.045, 0.9), LINE_SOFT, 1, 0.0, 0.0)
@@ -452,6 +570,57 @@ static func _add_input_and_panels(theme: Theme) -> void:
 	theme.set_stylebox(&"background", &"ProgressBar", bar_bg)
 	theme.set_stylebox(&"fill", &"ProgressBar", bar_fill)
 	theme.set_font_size(&"font_size", &"ProgressBar", 1)
+
+
+static func _add_settings_controls(theme: Theme) -> void:
+	var option_normal := _box(Color(0.055, 0.06, 0.063, 0.85), LINE_SOFT, 1, 12.0, 8.0)
+	var option_hover := _box(Color(0.1, 0.1, 0.095, 0.95), BRONZE_DIM, 1, 12.0, 8.0)
+	var option_pressed := _box(Color(0.14, 0.12, 0.085, 0.95), BRONZE, 1, 12.0, 8.0)
+	theme.set_stylebox(&"normal", &"OptionButton", option_normal)
+	theme.set_stylebox(&"hover", &"OptionButton", option_hover)
+	theme.set_stylebox(&"pressed", &"OptionButton", option_pressed)
+	theme.set_stylebox(&"focus", &"OptionButton", _focus_box())
+	theme.set_font(&"font", &"OptionButton", _body_font)
+	theme.set_font_size(&"font_size", &"OptionButton", 12)
+	theme.set_color(&"font_color", &"OptionButton", TEXT)
+	theme.set_color(&"font_hover_color", &"OptionButton", TEXT_BRIGHT)
+	theme.set_color(&"font_pressed_color", &"OptionButton", TEXT_BRIGHT)
+	theme.set_color(&"font_focus_color", &"OptionButton", TEXT_BRIGHT)
+	theme.set_color(&"font_disabled_color", &"OptionButton", DIM)
+
+	theme.set_stylebox(&"panel", &"PopupMenu", _box(Color(0.035, 0.038, 0.04, 0.98), BRONZE_DIM, 1, 6.0, 6.0))
+	theme.set_stylebox(&"hover", &"PopupMenu", _box(Color(0.16, 0.14, 0.1, 0.7), Color.TRANSPARENT, 0, 6.0, 4.0))
+	theme.set_font(&"font", &"PopupMenu", _body_font)
+	theme.set_font_size(&"font_size", &"PopupMenu", 12)
+	theme.set_color(&"font_color", &"PopupMenu", TEXT)
+	theme.set_color(&"font_hover_color", &"PopupMenu", TEXT_BRIGHT)
+	theme.set_color(&"font_accelerator_color", &"PopupMenu", MUTED)
+	theme.set_color(&"font_disabled_color", &"PopupMenu", DIM)
+
+	var slider_track := _box(Color(0.04, 0.043, 0.045, 0.9), LINE_SOFT, 1, 0.0, 0.0)
+	slider_track.content_margin_top = 4.0
+	slider_track.content_margin_bottom = 4.0
+	var slider_fill := _box(Color(0.52, 0.4, 0.25, 0.85), Color.TRANSPARENT, 0, 0.0, 0.0)
+	slider_fill.content_margin_top = 4.0
+	slider_fill.content_margin_bottom = 4.0
+	var slider_fill_highlight := _box(Color(0.68, 0.53, 0.32, 0.95), Color.TRANSPARENT, 0, 0.0, 0.0)
+	slider_fill_highlight.content_margin_top = 4.0
+	slider_fill_highlight.content_margin_bottom = 4.0
+	theme.set_stylebox(&"slider", &"HSlider", slider_track)
+	theme.set_stylebox(&"grabber_area", &"HSlider", slider_fill)
+	theme.set_stylebox(&"grabber_area_highlight", &"HSlider", slider_fill_highlight)
+
+	theme.set_stylebox(&"normal", &"CheckButton", _box(Color.TRANSPARENT, Color.TRANSPARENT, 0, 8.0, 4.0))
+	theme.set_stylebox(&"hover", &"CheckButton", _box(Color(0.14, 0.13, 0.11, 0.25), Color.TRANSPARENT, 0, 8.0, 4.0))
+	theme.set_stylebox(&"pressed", &"CheckButton", _box(Color(0.2, 0.16, 0.1, 0.35), Color.TRANSPARENT, 0, 8.0, 4.0))
+	theme.set_stylebox(&"focus", &"CheckButton", _focus_box())
+	theme.set_font(&"font", &"CheckButton", _body_font)
+	theme.set_font_size(&"font_size", &"CheckButton", 12)
+	theme.set_color(&"font_color", &"CheckButton", TEXT)
+	theme.set_color(&"font_hover_color", &"CheckButton", TEXT_BRIGHT)
+	theme.set_color(&"font_pressed_color", &"CheckButton", TEXT_BRIGHT)
+	theme.set_color(&"font_hover_pressed_color", &"CheckButton", BRONZE_BRIGHT)
+	theme.set_color(&"font_focus_color", &"CheckButton", TEXT_BRIGHT)
 
 
 static func _add_scroll_and_tooltip(theme: Theme) -> void:

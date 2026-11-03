@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N14"
+part = &"act_3"
+part_title = "Акт III «Подъём»"
+canonical_block = 13
+title = "Провал в дороге"
+beat_type = 1
+format_label = "К"
+objective = "Подняться за Героем по старой тропе"
+idle_objectives = Array[String](["Поднимайся за Героем", "Провал в дороге — обойди его справа", "Иди по старой тропе паломников"])
+guide_beacon_id = &"gap"
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"dawn_departure"])
+exit_conditions = Array[StringName]([&"road_gap_seen"])
+staging_flags = Array[StringName]([&"road_gap_seen"])
+estimated_seconds = 25.0
+estimated_time_text = "20–30 с"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = false

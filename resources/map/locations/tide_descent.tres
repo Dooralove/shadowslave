@@ -1,0 +1,80 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/map/map_marker.gd" id="1_marker"]
+[ext_resource type="Script" path="res://scripts/map/map_definition.gd" id="2_def"]
+[ext_resource type="Script" path="res://scripts/map/map_feature.gd" id="3_feature"]
+
+[sub_resource type="Resource" id="Feature_0"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-4, 16.2, 4, 16.2, 4, 23.5, -4, 23.5)
+closed = true
+
+[sub_resource type="Resource" id="Feature_1"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-2.5, -18, 2.5, -18, 2.5, 18, -2.5, 18)
+closed = true
+
+[sub_resource type="Resource" id="Feature_2"]
+script = ExtResource("3_feature")
+kind = 0
+points = PackedVector2Array(-4, -24, 4, -24, 4, -17, -4, -17)
+closed = true
+
+[sub_resource type="Resource" id="Feature_3"]
+script = ExtResource("3_feature")
+kind = 3
+points = PackedVector2Array(0, 20, 0, 10, 0, 0, 0, -10, 0, -20)
+closed = false
+
+[sub_resource type="Resource" id="Marker_0"]
+script = ExtResource("1_marker")
+id = &"top"
+label = "Верхняя площадка"
+description = "Обломок наплечника у выхода с шеи статуи."
+use_world_position = true
+world_position = Vector2(0, 17.6)
+kind = 4
+
+[sub_resource type="Resource" id="Marker_1"]
+script = ExtResource("1_marker")
+id = &"stairs"
+label = "Ступени на плече"
+description = "Открытый спуск по кромке наплечника статуи."
+use_world_position = true
+world_position = Vector2(0, 0)
+kind = 0
+
+[sub_resource type="Resource" id="Marker_2"]
+script = ExtResource("1_marker")
+id = &"bottom"
+label = "Нижняя площадка"
+description = "Вход в коралловый лабиринт."
+use_world_position = true
+world_position = Vector2(0, -20)
+kind = 3
+
+[sub_resource type="Resource" id="Marker_3"]
+script = ExtResource("1_marker")
+id = &"coral_arch"
+label = "Коралловая арка"
+description = "Нижний порог, ведущий в коралловый лабиринт."
+use_world_position = true
+world_position = Vector2(0, -22.5)
+kind = 3
+
+[resource]
+script = ExtResource("2_def")
+id = &"tide_descent"
+title = "СПУСК ПО СТАТУЕ"
+subtitle = "Открытый спуск по плечу"
+description = "Открытый спуск по рельефу колоссальной статуи: обломок наплечника, вырубленные в кромке ступени, рука статуи и коралловый порог. Внизу — чёрная вода."
+background_color = Color(0.025, 0.035, 0.045, 1)
+land_color = Color(0.2, 0.25, 0.27, 1)
+accent_color = Color(0.32, 0.72, 0.9, 1)
+terrain_style = &"stone"
+world_bounds = Rect2(-4.5, -24, 9, 48)
+features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3")])
+markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3")])
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/tide_descent.tscn")

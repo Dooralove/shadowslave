@@ -97,7 +97,7 @@ material = SubResource("Mat_chain")
 [node name="BroadSlave" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, -1.6)
 height_scale = 1.08
-width_scale = 1.4
+width_scale = 1.15
 archetype = "slave"
 pose = "idle"
 
@@ -131,9 +131,9 @@ pose = "idle"
 
 [node name="ShiftySlave" parent="Road/Chain" instance=ExtResource("2_mannequin")]
 position = Vector3(0, 0, 1.6)
-height_scale = 0.95
-width_scale = 0.9
-archetype = "slave"
+height_scale = 0.93
+width_scale = 1.0
+archetype = "shifty"
 pose = "idle"
 
 [node name="SlaveBehind2" parent="Road/Chain" instance=ExtResource("2_mannequin")]

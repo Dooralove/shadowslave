@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_f3sbt"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_i7715"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_m0lpi"]
+
+[sub_resource type="Resource" id="Resource_byd3x"]
+script = ExtResource("1_f3sbt")
+id = &"talk_julius"
+text = "Поговорить с Джулиусом"
+kind = 4
+target_id = &"julius"
+
+[sub_resource type="Resource" id="Resource_pycrx"]
+script = ExtResource("1_f3sbt")
+id = &"stars"
+text = "Изучить карту звёзд"
+kind = 2
+target_id = &"star_map"
+
+[sub_resource type="Resource" id="Resource_x728i"]
+script = ExtResource("1_f3sbt")
+id = &"fire"
+text = "Развести огонь"
+kind = 2
+target_id = &"fire_pit"
+
+[sub_resource type="Resource" id="Resource_uqsqt"]
+script = ExtResource("2_i7715")
+flag = &"star_navigation"
+text = "Звёздная навигация"
+
+[sub_resource type="Resource" id="Resource_n82fh"]
+script = ExtResource("2_i7715")
+flag = &"firemaking"
+text = "Разведение огня"
+
+[sub_resource type="Resource" id="Resource_47r6s"]
+script = ExtResource("2_i7715")
+flag = &"water_finding"
+text = "Поиск воды"
+
+[resource]
+script = ExtResource("3_m0lpi")
+id = &"ac_mq_07_wilderness"
+scope = &"academy"
+code = "AC-MQ-07"
+title = "Уроки выживания"
+category = 0
+summary = "Освоить огонь, воду и звёздную навигацию."
+description = "Джулиус ведёт почти пустой класс. Он учит читать звёзды, разводить огонь и находить воду."
+prerequisites = Array[StringName]([&"ac_mq_05_complete"])
+show_available = false
+objectives = [SubResource("Resource_byd3x"), SubResource("Resource_pycrx"), SubResource("Resource_x728i")]
+rewards = [SubResource("Resource_uqsqt"), SubResource("Resource_n82fh"), SubResource("Resource_47r6s")]
+completion_flag = &"ac_mq_07_complete"

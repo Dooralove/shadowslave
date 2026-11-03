@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BeatData" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/beat_data.gd" id="1_beat"]
+
+[resource]
+script = ExtResource("1_beat")
+id = &"N19"
+part = &"act_3"
+part_title = "Акт III «Подъём»"
+canonical_block = 15
+title = "Приманка из Учёного"
+beat_type = 1
+format_label = "К"
+objective = "Идти за Героем"
+idle_objectives = Array[String](["Иди за Героем", "Не спорь с Учёным"])
+guide_beacon_id = &"cave"
+checkpoint_id = &""
+checkpoint_ids = Array[StringName]([])
+checkpoint_positions = Dictionary[StringName, Vector3]({})
+entry_conditions = Array[StringName]([&"shifty_dead", &"shifty_larva_killed"])
+exit_conditions = Array[StringName]([&"scholar_confronted", &"scholar_abandoned"])
+staging_flags = Array[StringName]([&"scholar_confronted", &"scholar_abandoned"])
+estimated_seconds = 60.0
+estimated_time_text = "≤ 60 с"
+scene_path = "res://scenes/campaign/pilgrim_path_arrival.tscn"
+can_die = false

@@ -44,6 +44,9 @@ extends Resource
 ## с этой подложкой.
 @export var background_texture: Texture2D
 @export var background_rect := Rect2(0, 0, 1, 1)
+## Подписи регионов и мест уже нанесены на растровую подложку (общая карта):
+## рантайм не дублирует их, но границы регионов остаются интерактивными.
+@export var baked_labels := false
 ## Локации на общей карте региона: геометрия собирается MapAtlas.compose_region_map.
 @export var placements: Array[MapPlacement] = []
 

@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_4tycj"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_wlap6"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_tblp0"]
+
+[sub_resource type="Resource" id="Resource_r6h85"]
+script = ExtResource("1_4tycj")
+id = &"strike"
+text = "Ударить по датчику"
+kind = 2
+target_id = &"strike_meter"
+
+[sub_resource type="Resource" id="Resource_kgt7p"]
+script = ExtResource("1_4tycj")
+id = &"talk_rock"
+text = "Выслушать Рока"
+kind = 4
+target_id = &"rock_dojo"
+
+[sub_resource type="Resource" id="Resource_k0ejv"]
+script = ExtResource("2_wlap6")
+flag = &"dojo_token"
+text = "Доступ в додзё после отбоя"
+
+[sub_resource type="Resource" id="Resource_e7od4"]
+script = ExtResource("2_wlap6")
+flag = &"parry_basics"
+text = "Основы парирования"
+
+[sub_resource type="Resource" id="Resource_oj3o6"]
+script = ExtResource("2_wlap6")
+currency_id = &"credits"
+currency_amount = 20
+text = "20 кредитов"
+
+[resource]
+script = ExtResource("3_tblp0")
+id = &"ac_mq_08_measure"
+scope = &"academy"
+code = "AC-MQ-08"
+title = "Мера силы"
+category = 0
+summary = "Пройти тест удара в додзё."
+description = "Нефис бьёт на 16, Каспер — на 21, Санни — на 10–11. Рок говорит, что сила — не всё."
+prerequisites = Array[StringName]([&"ac_mq_05_complete"])
+show_available = false
+objectives = [SubResource("Resource_r6h85"), SubResource("Resource_kgt7p")]
+rewards = [SubResource("Resource_k0ejv"), SubResource("Resource_e7od4"), SubResource("Resource_oj3o6")]
+completion_flag = &"ac_mq_08_complete"

@@ -11,6 +11,8 @@ var _opened_frame := -1
 
 
 func _ready() -> void:
+	if theme == null:
+		theme = RpgMenuTheme.build()
 	visible = false
 
 

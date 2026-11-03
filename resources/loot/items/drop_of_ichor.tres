@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_memory.png" id="1_tu35m"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_5ihwp"]
+
+[resource]
+resource_name = "drop_of_ichor"
+script = ExtResource("2_5ihwp")
+id = &"drop_of_ichor"
+display_name = "Капля ихора"
+category = 5
+stack_max = 1
+description = "Сюжетная Память Великого Дьявола. Меняет тело и открывает Spark of Divinity."
+canon_status = &"CANON"
+tags = PackedStringArray("memory", "boss", "story")
+icon = ExtResource("1_tu35m")

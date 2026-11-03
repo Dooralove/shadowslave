@@ -30,6 +30,8 @@
 [ext_resource type="PackedScene" path="res://assets/environments/nightmare/remains/bones_scatter_b.glb" id="28_bones_scatter_b"]
 [ext_resource type="PackedScene" path="res://assets/environments/nightmare/remains/bones_pile_c.glb" id="29_bones_pile_c"]
 [ext_resource type="PackedScene" path="res://assets/environments/nightmare/caravan/chain_main_taut.glb" id="30_chain_main_taut"]
+[ext_resource type="PackedScene" path="res://scenes/environment/p3_vision_dressing.tscn" id="p3_vision_dressing"]
+[ext_resource type="GradientTexture1D" path="res://resources/environment/p4_grade_lut.tres" id="p4_lut"]
 
 [sub_resource type="ShaderMaterial" id="Sky_art_mat"]
 shader = ExtResource("2_nm_night_sky")
@@ -43,19 +45,37 @@ background_mode = 2
 sky = SubResource("Sky_art")
 ambient_light_source = 2
 ambient_light_color = Color(0.24, 0.29, 0.42, 1)
-ambient_light_energy = 0.5
-tonemap_mode = 2
+ambient_light_energy = 0.58
+tonemap_mode = 4
+tonemap_exposure = 1.1
 glow_enabled = true
-glow_intensity = 0.4
-glow_bloom = 0.05
+glow_intensity = 0.55
+glow_bloom = 0.1
+glow_hdr_threshold = 0.9
 ssao_enabled = true
-ssao_radius = 2.0
-ssao_intensity = 1.5
+ssao_radius = 1.8
+ssao_intensity = 1.6
+ssil_enabled = true
+ssil_radius = 1.8
+ssil_intensity = 0.9
+ssr_enabled = true
+ssr_max_steps = 48
+ssr_fade_in = 0.1
+ssr_fade_out = 0.2
+ssr_depth_tolerance = 0.4
 fog_enabled = true
 fog_light_color = Color(0.06, 0.075, 0.11, 1)
-fog_density = 0.0035
-fog_aerial_perspective = 0.35
-fog_sky_affect = 0
+fog_density = 0.0014
+fog_aerial_perspective = 0.45
+fog_sky_affect = 0.15
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0018
+volumetric_fog_albedo = Color(0.6, 0.7, 0.92, 1)
+volumetric_fog_length = 180.0
+volumetric_fog_anisotropy = 0.2
+
+adjustment_enabled = true
+adjustment_color_correction = ExtResource("p4_lut")
 
 [sub_resource type="ShaderMaterial" id="Sky_orbit_mat"]
 shader = ExtResource("2_nm_night_sky")
@@ -69,19 +89,32 @@ background_mode = 2
 sky = SubResource("Sky_orbit")
 ambient_light_source = 2
 ambient_light_color = Color(0.24, 0.29, 0.42, 1)
-ambient_light_energy = 0.5
-tonemap_mode = 2
+ambient_light_energy = 0.62
+tonemap_mode = 4
+tonemap_exposure = 1.12
 glow_enabled = true
-glow_intensity = 0.4
-glow_bloom = 0.05
+glow_intensity = 0.55
+glow_bloom = 0.1
+glow_hdr_threshold = 0.9
 ssao_enabled = true
 ssao_radius = 2.0
 ssao_intensity = 1.5
+ssil_enabled = true
+ssil_radius = 2.0
+ssil_intensity = 0.8
+ssr_enabled = true
+ssr_max_steps = 48
+ssr_fade_in = 0.1
+ssr_fade_out = 0.2
+ssr_depth_tolerance = 0.4
 fog_enabled = true
 fog_light_color = Color(0.06, 0.075, 0.11, 1)
-fog_density = 0.00032
-fog_aerial_perspective = 0.35
-fog_sky_affect = 0.25
+fog_density = 0.00035
+fog_aerial_perspective = 0.4
+fog_sky_affect = 0.18
+volumetric_fog_enabled = false
+adjustment_enabled = true
+adjustment_color_correction = ExtResource("p4_lut")
 
 [node name="MountainVision" instance=ExtResource("1_mountain_vision")]
 
@@ -90,8 +123,14 @@ environment = SubResource("Env_art")
 
 [node name="Moonlight" parent="."]
 rotation = Vector3(-0.4328, -1.455, 0)
-light_energy = 0.9
-directional_shadow_max_distance = 400.0
+light_energy = 1.45
+directional_shadow_max_distance = 600.0
+
+[node name="RimLight" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.35, 0.15, 0)
+light_color = Color(0.52, 0.66, 0.96, 1)
+light_energy = 0.7
+shadow_enabled = false
 
 [node name="Moon" parent="."]
 visible = false
@@ -596,3 +635,5 @@ position = Vector3(0, 0.1, 7)
 
 [node name="Snowfall" parent="." instance=ExtResource("4_nm_snowfall")]
 position = Vector3(0, 0, 0)
+
+[node name="P3VisionDressing" parent="." instance=ExtResource("p3_vision_dressing")]

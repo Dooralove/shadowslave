@@ -33,6 +33,8 @@ enum Rarity {
 @export var is_new := false
 ## Пустой слот означает, что предмет нельзя экипировать.
 @export var equip_slot: StringName = &""
+## ID в EquipmentCatalog. Пустой — предмет остаётся чисто демонстрационным.
+@export var equipment_id: StringName = &""
 @export var stats: Array = []
 @export var properties: PackedStringArray = []
 ## Цена только для демонстрационной витрины; -1 — не продаётся.

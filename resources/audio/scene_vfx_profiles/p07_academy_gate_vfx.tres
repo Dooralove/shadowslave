@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SceneVfxProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_event.gd" id="1_jl5qo"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_snow_drift.tscn" id="2_fv3d2"]
+[ext_resource type="PackedScene" path="res://scenes/environment/vfx/m1_steam_vents.tscn" id="3_aryhd"]
+[ext_resource type="Script" path="res://scripts/vfx/scene_vfx_profile.gd" id="4_k16t2"]
+
+[sub_resource type="Resource" id="Resource_fyue6"]
+script = ExtResource("1_jl5qo")
+scene = ExtResource("2_fv3d2")
+position = Vector3(0, 4.5, 0)
+loop = true
+attach_to = NodePath("Player")
+
+[sub_resource type="Resource" id="Resource_rvfib"]
+script = ExtResource("1_jl5qo")
+scene = ExtResource("3_aryhd")
+position = Vector3(6.8, 2, -18.8)
+scale = 0.6
+loop = true
+
+[resource]
+script = ExtResource("4_k16t2")
+id = &"p07_academy_gate_vfx"
+scene_path = "res://scenes/locations/post_nightmare/academy_gate.tscn"
+location_id = &"academy_gate"
+loops = Array[ExtResource("1_jl5qo")]([SubResource("Resource_fyue6"), SubResource("Resource_rvfib")])

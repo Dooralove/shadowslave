@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/loot/icons/loot_equipment.png" id="1_cgckv"]
+[ext_resource type="Script" path="res://scripts/loot/loot_item_data.gd" id="2_5afqb"]
+
+[resource]
+resource_name = "iron_sword_fine"
+script = ExtResource("2_5afqb")
+id = &"iron_sword_fine"
+display_name = "Целый железный меч"
+category = 4
+stack_max = 1
+description = "Ухоженный клинок. Редкость для разбойника, но всё ещё не Память."
+canon_status = &"GD_FUTURE"
+tags = PackedStringArray("humanoid", "weapon", "fine")
+icon = ExtResource("1_cgckv")

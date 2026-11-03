@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NoiseEventData" format=3]
+
+[ext_resource type="Script" path="res://scripts/stealth/noise_event_data.gd" id="1_noise"]
+
+[resource]
+script = ExtResource("1_noise")
+id = &"rockfall"
+radius = 11.0
+loudness = 1.0
+priority = 3
+is_bell = false
+memory_seconds = 3.0

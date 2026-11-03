@@ -65,6 +65,19 @@ func _ready() -> void:
 	primary_action.pressed.connect(_on_primary_pressed)
 	inspect_action.pressed.connect(_on_inspect_pressed)
 	drop_action.pressed.connect(_on_drop_pressed)
+	_add_prototype_note()
+
+
+func _add_prototype_note() -> void:
+	if detail_content == null or detail_content.get_node_or_null(^"PrototypeNote") != null:
+		return
+	var note := Label.new()
+	note.name = "PrototypeNote"
+	note.text = "ПРОТОТИП · предметы не из текущего прохождения"
+	note.theme_type_variation = &"TinyMutedLabel"
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	detail_content.add_child(note)
+	detail_content.move_child(note, 0)
 
 
 func setup(data: RpgDemoSession) -> void:
@@ -420,11 +433,13 @@ func _update_actions(item: RpgDemoItem) -> void:
 	var hint := ""
 	var hint_color := RpgMenuTheme.MUTED
 	if not primary_available and not primary_reason.is_empty():
-		hint = "Недоступно: %s" % primary_reason
+		hint = "Основное действие недоступно: %s" % primary_reason
 		hint_color = RpgMenuTheme.RUST
 	elif not drop_available and not drop_reason.is_empty():
-		hint = "Недоступно: %s" % drop_reason
-		hint_color = RpgMenuTheme.RUST
+		# Основное действие доступно; не показываем его как заблокированное
+		# только потому, что недоступно удаление.
+		hint = "Выбросить нельзя: %s" % drop_reason
+		hint_color = RpgMenuTheme.BRONZE
 	else:
 		hint = "Действия меняют только локальный демо-набор."
 	action_hint.text = hint

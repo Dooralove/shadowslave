@@ -51,13 +51,19 @@ var _no_progress_time := 0.0
 @onready var health: HealthComponent = $Health
 @onready var attack: MeleeAttack = $Visual/MeleeAttack
 @onready var telegraph_visual: Node3D = $Visual/TelegraphVisual
+var _anim: AnimationPlayer
+var _visual_state := -1
+var _hit_tween: Tween
 
 
 func _ready() -> void:
 	if config == null:
 		config = MountainKingConfig.new()
 	telegraph_visual.visible = false
+	hide_legacy_visuals()
+	_setup_visual_animation()
 	health.died.connect(_on_died)
+	health.damaged.connect(_on_damaged)
 	_resolve_target()
 
 
@@ -264,7 +270,9 @@ func _update_telegraph() -> void:
 
 
 func _update_attack() -> void:
-	if _state_time >= attack.stats.active_time:
+	# Ждём закрытия окна MeleeAttack: windup/active живут в ресурсе атаки,
+	# а не дублируются таймером состояния.
+	if attack.phase == MeleeAttack.Phase.RECOVERY or attack.phase == MeleeAttack.Phase.READY:
 		_enter(State.RECOVERY)
 
 
@@ -383,6 +391,61 @@ func _update_visual(delta: float) -> void:
 		telegraph_visual.scale = Vector3(pulse, 1.0, pulse)
 
 
+## Скрывает старые примитивы, оставляя телеграф и боевые узлы.
+func hide_legacy_visuals() -> void:
+	for child in visual.get_children():
+		if child is MeshInstance3D and child.name != &"TelegraphVisual":
+			(child as MeshInstance3D).visible = false
+
+
+func _setup_visual_animation() -> void:
+	_anim = visual.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	if _anim == null:
+		return
+	for clip_name in [&"Idle", &"Walk"]:
+		var animation := _anim.get_animation(clip_name)
+		if animation:
+			animation.loop_mode = Animation.LOOP_LINEAR
+	_play_visual_state(State.DORMANT)
+
+
+func _play_visual_state(new_state: State) -> void:
+	if _anim == null or _visual_state == new_state:
+		return
+	# Recovery после удара не обрывает follow-through: Attack-клип доигрывает
+	# до конца, затем следующее состояние (Chase/Idle) сменит клип.
+	if new_state == State.RECOVERY and _anim.assigned_animation == String(&"Attack"):
+		_visual_state = new_state
+		return
+	var clip: StringName = &""
+	match new_state:
+		State.DORMANT, State.RECOVERY, State.BLOCKED:
+			clip = &"Idle"
+		State.CHASE:
+			clip = &"Walk"
+		State.TELEGRAPH:
+			clip = &"Telegraph"
+		State.ATTACK:
+			clip = &"Attack"
+		State.RETREAT:
+			clip = &"Walk"
+		State.DEAD:
+			clip = &"Death"
+		_:
+			clip = &"Idle"
+	if not _anim.has_animation(clip):
+		return
+	_visual_state = new_state
+	_anim.play(clip, 0.2, 1.0)
+
+
+func _play_audio(cue_id: StringName, volume_offset_db := 0.0) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null or not director.has_method(&"play_sfx"):
+		return
+	director.call(&"play_sfx", cue_id, global_position, volume_offset_db)
+
+
 func _enter(new_state: State) -> void:
 	var previous := state
 	if previous == new_state and new_state != State.ATTACK:
@@ -391,6 +454,7 @@ func _enter(new_state: State) -> void:
 	_state_time = 0.0
 	telegraph_visual.visible = new_state == State.TELEGRAPH
 	telegraph_visual.scale = Vector3.ONE
+	_play_visual_state(new_state)
 	if new_state not in [State.CHASE, State.RETREAT]:
 		velocity.x = 0.0
 		velocity.z = 0.0
@@ -400,6 +464,7 @@ func _enter(new_state: State) -> void:
 	match new_state:
 		State.TELEGRAPH:
 			_face_target_immediately()
+			_play_audio(&"combat_tyrant_roar", -9.0)
 			telegraph_started.emit()
 		State.ATTACK:
 			if attack.try_attack():
@@ -458,6 +523,16 @@ func _can_acquire_target() -> bool:
 	return distance_to_target() <= config.detection_range
 
 
+func _on_damaged(_amount: float) -> void:
+	if state == State.DEAD or visual == null:
+		return
+	if _hit_tween != null and _hit_tween.is_valid():
+		_hit_tween.kill()
+	_hit_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_hit_tween.tween_property(visual, "rotation:x", -0.07, 0.05)
+	_hit_tween.tween_property(visual, "rotation:x", 0.0, 0.18)
+
+
 func _on_died() -> void:
 	if state == State.DEAD:
 		return
@@ -466,6 +541,9 @@ func _on_died() -> void:
 	attack.disable()
 	velocity = Vector3.ZERO
 	collision_layer = 0
+	collision_mask = 0
 	_enter(State.DEAD)
-	var tween := create_tween()
-	tween.tween_property(visual, "rotation:z", -1.4, 0.7)
+	_play_audio(&"combat_tyrant_roar", -5.0)
+	if _anim == null:
+		var tween := create_tween()
+		tween.tween_property(visual, "rotation:z", -1.4, 0.7)

@@ -23,7 +23,10 @@ func _spawn_location() -> PilgrimPath:
 
 
 func _press(site: PilgrimPath, id: StringName) -> void:
-	site.get_interactable(id).interact()
+	var zone := site.get_trigger(id)
+	assert_not_null(zone, "зона %s существует" % id)
+	if zone != null:
+		zone.fire()
 
 
 func _reach_alcove(site: PilgrimPath) -> void:

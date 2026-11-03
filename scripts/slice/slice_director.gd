@@ -34,14 +34,15 @@ enum Beat {
 enum Mode { FREE, LOOK, LOCKED, CHAINED }
 
 const LOCATIONS := {
-	&"park": "res://scenes/slice/locations/park_street.tscn",
-	&"lobby": "res://scenes/slice/locations/station_lobby.tscn",
-	&"containment": "res://scenes/slice/locations/containment_room.tscn",
+	&"park": "res://scenes/slice/locations/park/park_street_art.tscn",
+	&"lobby": "res://scenes/slice/locations/station_lobby_art.tscn",
+	&"containment": "res://scenes/slice/locations/containment_room_art.tscn",
 	&"void": "res://scenes/slice/locations/spell_void.tscn",
-	&"mountain": "res://scenes/slice/locations/mountain_vision.tscn",
-	&"caravan": "res://scenes/slice/locations/caravan_road.tscn",
+	&"mountain": "res://scenes/slice/locations/mountain_vision_art.tscn",
+	&"caravan": "res://scenes/slice/locations/caravan_road_art.tscn",
 }
 const DIALOGUE_DIR := "res://resources/dialogue/prologue/"
+const RULES_JOURNAL := preload("res://resources/campaign/journal/rules_of_nightmare.tres")
 ## Приветствие Заклинания (гл. 1 и 2), пересказ.
 const SPELL_GREETING := "Аспирант! Добро пожаловать в Заклинание Кошмара. Приготовься к Первому испытанию…"
 
@@ -56,6 +57,7 @@ var beat := Beat.NONE
 var mode := Mode.LOCKED
 var location: SliceLocation
 var awaiting := &""
+var beat_director: BeatDirector
 
 @onready var slot: Node3D = $LocationSlot
 @onready var player: SunnyController = $Sunny
@@ -67,11 +69,24 @@ var awaiting := &""
 
 
 func _ready() -> void:
+	_ensure_beat_director()
 	runner.subtitles = ui.subtitles
 	runner.line_started.connect(_on_line_started)
 	interactor.focus_changed.connect(ui.prompt.show_for)
 	if autostart:
 		start()
+
+
+func _ensure_beat_director() -> void:
+	if beat_director != null:
+		return
+	beat_director = get_node_or_null("BeatDirector") as BeatDirector
+	if beat_director == null:
+		beat_director = BeatDirector.new()
+		beat_director.name = "BeatDirector"
+		add_child(beat_director)
+	beat_director.bind_player(player)
+
 
 
 func start() -> void:
@@ -125,6 +140,7 @@ func _run() -> void:
 	ui.fade.color.a = 1.0
 
 	_set_beat(Beat.B01_OPENING)
+	_audio_scene(&"park", &"park")
 	_load(&"park", &"BenchSit")
 	set_mode(Mode.LOOK)
 	actor.begin()
@@ -145,8 +161,6 @@ func _run() -> void:
 	await say(&"doze")
 
 	_set_beat(Beat.B04_FINISH_AND_STAND)
-	set_mode(Mode.LOOK)
-	await _interaction(&"coffee", "Допить")
 	set_mode(Mode.LOCKED)
 	await _cutscene(&"stand_up")
 	actor.end()
@@ -175,6 +189,7 @@ func _run() -> void:
 	await _fade(1.0, 0.8)
 
 	_set_beat(Beat.B08_DESK)
+	_audio_scene(&"lobby", &"lobby")
 	_load(&"lobby", &"Counter")
 	set_mode(Mode.LOOK)
 	await _fade(0.0, 0.8)
@@ -187,6 +202,7 @@ func _run() -> void:
 
 	# «Несколько минут спустя»: путь в подвал в тексте не описан, поэтому сразу пристёгивание.
 	_set_beat(Beat.B10_RESTRAINED)
+	_audio_scene(&"cell", &"cell")
 	_load(&"containment", &"Chair")
 	set_mode(Mode.LOCKED)
 	actor.begin()
@@ -206,16 +222,24 @@ func _run() -> void:
 	_set_beat(Beat.B12_BRIEFING)
 	set_mode(Mode.LOOK)
 	await say(&"briefing")
+	var guide := get_node_or_null("/root/CampaignGuide")
+	if guide != null and guide.has_method(&"add_journal_entry"):
+		guide.call(&"add_journal_entry", RULES_JOURNAL)
+	NightmareRunState.set_flag(&"journal_rules_known")
 
 	_set_beat(Beat.B13_DARKNESS)
 	set_mode(Mode.LOCKED)
+	_audio_scene(&"void", &"void")
 	await _fade(1.0, 1.5)
 	_load(&"void", &"Center")
 	player.visual.visible = false
 	ui.drowsiness.intensity = 0.0
+	await _fade(0.0, 1.2)
+	await _cutscene(&"spell")
 	await _spell()
 
 	_set_beat(Beat.B14_VISION)
+	_audio_scene(&"mountain", &"mountain")
 	_load(&"mountain", &"Viewpoint")
 	location.use_shot(&"Orbit")
 	await _fade(0.0, 1.5)
@@ -224,6 +248,7 @@ func _run() -> void:
 
 	# Санни осознаёт себя уже идущим в цепи — после повторного приветствия Заклинания.
 	_set_beat(Beat.B15_CARAVAN)
+	_audio_scene(&"caravan", &"caravan")
 	_load(&"caravan", &"Chain")
 	player.visual.visible = true
 	actor.end()
@@ -253,7 +278,32 @@ func _run() -> void:
 func _set_beat(new_beat: Beat) -> void:
 	beat = new_beat
 	perf_probe.bucket = StringName(Beat.keys()[beat])
+	_sync_v2_beat(new_beat)
 	beat_changed.emit(beat)
+
+
+func _sync_v2_beat(slice_beat: Beat) -> void:
+	_ensure_beat_director()
+	match slice_beat:
+		Beat.B01_OPENING:
+			beat_director.start_beat(&"P01", true)
+		Beat.B08_DESK:
+			beat_director.complete_current_beat(false)
+			beat_director.start_beat(&"P02", true)
+		Beat.B10_RESTRAINED:
+			beat_director.complete_current_beat(false)
+			beat_director.start_beat(&"P03", true)
+		Beat.B13_DARKNESS:
+			beat_director.complete_current_beat(false)
+			beat_director.start_beat(&"P04", true)
+		Beat.B15_CARAVAN:
+			beat_director.complete_current_beat(false)
+			beat_director.start_beat(&"N05", true)
+		Beat.FINISHED:
+			if beat_director.current_beat != null:
+				beat_director.beat_completed.emit(beat_director.current_beat)
+
+
 
 
 func _load(key: StringName, spawn: StringName) -> void:
@@ -296,6 +346,26 @@ func _fade(alpha: float, duration: float) -> void:
 
 func _spell() -> void:
 	await ui.spell_message.present(SPELL_GREETING, 0.0 if fast_mode else 4.5)
+
+
+func _audio_scene(zone_id: StringName, music_id: StringName) -> void:
+	var director := get_node_or_null(^"/root/AudioDirector")
+	if director == null:
+		return
+	if director.has_method(&"play_music"):
+		director.call(&"play_music", music_id, 2.0)
+	if director.has_method(&"play_ambience"):
+		director.call(&"play_ambience", zone_id, 2.0)
+	if director.has_method(&"set_reverb_profile"):
+		var profiles := {
+			&"park": &"outdoor",
+			&"lobby": &"coral_cave",
+			&"cell": &"tunnel",
+			&"void": &"sanctuary",
+			&"mountain": &"storm",
+			&"caravan": &"outdoor",
+		}
+		director.call(&"set_reverb_profile", profiles.get(zone_id, &"outdoor"))
 
 
 func _on_line_started(_line: DialogueLine, index: int, count: int) -> void:

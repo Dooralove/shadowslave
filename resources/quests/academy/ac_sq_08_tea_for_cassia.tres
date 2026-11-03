@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_1q4qm"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_ly5af"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_gm4cj"]
+
+[sub_resource type="Resource" id="Resource_gyd7b"]
+script = ExtResource("1_1q4qm")
+id = &"tea"
+text = "Найти чай на кухне"
+kind = 2
+target_id = &"kitchen_tea"
+
+[sub_resource type="Resource" id="Resource_qv7uo"]
+script = ExtResource("2_ly5af")
+flag = &"ac_rep_cassia_1"
+text = "Доверие Кассии"
+
+[sub_resource type="Resource" id="Resource_nk7a1"]
+script = ExtResource("2_ly5af")
+item_id = &"water_skin"
+text = "Фляга"
+
+[resource]
+script = ExtResource("3_gm4cj")
+id = &"ac_sq_08_tea_for_cassia"
+scope = &"academy"
+code = "AC-SQ-08"
+title = "Чай для слепой"
+summary = "Найти травяной чай для Кассии."
+description = "Автомат сломан. Санни идёт на кухню, находит чай и заваривает. Маленький жест, который Кассия запомнит."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_gyd7b")]
+rewards = [SubResource("Resource_qv7uo"), SubResource("Resource_nk7a1")]
+completion_flag = &"ac_sq_08_complete"

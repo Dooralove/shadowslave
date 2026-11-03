@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1_attack"]
+
+[resource]
+script = ExtResource("1_attack")
+damage = 14.0
+damage_type = &"slash"
+cooldown = 1.65
+windup_time = 0.0
+active_time = 0.25
+reach = 1.25
+radius = 0.95
+contact_time = 0.4
+attack_name = "Слабый удар клешнёй"
+kind = 0
+stamina_cost = 0.0
+guard_damage = 24.0
+blockable = true
+hitstop = 0.05

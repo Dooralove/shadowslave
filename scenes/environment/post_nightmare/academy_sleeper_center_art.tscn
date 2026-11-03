@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_overlay.gd" id="1_p8a3v"]
+[ext_resource type="Resource" path="res://assets/environments/post_nightmare/profiles/art_p09_profile.tres" id="2_7ks4x"]
+[ext_resource type="Material" path="res://resources/locations/post_nightmare/materials/art_sleeper_ring.tres" id="3_x37om"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_crate_supplies_a.tscn" id="4_m0vun"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_barrel_water_a.tscn" id="5_3cd3d"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_mlr2k"]
+inner_radius = 1.42
+outer_radius = 1.58
+rings = 48
+ring_segments = 12
+
+[sub_resource type="TorusMesh" id="TorusMesh_72xgq"]
+inner_radius = 0.92
+outer_radius = 1.04
+rings = 48
+ring_segments = 12
+
+[node name="ArtOverlay" type="Node3D" unique_id=327983232]
+script = ExtResource("1_p8a3v")
+profile = ExtResource("2_7ks4x")
+
+[node name="Props" type="Node3D" parent="." unique_id=977741855]
+
+[node name="InductionRingOuter" type="MeshInstance3D" parent="Props" unique_id=865273849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -25.5)
+material_override = ExtResource("3_x37om")
+mesh = SubResource("TorusMesh_mlr2k")
+
+[node name="InductionRingInner" type="MeshInstance3D" parent="Props" unique_id=1817924901]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0.24, -25.5)
+material_override = ExtResource("3_x37om")
+mesh = SubResource("TorusMesh_72xgq")
+
+[node name="DormMedicalBox" type="Node3D" parent="Props" unique_id=2008258399 instance=ExtResource("4_m0vun")]
+transform = Transform3D(0.66873556, 0, 0.20686415, 0, 0.7, 0, -0.20686415, 0, 0.66873556, -9.8, 0, -5.2)
+
+[node name="ShowerSupply" type="Node3D" parent="Props" unique_id=460442023 instance=ExtResource("5_3cd3d")]
+transform = Transform3D(0.76426923, 0, 0.23641618, 0, 0.8, 0, -0.23641618, 0, 0.76426923, 22, 0, 5)
+
+[node name="Lights" type="Node3D" parent="." unique_id=923920951]
+
+[node name="DormColdWest" type="OmniLight3D" parent="Lights" unique_id=755743275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3.7, 0)
+light_color = Color(0.52, 0.74, 1, 1)
+light_energy = 1.15
+omni_range = 12.0
+
+[node name="DormColdEast" type="OmniLight3D" parent="Lights" unique_id=1494080694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.7, 0)
+light_color = Color(0.52, 0.74, 1, 1)
+light_energy = 1.15
+omni_range = 12.0
+
+[node name="InductionKey" type="SpotLight3D" parent="Lights" unique_id=2087336153]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.2, -25.5)
+light_color = Color(0.46, 0.78, 1, 1)
+light_energy = 2.0
+spot_range = 11.0
+spot_angle = 26.0
+
+[node name="ObservationColdFill" type="OmniLight3D" parent="Lights" unique_id=884043398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, -10)
+light_color = Color(0.56, 0.74, 0.96, 1)
+light_energy = 0.9
+omni_range = 9.0
+
+[node name="CommonWarmFill" type="OmniLight3D" parent="Lights" unique_id=1811869302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3.2, 0)
+light_color = Color(1, 0.7, 0.44, 1)
+light_energy = 0.85
+omni_range = 9.0
+
+[node name="Decals" type="Node3D" parent="." unique_id=178521414]

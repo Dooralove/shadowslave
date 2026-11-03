@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="QuestDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/quests/quest_objective.gd" id="1_r10w2"]
+[ext_resource type="Script" path="res://scripts/quests/quest_reward.gd" id="2_a6e3j"]
+[ext_resource type="Script" path="res://scripts/quests/quest_definition.gd" id="3_3h01k"]
+
+[sub_resource type="Resource" id="Resource_71wnx"]
+script = ExtResource("1_r10w2")
+id = &"bet"
+text = "Ответить на пари"
+kind = 2
+target_id = &"kasper_bet_point"
+
+[sub_resource type="Resource" id="Resource_ef4co"]
+script = ExtResource("2_a6e3j")
+currency_id = &"credits"
+currency_amount = 30
+text = "30 кредитов"
+
+[sub_resource type="Resource" id="Resource_qv2gt"]
+script = ExtResource("2_a6e3j")
+flag = &"kasper_favor"
+text = "Услуга Каспера"
+
+[resource]
+script = ExtResource("3_3h01k")
+id = &"ac_sq_07_kasper_bet"
+scope = &"academy"
+code = "AC-SQ-07"
+title = "Пари Каспера"
+summary = "Принять или отклонить пари Каспера."
+description = "Каспер предлагает пари: Санни не продержится три удара против кадета из его группы."
+auto_start = false
+show_available = false
+objectives = [SubResource("Resource_71wnx")]
+rewards = [SubResource("Resource_ef4co"), SubResource("Resource_qv2gt")]
+completion_flag = &"ac_sq_07_complete"

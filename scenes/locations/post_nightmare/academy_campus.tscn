@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bx05mjc5m3p8f"]
+
+[ext_resource type="Script" uid="uid://bwe6gry6rraxo" path="res://scripts/locations/post_nightmare/academy_campus.gd" id="1_location"]
+[ext_resource type="Environment" path="res://resources/locations/post_nightmare/environments/env_academy_gate.tres" id="2_environment"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_player"]
+[ext_resource type="Script" uid="uid://blcshma5se0ec" path="res://scripts/ui/fade_layer.gd" id="4_fade"]
+[ext_resource type="Script" uid="uid://b66p775hv3f1w" path="res://scripts/world/level_portal.gd" id="5_portal"]
+[ext_resource type="PackedScene" uid="uid://b36woeuu7cs3l" path="res://scenes/quests/gameplay_hud.tscn" id="6_gtjs1"]
+[ext_resource type="PackedScene" path="res://scenes/environment/post_nightmare/academy_campus_art.tscn" id="7_art"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gate"]
+size = Vector3(5, 3, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sleeper"]
+size = Vector3(5, 3, 1.2)
+
+[node name="AcademyCampus" type="Node3D" unique_id=357829099]
+script = ExtResource("1_location")
+location_id = &"academy_campus"
+display_name = "Кампус Академии"
+map_id = &"academy_campus"
+show_debug_labels = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=237517018]
+environment = ExtResource("2_environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=275580371]
+transform = Transform3D(0.64278764, 0.5125838, -0.56928194, 0, 0.7431448, 0.6691306, 0.76604444, -0.4301089, 0.4776843, 0, 0, 0)
+light_color = Color(0.95, 0.84, 0.7, 1)
+shadow_enabled = true
+directional_shadow_max_distance = 110.0
+
+[node name="Player" parent="." unique_id=1987350524 instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 18.5)
+
+[node name="Spawns" type="Node3D" parent="." unique_id=1930439262]
+
+[node name="Start" type="Marker3D" parent="Spawns" unique_id=53404551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 18.5)
+
+[node name="FromGate" type="Marker3D" parent="Spawns" unique_id=1660209322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 18.5)
+
+[node name="FromSleeper" type="Marker3D" parent="Spawns" unique_id=875342297]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.2, -18.5)
+
+[node name="Portals" type="Node3D" parent="." unique_id=210495224]
+
+[node name="ToGate" type="Area3D" parent="Portals" unique_id=681343524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 21.2)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/academy_gate.tscn"
+destination_spawn = &"FromCampus"
+fade_out_duration = 0.22
+fade_in_duration = 0.28
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToGate" unique_id=512843674]
+shape = SubResource("BoxShape3D_gate")
+
+[node name="ToSleeper" type="Area3D" parent="Portals" unique_id=86842851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -21.2)
+script = ExtResource("5_portal")
+destination_scene = "res://scenes/locations/post_nightmare/academy_sleeper_center.tscn"
+destination_spawn = &"FromCampus"
+fade_out_duration = 0.22
+fade_in_duration = 0.28
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portals/ToSleeper" unique_id=1053253507]
+shape = SubResource("BoxShape3D_sleeper")
+
+[node name="Shots" type="Node3D" parent="." unique_id=1603490884]
+
+[node name="Overview" type="Camera3D" parent="Shots" unique_id=1447804865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 14, 23)
+fov = 58.0
+far = 260.0
+
+[node name="OverviewTarget" type="Marker3D" parent="Shots" unique_id=1601474452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4)
+
+[node name="Gallery" type="Camera3D" parent="Shots" unique_id=2002364669]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 12)
+fov = 65.0
+far = 260.0
+
+[node name="GalleryTarget" type="Marker3D" parent="Shots" unique_id=185042939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -8)
+
+[node name="North" type="Camera3D" parent="Shots" unique_id=759717991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -11)
+fov = 65.0
+far = 260.0
+
+[node name="NorthTarget" type="Marker3D" parent="Shots" unique_id=1035238022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -22)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1614040910]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=644508577]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("4_fade")
+
+[node name="GameplayHud" parent="." unique_id=22532716 instance=ExtResource("6_gtjs1")]
+
+[node name="ArtOverlay" parent="." instance=ExtResource("7_art")]

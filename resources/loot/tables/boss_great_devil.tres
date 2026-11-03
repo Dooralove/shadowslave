@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="LootPool" format=3]
+
+[ext_resource type="Script" path="res://scripts/loot/loot_pool_entry.gd" id="1_xtpcx"]
+[ext_resource type="Resource" path="res://resources/loot/items/drop_of_ichor.tres" id="2_g8mnq"]
+[ext_resource type="Resource" path="res://resources/loot/items/soul_shard.tres" id="3_o1cjr"]
+[ext_resource type="Resource" path="res://resources/loot/items/demon_fat.tres" id="4_5u211"]
+[ext_resource type="Script" path="res://scripts/loot/loot_pool.gd" id="5_6jska"]
+
+[sub_resource type="Resource" id="Resource_e84wu"]
+script = ExtResource("1_xtpcx")
+item = ExtResource("2_g8mnq")
+weight = 100.0
+unique = true
+notes = "Канон: гл. 81."
+
+[sub_resource type="Resource" id="Resource_u3pvw"]
+script = ExtResource("1_xtpcx")
+item = ExtResource("3_o1cjr")
+min_count = 20
+max_count = 20
+weight = 100.0
+
+[sub_resource type="Resource" id="Resource_tb640"]
+script = ExtResource("1_xtpcx")
+item = ExtResource("4_5u211")
+min_count = 5
+max_count = 5
+weight = 100.0
+
+[resource]
+resource_name = "boss_great_devil"
+script = ExtResource("5_6jska")
+id = &"boss_great_devil"
+display_name = "Великий Дьявол"
+description = "Финальный босс Древа: Капля ихора и большое количество кристаллов."
+source_kind = "boss"
+canon_status = &"CANON"
+guaranteed = Array[ExtResource("1_xtpcx")]([SubResource("Resource_e84wu"), SubResource("Resource_u3pvw"), SubResource("Resource_tb640")])
+bonus_rolls = 0
+tags = PackedStringArray("boss", "great_devil", "future_zone")

@@ -1,0 +1,94 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/environment/common/environment_art_overlay.gd" id="1_8y5su"]
+[ext_resource type="Resource" path="res://assets/environments/post_nightmare/profiles/art_p08_profile.tres" id="2_5gv1r"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_column_intact.tscn" id="3_q13df"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_relief_panel_figure.tscn" id="4_bdh57"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_relief_panel_geometric.tscn" id="5_15s7y"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_low_a.tscn" id="6_lsf5o"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_snow_drift_small_d.tscn" id="7_7j2dr"]
+[ext_resource type="PackedScene" path="res://assets/environments/post_nightmare/props/clean_wagon_debris_a.tscn" id="8_c8bim"]
+
+[node name="ArtOverlay" type="Node3D" unique_id=1038201450]
+script = ExtResource("1_8y5su")
+profile = ExtResource("2_5gv1r")
+
+[node name="Props" type="Node3D" parent="." unique_id=2048429156]
+
+[node name="StoneGalleryWest-12_0" type="Node3D" parent="Props" unique_id=892202218 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, -12)
+
+[node name="StoneGalleryEast-12_0" type="Node3D" parent="Props" unique_id=1192158324 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, -12)
+
+[node name="StoneGalleryWest-8_0" type="Node3D" parent="Props" unique_id=1362132399 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, -8)
+
+[node name="StoneGalleryEast-8_0" type="Node3D" parent="Props" unique_id=142467845 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, -8)
+
+[node name="StoneGalleryWest-4_0" type="Node3D" parent="Props" unique_id=1136136954 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, -4)
+
+[node name="StoneGalleryEast-4_0" type="Node3D" parent="Props" unique_id=1178232863 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, -4)
+
+[node name="StoneGalleryWest0_0" type="Node3D" parent="Props" unique_id=119206218 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, 0)
+
+[node name="StoneGalleryEast0_0" type="Node3D" parent="Props" unique_id=2017049147 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, 0)
+
+[node name="StoneGalleryWest4_0" type="Node3D" parent="Props" unique_id=1897120955 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, 4)
+
+[node name="StoneGalleryEast4_0" type="Node3D" parent="Props" unique_id=1383014056 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, 4)
+
+[node name="StoneGalleryWest8_0" type="Node3D" parent="Props" unique_id=777503165 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, 8)
+
+[node name="StoneGalleryEast8_0" type="Node3D" parent="Props" unique_id=1670332836 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, 8)
+
+[node name="StoneGalleryWest12_0" type="Node3D" parent="Props" unique_id=1121057815 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -4.4, 0, 12)
+
+[node name="StoneGalleryEast12_0" type="Node3D" parent="Props" unique_id=591395568 instance=ExtResource("3_q13df")]
+transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, 4.4, 0, 12)
+
+[node name="GalleryReliefWest" type="Node3D" parent="Props" unique_id=1587526731 instance=ExtResource("4_bdh57")]
+transform = Transform3D(-6.119594e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.119594e-08, -7.93, 5.2, -2)
+
+[node name="GalleryReliefEast" type="Node3D" parent="Props" unique_id=708344723 instance=ExtResource("5_15s7y")]
+transform = Transform3D(-6.119594e-08, 0, -1.4, 0, 1.4, 0, 1.4, 0, -6.119594e-08, 7.93, 5.2, 2)
+
+[node name="CampusSnowWest" type="Node3D" parent="Props" unique_id=1381469279 instance=ExtResource("6_lsf5o")]
+transform = Transform3D(1.0508702, 0, 0.32507226, 0, 1.1, 0, -0.32507226, 0, 1.0508702, -8.5, 0.26539338, 18)
+
+[node name="CampusSnowEast" type="Node3D" parent="Props" unique_id=1988493750 instance=ExtResource("7_7j2dr")]
+transform = Transform3D(-0.32328954, 0, 0.9463001, 0, 1, 0, -0.9463001, 0, -0.32328954, 8.5, 0.21933335, -16)
+
+[node name="CampusDebris" type="Node3D" parent="Props" unique_id=986653549 instance=ExtResource("8_c8bim")]
+transform = Transform3D(0.53538954, 0, 0.45095235, 0, 0.7, 0, -0.45095235, 0, 0.53538954, -6.2, 0.10286044, 14.5)
+
+[node name="Lights" type="Node3D" parent="." unique_id=188839247]
+
+[node name="GalleryWarmA" type="OmniLight3D" parent="Lights" unique_id=2085174342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, -8)
+light_color = Color(1, 0.72, 0.46, 1)
+omni_range = 8.0
+
+[node name="GalleryWarmB" type="OmniLight3D" parent="Lights" unique_id=1964517901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 8)
+light_color = Color(1, 0.72, 0.46, 1)
+omni_range = 8.0
+
+[node name="EveningSunWash" type="SpotLight3D" parent="Lights" unique_id=1567740414]
+transform = Transform3D(0.8741573, 0.1758722, -0.4526787, 0, 0.9321225, 0.36214304, 0.4856429, -0.31656998, 0.8148217, -10, 8, 18)
+light_color = Color(1, 0.8, 0.62, 1)
+light_energy = 1.2
+spot_range = 30.0
+spot_angle = 32.0
+
+[node name="Decals" type="Node3D" parent="." unique_id=1378363907]
