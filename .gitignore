@@ -65,3 +65,6 @@ assets/characters/generated/**/*_texture_*.png.import
 
 # Local release artifacts: rebuild with export_presets.cfg; never commit.
 /build/
+
+# Local archives/backups (multi-GB); never commit.
+*.rar
