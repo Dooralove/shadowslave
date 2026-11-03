@@ -335,7 +335,11 @@ func test_fade_layer_starts_black_and_opens_on_arrival() -> void:
 	if fade == null:
 		return
 	assert_almost_eq(fade.color.a, 1.0, 0.05, "сцена начинается с чёрного кадра")
-	await get_tree().create_timer(0.16).timeout
+	# Ждём завершения шторки, а не фиксированные 0.16 с: под нагрузкой полного
+	# прогона твин может не успеть, и тест падает по таймингу.
+	var deadline := Time.get_ticks_msec() + 2000
+	while fade.color.a > 0.02 and Time.get_ticks_msec() < deadline:
+		await get_tree().process_frame
 	assert_almost_eq(fade.color.a, 0.0, 0.02, "шторка открывает кадр назначения")
 
 
