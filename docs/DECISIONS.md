@@ -1280,3 +1280,10 @@
 - **Gamepad defaults are additive, not overriding.** Default stick/buttons are appended only when an action has no user override, so a custom binding is never silently extended. `cutscene_skip` remains owned by `CutsceneDirector`.
 - **Authored enemy clips are registered.** `carapace_hit.tres`, `larva_hit.tres` and `larva_death.tres` are added to the default AnimationLibrary at runtime; procedural flinch/death remains the fallback when a clip is absent.
 - **Verification.** Boot exit 0; full GUT **92 scripts / 749 tests / 749 pass / 8 039 asserts / exit 0**; `test_academy_segment` 5/5, `test_cutscene_integration` 4/4, `test_combat_ai_integration` 11/11, `test_post_nightmare_locations` 16/16, `test_labyrinth_first_fragment` 14/14; Academy probes 0 failures, walkthrough 24/24; route reachability 61/61; boundary 0 lethal, 2 residual Z10 art ghost cells. Temp release export succeeded (exe 109,268,480 B, PCK 1,000,473,040 B) and boots headless with exit 0; it still includes dev tools/MCPRuntime. Manual M1/tech/Academy playthrough and 1080p/60 remain **NOT TESTED**.
+
+## 2026-11-03 - Show scope: end of the promo build
+
+- **Конец показа = конец реализованного геймплея.** Промо-версия для показа заканчивается на `labyrinth_first_fragment.tscn` → карточке «КОНЕЦ ДЕМОНСТРАЦИОННОГО ФРАГМЕНТА» (`scenes/campaign/post_nightmare_finale.tscn`). Это весь реализованный на данный момент путь, а не только S15.
+- **Полная цепочка показа.** `campaign_entry` (пролог B01–B16) → Первый Кошмар S01–S15 → `police_precinct` (M1, P05) → `academy_approach` → `academy_gate` → `academy_campus` → `academy_sleeper_center` → `black_sea_platform` → `tide_descent` → `labyrinth_first_fragment` → финальная карточка демо.
+- **S15 — не конец показа, а конец Первого Кошмара.** Карточка «ПЕРВЫЙ КОШМАР ЗАВЕРШЁН» остаётся вехой кампании; кнопка «Продолжить: после Кошмара» ведёт в M1.
+- **Статус проверки.** Автоматически подтверждены S01–S15 (campaign tour) и полный GUT; M1 P05→Z10, tech Z11→Z18 и Академия вручную ещё не пройдены — до этого показ считаётся альфа-показом, а не финальным.
