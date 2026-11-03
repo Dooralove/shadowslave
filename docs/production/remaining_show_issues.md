@@ -12,6 +12,25 @@
 `academy_campus` → `academy_sleeper_center` → `black_sea_platform` →
 `tide_descent` → `labyrinth_first_fragment` → финальная карточка.
 
+## Текущая проверка (2026-11-03)
+
+- **Remote:** `origin/demo/stage5` = `f3874f3` (после этого коммита будет выше).
+- **Full GUT:** 750 тестов, 749 прошли с первого раза; единственное падение —
+  тайминг-флейк `test_level_transition` (шторка не успевала за 0.16 с под
+  нагрузкой). Тест переписан на ожидание завершения твина; отдельный прогон
+  `test_level_transition` — 22/22, 83 assert. Полный прогон после этой правки
+  не повторялся.
+- **Точечные прогоны:** `test_map_system` 22/22, `test_pilgrim_path` 10/10,
+  `test_caravan_site` 8/8, `test_audio_system` 19/19,
+  `test_campaign_flow` 11/11, `test_finale_v2` 4/4.
+- **Campaign tour:** `pass=9 fail=0`, тур теперь гоняет арт-сцены
+  (`caravan_site_art`, `pilgrim_path_art`).
+- **Экспорт:** пересобран из `demo/stage5`; `build/ShadowSlave.exe`
+  109 268 480 B, `build/ShadowSlave.pck` 1 000 501 564 B; headless-запуск
+  экспорта — exit 0.
+- **NOT TESTED:** ручной проход M1 P05→Z10, tech Z11→Z18, Академии;
+  1080p/60 FPS; draw calls; прослушивание.
+
 ## Блокеры показа (P0)
 
 1. **Ручной проход M1 P05→Z10 не выполнен.** Автотесты покрывают сцены и переходы,
