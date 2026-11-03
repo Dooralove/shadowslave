@@ -13,10 +13,10 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	var camera := Camera3D.new()
-	camera.position = Vector3(8.5, 4.5, 8.5)
+	root.add_child(camera)
+	camera.position = Vector3(0.0, 8.0, 18.0)
 	camera.look_at(Vector3(0.0, 1.0, 0.0), Vector3.UP)
 	camera.fov = 55.0
-	root.add_child(camera)
 	camera.current = true
 	for i in 8:
 		await process_frame

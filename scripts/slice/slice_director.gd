@@ -34,12 +34,12 @@ enum Beat {
 enum Mode { FREE, LOOK, LOCKED, CHAINED }
 
 const LOCATIONS := {
-	&"park": "res://scenes/slice/locations/park_street.tscn",
-	&"lobby": "res://scenes/slice/locations/station_lobby.tscn",
-	&"containment": "res://scenes/slice/locations/containment_room.tscn",
+	&"park": "res://scenes/slice/locations/park/park_street_art.tscn",
+	&"lobby": "res://scenes/slice/locations/station_lobby_art.tscn",
+	&"containment": "res://scenes/slice/locations/containment_room_art.tscn",
 	&"void": "res://scenes/slice/locations/spell_void.tscn",
-	&"mountain": "res://scenes/slice/locations/mountain_vision.tscn",
-	&"caravan": "res://scenes/slice/locations/caravan_road.tscn",
+	&"mountain": "res://scenes/slice/locations/mountain_vision_art.tscn",
+	&"caravan": "res://scenes/slice/locations/caravan_road_art.tscn",
 }
 const DIALOGUE_DIR := "res://resources/dialogue/prologue/"
 const RULES_JOURNAL := preload("res://resources/campaign/journal/rules_of_nightmare.tres")

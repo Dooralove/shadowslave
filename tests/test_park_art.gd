@@ -64,7 +64,7 @@ func test_director_uses_override_only_when_set() -> void:
 	add_child_autofree(art)
 	art._load(&"park", &"BenchSit")
 	assert_eq(art.location.scene_file_path, PARK_ART)
-	# С 2026-10-26 основной пролог тоже на арт-варианте (решение пользователя); без переопределений — базовая сцена.
+	# Основной пролог тоже на арт-варианте; base-сцена остаётся для тестов и fallback.
 	var main := (load(PROLOGUE) as PackedScene).instantiate() as SliceDirector
 	main.autostart = false
 	add_child_autofree(main)
@@ -75,7 +75,7 @@ func test_director_uses_override_only_when_set() -> void:
 	plain.location_overrides = {}
 	add_child_autofree(plain)
 	plain._load(&"park", &"BenchSit")
-	assert_eq(plain.location.scene_file_path, "res://scenes/slice/locations/park_street.tscn", "без переопределений — базовая сцена")
+	assert_eq(plain.location.scene_file_path, PARK_ART, "без переопределений — арт-вариант парка")
 
 
 func test_art_prologue_plays_through() -> void:
