@@ -273,6 +273,44 @@ func _refresh_route_points() -> void:
 		var cave_beacon := get_guide_beacon(&"cave")
 		if cave_beacon != null:
 			cave_beacon.set_enabled(true)
+	_update_objective()
+
+
+## Цель всегда отражает текущий участок подъёма. Без этого после лагеря
+## оставалась цель «подойти к ветерану» на всю оставшуюся сцену.
+func _update_objective() -> void:
+	var text := ""
+	if phase == PHASE_ROAD:
+		text = "Пройти по дороге к перевалу."
+	elif phase == PHASE_ASCENT:
+		text = "Подняться по карнизу к Учёному."
+	elif phase == PHASE_ALCOVE:
+		text = "Обыскать альков у костра."
+	elif phase == PHASE_DAWN:
+		text = "Идти за Шифти к пещере."
+	elif phase == PHASE_SCHOLAR:
+		text = "Поговорить с Учёным у входа в пещеру."
+	elif phase == PHASE_CAVE:
+		text = "Войти в пещеру и перевязать рану."
+	elif phase == PHASE_HERO:
+		text = "Пробраться мимо Тирана к Герою."
+	elif phase == PHASE_TEMPLE:
+		text = "Войти в храм."
+	elif phase == PHASE_COMPLETE:
+		text = "Испытание завершено."
+	_set_campaign_objective(text)
+
+
+func _set_campaign_objective(text: String) -> void:
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	if guide == null:
+		return
+	if text.is_empty():
+		if guide.has_method(&"clear_external_objective"):
+			guide.call(&"clear_external_objective", &"campaign")
+		return
+	if guide.has_method(&"set_external_objective"):
+		guide.call(&"set_external_objective", text, &"campaign")
 
 
 func _on_interacted(id: StringName) -> void:

@@ -807,6 +807,10 @@ func _request_dawn() -> void:
 	NightmareRunState.set_flag(&"camp_aftermath_completed")
 	_set_phase(PHASE_COMPLETE)
 	set_interactable_enabled(&"dawn_exit", false)
+	# Цель лагеря больше не актуальна: следующая сцена ставит свою.
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	if guide != null and guide.has_method(&"clear_external_objective"):
+		guide.call(&"clear_external_objective", &"campaign")
 	dawn_requested.emit()
 
 

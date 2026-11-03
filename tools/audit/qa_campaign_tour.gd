@@ -8,8 +8,8 @@ extends Node3D
 const ENTRY := "res://scenes/campaign/campaign_entry.tscn"
 const PASS := "res://scenes/campaign/first_nightmare_pass.tscn"
 const CAMP_WRAPPER := "res://scenes/campaign/caravan_site_arrival.tscn"
-const CAMP := "res://scenes/locations/caravan_site/caravan_site.tscn"
-const PILGRIM := "res://scenes/locations/pilgrim_path/pilgrim_path.tscn"
+const CAMP := "res://scenes/locations/caravan_site/caravan_site_art.tscn"
+const PILGRIM := "res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn"
 const SANCTUARY := "res://scenes/campaign/sanctuary_arrival.tscn"
 const APPRAISAL := "res://scenes/campaign/appraisal_arrival.tscn"
 const FINALE := "res://scenes/campaign/finale_arrival.tscn"
@@ -221,6 +221,9 @@ func _spawn(path: String, overrides: Dictionary) -> Node:
 	if packed == null:
 		_fail("cannot load " + path)
 		return null
+	var audio := get_node_or_null(^"/root/AudioDirector")
+	if audio != null and audio.has_method(&"clear_captions"):
+		audio.call(&"clear_captions")
 	var scene := packed.instantiate()
 	for key in overrides:
 		if scene.get(key) != null or scene.has_method(&"get"):

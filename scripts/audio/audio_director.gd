@@ -184,6 +184,13 @@ func apply_accessibility(captions_enabled: bool, mono: bool, dynamic_range: int)
 	_set_dynamic_range(dynamic_range)
 
 
+## Убрать текущую звуковую подпись. Нужно при смене сцены и в тестах, чтобы
+## подпись не висела поверх UI следующей сцены.
+func clear_captions() -> void:
+	if _caption_overlay != null:
+		_caption_overlay.clear()
+
+
 func _set_mono_downmix(enabled: bool) -> void:
 	var index := AudioServer.get_bus_index(&"Master")
 	if index < 0:

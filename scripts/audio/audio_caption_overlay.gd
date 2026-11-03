@@ -8,6 +8,7 @@ const HOLD_SECONDS := 2.5
 var _panel: PanelContainer
 var _label: Label
 var _generation := 0
+var _scene: Node
 
 
 func _ready() -> void:
@@ -27,8 +28,8 @@ func _ready() -> void:
 	_panel.anchor_bottom = 1.0
 	_panel.offset_left = -280.0
 	_panel.offset_right = 280.0
-	_panel.offset_top = -104.0
-	_panel.offset_bottom = -44.0
+	_panel.offset_top = -168.0
+	_panel.offset_bottom = -108.0
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.visible = false
 	root.add_child(_panel)
@@ -46,6 +47,7 @@ func _ready() -> void:
 func show_caption(text: String) -> void:
 	if text.strip_edges().is_empty() or _panel == null:
 		return
+	_scene = get_tree().current_scene
 	_generation += 1
 	var generation := _generation
 	_label.text = text
@@ -65,3 +67,14 @@ func clear() -> void:
 	_generation += 1
 	if _panel != null:
 		_panel.visible = false
+
+
+## Подпись не должна переезжать в следующую сцену: при смене current_scene
+## старый текст исчезает, иначе он накладывается на подсказки новой сцены.
+func _process(_delta: float) -> void:
+	if _scene == null:
+		return
+	var current := get_tree().current_scene
+	if current != _scene:
+		_scene = current
+		clear()
