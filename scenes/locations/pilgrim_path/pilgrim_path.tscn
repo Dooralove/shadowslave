@@ -208,12 +208,12 @@ material = SubResource("Mat_snow")
 [node name="NarrowLedge" type="CSGBox3D" parent="Geometry" unique_id=1263009920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.8, -41.5)
 use_collision = true
-size = Vector3(2.2, 0.6, 11)
+size = Vector3(3.4, 0.6, 11)
 material = SubResource("Mat_ice")
 
 [node name="LedgeSnow" type="CSGBox3D" parent="Geometry" unique_id=2133956096]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.12, -41.5)
-size = Vector3(1.9, 0.03, 10.7)
+size = Vector3(3.1, 0.03, 10.7)
 material = SubResource("Mat_snow")
 
 [node name="CaveFloor" type="CSGBox3D" parent="Geometry" unique_id=948508357]
@@ -828,15 +828,15 @@ position = Vector3(1, 4.3, -42.5)
 beacon_id = &"dawn"
 
 [node name="Cave" parent="GuideBeacons" instance=ExtResource("6_beacon")]
-position = Vector3(1.3, 4.35, -47.4)
+position = Vector3(1.3, 4.15, -47.4)
 beacon_id = &"cave"
 
 [node name="Hero" parent="GuideBeacons" instance=ExtResource("6_beacon")]
-position = Vector3(1, 4.35, -58.5)
+position = Vector3(1, 4.15, -58.5)
 beacon_id = &"hero"
 
 [node name="Bell" parent="GuideBeacons" instance=ExtResource("6_beacon")]
-position = Vector3(1, 4.35, -61.5)
+position = Vector3(1, 4.15, -61.5)
 beacon_id = &"bell"
 
 [node name="Temple" parent="GuideBeacons" instance=ExtResource("6_beacon")]

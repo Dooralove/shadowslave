@@ -507,10 +507,8 @@ visible = false
 visible = false
 
 [node name="LogA" parent="Props/Fire"]
-visible = false
 
 [node name="LogB" parent="Props/Fire"]
-visible = false
 
 [node name="FlameA" parent="Props/Fire"]
 visible = false
@@ -519,9 +517,11 @@ visible = false
 visible = false
 
 [node name="Campfire" parent="Props/Fire" instance=ExtResource("27_campfire_large")]
+visible = false
 transform = Transform3D(0.9553, 0, 0.2955, 0, 1, 0, -0.2955, 0, 0.9553, 0, 0, 0)
 
 [node name="Flame" parent="Props/Fire" instance=ExtResource("28_nm_fire_flame")]
+visible = false
 position = Vector3(0, 0.12, 0)
 
 [node name="Light" parent="Props/Fire/Flame"]
@@ -860,3 +860,13 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -24, 0.5, 22)
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -4, 4.0, 6)
 
 [node name="P3SiteDressing" parent="." instance=ExtResource("p3_site_dressing")]
+
+[node name="FireLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.0, 0.5)
+light_color = Color(1, 0.55, 0.22, 1)
+light_energy = 2.6
+omni_range = 8.0
+shadow_enabled = false
+
+[node name="TyrantLedge" parent="Art" instance=ExtResource("26_rock_outcrop_a")]
+transform = Transform3D(2.4, 0, 0, 0, 1.6, 0, 0, 0, 2.4, 0.8, 5.1, -4.5)

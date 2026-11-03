@@ -33,9 +33,11 @@
 [ext_resource type="Resource" path="res://resources/map/locations/shadow_sanctuary.tres" id="l13"]
 [ext_resource type="Resource" path="res://resources/map/locations/tide_descent.tres" id="l14"]
 [ext_resource type="Resource" path="res://resources/map/locations/labyrinth_first_fragment.tres" id="l15"]
+[ext_resource type="Resource" path="res://resources/map/locations/park_street.tres" id="l16"]
+[ext_resource type="Resource" path="res://resources/map/locations/station_lobby.tres" id="l17"]
 
 [resource]
 script = ExtResource("1_atlas")
 world_map = ExtResource("2_world")
 regions = Array[ExtResource("3_region")]([ExtResource("r0"), ExtResource("r1"), ExtResource("r2"), ExtResource("r3"), ExtResource("r4"), ExtResource("r5"), ExtResource("r6"), ExtResource("r7"), ExtResource("r8"), ExtResource("r9"), ExtResource("r10"), ExtResource("r11"), ExtResource("r12")])
-locations = Array[ExtResource("4_def")]([ExtResource("l0"), ExtResource("l1"), ExtResource("l2"), ExtResource("l3"), ExtResource("l4"), ExtResource("l5"), ExtResource("l6"), ExtResource("l7"), ExtResource("l8"), ExtResource("l9"), ExtResource("l10"), ExtResource("l11"), ExtResource("l12"), ExtResource("l13"), ExtResource("l14"), ExtResource("l15")])
+locations = Array[ExtResource("4_def")]([ExtResource("l0"), ExtResource("l1"), ExtResource("l2"), ExtResource("l3"), ExtResource("l4"), ExtResource("l5"), ExtResource("l6"), ExtResource("l7"), ExtResource("l8"), ExtResource("l9"), ExtResource("l10"), ExtResource("l11"), ExtResource("l12"), ExtResource("l13"), ExtResource("l14"), ExtResource("l15"), ExtResource("l16"), ExtResource("l17")])

@@ -146,6 +146,15 @@ position = Vector3(-12.0, 0, -19.4)
 [node name="FacadeW3" parent="Facades" instance=ExtResource("2_glass")]
 position = Vector3(-6.0, 0, -19.4)
 
+[node name="FacadeW4" parent="Facades" instance=ExtResource("3_stone")]
+position = Vector3(-24.0, 0, -19.4)
+
+[node name="FacadeW5" parent="Facades" instance=ExtResource("1_balcony")]
+position = Vector3(-30.0, 0, -19.4)
+
+[node name="FacadeW6" parent="Facades" instance=ExtResource("2_glass")]
+position = Vector3(-36.0, 0, -19.4)
+
 [node name="FacadeE1" parent="Facades" instance=ExtResource("2_glass")]
 position = Vector3(6.0, 0, -19.4)
 

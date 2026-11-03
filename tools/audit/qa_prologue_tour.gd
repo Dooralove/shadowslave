@@ -62,6 +62,10 @@ func _capture_for_beat() -> void:
 		key = "B01_park"
 	elif beat == SliceDirector.Beat.B03_DOZE:
 		key = "B03_doze"
+	elif beat == SliceDirector.Beat.B07_ENTER_STATION:
+		key = "B07_lobby"
+	elif beat == SliceDirector.Beat.B08_DESK:
+		key = "B08_desk"
 	elif beat == SliceDirector.Beat.B09_CODE_BLACK:
 		key = "B09_code_black"
 	elif beat == SliceDirector.Beat.B14_VISION:

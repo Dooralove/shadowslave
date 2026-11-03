@@ -830,7 +830,7 @@ sides = 6
 material = SubResource("Mat_steel")
 
 [node name="Veteran" parent="NPCs" unique_id=813446438 instance=ExtResource("2_mannequin")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 4.35, 0.25, -2.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.05, -2.2)
 height_scale = 0.95
 archetype = "veteran"
 pose = "ride"

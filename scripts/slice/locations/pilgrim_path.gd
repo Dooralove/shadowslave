@@ -252,7 +252,9 @@ func _refresh_route_points() -> void:
 	set_trigger_enabled(&"sword", gap and not sword)
 	set_trigger_enabled(&"rest", sword and not alcove)
 	set_trigger_enabled(&"scholar", shifty_dead and larva_dead and not scholar_seen)
-	set_trigger_enabled(&"cave", scholar_gone and not cave)
+	# Вход остаётся активным, чтобы игрок получил объяснение, если Учёный ещё
+	# не ушёл, а не упирался в молчаливую стену.
+	set_trigger_enabled(&"cave", not cave)
 	set_trigger_enabled(&"cave_exit", cave and wound and not escaped)
 	# N21: проход к Герою открывается только после стелса. Иначе игрок
 	# проскочил бы участок и сцену N22 без проверки слуха и тени.
@@ -265,6 +267,12 @@ func _refresh_route_points() -> void:
 	# Проход к храму открывается только после завершения захвата, а не в
 	# момент появления Тирана: иначе игрок мог бы уйти вперёд во время сцены.
 	set_trigger_enabled(&"temple", capture_done and not temple)
+	# После ухода Учёного вход в пещеру должен быть виден, даже если beat
+	# director ещё не переключил guide_beacon_id.
+	if scholar_gone and not cave:
+		var cave_beacon := get_guide_beacon(&"cave")
+		if cave_beacon != null:
+			cave_beacon.set_enabled(true)
 
 
 func _on_interacted(id: StringName) -> void:
@@ -383,6 +391,27 @@ func spawn_shifty_larva(target: Node3D) -> TestEnemy:
 	enemy.target = target
 	add_child(enemy)
 	enemy.global_position = Vector3(2.4, 4.15, -33.8)
+	# В тёмной сцене личинку легко потерять: даём читаемый маркер и красный
+	# подсвет, пока она жива. Это не второй AI, только визуальная навигация.
+	var marker := Label3D.new()
+	marker.name = "CombatMarker"
+	marker.text = "ЛИЧИНКА ШИФТИ"
+	marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	marker.font_size = 48
+	marker.pixel_size = 0.01
+	marker.modulate = Color(1.0, 0.38, 0.22, 1.0)
+	marker.position = Vector3(0.0, 2.2, 0.0)
+	enemy.add_child(marker)
+	var glow := OmniLight3D.new()
+	glow.name = "CombatGlow"
+	glow.light_color = Color(1.0, 0.35, 0.2, 1.0)
+	glow.light_energy = 1.6
+	glow.omni_range = 5.0
+	glow.position = Vector3(0.0, 1.2, 0.0)
+	enemy.add_child(glow)
+	if enemy.health != null:
+		enemy.health.died.connect(marker.hide)
+		enemy.health.died.connect(glow.hide)
 	return enemy
 
 
@@ -430,7 +459,10 @@ func abandon_scholar() -> void:
 
 
 func _enter_cave() -> void:
-	if not NightmareRunState.has_flag(FLAG_SCHOLAR_GONE) or NightmareRunState.has_flag(FLAG_CAVE):
+	if NightmareRunState.has_flag(FLAG_CAVE):
+		return
+	if not NightmareRunState.has_flag(FLAG_SCHOLAR_GONE):
+		hint_requested.emit("Сначала поговорите с Учёным у входа.")
 		return
 	NightmareRunState.set_flag(FLAG_CAVE)
 	phase = PHASE_CAVE

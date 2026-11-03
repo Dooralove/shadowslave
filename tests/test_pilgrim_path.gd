@@ -157,7 +157,7 @@ func test_route_requires_each_canonical_step_once() -> void:
 
 	_trigger(site, &"scholar")
 	assert_true(NightmareRunState.has_flag(&"scholar_confronted"))
-	assert_false(cave.enabled, "пещера закрыта до ухода Учёного")
+	assert_true(cave.enabled, "вход в пещеру доступен, но требует ухода Учёного")
 	site.call(&"abandon_scholar")
 	assert_true(NightmareRunState.has_flag(&"scholar_abandoned"))
 	assert_false(site.get_node("NPCs/Scholar").visible, "Учёный не возвращается")
