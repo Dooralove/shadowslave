@@ -17,13 +17,11 @@ func after_each() -> void:
 	Input.action_release(&"move_forward")
 
 
-func test_prologue_disables_combat_sprint_and_jump() -> void:
+func test_prologue_allows_combat_and_jump_but_not_sprint() -> void:
 	var sunny := _spawn(WAKING)
-	assert_false(sunny.combat_enabled)
-	assert_false(sunny.allow_sprint)
-	assert_false(sunny.allow_jump)
-	assert_false(sunny.try_attack())
-	assert_false(sunny.attack.is_attacking())
+	assert_true(sunny.combat_enabled, "игрок может атаковать вне боя")
+	assert_false(sunny.allow_sprint, "спринт в прологе остаётся выключенным")
+	assert_true(sunny.allow_jump, "прыжок доступен")
 
 
 func test_arena_sunny_keeps_defaults() -> void:

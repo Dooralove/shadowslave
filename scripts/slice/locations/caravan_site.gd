@@ -681,9 +681,17 @@ func _collect_flask(index: int) -> void:
 		hint_requested.emit("Фляга с водой. Ещё %d." % (3 - count))
 	elif not NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
 		hint_requested.emit("Три фляги собраны. На тёмном краю всё ещё слышен стон.")
+		_set_campaign_objective("Подойти к раненому ветерану на тёмном краю.")
 	else:
 		hint_requested.emit("Припасы собраны. Пора к краю.")
+		_set_campaign_objective("Вернуться к повозке и продолжить путь.")
 	_refresh_aftermath()
+
+
+func _set_campaign_objective(text: String) -> void:
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	if guide != null and guide.has_method(&"set_external_objective"):
+		guide.call(&"set_external_objective", text, &"campaign")
 
 
 func _discover_veteran() -> void:

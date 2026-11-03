@@ -115,8 +115,9 @@ func test_variant_uses_poc_model_and_keeps_rules() -> void:
 		assert_true(animator.animation_player.has_animation(clip), "клип аниматора %s" % clip)
 	for action in actor.clip_map.clips:
 		assert_true(actor.has_action(action), "действие постановки %s" % action)
-	assert_false(sunny.combat_enabled)
-	assert_false(sunny.allow_sprint)
+	assert_true(sunny.combat_enabled, "POC-вариант может атаковать вне боя")
+	assert_false(sunny.allow_sprint, "спринт остаётся выключенным")
+	assert_true(sunny.allow_jump, "прыжок доступен")
 
 
 func test_poc_prologue_plays_through() -> void:

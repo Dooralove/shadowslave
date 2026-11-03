@@ -101,16 +101,15 @@ func test_bench_is_look_only() -> void:
 	assert_true(director.actor.active, "поза задаётся постановкой")
 
 
-func test_free_walk_has_no_combat_sprint_or_jump() -> void:
+func test_free_walk_allows_combat_and_jump_but_not_sprint() -> void:
 	director.start()
 	await _run_until(SliceDirector.Beat.B05_BIN)
 	assert_eq(director.mode, SliceDirector.Mode.FREE)
 	assert_true(director.player.input_enabled)
 	assert_true(director.player.is_physics_processing())
-	assert_false(director.player.combat_enabled)
-	assert_false(director.player.allow_sprint)
-	assert_false(director.player.allow_jump)
-	assert_false(director.player.try_attack(), "в прологе нет боя")
+	assert_true(director.player.combat_enabled, "игрок может атаковать вне боя")
+	assert_false(director.player.allow_sprint, "спринт в прологе выключен")
+	assert_true(director.player.allow_jump, "прыжок доступен")
 
 
 func test_restrained_scene_locks_movement_but_allows_look() -> void:

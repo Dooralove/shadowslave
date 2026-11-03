@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/objective_line.tscn" id="9_objective"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="10_combat_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_world_markers.tscn" id="11_x0p0a"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_minimap.tscn" id="12_minimap"]
 
 [sub_resource type="ShaderMaterial" id="Mat_drowsy"]
 shader = ExtResource("3_shader")
@@ -202,3 +203,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WorldMarkers" parent="." unique_id=1178609934 instance=ExtResource("11_x0p0a")]
+
+[node name="HUDMinimap" parent="." instance=ExtResource("12_minimap")]

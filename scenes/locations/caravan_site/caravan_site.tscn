@@ -830,7 +830,7 @@ sides = 6
 material = SubResource("Mat_steel")
 
 [node name="Veteran" parent="NPCs" unique_id=813446438 instance=ExtResource("2_mannequin")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0.85, 2.2)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 4.35, 0.25, -2.2)
 height_scale = 0.95
 archetype = "veteran"
 pose = "ride"
@@ -888,102 +888,102 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.1, 0.9)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_rations"
-prompt = "Р вЂ™Р В·РЎРЏРЎвЂљРЎРЉ РЎвЂ¦Р В»Р ВµР В± Р С‘ Р Р†Р С•Р Т‘РЎС“"
+prompt = "Взять хлеб и воду"
 radius = 2.2
 
 [node name="Bloodbane" type="Node3D" parent="Interactables" unique_id=17689396]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.2, 2)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_bloodbane"
-prompt = "Р В Р В°РЎРѓРЎРѓР СР С•РЎвЂљРЎР‚Р ВµРЎвЂљРЎРЉ РЎРЏР С–Р С•Р Т‘РЎвЂ№"
+prompt = "Рассмотреть ягоды"
 radius = 1.8
 
 [node name="Wagon" type="Node3D" parent="Interactables" unique_id=1188764253]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.2, -1.2)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_wagon"
-prompt = "Р С›РЎРѓР СР С•РЎвЂљРЎР‚Р ВµРЎвЂљРЎРЉ Р С—Р С•Р Р†Р С•Р В·Р С”РЎС“"
+prompt = "Осмотреть повозку"
 radius = 2.4
 
 [node name="AttackTrigger" type="Node3D" parent="Interactables" unique_id=695088254]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.2, 0.6)
 script = ExtResource("5_interactable")
 interaction_id = &"camp_attack"
-prompt = "Р РЋР ВµРЎРѓРЎвЂљРЎРЉ РЎС“ Р С”Р С•РЎРѓРЎвЂљРЎР‚Р В°"
+prompt = "Сесть у костра"
 radius = 2.4
 
 [node name="ChainLarva" type="Node3D" parent="Interactables" unique_id=102069820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.3, -0.9)
 script = ExtResource("5_interactable")
 interaction_id = &"chain_larva"
-prompt = "Р СњР В°Р В±РЎР‚Р С•РЎРѓР С‘РЎвЂљРЎРЉ РЎвЂ Р ВµР С—РЎРЉ"
+prompt = "Набросить цепь"
 radius = 2.4
 
 [node name="HeroKey" type="Node3D" parent="Interactables" unique_id=495029239]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0.2, 1.3)
 script = ExtResource("5_interactable")
 interaction_id = &"hero_key"
-prompt = "Р СџР С•Р Т‘Р С•Р В±РЎР‚Р В°РЎвЂљРЎРЉ Р С”Р В»РЎР‹РЎвЂЎ"
+prompt = "Подобрать ключ"
 radius = 2.0
 
 [node name="WagonWedges" type="Node3D" parent="Interactables" unique_id=1777816266]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.2, -2.4)
 script = ExtResource("5_interactable")
 interaction_id = &"wagon_wedges"
-prompt = "Р вЂ™РЎвЂ№Р В±Р С‘РЎвЂљРЎРЉ Р С”Р В»Р С‘Р Р…РЎРЉРЎРЏ"
+prompt = "Выбить клинья"
 radius = 2.2
 
 [node name="WagonLoop" type="Node3D" parent="Interactables" unique_id=1546068243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0.2, -1.2)
 script = ExtResource("5_interactable")
 interaction_id = &"wagon_loop"
-prompt = "Р РЋР Р†Р С‘РЎвЂљРЎРЉ Р С—Р ВµРЎвЂљР В»РЎР‹"
+prompt = "Свить петлю"
 radius = 2.0
 
 [node name="WagonPush" type="Node3D" parent="Interactables" unique_id=1476354220]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0.2, -2.4)
 script = ExtResource("5_interactable")
 interaction_id = &"wagon_push"
-prompt = "Р вЂРЎР‚Р С•РЎРѓР С‘РЎвЂљРЎРЉ Р С—Р ВµРЎвЂљР В»РЎР‹"
+prompt = "Бросить петлю"
 radius = 2.2
 
 [node name="FlaskA" type="Node3D" parent="Interactables" unique_id=1574230941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.2, 2.55)
 script = ExtResource("5_interactable")
 interaction_id = &"flask_a"
-prompt = "Р вЂ”Р В°Р В±РЎР‚Р В°РЎвЂљРЎРЉ РЎвЂћР В»РЎРЏР С–РЎС“"
+prompt = "Забрать флягу"
 
 [node name="FlaskB" type="Node3D" parent="Interactables" unique_id=81865210]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25, 0.2, 3)
 script = ExtResource("5_interactable")
 interaction_id = &"flask_b"
-prompt = "Р вЂ”Р В°Р В±РЎР‚Р В°РЎвЂљРЎРЉ РЎвЂћР В»РЎРЏР С–РЎС“"
+prompt = "Забрать флягу"
 
 [node name="FlaskC" type="Node3D" parent="Interactables" unique_id=1232063508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.2, -2.3)
 script = ExtResource("5_interactable")
 interaction_id = &"flask_c"
-prompt = "Р вЂ”Р В°Р В±РЎР‚Р В°РЎвЂљРЎРЉ РЎвЂћР В»РЎРЏР С–РЎС“"
+prompt = "Забрать флягу"
 
 [node name="Veteran" type="Node3D" parent="Interactables" unique_id=77161754]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.2, -2.2)
 script = ExtResource("5_interactable")
 interaction_id = &"veteran"
-prompt = "Р СџР С•Р Т‘Р С•Р в„–РЎвЂљР С‘ Р С” РЎР‚Р В°Р Р…Р ВµР Р…Р С•Р СРЎС“"
+prompt = "Подойти к раненому"
 radius = 2.2
 
 [node name="VeteranSword" type="Node3D" parent="Interactables" unique_id=309394466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.2, -2.75)
 script = ExtResource("5_interactable")
 interaction_id = &"veteran_sword"
-prompt = "Р СџР С•Р Т‘Р Р…РЎРЏРЎвЂљРЎРЉ РЎРѓР В»Р С•Р СР В°Р Р…Р Р…РЎвЂ№Р в„– Р СР ВµРЎвЂЎ"
+prompt = "Поднять сломанный меч"
 radius = 1.6
 
 [node name="DawnExit" type="Node3D" parent="Interactables" unique_id=1532371820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 6.2)
 script = ExtResource("5_interactable")
 interaction_id = &"dawn_exit"
-prompt = "Р СњР В°РЎвЂЎР В°РЎвЂљРЎРЉ Р Р†Р С•РЎРѓРЎвЂ¦Р С•Р В¶Р Т‘Р ВµР Р…Р С‘Р Вµ"
+prompt = "Начать восхождение"
 radius = 2.4
 
 [node name="Triggers" type="Node3D" parent="."]
