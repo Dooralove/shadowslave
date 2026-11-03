@@ -32,19 +32,12 @@ func _ready() -> void:
 	beat_director.transition_to_beat(&"N24")
 	_ritual.finished.connect(_on_trial_finished)
 	_place_player()
-	_set_objective("Возложить подношение на алтарь.")
 	_card.visible = false
 	if fade_in:
 		_fade.color.a = 1.0
 		await _fade.fade_to(0.0, 1.2)
 	else:
 		_fade.color.a = 0.0
-
-
-func _set_objective(text: String) -> void:
-	var guide := get_node_or_null(^"/root/CampaignGuide")
-	if guide != null and guide.has_method(&"set_external_objective"):
-		guide.call(&"set_external_objective", text, &"campaign")
 
 
 func _audio_scene(zone_id: StringName, music_id: StringName) -> void:
