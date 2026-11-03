@@ -399,3 +399,23 @@ func test_v2_beats_checkpoints_and_staged_bloodbane_poisoning() -> void:
 	assert_true(NightmareRunState.has_flag(&"flasks_poisoned"), "постановка N13 выставляет flasks_poisoned")
 	assert_true(NightmareRunState.has_flag(&"sunny_flask_clean"), "постановка N13 выставляет sunny_flask_clean")
 	assert_eq(director.get_current_beat_id(), &"N13")
+
+
+func test_three_flasks_update_objective_to_veteran() -> void:
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	assert_not_null(guide, "CampaignGuide доступен")
+	if guide == null:
+		return
+	guide.call(&"clear_external_objective")
+	var site := (load(CAMP_SCENE) as PackedScene).instantiate() as CaravanSite
+	add_child_autofree(site)
+	await wait_process_frames(2)
+	site.show_aftermath()
+	for index in 3:
+		site.call(&"_collect_flask", index)
+	await wait_process_frames(1)
+	assert_string_contains(
+		String(guide.call(&"get_display_objective")),
+		"ветерану",
+		"после трёх фляг цель ведёт к раненому, а не обратно к сбору"
+	)

@@ -41,14 +41,19 @@ func _refresh() -> void:
 		var value: Variant = system.call(&"minimap_snapshot")
 		if value is Dictionary:
 			snapshot = value
+	var map := snapshot.get("location") as MapDefinition
+	# В сценах без карты (видения, технические коридоры) не показываем
+	# бесполезный пустой компас.
+	visible = map != null
+	if not visible:
+		return
 	if _canvas != null:
 		_canvas.set_snapshot(snapshot)
 	if _viewport != null:
 		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	if _region_label != null:
-		var map := snapshot.get("location") as MapDefinition
 		var title := "ОКРЕСТНОСТИ"
-		if map != null and not map.title.strip_edges().is_empty():
+		if not map.title.strip_edges().is_empty():
 			title = map.title.strip_edges().to_upper()
 			if title.length() > 20:
 				title = "ОКРЕСТНОСТИ"
