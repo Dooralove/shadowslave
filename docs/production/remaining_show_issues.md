@@ -12,22 +12,31 @@
 `academy_campus` → `academy_sleeper_center` → `black_sea_platform` →
 `tide_descent` → `labyrinth_first_fragment` → финальная карточка.
 
-## Текущая проверка (2026-11-03)
+## Текущая проверка (2026-11-09)
 
 - **Remote:** `origin/demo/stage5` — чистая ветка показа; актуальный HEAD смотри в `git log --oneline -1 origin/demo/stage5`.
-- **Full GUT:** 750 тестов, 749 прошли с первого раза; единственное падение —
-  тайминг-флейк `test_level_transition` (шторка не успевала за 0.16 с под
-  нагрузкой). Тест переписан на ожидание завершения твина; отдельный прогон
+- **Full GUT:** 750 тестов, 749 прошли; единственное падение — тайминг-флейк
+  `test_level_transition` (шторка не успевала за 0.16 с под нагрузкой). Тест
+  переписан на ожидание завершения твина; отдельный прогон
   `test_level_transition` — 22/22, 83 assert. Полный прогон после этой правки
   не повторялся.
 - **Точечные прогоны:** `test_map_system` 22/22, `test_pilgrim_path` 10/10,
   `test_caravan_site` 8/8, `test_audio_system` 19/19,
   `test_campaign_flow` 11/11, `test_finale_v2` 4/4.
-- **Campaign tour:** `pass=9 fail=0`, тур теперь гоняет арт-сцены
+- **Campaign tour:** `pass=9 fail=0`, тур гоняет арт-сцены
   (`caravan_site_art`, `pilgrim_path_art`).
-- **Экспорт:** пересобран из `demo/stage5`; `build/ShadowSlave.exe`
-  109 268 480 B, `build/ShadowSlave.pck` 1 000 501 564 B; headless-запуск
-  экспорта — exit 0.
+- **Хвост M1/Academy/tech (автоцепочка):** `qa_stage5_scenario_chain` 5/0,
+  `qa_stage5_portal_chain` 23/0 (P05 → P06 → P07 → P08 → P09 → B01 → B02 →
+  Labyrinth), `qa_stage5_menu_m1` 5/0, `qa_stage5_ui_tour` 8/0.
+- **Кэш классов:** после экспорта Godot снова потерял `HudMinimap`,
+  `HudQuickItems`, `HudControlHints`; из-за этого HUD не грузился в QA.
+  Пересобран `python tools/audit/rebuild_class_cache.py` (284 класса).
+  Сборочный скрипт `tools/build/export_windows.ps1` теперь делает это
+  обязательным шагом перед экспортом.
+- **Экспорт:** пересобран из `demo/stage5` с чистым кэшем; `build/ShadowSlave.exe`
+  109 268 480 B, `build/ShadowSlave.pck` 909 947 252 B; headless-запуск
+  экспорта — exit 0. Из pck исключены `tests/`, `docs/`, `tools/audit/`,
+  `addons/gut/`, `experiments/`.
 - **NOT TESTED:** ручной проход M1 P05→Z10, tech Z11→Z18, Академии;
   1080p/60 FPS; draw calls; прослушивание.
 
@@ -93,9 +102,11 @@
 
 1. **`MCPRuntime` autoload** всё ещё в `project.godot`; перед релизной сборкой
    убрать или исключить.
-2. **Кэш классов Godot** может потерять HUD-классы после ручных правок:
-   `python tools/audit/rebuild_class_cache.py`.
-3. **`build/ShadowSlave.pck` ~1 ГБ** и не в Git; экспорт пересобирать локально.
+2. **Кэш классов Godot** может потерять HUD-классы после ручных правок и
+   экспорта. Обязательный шаг — `python tools/audit/rebuild_class_cache.py`;
+   он уже встроен в `tools/build/export_windows.ps1`.
+3. **`build/ShadowSlave.pck` ~910 МБ** и не в Git; экспорт пересобирать локально
+   скриптом `tools/build/export_windows.ps1`.
 4. **QA-тур кампании** теперь использует арт-сцены (`*_art.tscn`); prologue tour
    идёт через `campaign_entry`. При добавлении новых локаций обновлять
    `tools/audit/qa_campaign_tour.gd`.
@@ -120,6 +131,11 @@ godot --headless --path . -s tools/audit/route_probe.gd
 # кадр локации
 godot --path . -s tools/audit/scene_shot.gd -- --scene=res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn --out=C:\tmp\shot.png --pos=1,5.8,-42.5 --look=1,4.8,-55 --fov=72
 
-# экспорт
-godot --headless --path . --export-release "Windows Desktop" build/ShadowSlave.exe
+# хвост M1 → Academy → tech demo → Labyrinth
+godot --path . res://tools/audit/qa_stage5_portal_chain.tscn -- --out=$env:TEMP\opencode\stage5
+godot --path . res://tools/audit/qa_stage5_scenario_chain.tscn -- --out=$env:TEMP\opencode\stage5
+godot --path . res://tools/audit/qa_stage5_menu_m1.tscn -- --out=$env:TEMP\opencode\stage5
+
+# экспорт (сам пересобирает кэш классов и делает boot-тест)
+powershell -ExecutionPolicy Bypass -File tools/build/export_windows.ps1
 ```
