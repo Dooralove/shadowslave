@@ -188,7 +188,7 @@ process_material = SubResource("Proc_steam")
 draw_pass_1 = SubResource("Mesh_steam")
 
 [node name="GroundFill" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 8)
 mesh = SubResource("Mesh_ground_fill")
 
 [node name="GroundFillBody" type="StaticBody3D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene load_steps=30 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/facade_p2_balcony.glb" id="1_balcony"]
 [ext_resource type="PackedScene" path="res://assets/environments/park/p2/p5/facade_p2_glass.glb" id="2_glass"]
@@ -15,12 +15,13 @@
 [ext_resource type="Material" path="res://assets/environments/park/materials/p2_grass.tres" id="13_grass"]
 [ext_resource type="Texture2D" path="res://assets/environments/prologue/materials/textures/p2_wet_stain.png" id="14_wet"]
 [ext_resource type="Script" path="res://scripts/world/park_batch.gd" id="15_batch"]
+[ext_resource type="PackedScene" path="res://assets/environments/park/props/lamp_street_a.glb" id="16_lamp"]
 
 [sub_resource type="PlaneMesh" id="Mesh_path"]
 size = Vector2(20, 3.0)
 
 [sub_resource type="PlaneMesh" id="Mesh_bench_path"]
-size = Vector2(20, 3.2)
+size = Vector2(20, 6.0)
 
 [sub_resource type="PlaneMesh" id="Mesh_road"]
 size = Vector2(20, 8.0)
@@ -30,6 +31,21 @@ size = Vector2(20, 3.5)
 
 [sub_resource type="BoxMesh" id="Mesh_unit"]
 size = Vector3(1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="Mesh_city_ground"]
+size = Vector2(160, 160)
+
+[sub_resource type="PlaneMesh" id="Mesh_south_road"]
+size = Vector2(64, 8.0)
+
+[sub_resource type="PlaneMesh" id="Mesh_south_walk"]
+size = Vector2(64, 3.5)
+
+[sub_resource type="PlaneMesh" id="Mesh_south_plaza"]
+size = Vector2(64, 12.0)
+
+[sub_resource type="PlaneMesh" id="Mesh_side_walk"]
+size = Vector2(3.0, 18.0)
 
 [sub_resource type="StandardMaterial3D" id="Mat_marking"]
 albedo_color = Color(0.78, 0.79, 0.75, 1)
@@ -223,7 +239,7 @@ mesh = SubResource("Mesh_path")
 material_override = ExtResource("7_paving")
 
 [node name="BenchPath" type="MeshInstance3D" parent="Street"]
-position = Vector3(0, 0.022, 2.2)
+position = Vector3(0, 0.022, 3.0)
 mesh = SubResource("Mesh_bench_path")
 material_override = ExtResource("7_paving")
 
@@ -299,6 +315,65 @@ mesh = SubResource("Mesh_unit")
 material_override = SubResource("Mat_marking")
 scale = Vector3(0.5, 0.012, 2.8)
 
+[node name="SouthWalkNear" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.021, 10.0)
+mesh = SubResource("Mesh_south_walk")
+material_override = ExtResource("7_paving")
+
+[node name="SouthRoad" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.012, 15.75)
+mesh = SubResource("Mesh_south_road")
+material_override = ExtResource("8_asphalt")
+
+[node name="SouthWalkFar" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.021, 21.5)
+mesh = SubResource("Mesh_south_walk")
+material_override = ExtResource("7_paving")
+
+[node name="SouthPlaza" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.02, 30.0)
+mesh = SubResource("Mesh_south_plaza")
+material_override = ExtResource("7_paving")
+
+[node name="SouthCurbNear" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.06, 11.7)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("9_curb")
+scale = Vector3(64, 0.12, 0.28)
+
+[node name="SouthCurbFar" type="MeshInstance3D" parent="Street"]
+position = Vector3(0, 0.06, 19.8)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("9_curb")
+scale = Vector3(64, 0.12, 0.28)
+
+[node name="SidewalkWest" type="MeshInstance3D" parent="Street"]
+position = Vector3(-10.95, 0.021, 0.5)
+mesh = SubResource("Mesh_side_walk")
+material_override = ExtResource("7_paving")
+
+[node name="SidewalkEast" type="MeshInstance3D" parent="Street"]
+position = Vector3(10.95, 0.021, 0.5)
+mesh = SubResource("Mesh_side_walk")
+material_override = ExtResource("7_paving")
+
+[node name="SideCurbW" type="MeshInstance3D" parent="Street"]
+position = Vector3(-12.55, 0.06, 0.5)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("9_curb")
+scale = Vector3(0.28, 0.12, 18)
+
+[node name="SideCurbE" type="MeshInstance3D" parent="Street"]
+position = Vector3(12.55, 0.06, 0.5)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("9_curb")
+scale = Vector3(0.28, 0.12, 18)
+
+[node name="CityGround" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.1, 0)
+mesh = SubResource("Mesh_city_ground")
+material_override = ExtResource("8_asphalt")
+
 [node name="DistantCity" type="Node3D" parent="."]
 
 [node name="Tower00" type="MeshInstance3D" parent="DistantCity"]
@@ -372,3 +447,201 @@ position = Vector3(24, 18, -38)
 mesh = SubResource("Mesh_unit")
 material_override = ExtResource("10_far_tower")
 scale = Vector3(8, 36, 10)
+
+[node name="SouthTower00" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-38, 18, 62)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(24, 36, 18)
+
+[node name="SouthTower01" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(0, 24, 74)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(28, 48, 20)
+
+[node name="SouthTower02" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(38, 16, 58)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(20, 32, 16)
+
+[node name="SouthTower03" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-20, 12, 42)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(16, 24, 12)
+
+[node name="SouthTower04" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(22, 14, 44)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(18, 28, 14)
+
+[node name="WestTower00" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-66, 22, 10)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(18, 44, 18)
+
+[node name="WestTower01" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(-58, 14, 34)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(14, 28, 14)
+
+[node name="EastTower00" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(68, 20, 4)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("10_far_tower")
+scale = Vector3(18, 40, 18)
+
+[node name="EastTower01" type="MeshInstance3D" parent="DistantCity"]
+position = Vector3(60, 12, 34)
+mesh = SubResource("Mesh_unit")
+material_override = ExtResource("11_curtain")
+scale = Vector3(14, 24, 14)
+
+[node name="CityRing" type="Node3D" parent="."]
+
+[node name="SouthFacadeW2" parent="CityRing" instance=ExtResource("3_stone")]
+position = Vector3(-15, 0, 38.5)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="SouthFacadeW1" parent="CityRing" instance=ExtResource("1_balcony")]
+position = Vector3(-9, 0, 38.5)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="SouthFacadeW0" parent="CityRing" instance=ExtResource("2_glass")]
+position = Vector3(-3, 0, 38.5)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="SouthFacadeE0" parent="CityRing" instance=ExtResource("3_stone")]
+position = Vector3(3, 0, 38.5)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="SouthFacadeE1" parent="CityRing" instance=ExtResource("1_balcony")]
+position = Vector3(9, 0, 38.5)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="SouthFacadeE2" parent="CityRing" instance=ExtResource("2_glass")]
+position = Vector3(15, 0, 38.5)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="WestFacade0" parent="CityRing" instance=ExtResource("3_stone")]
+position = Vector3(-19.5, 0, -15)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="WestFacade1" parent="CityRing" instance=ExtResource("1_balcony")]
+position = Vector3(-19.5, 0, -8.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="WestFacade2" parent="CityRing" instance=ExtResource("2_glass")]
+position = Vector3(-19.5, 0, -2)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="WestFacade3" parent="CityRing" instance=ExtResource("3_stone")]
+position = Vector3(-19.5, 0, 4.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="WestFacade4" parent="CityRing" instance=ExtResource("1_balcony")]
+position = Vector3(-19.5, 0, 11)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="WestFacade5" parent="CityRing" instance=ExtResource("2_glass")]
+position = Vector3(-19.5, 0, 17.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="EastFacade0" parent="CityRing" instance=ExtResource("3_stone")]
+position = Vector3(19.5, 0, -15)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="EastFacade1" parent="CityRing" instance=ExtResource("1_balcony")]
+position = Vector3(19.5, 0, -8.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="EastFacade2" parent="CityRing" instance=ExtResource("2_glass")]
+position = Vector3(19.5, 0, -2)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="EastFacade3" parent="CityRing" instance=ExtResource("3_stone")]
+position = Vector3(19.5, 0, 4.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="EastFacade4" parent="CityRing" instance=ExtResource("1_balcony")]
+position = Vector3(19.5, 0, 11)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="EastFacade5" parent="CityRing" instance=ExtResource("2_glass")]
+position = Vector3(19.5, 0, 17.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="StreetLamps" type="Node3D" parent="."]
+
+[node name="LampSouthW1" parent="StreetLamps" instance=ExtResource("16_lamp")]
+position = Vector3(-12, 0, 21.8)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="LampSouthW0" parent="StreetLamps" instance=ExtResource("16_lamp")]
+position = Vector3(-4, 0, 21.8)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="LampSouthE0" parent="StreetLamps" instance=ExtResource("16_lamp")]
+position = Vector3(4, 0, 21.8)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="LampSouthE1" parent="StreetLamps" instance=ExtResource("16_lamp")]
+position = Vector3(12, 0, 21.8)
+rotation = Vector3(0, 3.14159, 0)
+
+[node name="LampWest" parent="StreetLamps" instance=ExtResource("16_lamp")]
+position = Vector3(-14.5, 0, 2.0)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="LampEast" parent="StreetLamps" instance=ExtResource("16_lamp")]
+position = Vector3(14.5, 0, 2.0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="StreetLampLights" type="Node3D" parent="."]
+
+[node name="LampSouthW1Light" type="OmniLight3D" parent="StreetLampLights"]
+position = Vector3(-12, 4.6, 21.8)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 2.2
+omni_range = 14.0
+shadow_enabled = false
+
+[node name="LampSouthW0Light" type="OmniLight3D" parent="StreetLampLights"]
+position = Vector3(-4, 4.6, 21.8)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 2.2
+omni_range = 14.0
+shadow_enabled = false
+
+[node name="LampSouthE0Light" type="OmniLight3D" parent="StreetLampLights"]
+position = Vector3(4, 4.6, 21.8)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 2.2
+omni_range = 14.0
+shadow_enabled = false
+
+[node name="LampSouthE1Light" type="OmniLight3D" parent="StreetLampLights"]
+position = Vector3(12, 4.6, 21.8)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 2.2
+omni_range = 14.0
+shadow_enabled = false
+
+[node name="LampWestLight" type="OmniLight3D" parent="StreetLampLights"]
+position = Vector3(-14.5, 4.6, 2.0)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 1.8
+omni_range = 12.0
+shadow_enabled = false
+
+[node name="LampEastLight" type="OmniLight3D" parent="StreetLampLights"]
+position = Vector3(14.5, 4.6, 2.0)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 1.8
+omni_range = 12.0
+shadow_enabled = false
