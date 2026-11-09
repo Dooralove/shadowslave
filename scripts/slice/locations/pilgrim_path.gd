@@ -34,6 +34,7 @@ const FLAG_CAVE := &"cave_entered"
 const FLAG_CONFESSION := &"scholar_confession_seen"
 const FLAG_WOUND := &"wound_taken"
 const FLAG_CAVE_ESCAPED := &"cave_escaped"
+const FLAG_CAVE_THREATS := &"cave_threats_cleared"
 const FLAG_STEALTH_DONE := &"stealth_completed"
 const FLAG_STEALTH_ACTIVE := &"stealth_active"
 const FLAG_STONE := &"stealth_stone_used"
@@ -74,6 +75,7 @@ const HERO_BELL_FACING_Y := 0.0
 const SHIFTY_WEAK_LEAN := 0.24
 const SHIFTY_WEAK_CROUCH := 0.88
 const LARVA_ENEMY_SCENE := preload("res://scenes/enemies/larva_enemy.tscn")
+const CAVE_LARVA_COUNT := 2
 
 var phase: StringName = PHASE_ROAD
 var _shifty_base_scale := Vector3.ONE
@@ -84,6 +86,7 @@ var _guard_sound_plays := 0
 var _creak_plays := 0
 var _bone_origins: Array[Vector3] = []
 var _guide_beacons: Dictionary = {}
+var _cave_threats: Array[TestEnemy] = []
 
 @onready var hero: Mannequin = $NPCs/Hero
 @onready var shifty: Mannequin = $NPCs/Shifty
@@ -106,12 +109,29 @@ func _ready() -> void:
 	triggered.connect(_on_triggered)
 	_shifty_base_scale = shifty.scale
 	_scatter_bones()
+	_retire_legacy_alcove_art()
 	_setup_audio()
 	_cache_guide_beacons()
 	if stealth != null:
 		stealth.stealth_completed.connect(_on_stealth_completed)
 		stealth.tyrant_caught.connect(_on_stealth_caught)
 	prepare_route()
+
+
+## Арт-альков `alcove_shelter` посажен слишком глубоко: его нижняя расщелина
+## уходит под пол, а тело коллизии перекрывает тропу. Видимая скала остаётся
+## в сцене как резерв, но заменена собранным укрытием
+## (`AlcoveShelterBack/Roof`), которое не сужает проход. Слой коллизии
+## старого ассета выключается здесь, чтобы не оставлять невидимую стену.
+func _retire_legacy_alcove_art() -> void:
+	var legacy := get_node_or_null(^"Art/Trail/Alcove")
+	if legacy == null:
+		return
+	legacy.visible = false
+	for child in legacy.find_children("*", "StaticBody3D", true, false):
+		var body := child as StaticBody3D
+		if body != null:
+			body.collision_layer = 0
 
 
 func _cache_guide_beacons() -> void:
@@ -291,7 +311,10 @@ func _update_objective() -> void:
 	elif phase == PHASE_SCHOLAR:
 		text = "Поговорить с Учёным у входа в пещеру."
 	elif phase == PHASE_CAVE:
-		text = "Войти в пещеру и перевязать рану."
+		if NightmareRunState.has_flag(FLAG_WOUND):
+			text = "Выжить и выбраться из пещеры."
+		else:
+			text = "Войти в пещеру за Героем."
 	elif phase == PHASE_HERO:
 		text = "Пробраться мимо Тирана к Герою."
 	elif phase == PHASE_TEMPLE:
@@ -429,28 +452,93 @@ func spawn_shifty_larva(target: Node3D) -> TestEnemy:
 	enemy.target = target
 	add_child(enemy)
 	enemy.global_position = Vector3(2.4, 4.15, -33.8)
-	# В тёмной сцене личинку легко потерять: даём читаемый маркер и красный
-	# подсвет, пока она жива. Это не второй AI, только визуальная навигация.
-	var marker := Label3D.new()
-	marker.name = "CombatMarker"
-	marker.text = "ЛИЧИНКА ШИФТИ"
-	marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	marker.font_size = 48
-	marker.pixel_size = 0.01
-	marker.modulate = Color(1.0, 0.38, 0.22, 1.0)
-	marker.position = Vector3(0.0, 2.2, 0.0)
-	enemy.add_child(marker)
-	var glow := OmniLight3D.new()
-	glow.name = "CombatGlow"
-	glow.light_color = Color(1.0, 0.35, 0.2, 1.0)
-	glow.light_energy = 1.6
-	glow.omni_range = 5.0
-	glow.position = Vector3(0.0, 1.2, 0.0)
-	enemy.add_child(glow)
-	if enemy.health != null:
-		enemy.health.died.connect(marker.hide)
-		enemy.health.died.connect(glow.hide)
+	_decorate_enemy(enemy, "ЛИЧИНКА ШИФТИ")
 	return enemy
+
+
+## Читаемый маркер и красный подсвет для врага в тёмной сцене. Это не второй
+## AI, только навигация: маркер и свет гаснут вместе со смертью врага.
+func _decorate_enemy(enemy: TestEnemy, label_text: String, with_glow := true) -> void:
+	var marker: Label3D = null
+	if not label_text.is_empty():
+		marker = Label3D.new()
+		marker.name = "CombatMarker"
+		marker.text = label_text
+		marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		marker.font_size = 28
+		marker.pixel_size = 0.004
+		marker.modulate = Color(1.0, 0.38, 0.22, 1.0)
+		marker.position = Vector3(0.0, 1.8, 0.0)
+		enemy.add_child(marker)
+	var glow: OmniLight3D = null
+	if with_glow:
+		glow = OmniLight3D.new()
+		glow.name = "CombatGlow"
+		glow.light_color = Color(1.0, 0.35, 0.2, 1.0)
+		glow.light_energy = 1.6
+		glow.omni_range = 5.0
+		glow.position = Vector3(0.0, 1.2, 0.0)
+		enemy.add_child(glow)
+	if enemy.health != null:
+		if marker != null:
+			enemy.health.died.connect(marker.hide)
+		if glow != null:
+			enemy.health.died.connect(glow.hide)
+
+
+## N20: после удара Героя пещера перестаёт быть безопасной. Две личинки
+## отрезают путь к выходу, пока Санни ранен; игрок должен пережить схватку
+## или прорваться. Это не меняет канон: угроза — хищники, привлечённые кровью.
+func begin_cave_survival(target: Node3D) -> int:
+	if not NightmareRunState.has_flag(FLAG_CAVE):
+		return 0
+	if not NightmareRunState.has_flag(FLAG_WOUND):
+		return 0
+	if NightmareRunState.has_flag(FLAG_CAVE_THREATS):
+		return 0
+	for enemy in _cave_threats:
+		if is_instance_valid(enemy) and not enemy.is_queued_for_deletion():
+			return 0
+	_cave_threats.clear()
+	var markers: Array[Node3D] = [
+		get_node_or_null(^"Spawns/CaveThreatA") as Node3D,
+		get_node_or_null(^"Spawns/CaveThreatB") as Node3D,
+	]
+	var fallback := [Vector3(4.2, 4.15, -48.6), Vector3(6.0, 4.15, -49.8)]
+	for index in CAVE_LARVA_COUNT:
+		var enemy := LARVA_ENEMY_SCENE.instantiate() as TestEnemy
+		if enemy == null:
+			continue
+		enemy.name = "CaveLarva%d" % index
+		enemy.target = target
+		add_child(enemy)
+		var marker: Node3D = markers[index] if index < markers.size() else null
+		enemy.global_position = marker.global_position if marker != null else fallback[index]
+		_decorate_enemy(enemy, "", false)
+		if enemy.health != null:
+			enemy.health.died.connect(_on_cave_threat_died)
+		_cave_threats.append(enemy)
+	_update_objective()
+	if _cave_threats.is_empty():
+		return 0
+	hint_requested.emit("Выживи. Выбирайся к выходу.")
+	return _cave_threats.size()
+
+
+func _on_cave_threat_died() -> void:
+	if NightmareRunState.has_flag(FLAG_CAVE_THREATS):
+		return
+	for enemy in _cave_threats:
+		if is_instance_valid(enemy) and not enemy.is_queued_for_deletion() and enemy.health != null:
+			if not enemy.health.is_dead():
+				return
+	NightmareRunState.set_flag(FLAG_CAVE_THREATS)
+	_update_objective()
+	hint_requested.emit("Путь к выходу свободен.")
+
+
+func cave_threats_cleared() -> bool:
+	return NightmareRunState.has_flag(FLAG_CAVE_THREATS)
 
 
 ## Поза Шифти зависит только от сохранённого состояния: отравление, альков и

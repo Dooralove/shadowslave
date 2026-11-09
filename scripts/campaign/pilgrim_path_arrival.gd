@@ -119,6 +119,15 @@ func _ready() -> void:
 	_ui.show_hint("Дорога уходит вверх. Впереди — провал.")
 	if NightmareRunState.has_flag(&"wound_taken") and _player.has_method(&"set_wounded"):
 		_player.set_wounded(true)
+	# Возврат на CP-N20: если Санни уже ранен в пещере, угроза должна
+	# восстановиться вместе со сценой, иначе «выжить» исчезает после reload.
+	if (NightmareRunState.has_flag(&"cave_entered")
+			and NightmareRunState.has_flag(&"wound_taken")
+			and not NightmareRunState.has_flag(&"cave_escaped")):
+		_path.hero.visible = false
+		_player.combat_enabled = true
+		_player.allow_sprint = true
+		_path.begin_cave_survival(_player)
 	# Дочерняя локация эмитит стартовую подсказку до подключения сигналов,
 	# поэтому оболочка задаёт её сама.
 	beat_director.transition_to_beat(&"N14")
@@ -302,7 +311,8 @@ func _handle_cave() -> void:
 	if inside:
 		_player.global_position = inside.global_position + Vector3(-0.4, 0.05, 1.8)
 	_path.hero.global_position = (_path.get_spawn(&"CaveInside") as Node3D).global_position + Vector3(1.2, 0, 0.4)
-	_player.camera_rig.yaw = -0.2
+	var to_hero: Vector3 = _path.hero.global_position - _player.global_position
+	_player.camera_rig.yaw = atan2(-to_hero.x, -to_hero.z)
 	await _tween_dusk(Color(0.002, 0.003, 0.008, 0.72), 1.0)
 	await _await_sequence(cave_sequence)
 	_path.mark_confession()
@@ -315,10 +325,15 @@ func _handle_cave() -> void:
 	_path.wound_sunny()
 	if _player.has_method(&"set_wounded"):
 		_player.set_wounded(true)
+	# Герой уходит к карнизу; в пещере остаются хищники, привлечённые кровью.
+	_path.hero.visible = false
+	_player.combat_enabled = true
+	_player.allow_sprint = true
+	_path.begin_cave_survival(_player)
 	await _tween_dusk(Color(0.03, 0.025, 0.04, 0.38), 0.9)
 	_player.input_enabled = true
 	_cutscene_running = false
-	_ui.show_hint("")
+	_ui.show_hint("Выживи. Выбирайся к выходу.")
 
 
 func _handle_cave_escape() -> void:

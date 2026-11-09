@@ -448,6 +448,36 @@ func test_wrapper_hides_shifty_on_fall_dialogue_line() -> void:
 	assert_true(site.get_node("Props/BloodStain").visible, "кровь остаётся")
 
 
+func test_cave_survival_spawns_threats_and_clears_the_exit() -> void:
+	var site := await _make_location()
+	NightmareRunState.set_flag(&"cave_entered")
+	NightmareRunState.set_flag(&"wound_taken")
+	site.call(&"prepare_route")
+	var target := Node3D.new()
+	add_child_autofree(target)
+	target.global_position = Vector3(3.6, 4.2, -48.5)
+	var spawned: int = site.call(&"begin_cave_survival", target)
+	assert_eq(spawned, 2, "после ранения в пещере появляются две угрозы")
+	var first := site.get_node_or_null("CaveLarva0") as TestEnemy
+	var second := site.get_node_or_null("CaveLarva1") as TestEnemy
+	assert_not_null(first, "первая пещерная личинка существует")
+	assert_not_null(second, "вторая пещерная личинка существует")
+	if first == null or second == null:
+		return
+	assert_eq(first.target, target, "угроза нацелена на игрока")
+	assert_true((site.call(&"get_trigger", &"cave_exit") as TriggerZone).enabled,
+		"выход открыт после ранения, даже если бой ещё идёт")
+	first.health.take_damage(999.0)
+	await wait_physics_frames(2)
+	assert_false(NightmareRunState.has_flag(&"cave_threats_cleared"),
+		"одна убитая личинка не закрывает событие")
+	second.health.take_damage(999.0)
+	await wait_physics_frames(2)
+	assert_true(NightmareRunState.has_flag(&"cave_threats_cleared"),
+		"после двух смертей событие «выжить» закрыто")
+	assert_true(site.call(&"cave_threats_cleared"))
+
+
 func test_wrapper_tracks_v2_beats_n14_to_n23_and_activates_checkpoints() -> void:
 	var wrapper := await _make_wrapper()
 	var sunny := wrapper.get_node("Sunny") as SunnyController
@@ -472,9 +502,15 @@ func test_wrapper_tracks_v2_beats_n14_to_n23_and_activates_checkpoints() -> void
 	await wrapper.call(&"_handle_scholar")
 	assert_eq(director.get_current_beat_id(), &"N19")
 
+	# В живом маршруте флаг ставит TriggerZone пещеры; здесь сцена-оболочка
+	# вызывается напрямую, поэтому вход отмечаем явно.
+	NightmareRunState.set_flag(&"cave_entered")
 	await wrapper.call(&"_handle_cave")
 	assert_eq(director.get_current_beat_id(), &"N20")
 	assert_eq(recovery.get_checkpoint_id(), &"CP-N20")
+	assert_true(NightmareRunState.has_flag(&"cave_entered"), "вход в пещеру отмечен")
+	assert_not_null(wrapper.get_node_or_null("PilgrimPath/CaveLarva0"), "после ранения появляется первая угроза")
+	assert_not_null(wrapper.get_node_or_null("PilgrimPath/CaveLarva1"), "после ранения появляется вторая угроза")
 
 	wrapper.call(&"_handle_cave_escape")
 	assert_eq(director.get_current_beat_id(), &"N21")

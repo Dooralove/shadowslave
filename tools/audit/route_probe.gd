@@ -18,6 +18,8 @@ const PROBES := {
 		["ledge_mid", Vector3(1, 12, -41.5)],
 		["ledge_end", Vector3(1, 12, -46)],
 		["cave_mouth", Vector3(1, 12, -48)],
+		["cave_inside", Vector3(4.6, 6.5, -48.5)],
+		["cave_exit", Vector3(3.0, 12, -53.4)],
 		["cave_mid", Vector3(1, 12, -51)],
 		["cave_deep", Vector3(1, 12, -54)],
 		["hero_ledge", Vector3(1, 12, -60)],
