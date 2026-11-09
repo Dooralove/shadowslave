@@ -578,17 +578,32 @@ func show_aftermath() -> void:
 	larva.visible = false
 	white_horse.visible = false
 	dark_horse.visible = false
-	# Герой ранен и опускается на колено; Ветеран лежит у края, а не стоит.
+	# N11: совет у огня. Герой опускается на колено, Шифти садится, Учёный
+	# остаётся говорить; все трое развёрнуты к костру. Ветеран лежит у тёмного
+	# края лицом к площадке, а не в скалу.
 	(hero as Mannequin).pose = "kneel"
+	(shifty as Mannequin).pose = "sit"
+	(scholar as Mannequin).pose = "talk"
 	(veteran as Mannequin).pose = "dead"
 	for node in [$NPCs/SoldierA, $NPCs/SoldierB, $NPCs/SlaveA, $NPCs/SlaveB, $NPCs/SlaveC]:
 		(node as Node3D).visible = false
 	hero.position = Vector3(1.2, 0.0, 1.5)
-	hero.rotation.y = 0.2
+	hero.rotation.y = 3.68
 	shifty.position = Vector3(1.5, 0.0, 0.0)
+	shifty.rotation.y = 2.08
 	scholar.position = Vector3(-0.6, 0.0, 1.4)
-	veteran.position = Vector3(4.4, 0.0, -3.0)
-	veteran.rotation.y = -0.7
+	scholar.rotation.y = -0.80
+	# 0.59 = верх снега (0.397) + нижняя грань финального кадра Death01 (0.195).
+	veteran.position = Vector3(2.2, 0.59, -3.3)
+	# Финал Death01 укладывает тело головой в +Z; поворот ставит голову
+	# к костру/игроку, а не к северной скале.
+	veteran.rotation.y = -0.29
+	_follow_breath("BreathHero", hero, 1.25)
+	_follow_breath("BreathShifty", shifty, 1.15)
+	_follow_breath("BreathScholar", scholar, 1.55)
+	var broad_breath := get_node_or_null(^"P3SiteDressing/BreathBroad") as Node3D
+	if broad_breath != null:
+		broad_breath.visible = false
 	veteran_sword.visible = false
 	set_interactable_enabled(&"wagon_wedges", false)
 	set_interactable_enabled(&"wagon_loop", false)
@@ -785,8 +800,21 @@ func place_party_at_fire() -> void:
 	shifty.rotation.y = 0.6
 	scholar.position = Vector3(-0.6, 0.0, 1.4)
 	scholar.rotation.y = -0.4
+	_follow_breath("BreathHero", hero, 1.25)
+	_follow_breath("BreathShifty", shifty, 1.15)
+	_follow_breath("BreathScholar", scholar, 1.55)
+	var broad_breath := get_node_or_null(^"P3SiteDressing/BreathBroad") as Node3D
+	if broad_breath != null:
+		broad_breath.visible = false
 	if NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
 		veteran.visible = false
+
+
+## Дыхание на морозе — эффект у лица, а не мировая метка на старом месте.
+func _follow_breath(node_name: String, actor: Node3D, height: float) -> void:
+	var breath := get_node_or_null("P3SiteDressing/" + node_name) as Node3D
+	if breath != null:
+		breath.global_position = actor.global_position + Vector3(0.0, height, 0.0)
 
 
 func begin_dawn() -> void:
