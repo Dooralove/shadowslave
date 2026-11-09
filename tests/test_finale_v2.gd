@@ -48,8 +48,8 @@ func test_temple_is_single_objective_with_e_altar_action_and_no_enemies() -> voi
 	if sanctuary == null or sunny == null or altar == null:
 		return
 	assert_eq(altar.prompt, "Лечь на алтарь", "лечь на алтарь остаётся поступком E")
-	assert_false(sunny.allow_jump, "прыжок в храме выключен")
-	assert_false(sunny.combat_enabled, "в храме нет боя")
+	assert_true(sunny.allow_jump, "прыжок доступен и в храме")
+	assert_false(sunny.combat_enabled, "в храме нет боевого режима")
 	assert_eq(sanctuary.find_children("*", "TestEnemy", true, false).size(), 0)
 	assert_eq(sanctuary.find_children("*", "MountainKing", true, false).size(), 0)
 	assert_eq(sanctuary.find_children("*", "StealthSection", true, false).size(), 0,

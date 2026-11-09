@@ -37,7 +37,7 @@ func test_start_marks_debug_entry_and_keeps_player_in_chain() -> void:
 	assert_true(sunny.chain_restrained, "на марше включена цепь")
 	assert_true(sunny.input_enabled)
 	assert_false(sunny.allow_sprint)
-	assert_false(sunny.allow_jump)
+	assert_true(sunny.allow_jump, "прыжок доступен на марше кампании")
 	assert_false(sunny.combat_enabled)
 	assert_true(pass_scene.is_march_intro_seen() == false, "знакомства ещё не проиграны")
 

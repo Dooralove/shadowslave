@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/locations/shadow_sanctuary/sanctuary_controller.gd" id="1_controller"]
 [ext_resource type="PackedScene" path="res://scenes/ui/bark_ui.tscn" id="2_barks"]
-[ext_resource type="PackedScene" path="res://assets/characters/p1/sunny_waking_nightmare.tscn" id="3_sunny"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
 [ext_resource type="Script" path="res://scripts/interaction/interactable.gd" id="4_interactable"]
 [ext_resource type="Script" path="res://scripts/ui/interaction_prompt_ui.gd" id="5_prompt"]
 [ext_resource type="PackedScene" path="res://scenes/ui/spell_overlay/spell_overlay.tscn" id="6_overlay"]

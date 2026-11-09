@@ -197,7 +197,8 @@ func _place_player() -> void:
 	_player.camera_rig.yaw = 0.0
 	_player.camera_rig.set_pitch(_player.camera_rig.pitch)
 	_player.allow_sprint = false
-	_player.allow_jump = false
+	# Прыжок не зависит от боевого режима и остаётся доступен в лагере.
+	_player.allow_jump = true
 	_player.combat_enabled = false
 
 	# Служебная подпись сегмента — только при отладочном запуске сцены; в кампании игрок её не видит.

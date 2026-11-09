@@ -190,7 +190,7 @@ func test_camp_wrapper_starts_tethered_and_disables_cinematic_tyrant() -> void:
 	assert_true(sunny.is_camp_tethered(), "в лагере действует радиальная цепь")
 	assert_true(sunny.chain_restrained)
 	assert_false(sunny.allow_sprint)
-	assert_false(sunny.allow_jump)
+	assert_true(sunny.allow_jump, "прыжок доступен и в лагере кампании")
 	assert_false(sunny.combat_enabled)
 	assert_true(site.get_interactable(&"camp_rations").enabled)
 	assert_false(site.get_interactable(&"camp_attack").enabled)
