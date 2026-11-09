@@ -625,10 +625,11 @@ func _stage_wagon_camera() -> void:
 	_saved_camera_pitch = _player.camera_rig.pitch
 	_saved_camera_look = _player.camera_rig.look_enabled
 	_player.camera_rig.look_enabled = false
-	# Держим камеру вне повозки и вне траектории падения: прежняя точка
-	# оказывалась внутри кузова, когда телега проезжала мимо.
-	_wagon_camera.global_position = Vector3(9.0, 6.0, 9.0)
-	_wagon_camera.look_at(Vector3(-4.0, 1.2, -2.4), Vector3.UP)
+	# Держим камеру внутри площадки, выше костра и вне траектории падения.
+	# Точка (9, 6, 9) была за скальным выступом: кадр заполняла стена, а не
+	# повозка. Эта точка проверена лучом и кадром при падении повозки.
+	_wagon_camera.global_position = Vector3(4.2, 4.2, 4.6)
+	_wagon_camera.look_at(Vector3(-4.0, 1.4, -2.4), Vector3.UP)
 	_wagon_camera.make_current()
 
 
