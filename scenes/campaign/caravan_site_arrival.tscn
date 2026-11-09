@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="6_fade"]
 [ext_resource type="Script" path="res://scripts/ui/timing_challenge.gd" id="7_timing"]
 [ext_resource type="CameraAttributesPractical" path="res://resources/cameras/p4_cutscene_dof.tres" id="8_dof"]
+[ext_resource type="Script" path="res://scripts/cutscene/beat_shot_stage.gd" id="9_beat"]
 
 [sub_resource type="StyleBoxFlat" id="Style_card"]
 bg_color = Color(0.018, 0.025, 0.04, 0.94)
@@ -46,6 +47,38 @@ rotation = Vector3(-0.335, 0.773, 0)
 fov = 56.0
 current = false
 attributes = ExtResource("8_dof")
+
+[node name="BeatStage" type="Node3D" parent="."]
+script = ExtResource("9_beat")
+
+[node name="Shots" type="Node3D" parent="BeatStage"]
+
+[node name="Attack" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(3.9, 5.0, 5.2)
+fov = 58.0
+far = 160.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/Attack"]
+top_level = true
+position = Vector3(0.0, 4.2, -3.5)
+
+[node name="Veteran" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(5.4, 2.4, -0.6)
+fov = 48.0
+far = 80.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/Veteran"]
+top_level = true
+position = Vector3(4.2, 0.5, -2.8)
+
+[node name="VeteranDeath" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(5.4, 2.4, -0.6)
+fov = 48.0
+far = 80.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/VeteranDeath"]
+top_level = true
+position = Vector3(4.2, 0.5, -2.8)
 
 [node name="UI" parent="." instance=ExtResource("4_ui")]
 

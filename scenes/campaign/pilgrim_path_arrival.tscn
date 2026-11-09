@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/prologue_ui.tscn" id="4_ui"]
 [ext_resource type="Script" path="res://scripts/dialogue/dialogue_runner.gd" id="5_dialogue"]
 [ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="6_fade"]
+[ext_resource type="Script" path="res://scripts/cutscene/beat_shot_stage.gd" id="7_beat"]
 
 [node name="PilgrimPathArrival" type="Node3D"]
 script = ExtResource("1_arrival")
@@ -20,6 +21,47 @@ groups = ["player"]
 
 [node name="DialogueRunner" type="Node" parent="."]
 script = ExtResource("5_dialogue")
+
+[node name="BeatStage" type="Node3D" parent="."]
+script = ExtResource("7_beat")
+
+[node name="Shots" type="Node3D" parent="BeatStage"]
+
+[node name="ShiftyFall" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(1.0, 6.0, -27.0)
+fov = 55.0
+far = 120.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/ShiftyFall"]
+top_level = true
+position = Vector3(1.2, 4.6, -32.0)
+
+[node name="CaveWound" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(11.6, 5.5, -47.6)
+fov = 55.0
+far = 80.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/CaveWound"]
+top_level = true
+position = Vector3(9.0, 4.7, -49.4)
+
+[node name="HeroConfront" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(1.5, 5.6, -56.0)
+fov = 55.0
+far = 100.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/HeroConfront"]
+top_level = true
+position = Vector3(1.0, 4.8, -59.0)
+
+[node name="HeroCapture" type="Camera3D" parent="BeatStage/Shots"]
+position = Vector3(1.5, 6.5, -56.0)
+fov = 60.0
+far = 120.0
+
+[node name="LookAt" type="Marker3D" parent="BeatStage/Shots/HeroCapture"]
+top_level = true
+position = Vector3(-2.5, 5.0, -60.0)
 
 [node name="NightTint" type="CanvasLayer" parent="."]
 layer = 5

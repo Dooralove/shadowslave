@@ -87,6 +87,9 @@ var _creak_plays := 0
 var _bone_origins: Array[Vector3] = []
 var _guide_beacons: Dictionary = {}
 var _cave_threats: Array[TestEnemy] = []
+var _active_beat_shot: StringName = &""
+var _beat_serial := 0
+var _shifty_falling := false
 
 @onready var hero: Mannequin = $NPCs/Hero
 @onready var shifty: Mannequin = $NPCs/Shifty
@@ -107,6 +110,7 @@ func _ready() -> void:
 	super._ready()
 	interacted.connect(_on_interacted)
 	triggered.connect(_on_triggered)
+	_shifty_falling = false
 	_shifty_base_scale = shifty.scale
 	_scatter_bones()
 	_retire_legacy_alcove_art()
@@ -162,6 +166,8 @@ func get_guide_beacon(beacon_id: StringName) -> GuideBeacon:
 ## но не выдаёт награды и не подтверждает смерть Тирана.
 func prepare_route() -> void:
 	NightmareRunState.set_flag(FLAG_STARTED)
+	_release_beat_shot(0.0)
+	_shifty_falling = false
 	_reconcile_capture_state()
 	if NightmareRunState.has_flag(FLAG_TEMPLE):
 		phase = PHASE_COMPLETE
@@ -235,9 +241,9 @@ func _set_temple_glow_visible(value: bool) -> void:
 
 func _restore_party_positions() -> void:
 	if NightmareRunState.has_flag(FLAG_ALCOVE):
-		hero.position = Vector3(2.2, 4.1, -31.5)
-		shifty.position = Vector3(0.4, 4.1, -31.0)
-		scholar.position = Vector3(1.2, 4.1, -33.0)
+		hero.position = Vector3(1.55, 4.1, -31.6)
+		shifty.position = Vector3(0.95, 4.1, -31.0)
+		scholar.position = Vector3(1.2, 4.1, -32.8)
 	elif not NightmareRunState.has_flag(FLAG_STARTED):
 		hero.position = Vector3(0.8, 0.05, 6.5)
 		shifty.position = Vector3(1.5, 0.05, 7.4)
@@ -336,6 +342,128 @@ func _set_campaign_objective(text: String) -> void:
 		guide.call(&"set_external_objective", text, &"campaign")
 
 
+## --- Постановка ключевых beat-ов: позы и камера ---------------------------
+
+func _beat_stage() -> BeatShotStage:
+	var parent := get_parent()
+	if parent == null:
+		return null
+	return parent.get_node_or_null(^"BeatStage") as BeatShotStage
+
+
+func _is_fast_mode() -> bool:
+	var parent := get_parent()
+	if parent == null:
+		return false
+	var value: Variant = parent.get(&"fast_mode")
+	return value != null and bool(value)
+
+
+func _play_beat_shot(shot_id: StringName, blend := 0.45) -> void:
+	var stage := _beat_stage()
+	if stage == null:
+		return
+	_beat_serial += 1
+	_active_beat_shot = shot_id
+	await stage.play_shot(shot_id, blend)
+
+
+func _release_beat_shot(delay := 0.0, shot_id: StringName = &"") -> void:
+	var stage := _beat_stage()
+	if stage == null:
+		return
+	_beat_serial += 1
+	var serial := _beat_serial
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+	if serial != _beat_serial:
+		return
+	if shot_id != &"" and _active_beat_shot != shot_id:
+		return
+	_active_beat_shot = &""
+	await stage.release()
+
+
+func _player_position() -> Vector3:
+	var player := get_tree().get_first_node_in_group(&"player") as Node3D
+	if player != null:
+		return player.global_position
+	return global_position
+
+
+func _pose_actor(actor: Node, pose_name: String, focus: Vector3) -> void:
+	var mannequin := actor as Mannequin
+	if mannequin == null:
+		return
+	mannequin.pose = pose_name
+	mannequin.face_position(focus)
+
+
+## N16–N17: слабый Шифти срывается с карниза; Герой указывает на край,
+## Учёный читает записи. Камера держит падение, а не только реплику.
+func stage_shifty_fall() -> void:
+	if _shifty_falling:
+		return
+	_shifty_falling = true
+	var focus := shifty_body.global_position if is_instance_valid(shifty_body) else _player_position()
+	_pose_actor(shifty, "fall", focus)
+	_pose_actor(hero, "point", shifty.global_position if is_instance_valid(shifty) else focus)
+	_pose_actor(scholar, "read", _player_position())
+	_play_beat_shot(&"ShiftyFall", 0.4)
+	_release_beat_shot(2.4, &"ShiftyFall")
+
+
+## N20: рана в пещере. Герой оседает на колено, Санни остаётся один.
+func stage_cave_wound() -> void:
+	var inside := get_spawn(&"CaveInside") as Node3D
+	var focus := inside.global_position if inside != null else _player_position()
+	if is_instance_valid(hero):
+		if inside != null:
+			hero.global_position = inside.global_position + Vector3(1.2, 0.0, 0.4)
+		_pose_actor(hero, "kneel", _player_position())
+	_play_beat_shot(&"CaveWound", 0.45)
+	_release_beat_shot(3.2, &"CaveWound")
+
+
+## N21–N22: Герой ждёт на карнизе и указывает на Санни.
+func stage_hero_confrontation() -> void:
+	if is_instance_valid(hero):
+		var stand := get_spawn(&"HeroStand") as Node3D
+		if stand != null:
+			hero.global_position = stand.global_position
+		hero.visible = true
+		_pose_actor(hero, "point", _player_position())
+	_play_beat_shot(&"HeroConfront", 0.4)
+	_release_beat_shot(9.0, &"HeroConfront")
+
+
+## N22: захват. Тиран появляется над Героем; рука идёт вниз, камера
+## фиксирует момент, когда Герой исчезает из кадра.
+func stage_hero_capture() -> void:
+	if is_instance_valid(hero):
+		_pose_actor(hero, "fall", tyrant_at_hero.global_position)
+		var start := hero.global_position
+		var lift := start + Vector3(-0.4, 0.75, -0.25)
+		var lift_tween := create_tween()
+		lift_tween.tween_property(hero, "global_position", lift, 0.35).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tyrant_at_hero.visible = true
+	_animate_tyrant_grab()
+	_play_beat_shot(&"HeroCapture", 0.35)
+	_release_beat_shot(4.5, &"HeroCapture")
+
+
+func _animate_tyrant_grab() -> void:
+	var arm := tyrant_at_hero.get_node_or_null(^"Arm") as Node3D
+	if arm == null:
+		return
+	var start := arm.position
+	var strike := start + Vector3(0.8, -1.0, 0.4)
+	var tween := create_tween()
+	tween.tween_property(arm, "position", strike, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.tween_property(arm, "position", start, 0.55).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+
+
 func _on_interacted(id: StringName) -> void:
 	if id == &"bell":
 		_ring_bell()
@@ -417,7 +545,9 @@ func _request_rest() -> void:
 	NightmareRunState.set_flag(FLAG_ALCOVE)
 	phase = PHASE_ALCOVE
 	_restore_party_positions()
+	place_party_at_alcove()
 	_update_shifty_pose()
+	_play_beat_shot(&"ShiftyFall", 0.5)
 	_refresh_route_points()
 	rest_requested.emit()
 	hint_requested.emit("")
@@ -432,6 +562,11 @@ func kill_shifty() -> void:
 	if NightmareRunState.has_flag(FLAG_SHIFTY_DEAD):
 		return
 	NightmareRunState.set_flag(FLAG_SHIFTY_DEAD)
+	stage_shifty_fall()
+	if not _is_fast_mode():
+		await get_tree().create_timer(0.8).timeout
+	if not is_instance_valid(shifty):
+		return
 	shifty.visible = false
 	shifty_body.visible = false
 	blood_stain.visible = true
@@ -565,6 +700,7 @@ func begin_dawn() -> void:
 	dawn_light.visible = true
 	dawn_light.light_energy = 0.85
 	scholar.position = ($Spawns/ScholarAhead as Node3D).position
+	_pose_actor(scholar, "read", _player_position())
 	_refresh_route_points()
 
 
@@ -573,6 +709,7 @@ func _request_scholar() -> void:
 		return
 	NightmareRunState.set_flag(FLAG_SCHOLAR)
 	phase = PHASE_SCHOLAR
+	_pose_actor(scholar, "read", _player_position())
 	_refresh_route_points()
 	scholar_requested.emit()
 	hint_requested.emit("")
@@ -603,6 +740,7 @@ func mark_confession() -> void:
 
 func wound_sunny() -> void:
 	NightmareRunState.set_flag(FLAG_WOUND)
+	stage_cave_wound()
 	_refresh_route_points()
 
 
@@ -625,6 +763,7 @@ func begin_stealth(player: Node3D) -> bool:
 		return false
 	if stealth == null:
 		return false
+	_release_beat_shot(0.0)
 	NightmareRunState.set_flag(FLAG_STEALTH_ACTIVE)
 	stealth.begin(player)
 	_refresh_route_points()
@@ -695,6 +834,7 @@ func _request_hero() -> void:
 		return
 	NightmareRunState.set_flag(FLAG_HERO)
 	phase = PHASE_HERO
+	stage_hero_confrontation()
 	_refresh_route_points()
 	hero_requested.emit()
 	hint_requested.emit("")
@@ -722,6 +862,7 @@ func _ring_bell() -> void:
 func turn_hero_toward_bell() -> void:
 	if not hero.visible or NightmareRunState.has_flag(FLAG_HERO_TAKEN):
 		return
+	hero.pose = "guard"
 	hero.rotation.y = HERO_BELL_FACING_Y
 
 
@@ -733,9 +874,14 @@ func begin_hero_capture() -> void:
 	if NightmareRunState.has_flag(FLAG_HERO_DEAD):
 		return
 	NightmareRunState.set_flag(FLAG_HERO_TAKEN)
-	hero.visible = false
+	stage_hero_capture()
 	tyrant_at_hero.visible = true
 	_set_temple_glow_visible(false)
+	if not _is_fast_mode():
+		await get_tree().create_timer(0.55).timeout
+	if not is_instance_valid(hero):
+		return
+	hero.visible = false
 	_refresh_route_points()
 
 
@@ -753,6 +899,7 @@ func complete_hero_capture() -> void:
 	temple_guard.visible = not NightmareRunState.has_flag(FLAG_TEMPLE)
 	_play_guard_presence()
 	phase = PHASE_TEMPLE
+	_release_beat_shot(1.6, &"HeroCapture")
 	_refresh_route_points()
 
 
@@ -848,12 +995,13 @@ func reach_temple() -> void:
 
 
 func place_party_at_alcove() -> void:
-	hero.global_position = Vector3(2.2, 4.15, -31.5)
-	shifty.global_position = Vector3(0.4, 4.15, -31.0)
-	scholar.global_position = Vector3(1.2, 4.15, -33.0)
-	hero.rotation.y = 0.3
-	shifty.rotation.y = -0.4
-	scholar.rotation.y = 0.8
+	hero.global_position = Vector3(1.55, 4.15, -31.6)
+	shifty.global_position = Vector3(0.95, 4.15, -31.0)
+	scholar.global_position = Vector3(1.2, 4.15, -32.8)
+	var focus := _player_position()
+	_pose_actor(hero, "guard", focus)
+	_pose_actor(shifty, "idle", focus)
+	_pose_actor(scholar, "read", focus)
 
 
 func get_party_position() -> Vector3:

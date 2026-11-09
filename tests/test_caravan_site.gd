@@ -134,7 +134,9 @@ func test_survivor_tasks_veteran_bell_night_and_dawn() -> void:
 	assert_eq(NightmareRunState.get_item_count(&"cloak"), 1)
 	assert_eq(NightmareRunState.get_item_count(&"boots"), 1)
 	assert_eq(NightmareRunState.get_item_count(&"sword"), 1)
-	assert_false(site.veteran.visible, "ветеран не воскресает")
+	assert_false(site.veteran_sword.visible, "меч забран")
+	assert_true(site.veteran.visible, "тело ветерана остаётся на месте")
+	assert_eq((site.veteran as Mannequin).pose, "dead", "ветеран лежит мёртвым, а не исчезает")
 	assert_true((site.get_node("Triggers/NightEdgeSouth") as TriggerZone).enabled)
 	assert_true(sunny.input_enabled)
 
@@ -308,6 +310,12 @@ func test_attack_larva_key_wagon_fall_and_aftermath() -> void:
 	assert_true(site.shifty.visible)
 	assert_true(site.scholar.visible)
 	assert_true(site.veteran.visible)
+	assert_eq((site.hero as Mannequin).pose, "kneel", "Герой опускается на колено")
+	assert_eq((site.veteran as Mannequin).pose, "dying", "Ветеран лежит при смерти")
+	assert_eq((site.scholar as Mannequin).pose, "read", "Учёный читает записи")
+	assert_eq((site.shifty as Mannequin).pose, "point", "Шифти указывает на ветерана")
+	assert_true((site.hero as Mannequin).is_facing_position(sunny.global_position, 30.0), "Герой повёрнут к игроку")
+	assert_true((site.veteran as Mannequin).is_facing_position(sunny.global_position, 30.0), "Ветеран повёрнут к игроку")
 	assert_false(site.white_horse.visible)
 	assert_false(site.dark_horse.visible)
 	for node_path in ["NPCs/SoldierA", "NPCs/SoldierB", "NPCs/SlaveA", "NPCs/SlaveB", "NPCs/SlaveC"]:

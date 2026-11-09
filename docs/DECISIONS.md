@@ -1287,3 +1287,12 @@
 - **Полная цепочка показа.** `campaign_entry` (пролог B01–B16) → Первый Кошмар S01–S15 → `police_precinct` (M1, P05) → `academy_approach` → `academy_gate` → `academy_campus` → `academy_sleeper_center` → `black_sea_platform` → `tide_descent` → `labyrinth_first_fragment` → финальная карточка демо.
 - **S15 — не конец показа, а конец Первого Кошмара.** Карточка «ПЕРВЫЙ КОШМАР ЗАВЕРШЁН» остаётся вехой кампании; кнопка «Продолжить: после Кошмара» ведёт в M1.
 - **Статус проверки.** Автоматически подтверждены S01–S15 (campaign tour) и полный GUT; M1 P05→Z10, tech Z11→Z18 и Академия вручную ещё не пройдены — до этого показ считаётся альфа-показом, а не финальным.
+
+## 2026-11-09 - NPC beat staging: pose overlay and camera shots
+
+- **Mannequin poses are a post-animation overlay.** Generated Humanoid NPCs do not carry `kneel` / `read` / `point` clips, so `MannequinPoseModifier` (SkeletonModifier3D) applies bone offsets after the AnimationPlayer. UAL models keep their native clips; the modifier silently skips bones it cannot find.
+- **New poses.** `Mannequin` now exposes `dying`, `fall` and `read` in addition to the existing `kneel`/`point`/`dead`. `dying`/`dead` hold the last frame of the death clip; `fall` plays it through. `read` uses the seated clip plus a small book prop and a head tilt; `sit`/`read` use a lowered model offset so the figure does not hover.
+- **Beat camera shots live with the campaign wrappers.** `scenes/campaign/caravan_site_arrival.tscn` and `pilgrim_path_arrival.tscn` contain a `BeatStage` with named `Shots/*` cameras. `BeatShotStage` drives them through `CutsceneCamera3D`, returns the player camera when the beat ends, and never changes location geometry.
+- **Staging ownership.** `caravan_site.gd` and `pilgrim_path.gd` own poses and shot selection; camera nodes and the stage script live in `scripts/cutscene/**` and `scenes/campaign/**`. Key beats: attack, veteran found/death, Shifty fall, cave wound, hero confrontation, hero capture.
+- **Facing.** All staged actors face the player or the event target; no location geometry was moved. `test_caravan_site`, `test_pilgrim_path` and `test_cutscene_integration` cover the new poses, shots and facing.
+- **Verification.** Boot exit 0; targeted GUT green; campaign tour `pass=9 fail=0`; beat captures `01_attack` ... `07_hero_capture` at 1600x900. Manual playthrough and 1080p/60 remain **NOT TESTED**.
