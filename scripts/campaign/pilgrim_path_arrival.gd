@@ -113,8 +113,8 @@ func _ready() -> void:
 	else:
 		push_error("PilgrimPathArrival: нет стартовой точки Spawns/%s" % requested)
 	_player.allow_sprint = false
-	# Прыжок в Первом Кошмаре не нужен: с ним Санни выходит за границы тропы на скалы.
-	_player.allow_jump = false
+	# Прыжок остаётся доступным; границы тропы держат коллизии, а не запрет ввода.
+	_player.allow_jump = true
 	_player.camera_rig.pitch = deg_to_rad(-18.0)
 	_ui.show_hint("Дорога уходит вверх. Впереди — провал.")
 	if NightmareRunState.has_flag(&"wound_taken") and _player.has_method(&"set_wounded"):

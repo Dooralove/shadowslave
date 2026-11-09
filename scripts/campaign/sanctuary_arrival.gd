@@ -94,7 +94,8 @@ func _place_player() -> void:
 	# именованную точку входа, не создавая второго Санни.
 	_player.global_position = spawn.global_position
 	_player.velocity = Vector3.ZERO
-	_player.allow_jump = false
+	# Прыжок доступен в кампании; бой в святилище по-прежнему выключен.
+	_player.allow_jump = true
 	_player.combat_enabled = false
 	var yaw := spawn.global_rotation.y
 	_player.visual.rotation.y = yaw

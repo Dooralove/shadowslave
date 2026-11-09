@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/ambush_site_demo.gd" id="1_demo"]
 [ext_resource type="PackedScene" path="res://scenes/locations/ambush_site/ambush_site.tscn" id="2_site"]
-[ext_resource type="PackedScene" path="res://assets/characters/p1/sunny_waking_nightmare.tscn" id="3_sunny"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
 
 [node name="AmbushSiteDemo" type="Node3D"]
 script = ExtResource("1_demo")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/campaign/first_nightmare_pass.gd" id="1_pass"]
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/caravan_road_art.tscn" id="2_road"]
-[ext_resource type="PackedScene" path="res://assets/characters/p1/sunny_waking_nightmare.tscn" id="3_sunny"]
+[ext_resource type="PackedScene" path="res://assets/characters/sunny_realistic_poc/sunny_waking_poc.tscn" id="3_sunny"]
 [ext_resource type="PackedScene" path="res://scenes/ui/prologue_ui.tscn" id="4_ui"]
 [ext_resource type="Script" path="res://scripts/dialogue/dialogue_runner.gd" id="5_dialogue"]
 

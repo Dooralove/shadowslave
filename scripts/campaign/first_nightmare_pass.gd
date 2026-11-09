@@ -96,7 +96,8 @@ func start() -> void:
 			push_warning("FirstNightmarePass: нет prologue_completed; сцена запущена напрямую")
 	_caravan.set_march_follower(_player)
 	_player.allow_sprint = false
-	_player.allow_jump = false
+	# Прыжок доступен и в кампании: цепь ограничивает маршрут, а не вертикаль.
+	_player.allow_jump = true
 	_player.combat_enabled = false
 	_player.enable_chain_restraint(_caravan.march_velocity())
 	_caravan.start_march()

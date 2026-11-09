@@ -14,6 +14,7 @@ const VFX := preload("res://scripts/vfx/one_shot_vfx.gd")
 @export var jump_velocity := 5.0
 @export var turn_speed := 10.0
 ## Разрешения по сцене: в прологе нет бега, прыжков и боя. По умолчанию всё включено (арена).
+## combat_enabled управляет боевым режимом (блок/цель), но не запрещает одиночный удар.
 @export var allow_sprint := true
 @export var allow_jump := true
 @export var combat_enabled := true
@@ -65,13 +66,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		if bool(combat.call(&"handle_input", event)):
 			get_viewport().set_input_as_handled()
 		return
-	if combat_enabled and event.is_action_pressed("attack") and camera_rig.is_mouse_captured():
+	if event.is_action_pressed("attack") and camera_rig.is_mouse_captured():
 		try_attack()
 
 
 ## Удар туда, куда смотрит модель (Visual, ось -Z). Камера на направление не влияет.
 func try_attack() -> bool:
-	if not controls_enabled or not combat_enabled:
+	# Удар — обычное действие игрока, а не режим боя: combat_enabled не требуется.
+	if not controls_enabled:
 		return false
 	if combat != null and combat.has_method(&"try_light_attack"):
 		return bool(combat.call(&"try_light_attack"))
@@ -112,7 +114,9 @@ func set_wounded(value: bool) -> void:
 		_wounded_saved_sprint = allow_sprint
 		_wounded_saved_jump = allow_jump
 		_wounded_saved_combat = combat_enabled
-		walk_speed = minf(walk_speed, 2.35)
+		# Ранение замедляет относительно текущей модели, а не только срезает
+		# скорость до общего потолка: у v3 базовые 1.7 м/с ниже 2.35.
+		walk_speed = minf(_wounded_saved_walk_speed * 0.75, 2.35)
 		allow_sprint = false
 		allow_jump = false
 		combat_enabled = false

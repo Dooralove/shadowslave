@@ -148,7 +148,10 @@ func try_light_attack() -> bool:
 	var cost := data.stamina_cost if data != null else 0.0
 	if stamina != null and not stamina.spend(cost):
 		return false
-	_combat_grace_left = settings.combat_grace if settings != null else 0.0
+	# Удар по воздуху не включает боевой режим: иначе grace на две секунды
+	# блокирует прыжок и спринт, хотя врага рядом нет.
+	if is_in_combat():
+		_combat_grace_left = settings.combat_grace if settings != null else 0.0
 	var started := attack.try_attack()
 	if started:
 		_play_audio(&"combat_swing_unarmed" if _unarmed else &"combat_swing_armed")
@@ -334,8 +337,8 @@ func _play_audio(cue_id: StringName, volume_offset_db := 0.0) -> void:
 func _can_act() -> bool:
 	if _dead or body == null or not body.controls_enabled or not body.input_enabled:
 		return false
-	if not body.combat_enabled:
-		return false
+	# combat_enabled включает боевой режим (цель/блок), но одиночный удар
+	# доступен и вне его — иначе пролог и сюжетные сцены не могут прожать атаку.
 	if _stagger_time_left > 0.0:
 		return false
 	return true
