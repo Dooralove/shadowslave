@@ -107,6 +107,8 @@ var _tyrant_attention_active := false
 var second_larva: TestEnemy
 var _second_larva_finishing := false
 var _night_edges: Array[TriggerZone] = []
+var _active_beat_shot: StringName = &""
+var _beat_serial := 0
 
 
 func _ready() -> void:
@@ -179,6 +181,10 @@ func begin_camp() -> void:
 		set_interactable_enabled(id, false)
 	_arm_night_edges(false)
 	_refresh_camp_progress(false)
+	var focus := get_fire_position()
+	_pose_actor(hero, "ride", focus)
+	_pose_actor(shifty, "talk", focus)
+	_pose_actor(scholar, "read", focus)
 
 
 func _is_camp_interaction_seen(id: StringName) -> bool:
@@ -290,6 +296,7 @@ func _begin_attack() -> void:
 		set_interactable_enabled(id, false)
 	_arm_night_edges(false)
 	_set_phase(PHASE_ATTACK)
+	stage_attack_beat()
 	attack_requested.emit()
 
 
@@ -396,6 +403,7 @@ func _audio_stop_ambience(fade: float) -> void:
 
 func begin_larva_phase() -> void:
 	_set_phase(PHASE_LARVA)
+	_release_beat_shot(0.0, &"Attack")
 	set_interactable_enabled(&"chain_larva", true)
 	hint_requested.emit("Цепь ослабла. Набросьте её на шею твари — E.")
 
@@ -453,6 +461,7 @@ func finish_episode() -> void:
 
 func begin_wagon_phase() -> void:
 	_set_phase(PHASE_WAGON)
+	_release_beat_shot(0.0)
 	# N10/D05: Тиран стоит у повозки и реагирует на слишком близкое движение.
 	stage_tyrant_for_wagon()
 	set_tyrant_attention(true)
@@ -579,16 +588,21 @@ func show_aftermath() -> void:
 	white_horse.visible = false
 	dark_horse.visible = false
 	# Герой ранен и опускается на колено; Ветеран лежит у края, а не стоит.
-	(hero as Mannequin).pose = "kneel"
-	(veteran as Mannequin).pose = "dead"
+	var focus := _player_position()
+	_pose_actor(hero, "kneel", focus)
+	_pose_actor(veteran, "dead" if NightmareRunState.has_flag(FLAG_VETERAN_DEAD) else "dying", focus)
+	_pose_actor(scholar, "read", focus)
+	_pose_actor(shifty, "point", veteran.global_position if is_instance_valid(veteran) else focus)
 	for node in [$NPCs/SoldierA, $NPCs/SoldierB, $NPCs/SlaveA, $NPCs/SlaveB, $NPCs/SlaveC]:
 		(node as Node3D).visible = false
 	hero.position = Vector3(1.2, 0.0, 1.5)
-	hero.rotation.y = 0.2
 	shifty.position = Vector3(1.5, 0.0, 0.0)
 	scholar.position = Vector3(-0.6, 0.0, 1.4)
 	veteran.position = Vector3(4.4, 0.0, -3.0)
-	veteran.rotation.y = -0.7
+	hero.face_position(focus)
+	veteran.face_position(focus)
+	shifty.face_position(veteran.global_position if is_instance_valid(veteran) else focus)
+	scholar.face_position(focus)
 	veteran_sword.visible = false
 	set_interactable_enabled(&"wagon_wedges", false)
 	set_interactable_enabled(&"wagon_loop", false)
@@ -694,6 +708,100 @@ func _set_campaign_objective(text: String) -> void:
 		guide.call(&"set_external_objective", text, &"campaign")
 
 
+## --- Постановка ключевых beat-ов: позы и камера ---------------------------
+
+func _beat_stage() -> BeatShotStage:
+	var parent := get_parent()
+	if parent == null:
+		return null
+	return parent.get_node_or_null(^"BeatStage") as BeatShotStage
+
+
+func _is_fast_mode() -> bool:
+	var parent := get_parent()
+	if parent == null:
+		return false
+	var value: Variant = parent.get(&"fast_mode")
+	return value != null and bool(value)
+
+
+func _play_beat_shot(shot_id: StringName, blend := 0.45) -> void:
+	var stage := _beat_stage()
+	if stage == null:
+		return
+	_beat_serial += 1
+	_active_beat_shot = shot_id
+	await stage.play_shot(shot_id, blend)
+
+
+func _release_beat_shot(delay := 0.0, shot_id: StringName = &"") -> void:
+	var stage := _beat_stage()
+	if stage == null:
+		return
+	_beat_serial += 1
+	var serial := _beat_serial
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+	if serial != _beat_serial:
+		return
+	if shot_id != &"" and _active_beat_shot != shot_id:
+		return
+	_active_beat_shot = &""
+	await stage.release()
+
+
+func _player_position() -> Vector3:
+	var player := get_tree().get_first_node_in_group(&"player") as Node3D
+	if player != null:
+		return player.global_position
+	return global_position
+
+
+func _pose_actor(actor: Node, pose_name: String, focus: Vector3) -> void:
+	var mannequin := actor as Mannequin
+	if mannequin == null:
+		return
+	mannequin.pose = pose_name
+	mannequin.face_position(focus)
+
+
+## N08: нападение. Шифти указывает на гребень, Учёный отшатывается,
+## Герой закрывает собой лагерь. Камера держит Тирана и группу в одном кадре.
+func stage_attack_beat() -> void:
+	var target := _tyrant_home if is_instance_valid(tyrant) else Vector3(0.0, 4.0, -4.0)
+	_pose_actor(hero, "ride", target)
+	_pose_actor(shifty, "point", target)
+	_pose_actor(scholar, "gesture", target)
+	_pose_actor(broad_slave, "idle", target)
+	_pose_actor(veteran, "ride", target)
+	_play_beat_shot(&"Attack", 0.5)
+
+
+## N12: раненый ветеран лежит у тёмного края; Герой опускается на колено,
+## Учёный читает записи, Шифти указывает на тело. Все обращены к игроку.
+func stage_veteran_found() -> void:
+	var focus := _player_position()
+	_pose_actor(veteran, "dying", focus)
+	_pose_actor(hero, "kneel", veteran.global_position if is_instance_valid(veteran) else focus)
+	_pose_actor(scholar, "read", focus)
+	_pose_actor(shifty, "point", veteran.global_position if is_instance_valid(veteran) else focus)
+	_play_beat_shot(&"Veteran", 0.4)
+	_release_beat_shot(9.0, &"Veteran")
+
+
+## N12: после удара ветеран падает; тело остаётся лежать, камера показывает
+## падение, а не только реплику.
+func stage_veteran_death() -> void:
+	if is_instance_valid(veteran):
+		var mannequin := veteran as Mannequin
+		if mannequin != null:
+			mannequin.pose = "fall"
+			mannequin.face_player()
+	_play_beat_shot(&"VeteranDeath", 0.35)
+	_release_beat_shot(2.6, &"VeteranDeath")
+
+
+
 func _discover_veteran() -> void:
 	if phase != PHASE_AFTERMATH:
 		return
@@ -704,6 +812,7 @@ func _discover_veteran() -> void:
 	NightmareRunState.set_flag(FLAG_VETERAN_SWORD, false)
 	veteran_sword.visible = true
 	set_interactable_enabled(&"veteran_sword", true)
+	stage_veteran_found()
 	veteran_found.emit()
 	hint_requested.emit("Ветеран тянется к сломанному мечу. Поднимите меч первым — E.")
 
@@ -718,6 +827,7 @@ func _take_veteran_sword() -> void:
 	NightmareRunState.set_flag(FLAG_VETERAN_SWORD)
 	NightmareRunState.set_item(&"sword", 1)
 	set_interactable_enabled(&"veteran_sword", false)
+	stage_veteran_death()
 	veteran_execution_requested.emit()
 	hint_requested.emit("Сломанный меч в руке. Ветеран ждёт.")
 
@@ -736,10 +846,16 @@ func execute_veteran() -> void:
 	NightmareRunState.add_item(&"silver_bell", 1)
 	NightmareRunState.add_item(&"cloak", 1)
 	NightmareRunState.add_item(&"boots", 1)
-	veteran.visible = false
+	if is_instance_valid(veteran):
+		veteran.visible = true
+		var mannequin := veteran as Mannequin
+		if mannequin != null:
+			mannequin.pose = "dead"
+			mannequin.face_player()
 	veteran_sword.visible = false
 	set_interactable_enabled(&"veteran_sword", false)
 	_refresh_aftermath()
+	_release_beat_shot(1.8, &"VeteranDeath")
 	hint_requested.emit("Колокольчик звенит в ладони. Накидка и сапоги ещё хранят тепло.")
 
 
@@ -779,12 +895,13 @@ func _request_night() -> void:
 
 
 func place_party_at_fire() -> void:
+	var focus := get_fire_position()
 	hero.position = Vector3(1.2, 0.0, 1.5)
-	hero.rotation.y = 0.0
 	shifty.position = Vector3(1.5, 0.0, -0.1)
-	shifty.rotation.y = 0.6
 	scholar.position = Vector3(-0.6, 0.0, 1.4)
-	scholar.rotation.y = -0.4
+	_pose_actor(hero, "sit", focus)
+	_pose_actor(shifty, "talk", focus)
+	_pose_actor(scholar, "read", focus)
 	if NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
 		veteran.visible = false
 
@@ -792,6 +909,7 @@ func place_party_at_fire() -> void:
 func begin_dawn() -> void:
 	NightmareRunState.set_flag(FLAG_NIGHT_PASSED)
 	_set_phase(PHASE_DAWN)
+	_release_beat_shot(0.0)
 	if is_instance_valid(dawn_light):
 		dawn_light.visible = true
 		dawn_light.light_energy = 0.9
@@ -877,9 +995,19 @@ func hide_tyrant() -> void:
 
 
 func show_broad_death() -> void:
+	if NightmareRunState.has_flag(&"broad_slave_dead"):
+		return
+	NightmareRunState.set_flag(&"broad_slave_dead", true)
+	var broad := broad_slave as Mannequin
+	if broad != null:
+		broad.pose = "fall"
+		broad.face_position(tyrant.global_position if is_instance_valid(tyrant) else _player_position())
+	if not _is_fast_mode():
+		await get_tree().create_timer(0.35).timeout
+	if not is_instance_valid(broad_slave):
+		return
 	broad_slave.visible = false
 	broad_corpse.visible = true
-	NightmareRunState.set_flag(&"broad_slave_dead", true)
 
 
 func show_larva() -> void:

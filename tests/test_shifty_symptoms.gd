@@ -67,6 +67,8 @@ func test_fall_hides_shifty_and_keeps_blood_and_no_body() -> void:
 	site.kill_shifty()
 
 	var shifty := site.get_node("NPCs/Shifty") as Node3D
+	assert_eq((shifty as Mannequin).pose, "fall", "Шифти падает, а не исчезает мгновенно")
+	await wait_seconds(1.0)
 	assert_false(shifty.visible, "после падения Шифти скрыт")
 	assert_false(site.get_node("NPCs/ShiftyBody").visible, "тело не показывается")
 	assert_true(site.get_node("Props/BloodStain").visible, "кровь остаётся видимой")

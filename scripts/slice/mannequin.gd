@@ -29,7 +29,8 @@ const ANIMATIONS := preload("res://assets/characters/sunny_realistic_poc/animati
 ## Стойка «Idle» из UAL — полуприсед с широко расставленными ногами; спокойная стойка снята для Санни.
 const RELAXED_IDLE := preload("res://assets/characters/sunny_realistic_poc/animations/sunny_idle_relaxed.glb")
 const PostureOffset := preload("res://assets/characters/sunny_realistic_poc/posture_offset_modifier.gd")
-## Поза -> клип UAL. «dead» и «ride» замирают на последнем кадре / играют сидя.
+const POSE_MODIFIER := preload("res://scripts/slice/mannequin_pose_modifier.gd")
+## Поза -> клип UAL. «dead», «dying» и «fall» замирают на последнем кадре / играют падение.
 const POSE_CLIPS := {
 	&"idle": &"Idle_Relaxed",
 	&"talk": &"Idle_Talking",
@@ -53,11 +54,19 @@ const POSE_CLIPS := {
 	&"leave": &"Walk",
 	&"wave": &"Idle_Talking",
 	&"argue": &"Idle_Talking",
+	&"read": &"Sitting_Idle",
 	&"dead": &"Death01",
+	&"dying": &"Death01",
+	&"fall": &"Death01",
 }
 ## Корень всадника стоит на высоте седла (как у прежних заглушек ~0,85–0,9 м над землёй);
 ## модель опускается так, чтобы таз в сидячей позе лёг на седло лошади-заглушки.
 const RIDE_OFFSET := Vector3(0, -0.22, 0.1)
+## Колено ставит таз ниже; модель опускается, чтобы колено/стопа касались пола.
+const KNEEL_OFFSET := Vector3(0, -0.52, 0)
+## HumanSit — поза на сиденье; небольшой сдвиг вниз убирает «парение» над полом.
+const SIT_OFFSET := Vector3(0, -0.38, 0)
+
 
 ## Generated Humanoid assets carry their own Mixamo-style AnimationPlayer. Map the
 ## gameplay pose to a native clip instead of injecting UAL tracks onto a different rig.
@@ -68,7 +77,7 @@ const NATIVE_CLIPS := {
 	&"run": &"HumanSprintLoop",
 	&"guard": &"HumanStandingIdle",
 	&"torch": &"HumanStandingIdle",
-	&"kneel": &"HumanSit",
+	&"kneel": &"HumanStandingIdle",
 	&"sit": &"HumanSit",
 	&"ride": &"HumanSit",
 	&"interact": &"HumanStandingIdle",
@@ -84,7 +93,10 @@ const NATIVE_CLIPS := {
 	&"leave": &"WalkClean",
 	&"wave": &"HumanStandingIdle",
 	&"argue": &"HumanStandingIdle",
+	&"read": &"HumanSit",
 	&"dead": &"HumanDeath",
+	&"dying": &"HumanDeath",
+	&"fall": &"HumanDeath",
 }
 const NATIVE_LOOPS := [&"HumanStandingIdle", &"HumanRelaxedWalkLoopF", &"HumanSprintLoop", &"HumanSit"]
 const WALK_SOURCE := &"HumanRelaxedWalkLoopF"
@@ -97,7 +109,7 @@ const WALK_END := 1.8
 		archetype = value
 		if is_inside_tree():
 			_build()
-@export_enum("idle", "talk", "walk", "run", "guard", "torch", "kneel", "sit", "ride", "dead", "interact", "pickup", "point", "gesture", "cross_arms", "listen", "head_turn", "lean", "check", "walk_away", "leave", "wave", "argue") var pose := "idle":
+@export_enum("idle", "talk", "walk", "run", "guard", "torch", "kneel", "sit", "ride", "dead", "dying", "fall", "interact", "pickup", "point", "gesture", "cross_arms", "listen", "head_turn", "lean", "check", "walk_away", "leave", "wave", "argue", "read") var pose := "idle":
 	set(value):
 		pose = value
 		if is_inside_tree():
@@ -132,6 +144,8 @@ static var _library: AnimationLibrary
 
 var _model: Node3D
 var _player: AnimationPlayer
+var _pose_modifier: SkeletonModifier3D
+var _pose_props: Node3D
 
 
 static func _looped_library() -> AnimationLibrary:
@@ -215,6 +229,8 @@ func _ready() -> void:
 func _build() -> void:
 	if _model:
 		_model.free()
+	_pose_modifier = null
+	_pose_props = null
 	_model = (MODELS[StringName(archetype)] as PackedScene).instantiate() as Node3D
 	_model.name = "Model"
 	# Модели glTF смотрят в +Z, а сценарии считают лицом -Z (как «Facing» у прежней заглушки).
@@ -256,6 +272,13 @@ func _build() -> void:
 		_model.add_child(_player)
 		_player.root_node = _player.get_path_to(_model)
 		_player.add_animation_library(&"", _looped_library())
+	var pose_skeleton := _model.find_child("Skeleton3D", true, false) as Skeleton3D
+	if pose_skeleton == null:
+		pose_skeleton = _model.find_child("GeneralSkeleton", true, false) as Skeleton3D
+	if pose_skeleton != null:
+		_pose_modifier = POSE_MODIFIER.new()
+		_pose_modifier.name = "PoseOverlay"
+		pose_skeleton.add_child(_pose_modifier)
 	_apply_context_profile()
 	_apply_model_scale()
 	_apply_tint()
@@ -596,31 +619,49 @@ func _play_pose() -> void:
 	if _player == null:
 		return
 	var key := StringName(pose)
-	_model.position = RIDE_OFFSET if key == &"ride" else Vector3.ZERO
+	var model_offset := Vector3.ZERO
+	if key == &"ride":
+		model_offset = RIDE_OFFSET
+	elif key == &"kneel":
+		model_offset = KNEEL_OFFSET
+	elif key == &"sit" or key == &"read":
+		model_offset = SIT_OFFSET
+	_model.position = model_offset
+	_set_pose_overlay(key)
+	_update_pose_props(key)
 	# Native generated-humanoid path.
 	var native_clip: StringName = NATIVE_CLIPS.get(key, NATIVE_CLIPS[&"idle"])
 	if native_clip == WALK_CLEAN and not _player.has_animation(native_clip):
 		native_clip = WALK_SOURCE
 	if _player.has_animation(native_clip):
 		var native_animation := _player.get_animation(native_clip)
-		if key == &"dead":
-			_player.play(native_clip)
-			_player.seek(native_animation.length - 0.01, true)
-			_player.pause()
+		if key == &"fall":
+			_player.play(native_clip, 0.08)
+			_player.speed_scale = 1.0
+			return
+		if key == &"dead" or key == &"dying":
+			_player.play(native_clip, 0.08)
+			_player.seek(native_animation.length * (0.99 if key == &"dead" else 0.88), true)
+			_player.speed_scale = 1.0
 			return
 		var native_rng := RandomNumberGenerator.new()
 		native_rng.seed = hash(get_path()) if is_inside_tree() else 0
 		_player.play(native_clip, 0.18)
-		if key in [&"idle", &"talk", &"torch", &"sit", &"ride", &"point", &"gesture", &"cross_arms", &"listen", &"head_turn", &"lean", &"check", &"wave", &"argue"]:
+		if key in [&"idle", &"talk", &"torch", &"sit", &"ride", &"point", &"gesture", &"cross_arms", &"listen", &"head_turn", &"lean", &"check", &"wave", &"argue", &"read"]:
 			_player.seek(native_rng.randf() * native_animation.length, true)
 		_player.speed_scale = native_rng.randf_range(0.9, 1.1)
 		return
-	var clip: StringName = POSE_CLIPS[key]
+	var clip: StringName = POSE_CLIPS.get(key, POSE_CLIPS[&"idle"])
 	var animation := _player.get_animation(clip)
-	if key == &"dead":
+	if animation == null:
+		return
+	if key == &"fall":
+		_player.play(clip, 0.1)
+		_player.speed_scale = 1.0
+		return
+	if key == &"dead" or key == &"dying":
 		_player.play(clip)
-		_player.seek(animation.length - 0.01, true)
-		_player.pause()
+		_player.seek(animation.length * (0.99 if key == &"dead" else 0.88), true)
 		return
 	# Толпа не должна дышать в такт: случайная фаза и чуть разный темп.
 	var rng := RandomNumberGenerator.new()
@@ -628,6 +669,71 @@ func _play_pose() -> void:
 	_player.play(clip, 0.2)
 	_player.seek(rng.randf() * animation.length, true)
 	_player.speed_scale = rng.randf_range(0.9, 1.1)
+
+
+func _set_pose_overlay(key: StringName) -> void:
+	if _pose_modifier == null:
+		return
+	var overlay := key if key in [&"kneel", &"read", &"point"] else &""
+	_pose_modifier.set(&"pose", overlay)
+
+
+func _update_pose_props(key: StringName) -> void:
+	if _model == null:
+		return
+	if _pose_props == null or not is_instance_valid(_pose_props):
+		_pose_props = Node3D.new()
+		_pose_props.name = "PoseProps"
+		_model.add_child(_pose_props)
+	var book := _pose_props.get_node_or_null("Book")
+	if key == &"read":
+		if book == null:
+			_add_book(_pose_props)
+	elif book != null:
+		book.free()
+
+
+func _add_book(root: Node3D) -> void:
+	var book := MeshInstance3D.new()
+	book.name = "Book"
+	var box := BoxMesh.new()
+	box.size = Vector3(0.3, 0.035, 0.22)
+	book.mesh = box
+	book.material_override = _flat_material(Color(0.2, 0.12, 0.07), 0.85)
+	book.add_to_group(&"lod_ignore")
+	book.position = Vector3(0.0, 0.78, 0.22)
+	book.rotation.x = deg_to_rad(18.0)
+	root.add_child(book)
+
+
+## Поворачивает корень к мировой точке; модель внутри уже развёрнута на PI.
+func face_position(target: Vector3) -> void:
+	var direction := target - global_position
+	direction.y = 0.0
+	if direction.length_squared() < 0.0001:
+		return
+	rotation.y = atan2(-direction.x, -direction.z)
+
+
+func face_node(target: Node3D) -> void:
+	if target == null or not is_instance_valid(target):
+		return
+	face_position(target.global_position)
+
+
+func face_player() -> void:
+	var player := get_tree().get_first_node_in_group(&"player") as Node3D
+	if player != null:
+		face_position(player.global_position)
+
+
+func is_facing_position(target: Vector3, tolerance_deg := 25.0) -> bool:
+	var direction := target - global_position
+	direction.y = 0.0
+	if direction.length_squared() < 0.0001:
+		return false
+	var desired := atan2(-direction.x, -direction.z)
+	return absf(wrapf(desired - rotation.y, -PI, PI)) <= deg_to_rad(tolerance_deg)
 
 
 ## Модель с анимацией; для постановок, которым нужен AnimationPlayer (например, CinematicActor).

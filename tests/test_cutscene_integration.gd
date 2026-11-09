@@ -32,6 +32,17 @@ const SCENE_CASES := [
 	},
 ]
 
+const BEAT_SCENE_CASES := [
+	{
+		"scene": "res://scenes/campaign/caravan_site_arrival.tscn",
+		"shots": [&"Attack", &"Veteran", &"VeteranDeath"],
+	},
+	{
+		"scene": "res://scenes/campaign/pilgrim_path_arrival.tscn",
+		"shots": [&"ShiftyFall", &"CaveWound", &"HeroConfront", &"HeroCapture"],
+	},
+]
+
 
 func before_each() -> void:
 	NightmareRunState.reset()
@@ -110,5 +121,27 @@ func test_m1_scenes_expose_cutscene_stages() -> void:
 			assert_not_null(stage.definition, "у stage есть манифест: %s" % entry["stage"])
 			if stage.definition != null:
 				assert_eq(stage.definition.id, entry["id"], "id манифеста совпадает")
+		scene.queue_free()
+		await get_tree().process_frame
+
+
+func test_campaign_beat_stages_expose_camera_shots() -> void:
+	for entry in BEAT_SCENE_CASES:
+		var packed := load(String(entry["scene"])) as PackedScene
+		assert_not_null(packed, "сцена загружается: %s" % entry["scene"])
+		if packed == null:
+			continue
+		var scene := packed.instantiate()
+		scene.set(&"fade_in", false)
+		scene.set(&"transition_enabled", false)
+		scene.set(&"fast_mode", true)
+		add_child_autofree(scene)
+		await get_tree().process_frame
+		var stage := scene.get_node_or_null(^"BeatStage") as BeatShotStage
+		assert_not_null(stage, "BeatStage существует: %s" % entry["scene"])
+		if stage != null:
+			for shot_id in entry["shots"]:
+				var shot := stage.get_node_or_null(NodePath("Shots/%s" % shot_id)) as Camera3D
+				assert_not_null(shot, "кадр %s существует" % shot_id)
 		scene.queue_free()
 		await get_tree().process_frame
