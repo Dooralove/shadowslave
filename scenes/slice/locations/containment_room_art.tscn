@@ -25,6 +25,38 @@
 [ext_resource type="Script" path="res://scripts/slice/locations/corridor_art.gd" id="22_ulq6s"]
 [ext_resource type="PackedScene" uid="uid://cbqgug0gm8tx4" path="res://assets/environments/prologue/lobby/desk_counter.glb" id="23_j7ral"]
 [ext_resource type="PackedScene" uid="uid://ci0e45lhtxs1p" path="res://assets/environments/prologue/lobby/terminal_desk.glb" id="24_rjut2"]
+[ext_resource type="PackedScene" path="res://scenes/slice/props/mannequin.tscn" id="25_mannequin"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_glass.tres" id="26_glass"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_steel_dark.tres" id="27_steel"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_marking.tres" id="28_marking"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_screen_cell.tres" id="29_screen"]
+
+[sub_resource type="BoxMesh" id="Mesh_obs_glass"]
+size = Vector3(1.4, 0.95, 0.03)
+
+[sub_resource type="BoxMesh" id="Mesh_obs_frame_h"]
+size = Vector3(1.52, 0.07, 0.07)
+
+[sub_resource type="BoxMesh" id="Mesh_obs_frame_v"]
+size = Vector3(0.07, 1.02, 0.07)
+
+[sub_resource type="BoxMesh" id="Mesh_obs_back"]
+size = Vector3(0.1, 2.4, 2.0)
+
+[sub_resource type="BoxMesh" id="Mesh_obs_side"]
+size = Vector3(1.6, 2.4, 0.08)
+
+[sub_resource type="BoxMesh" id="Mesh_obs_floor"]
+size = Vector3(1.7, 0.08, 2.0)
+
+[sub_resource type="BoxMesh" id="Mesh_obs_ceiling"]
+size = Vector3(1.7, 0.08, 2.0)
+
+[sub_resource type="BoxMesh" id="Mesh_monitor"]
+size = Vector3(0.7, 0.4, 0.04)
+
+[sub_resource type="BoxMesh" id="Mesh_floor_line"]
+size = Vector3(0.08, 0.01, 1.8)
 
 [node name="ContainmentRoom" unique_id=509237458 instance=ExtResource("1_base")]
 
@@ -180,7 +212,7 @@ spot_angle = 34.0
 
 [node name="Fill" parent="Lights" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -0.6)
-light_energy = 0.22
+light_energy = 1.0
 
 [node name="CorridorLight" parent="Lights" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -4.5)
@@ -258,6 +290,7 @@ transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1
 
 [node name="West1" parent="Art" index="10" unique_id=1404406250 instance=ExtResource("4_wall_a")]
 transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, 0.4)
+visible = false
 
 [node name="West2" parent="Art" index="11" unique_id=668221128 instance=ExtResource("6_wall_c")]
 transform = Transform3D(-3.6199901e-06, 0, 1, 0, 1, 0, -1, 0, -3.6199901e-06, -1.8, 0, 1.5)
@@ -396,3 +429,130 @@ light_energy = 0.45
 omni_range = 3.0
 
 [node name="P2" parent="." index="10" unique_id=1804591107 instance=ExtResource("21_p2")]
+
+[node name="ObservationWindow" type="Node3D" parent="Art"]
+position = Vector3(-1.81, 1.45, 0.4)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Glass" type="MeshInstance3D" parent="Art/ObservationWindow"]
+position = Vector3(0, 0, 0.03)
+mesh = SubResource("Mesh_obs_glass")
+material_override = ExtResource("26_glass")
+
+[node name="FrameTop" type="MeshInstance3D" parent="Art/ObservationWindow"]
+position = Vector3(0, 0.51, 0.03)
+mesh = SubResource("Mesh_obs_frame_h")
+material_override = ExtResource("27_steel")
+
+[node name="FrameBottom" type="MeshInstance3D" parent="Art/ObservationWindow"]
+position = Vector3(0, -0.51, 0.03)
+mesh = SubResource("Mesh_obs_frame_h")
+material_override = ExtResource("27_steel")
+
+[node name="FrameA" type="MeshInstance3D" parent="Art/ObservationWindow"]
+position = Vector3(-0.73, 0, 0.03)
+mesh = SubResource("Mesh_obs_frame_v")
+material_override = ExtResource("27_steel")
+
+[node name="FrameB" type="MeshInstance3D" parent="Art/ObservationWindow"]
+position = Vector3(0.73, 0, 0.03)
+mesh = SubResource("Mesh_obs_frame_v")
+material_override = ExtResource("27_steel")
+
+[node name="Label" type="Label3D" parent="Art/ObservationWindow"]
+position = Vector3(0, 0.66, 0.05)
+pixel_size = 0.0017
+modulate = Color(0.62, 0.78, 1, 1)
+outline_modulate = Color(0.01, 0.02, 0.05, 1)
+text = "НАБЛЮДЕНИЕ"
+font_size = 30
+outline_size = 4
+
+[node name="ObservationBooth" type="Node3D" parent="Art"]
+position = Vector3(-2.95, 0, 0.4)
+
+[node name="Back" type="MeshInstance3D" parent="Art/ObservationBooth"]
+position = Vector3(-0.7, 1.2, 0)
+mesh = SubResource("Mesh_obs_back")
+material_override = ExtResource("20_wall_tri")
+
+[node name="SideN" type="MeshInstance3D" parent="Art/ObservationBooth"]
+position = Vector3(0, 1.2, -1.0)
+mesh = SubResource("Mesh_obs_side")
+material_override = ExtResource("20_wall_tri")
+
+[node name="SideS" type="MeshInstance3D" parent="Art/ObservationBooth"]
+position = Vector3(0, 1.2, 1.0)
+mesh = SubResource("Mesh_obs_side")
+material_override = ExtResource("20_wall_tri")
+
+[node name="Floor" type="MeshInstance3D" parent="Art/ObservationBooth"]
+position = Vector3(0, 0.04, 0)
+mesh = SubResource("Mesh_obs_floor")
+material_override = ExtResource("19_floor_tri")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Art/ObservationBooth"]
+position = Vector3(0, 2.4, 0)
+mesh = SubResource("Mesh_obs_ceiling")
+material_override = ExtResource("20_wall_tri")
+
+[node name="Monitor" type="MeshInstance3D" parent="Art/ObservationBooth"]
+position = Vector3(-0.62, 1.5, -0.35)
+rotation = Vector3(0, 1.5708, 0)
+mesh = SubResource("Mesh_monitor")
+material_override = ExtResource("29_screen")
+
+[node name="ObserverA" parent="Art/ObservationBooth" instance=ExtResource("25_mannequin")]
+position = Vector3(-0.32, 0, 0.28)
+rotation = Vector3(0, 1.5708, 0)
+height_scale = 0.96
+archetype = "police_guard"
+pose = "idle"
+
+[node name="ObserverB" parent="Art/ObservationBooth" instance=ExtResource("25_mannequin")]
+position = Vector3(-0.32, 0, -0.58)
+rotation = Vector3(0, 1.5708, 0)
+height_scale = 0.92
+archetype = "police_desk"
+pose = "idle"
+
+[node name="BoothLight" type="OmniLight3D" parent="Art/ObservationBooth"]
+position = Vector3(-0.18, 2.1, 0)
+light_color = Color(0.46, 0.64, 1, 1)
+light_energy = 1.0
+omni_range = 3.0
+
+[node name="ObservationLine" type="MeshInstance3D" parent="Art"]
+position = Vector3(-1.18, 0.012, 0.4)
+mesh = SubResource("Mesh_floor_line")
+material_override = ExtResource("28_marking")
+
+[node name="CeilingLightB" parent="Art" instance=ExtResource("15_light")]
+position = Vector3(0, 2.43, -0.55)
+
+[node name="DoorKey" type="SpotLight3D" parent="Lights"]
+position = Vector3(0, 2.4, -0.55)
+rotation = Vector3(-1.5708, 0, 0)
+light_color = Color(0.76, 0.86, 1, 1)
+light_energy = 3.0
+spot_range = 4.0
+spot_angle = 55.0
+shadow_enabled = false
+
+[node name="PoolFill" type="OmniLight3D" parent="Lights"]
+position = Vector3(0, 2.05, 0.95)
+light_color = Color(0.72, 0.82, 1, 1)
+light_energy = 1.0
+omni_range = 4.5
+
+[node name="WallWashW" type="OmniLight3D" parent="Lights"]
+position = Vector3(-1.25, 1.75, -0.95)
+light_color = Color(0.58, 0.72, 1, 1)
+light_energy = 0.55
+omni_range = 3.2
+
+[node name="WallWashE" type="OmniLight3D" parent="Lights"]
+position = Vector3(1.25, 1.75, 2.45)
+light_color = Color(0.58, 0.72, 1, 1)
+light_energy = 0.5
+omni_range = 3.2

@@ -56,6 +56,8 @@ func _prologue() -> bool:
 	var captured_b01 := false
 	for i in 900:
 		if prologue.beat == SliceDirector.Beat.B01_OPENING and not captured_b01:
+			while prologue.ui.fade.color.a > 0.05:
+				await get_tree().process_frame
 			await _capture("01_B01_park")
 			captured_b01 = true
 		if prologue.beat >= SliceDirector.Beat.B16_RUNES:
@@ -129,6 +131,7 @@ func _camp() -> bool:
 	await _interact(camp, &"flask_a")
 	await _interact(camp, &"flask_b")
 	await _interact(camp, &"flask_c")
+	camp.call(&"stage_bloodbane_montage")
 	await _interact(camp, &"veteran")
 	await _interact(camp, &"veteran_sword")
 	camp.call(&"execute_veteran")
@@ -191,7 +194,7 @@ func _sanctuary() -> bool:
 func _appraisal() -> bool:
 	var scene := await _spawn(APPRAISAL, {
 		"fade_in": false, "transition_enabled": false, "fast_mode": true,
-		"start_delay": 0.0, "end_delay": 0.0,
+		"start_delay": 0.0, "end_delay": 0.0, "redirect_without_gate": false,
 	})
 	await _wait(0.5)
 	await _capture("17_S14_appraisal")
@@ -203,6 +206,7 @@ func _appraisal() -> bool:
 func _finale() -> bool:
 	var scene := await _spawn(FINALE, {
 		"fade_in": false, "fast_mode": true, "restart_enabled": false,
+		"redirect_without_gate": false,
 	})
 	await _wait(0.5)
 	await _capture("18_S15_finale")

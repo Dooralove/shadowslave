@@ -14,6 +14,51 @@
 [ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_wall_tri.tres" id="12_side_door"]
 [ext_resource type="PackedScene" path="res://scenes/slice/locations/lobby_p2_dressing.tscn" id="13_p2"]
 [ext_resource type="Environment" path="res://assets/environments/prologue/materials/p2_lobby_environment.tres" id="14_env"]
+[ext_resource type="PackedScene" path="res://assets/environments/prologue/p2/lobby_chair_p2.glb" id="15_chair"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_glass.tres" id="16_glass"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_steel_dark.tres" id="17_steel"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_marking.tres" id="18_marking"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_rubber.tres" id="19_rubber"]
+[ext_resource type="Material" path="res://assets/environments/prologue/materials/pr_screen_lobby.tres" id="20_screen"]
+
+[sub_resource type="BoxMesh" id="Mesh_poster"]
+size = Vector3(1.4, 0.8, 0.04)
+
+[sub_resource type="BoxMesh" id="Mesh_glass_front"]
+size = Vector3(3.0, 1.9, 0.03)
+
+[sub_resource type="BoxMesh" id="Mesh_glass_side"]
+size = Vector3(2.5, 1.9, 0.03)
+
+[sub_resource type="BoxMesh" id="Mesh_frame_h"]
+size = Vector3(3.12, 0.08, 0.08)
+
+[sub_resource type="BoxMesh" id="Mesh_frame_v"]
+size = Vector3(0.08, 2.6, 0.08)
+
+[sub_resource type="BoxMesh" id="Mesh_booth_back"]
+size = Vector3(3.0, 2.6, 0.12)
+
+[sub_resource type="BoxMesh" id="Mesh_booth_ceiling"]
+size = Vector3(3.0, 0.08, 2.5)
+
+[sub_resource type="BoxMesh" id="Mesh_booth_floor"]
+size = Vector3(3.0, 0.08, 2.5)
+
+[sub_resource type="BoxMesh" id="Mesh_booth_side"]
+size = Vector3(0.12, 2.6, 2.5)
+
+[sub_resource type="BoxMesh" id="Mesh_kick"]
+size = Vector3(3.0, 0.4, 0.1)
+
+[sub_resource type="BoxMesh" id="Mesh_kick_side"]
+size = Vector3(0.1, 0.4, 2.5)
+
+[sub_resource type="BoxMesh" id="Mesh_mat"]
+size = Vector3(2.4, 0.02, 1.2)
+
+[sub_resource type="BoxShape3D" id="Shape_booth"]
+size = Vector3(3.1, 2.6, 2.55)
 
 [node name="StationLobby" instance=ExtResource("1_base")]
 
@@ -193,3 +238,257 @@ position = Vector3(2.5, 1.8, -2.4)
 light_color = Color(0.42, 0.58, 0.9, 1)
 light_energy = 1.0
 omni_range = 5.0
+
+[node name="PosterN1" type="MeshInstance3D" parent="Art"]
+position = Vector3(-2.4, 2.85, -5.86)
+mesh = SubResource("Mesh_poster")
+material_override = ExtResource("20_screen")
+
+[node name="Text" type="Label3D" parent="Art/PosterN1"]
+position = Vector3(0, 0, 0.03)
+pixel_size = 0.0015
+modulate = Color(0.58, 0.9, 1, 1)
+outline_modulate = Color(0.01, 0.02, 0.04, 1)
+text = "ПРОПУСКНОЙ
+РЕЖИМ"
+font_size = 38
+outline_size = 4
+
+[node name="PosterN2" type="MeshInstance3D" parent="Art"]
+position = Vector3(4.3, 2.85, 5.86)
+rotation = Vector3(0, 3.14159, 0)
+mesh = SubResource("Mesh_poster")
+material_override = ExtResource("20_screen")
+
+[node name="Text" type="Label3D" parent="Art/PosterN2"]
+position = Vector3(0, 0, 0.03)
+pixel_size = 0.0015
+modulate = Color(1, 0.86, 0.6, 1)
+outline_modulate = Color(0.05, 0.03, 0.01, 1)
+text = "ЗОНА 04
+NQSC"
+font_size = 38
+outline_size = 4
+
+[node name="PosterN3" type="MeshInstance3D" parent="Art"]
+position = Vector3(2.55, 2.7, -5.86)
+mesh = SubResource("Mesh_poster")
+material_override = ExtResource("20_screen")
+
+[node name="Text" type="Label3D" parent="Art/PosterN3"]
+position = Vector3(0, 0, 0.03)
+pixel_size = 0.0015
+modulate = Color(1, 0.78, 0.58, 1)
+outline_modulate = Color(0.05, 0.02, 0.01, 1)
+text = "NQSC · 04"
+font_size = 38
+outline_size = 4
+
+[node name="PosterE1" type="MeshInstance3D" parent="Art"]
+position = Vector3(5.86, 2.8, 1.4)
+rotation = Vector3(0, -1.5708, 0)
+mesh = SubResource("Mesh_poster")
+material_override = ExtResource("20_screen")
+
+[node name="Text" type="Label3D" parent="Art/PosterE1"]
+position = Vector3(0, 0, 0.03)
+pixel_size = 0.0015
+modulate = Color(0.62, 1, 0.72, 1)
+outline_modulate = Color(0.01, 0.04, 0.02, 1)
+text = "СЕКТОР
+ДОПРОСА"
+font_size = 36
+outline_size = 4
+
+[node name="PosterW1" type="MeshInstance3D" parent="Art"]
+position = Vector3(-5.86, 2.8, -2.4)
+rotation = Vector3(0, 1.5708, 0)
+mesh = SubResource("Mesh_poster")
+material_override = ExtResource("20_screen")
+
+[node name="Text" type="Label3D" parent="Art/PosterW1"]
+position = Vector3(0, 0, 0.03)
+pixel_size = 0.0015
+modulate = Color(1, 0.72, 0.58, 1)
+outline_modulate = Color(0.05, 0.02, 0.01, 1)
+text = "ВНИМАНИЕ
+ТРЕВОГА"
+font_size = 36
+outline_size = 4
+
+[node name="EntranceMat" type="MeshInstance3D" parent="Art"]
+position = Vector3(0, 0.012, 4.7)
+mesh = SubResource("Mesh_mat")
+material_override = ExtResource("19_rubber")
+
+[node name="QueueLine" type="MeshInstance3D" parent="Art"]
+position = Vector3(0, 0.011, -1.35)
+mesh = SubResource("Mesh_mat")
+material_override = ExtResource("18_marking")
+scale = Vector3(1.55, 1, 0.07)
+
+[node name="Interrogation" type="Node3D" parent="Art"]
+position = Vector3(4.55, 0, -4.75)
+
+[node name="BoothFloor" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 0.04, 0)
+mesh = SubResource("Mesh_booth_floor")
+material_override = ExtResource("9_floor")
+
+[node name="BoothCeiling" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 2.6, 0)
+mesh = SubResource("Mesh_booth_ceiling")
+material_override = ExtResource("11_ceiling")
+
+[node name="BoothBack" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 1.3, -1.25)
+mesh = SubResource("Mesh_booth_back")
+material_override = ExtResource("10_wall")
+
+[node name="BoothEast" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(1.5, 1.3, 0)
+mesh = SubResource("Mesh_booth_side")
+material_override = ExtResource("10_wall")
+
+[node name="KickFront" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 0.2, 1.25)
+mesh = SubResource("Mesh_kick")
+material_override = ExtResource("17_steel")
+
+[node name="KickWest" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 0.2, 0)
+mesh = SubResource("Mesh_kick_side")
+material_override = ExtResource("17_steel")
+
+[node name="GlassFront" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 1.35, 1.25)
+mesh = SubResource("Mesh_glass_front")
+material_override = ExtResource("16_glass")
+
+[node name="GlassWest" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 1.35, 0)
+rotation = Vector3(0, 1.5708, 0)
+mesh = SubResource("Mesh_glass_side")
+material_override = ExtResource("16_glass")
+
+[node name="FrontTop" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 2.32, 1.25)
+mesh = SubResource("Mesh_frame_h")
+material_override = ExtResource("17_steel")
+
+[node name="FrontBottom" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(0, 0.4, 1.25)
+mesh = SubResource("Mesh_frame_h")
+material_override = ExtResource("17_steel")
+
+[node name="FrontPostW" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 1.3, 1.25)
+mesh = SubResource("Mesh_frame_v")
+material_override = ExtResource("17_steel")
+
+[node name="FrontPostE" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(1.5, 1.3, 1.25)
+mesh = SubResource("Mesh_frame_v")
+material_override = ExtResource("17_steel")
+
+[node name="SideTop" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 2.32, 0)
+rotation = Vector3(0, 1.5708, 0)
+mesh = SubResource("Mesh_frame_h")
+scale = Vector3(0.8, 1, 1)
+material_override = ExtResource("17_steel")
+
+[node name="SideBottom" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 0.4, 0)
+rotation = Vector3(0, 1.5708, 0)
+mesh = SubResource("Mesh_frame_h")
+scale = Vector3(0.8, 1, 1)
+material_override = ExtResource("17_steel")
+
+[node name="SidePostN" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 1.3, -1.25)
+mesh = SubResource("Mesh_frame_v")
+material_override = ExtResource("17_steel")
+
+[node name="SidePostS" type="MeshInstance3D" parent="Art/Interrogation"]
+position = Vector3(-1.5, 1.3, 1.25)
+mesh = SubResource("Mesh_frame_v")
+material_override = ExtResource("17_steel")
+
+[node name="Table" parent="Art/Interrogation" instance=ExtResource("4_counter")]
+position = Vector3(0, 0, 0)
+scale = Vector3(0.55, 0.55, 0.55)
+
+[node name="ChairA" parent="Art/Interrogation" instance=ExtResource("15_chair")]
+position = Vector3(0, 0, 0.86)
+rotation = Vector3(0, 3.14159, 0)
+scale = Vector3(0.42, 0.95, 0.85)
+
+[node name="ChairB" parent="Art/Interrogation" instance=ExtResource("15_chair")]
+position = Vector3(0, 0, -0.86)
+scale = Vector3(0.42, 0.95, 0.85)
+
+[node name="Lamp" parent="Art/Interrogation" instance=ExtResource("7_light")]
+position = Vector3(0, 2.5, 0)
+scale = Vector3(0.6, 0.6, 0.6)
+
+[node name="LampKey" type="SpotLight3D" parent="Art/Interrogation"]
+position = Vector3(0, 2.46, 0)
+rotation = Vector3(-1.5708, 0, 0)
+light_color = Color(1, 0.9, 0.78, 1)
+light_energy = 6.0
+spot_range = 4.5
+spot_angle = 58.0
+shadow_enabled = true
+
+[node name="InteriorGlow" type="OmniLight3D" parent="Art/Interrogation"]
+position = Vector3(0, 1.7, 0.7)
+light_color = Color(0.55, 0.7, 1, 1)
+light_energy = 0.45
+omni_range = 2.6
+
+[node name="Label" type="Label3D" parent="Art/Interrogation"]
+position = Vector3(0, 2.52, 1.31)
+pixel_size = 0.0018
+modulate = Color(1, 0.86, 0.62, 1)
+outline_modulate = Color(0.04, 0.02, 0.01, 1)
+text = "ДОПРОС"
+font_size = 40
+outline_size = 6
+
+[node name="Collision" type="StaticBody3D" parent="Art/Interrogation"]
+
+[node name="Shape" type="CollisionShape3D" parent="Art/Interrogation/Collision"]
+position = Vector3(0, 1.3, 0)
+shape = SubResource("Shape_booth")
+
+[node name="CeilingLightC" parent="Art" instance=ExtResource("7_light")]
+position = Vector3(0, 4.0, -4.7)
+scale = Vector3(0.9, 0.9, 0.9)
+
+[node name="CeilingLightD" parent="Art" instance=ExtResource("7_light")]
+position = Vector3(0, 4.0, 0.2)
+scale = Vector3(0.9, 0.9, 0.9)
+
+[node name="CeilingLightE" parent="Art" instance=ExtResource("7_light")]
+position = Vector3(0, 4.0, 5.0)
+scale = Vector3(0.9, 0.9, 0.9)
+
+[node name="CeilingFillA" type="OmniLight3D" parent="P2Lighting"]
+position = Vector3(0, 3.45, -4.6)
+light_color = Color(0.78, 0.86, 1, 1)
+light_energy = 2.0
+omni_range = 10.0
+
+[node name="CeilingFillB" type="OmniLight3D" parent="P2Lighting"]
+position = Vector3(0, 3.45, 0.4)
+light_color = Color(0.82, 0.88, 1, 1)
+light_energy = 2.3
+omni_range = 11.0
+shadow_enabled = true
+
+[node name="CeilingFillC" type="OmniLight3D" parent="P2Lighting"]
+position = Vector3(0, 3.45, 5.0)
+light_color = Color(0.9, 0.86, 0.78, 1)
+light_energy = 1.8
+omni_range = 9.0

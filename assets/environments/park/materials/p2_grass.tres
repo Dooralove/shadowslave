@@ -5,6 +5,6 @@
 [resource]
 resource_name = "p2_grass"
 albedo_texture = ExtResource("1_albedo")
-albedo_color = Color(0.42, 0.52, 0.38, 1)
+albedo_color = Color(0.72, 0.88, 0.58, 1)
 roughness = 0.96
-uv1_scale = Vector3(8, 8, 1)
+uv1_scale = Vector3(0.55, 0.7, 1)

@@ -59,12 +59,19 @@ func _capture_for_beat() -> void:
 	var beat := int(_prologue.beat)
 	var key := ""
 	if beat == SliceDirector.Beat.B01_OPENING:
+		# The director fades in over 1.5 s; capture the park after the fade,
+		# otherwise the whole frame is still black.
+		while _prologue.ui.fade.color.a > 0.05:
+			await get_tree().process_frame
 		key = "B01_park"
 	elif beat == SliceDirector.Beat.B03_DOZE:
 		key = "B03_doze"
-	elif beat == SliceDirector.Beat.B07_ENTER_STATION:
-		key = "B07_lobby"
 	elif beat == SliceDirector.Beat.B08_DESK:
+		# B07 is the station entrance beat; the lobby only exists after B08 loads it.
+		if not _captured.has("B07_lobby"):
+			_prologue.location.use_shot(&"AlarmShot")
+			await _capture("B07_lobby")
+			_prologue.use_player_camera()
 		key = "B08_desk"
 	elif beat == SliceDirector.Beat.B09_CODE_BLACK:
 		key = "B09_code_black"
