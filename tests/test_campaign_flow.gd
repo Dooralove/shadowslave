@@ -149,7 +149,7 @@ func test_pass_reuses_caravan_road_and_places_player_on_chain() -> void:
 
 func test_pass_has_no_debug_note() -> void:
 	var pass_scene := _instantiate(PASS_SCENE, false)
-	assert_null(pass_scene.get_node_or_null("PrototypeNote"), "PrototypeNote ?????? ?? S01")
+	assert_null(pass_scene.get_node_or_null("PrototypeNote"), "PrototypeNote удалён из S01")
 
 
 func test_pass_restrains_lateral_movement_until_exit() -> void:
