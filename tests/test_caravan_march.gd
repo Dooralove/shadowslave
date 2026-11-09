@@ -100,7 +100,7 @@ func test_camp_arrival_starts_transition_once_and_sets_flags() -> void:
 	assert_true(NightmareRunState.has_flag(&"march_intro_seen"))
 	assert_false(sunny.input_enabled)
 	assert_false(sunny.chain_restrained)
-	assert_null(pass_scene.get_node_or_null("PrototypeNote"), "PrototypeNote ?????? ?? S01")
+	assert_null(pass_scene.get_node_or_null("PrototypeNote"), "PrototypeNote удалён из S01")
 
 
 func test_march_syncs_v2_beat_n06_and_objective() -> void:

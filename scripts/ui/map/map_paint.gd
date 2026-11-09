@@ -139,6 +139,9 @@ static func serif_font(spacing := 0) -> Font:
 	if not _fonts.has(key):
 		var base := SystemFont.new()
 		base.font_names = PackedStringArray(["Georgia", "Cambria", "Times New Roman", "DejaVu Serif", "serif"])
+		# Карта подписана по-русски; если в системе нет первого шрифта, Godot
+		# обязан взять следующий, а не показать вопросительные знаки вместо кириллицы.
+		base.allow_system_fallback = true
 		var variation := FontVariation.new()
 		variation.base_font = base
 		variation.set_spacing(TextServer.SPACING_GLYPH, spacing)
