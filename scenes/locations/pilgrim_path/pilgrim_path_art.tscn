@@ -161,6 +161,27 @@ size = Vector3(0.5, 4, 27.6)
 [sub_resource type="BoxShape3D" id="Bound_LedgeRail"]
 size = Vector3(0.2, 3, 11)
 
+[sub_resource type="BoxShape3D" id="Bound_LedgeRailEast"]
+size = Vector3(0.2, 3, 9)
+
+[sub_resource type="BoxShape3D" id="Bound_EastRailNorth"]
+size = Vector3(0.2, 4, 30.8)
+
+[sub_resource type="BoxShape3D" id="Bound_EastRailSouth"]
+size = Vector3(0.2, 4, 13.6)
+
+[sub_resource type="BoxShape3D" id="Bound_CaveRailEast"]
+size = Vector3(0.2, 4, 10)
+
+[sub_resource type="BoxShape3D" id="Bound_CaveRailSouth"]
+size = Vector3(5.2, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="Bound_CaveRailNorth"]
+size = Vector3(5.4, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="Bound_CaveRailBackNorth"]
+size = Vector3(5.4, 4, 0.2)
+
 [sub_resource type="BoxShape3D" id="Bound_ApproachEast"]
 size = Vector3(0.5, 4, 6)
 
@@ -232,6 +253,17 @@ size = Vector3(0.5, 4, 4.0366)
 
 [sub_resource type="BoxShape3D" id="Shape_plateau_safe"]
 size = Vector3(10, 0.25, 10)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cave_floor"]
+albedo_color = Color(0.055, 0.06, 0.075, 1)
+roughness = 0.96
+
+[sub_resource type="BoxMesh" id="Mesh_cave_floor"]
+material = SubResource("Mat_cave_floor")
+size = Vector3(6.8, 0.4, 9.6)
+
+[sub_resource type="BoxShape3D" id="Shape_cave_floor"]
+size = Vector3(6.8, 0.4, 9.6)
 
 [node name="PilgrimPath" unique_id=1564153807 instance=ExtResource("1_pilgrim_path")]
 
@@ -350,8 +382,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 4.8, -41.5)
 shape = SubResource("Bound_LedgeRail")
 
 [node name="LedgeRailEast" type="CollisionShape3D" parent="Geometry/ArtBounds"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 4.8, -41.5)
-shape = SubResource("Bound_LedgeRail")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 4.8, -41.0)
+shape = SubResource("Bound_LedgeRailEast")
+
+[node name="EastRailNorth" type="CollisionShape3D" parent="Geometry/ArtBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55, 5.0, -29.4)
+shape = SubResource("Bound_EastRailNorth")
+
+[node name="EastRailSouth" type="CollisionShape3D" parent="Geometry/ArtBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55, 5.0, -61.2)
+shape = SubResource("Bound_EastRailSouth")
+
+[node name="CaveRailEast" type="CollisionShape3D" parent="Geometry/ArtBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 5.0, -49.0)
+shape = SubResource("Bound_CaveRailEast")
+
+[node name="CaveRailSouth" type="CollisionShape3D" parent="Geometry/ArtBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 5.0, -54.3)
+shape = SubResource("Bound_CaveRailSouth")
+
+[node name="CaveRailNorth" type="CollisionShape3D" parent="Geometry/ArtBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 5.0, -46.8)
+shape = SubResource("Bound_CaveRailNorth")
+
+[node name="CaveRailBackNorth" type="CollisionShape3D" parent="Geometry/ArtBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 5.0, -44.9)
+shape = SubResource("Bound_CaveRailBackNorth")
 
 [node name="RoadWest" type="CollisionShape3D" parent="Geometry/ArtBounds" index="0" unique_id=571136546]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -2.3, 2, 9.05)
@@ -378,11 +434,11 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.85, 5.6, -22)
 shape = SubResource("Bound_TrailWest1")
 
 [node name="AlcoveWest" type="CollisionShape3D" parent="Geometry/ArtBounds" index="6" unique_id=300611021]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.25, 5.9, -30.3)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.85, 5.9, -30.3)
 shape = SubResource("Bound_AlcoveWest")
 
 [node name="SpurWest" type="CollisionShape3D" parent="Geometry/ArtBounds" index="7" unique_id=1959436595]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.05, 5.9, -37.85)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.85, 5.9, -37.85)
 shape = SubResource("Bound_SpurWest")
 
 [node name="TrailWest2" type="CollisionShape3D" parent="Geometry/ArtBounds" index="8" unique_id=1740595073]
@@ -494,7 +550,7 @@ transform = Transform3D(0.9968, -0.0799, 0, 0.0799, 0.9968, 0, 0, 0, 1, 0, 0.02,
 visible = false
 
 [node name="AlcoveFire" parent="Props" parent_id_path=PackedInt32Array(969495616) index="2" unique_id=48261588]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 4.1, -30.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 4.1, -30.2)
 
 [node name="Ring" parent="Props/AlcoveFire" index="0" unique_id=1010845797]
 visible = false
@@ -518,7 +574,9 @@ visible = false
 transform = Transform3D(0.96, 0, 0.3, 0, 1, 0, -0.3, 0, 0.96, 0.5, 4.13, -33.9)
 
 [node name="CaveBlood" parent="Props" parent_id_path=PackedInt32Array(969495616) index="7" unique_id=1590431350]
-transform = Transform3D(0.92, 0, -0.39, 0, 1, 0, 0.39, 0, 0.92, 9.2, 4.12, -49.2)
+visible = false
+transform = Transform3D(0.92, 0, -0.39, 0, 1, 0, 0.39, 0, 0.92, 4.8, 4.115, -49.6)
+size = Vector3(0.6, 0.02, 0.45)
 
 [node name="Bones" parent="Props" parent_id_path=PackedInt32Array(969495616) index="8" unique_id=2101109469]
 visible = false
@@ -663,12 +721,15 @@ transform = Transform3D(2, 0, 0, 0, 0.22, 0, 0, 0, 1.2, 1, 5.45, -77.3)
 
 [node name="CoverWest" parent="StealthSection/Covers" index="0" unique_id=1539284736]
 visible = false
+use_collision = false
 
 [node name="CoverEast" parent="StealthSection/Covers" index="1" unique_id=1783442091]
 visible = false
+use_collision = false
 
 [node name="CoverEdge" parent="StealthSection/Covers" index="2" unique_id=775174989]
 visible = false
+use_collision = false
 
 [node name="TyrantSighting" parent="NPCs" parent_id_path=PackedInt32Array(787395578) index="4" unique_id=998969450]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -4.6, -47)
@@ -728,10 +789,10 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="Cave" parent="Interactables" parent_id_path=PackedInt32Array(620026832) index="4" unique_id=1706980623]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 4.25, -48.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 4.25, -48.2)
 
 [node name="CaveExit" parent="Interactables" parent_id_path=PackedInt32Array(620026832) index="5" unique_id=1893288405]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4, 4.25, -48.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 4.25, -53.4)
 
 [node name="Temple" parent="Interactables" parent_id_path=PackedInt32Array(620026832) index="9" unique_id=1080880815]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.9, -78.4)
@@ -749,7 +810,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 4.25, -30.2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.3, -42.5)
 
 [node name="Cave" parent="GuideBeacons" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 4.35, -47.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 4.35, -47.8)
 
 [node name="Hero" parent="GuideBeacons" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.35, -58.5)
@@ -776,7 +837,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.6, -37)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.6, -43.5)
 
 [node name="Cave" parent="GuideThoughts" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.6, -45.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 4.6, -46.5)
 
 [node name="Hero" parent="GuideThoughts" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.6, -55.8)
@@ -791,7 +852,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.6, -63.2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 4.15, -33.5)
 
 [node name="CaveInside" parent="Spawns" parent_id_path=PackedInt32Array(1047606296) index="4" unique_id=597840061]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 4.15, -49.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0, 4.15, -50.3)
 
 [node name="RimLight" type="DirectionalLight3D" parent="." index="9" unique_id=887286448]
 transform = Transform3D(0.9887711, -0.051242013, 0.14037812, 0, 0.9393727, 0.3428978, -0.14943814, -0.33904743, 0.9288246, 0, 0, 0)
@@ -1053,19 +1114,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 4.1, -55.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 4.1, -60.8)
 
 [node name="AWall00" parent="Art/Trail" index="16" unique_id=175401342 instance=ExtResource("5_rock_wall_a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 3.8, -17.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 3.8, -17.8)
 
 [node name="AWall01" parent="Art/Trail" index="17" unique_id=156770824 instance=ExtResource("6_rock_wall_b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 4.025, -23.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 4.025, -23.8)
 
 [node name="BWall00" parent="Art/Trail" index="18" unique_id=585882977 instance=ExtResource("5_rock_wall_a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 4.1, -41.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 4.1, -41.1)
 
 [node name="CWall00" parent="Art/Trail" index="19" unique_id=2051023875 instance=ExtResource("6_rock_wall_b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.1, -54.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 4.1, -56.5)
 
 [node name="CWall01" parent="Art/Trail" index="20" unique_id=1218881941 instance=ExtResource("5_rock_wall_a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.1, -60.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 4.1, -60.2)
 
 [node name="TDrop00" parent="Art/Trail" index="21" unique_id=1214938558 instance=ExtResource("12_cliff_face_tall_a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, -40.2, -17.8)
@@ -1086,31 +1147,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, -39.9, -61.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.15, 12.1, -61.8)
 
 [node name="Alcove" parent="Art/Trail" index="27" unique_id=615503477 instance=ExtResource("26_alcove_shelter")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 4.1, -30.3)
+visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 4.1, -30.3)
 
 [node name="ScholarSpur" parent="Art/Trail" index="28" unique_id=1453078216 instance=ExtResource("27_trail_pilgrim_03_s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 4.1, -34.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 4.1, -34.8)
 
 [node name="Cave" parent="Art/Trail" index="29" unique_id=2096042110 instance=ExtResource("28_cave_crevice_wide")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 4.1, -48.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.1, -48.5)
 
 [node name="TrDress0" parent="Art/Trail" index="30" unique_id=2057302593 instance=ExtResource("29_icicles_b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 6.4, -24)
 
 [node name="TrDress1" parent="Art/Trail" index="31" unique_id=1038110251 instance=ExtResource("23_ice_flow_a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 4.1, -45.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 4.1, -43.8)
 
 [node name="TrDress2" parent="Art/Trail" index="32" unique_id=2006408551 instance=ExtResource("22_snow_drift_wall_b")]
-transform = Transform3D(0.995, 0, 0.0998, 0, 1, 0, -0.0998, 0, 0.995, 1.9, 4.1, -56.5)
+transform = Transform3D(0.597, 0, 0.0599, 0, 1, 0, -0.0599, 0, 0.597, 2.35, 4.1, -56.4)
 
 [node name="TrDress3" parent="Art/Trail" index="33" unique_id=1788659147 instance=ExtResource("30_boulder_shard_a")]
-transform = Transform3D(0.8253, 0, 0.5646, 0, 1, 0, -0.5646, 0, 0.8253, 1.9, 4.1, -62.2)
+transform = Transform3D(0.8253, 0, 0.5646, 0, 1, 0, -0.5646, 0, 0.8253, 2.8, 4.1, -62.2)
 
 [node name="TrDress4" parent="Art/Trail" index="34" unique_id=248227836 instance=ExtResource("23_ice_flow_a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 4.1, -58)
+transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 4.1, -53.2)
 
 [node name="TrDress5" parent="Art/Trail" index="35" unique_id=1339726413 instance=ExtResource("24_snow_drift_small_d")]
-transform = Transform3D(0.5403, 0, 0.8415, 0, 1, 0, -0.8415, 0, 0.5403, 0.3, 4.1, -51.5)
+transform = Transform3D(0.5403, 0, 0.8415, 0, 1, 0, -0.8415, 0, 0.5403, 2.9, 4.1, -51.3)
 
 [node name="BedrollA" parent="Art/Trail" index="36" unique_id=370867017 instance=ExtResource("34_bedroll_a")]
 transform = Transform3D(0.17, 0, 0.9854, 0, 1, 0, -0.9854, 0, 0.17, 2.7, 4.1, -28.9)
@@ -1119,7 +1181,7 @@ transform = Transform3D(0.17, 0, 0.9854, 0, 1, 0, -0.9854, 0, 0.17, 2.7, 4.1, -2
 transform = Transform3D(-0.3233, 0, 0.9463, 0, 1, 0, -0.9463, 0, -0.3233, 2.6, 4.1, -31.8)
 
 [node name="Firewood" parent="Art/Trail" index="38" unique_id=944773369 instance=ExtResource("35_firewood_bundle")]
-transform = Transform3D(0.9553, 0, 0.2955, 0, 1, 0, -0.2955, 0, 0.9553, 4.3, 4.1, -31.3)
+transform = Transform3D(0.9553, 0, 0.2955, 0, 1, 0, -0.2955, 0, 0.9553, 3.0, 4.1, -31.9)
 
 [node name="FallIce" parent="Art/Trail" index="39" unique_id=1679737502 instance=ExtResource("23_ice_flow_a")]
 transform = Transform3D(0, 0, -0.6, 0, 0.6, 0, 0.6, 0, 0, 0.4, 4.1, -33.6)
@@ -1153,6 +1215,9 @@ transform = Transform3D(1.0708, 0, 0.9019, 0, 1.4, 0, -0.9019, 0, 1.0708, -3.6, 
 
 [node name="SightingScree" parent="Art" index="22" unique_id=485739778 instance=ExtResource("15_scree_pile_a")]
 transform = Transform3D(-0.4203, 0, 1.2302, 0, 1.3, 0, -1.2302, 0, -0.4203, -7.4, -4.9, -48.6)
+
+[node name="SightingSupport" parent="Art" instance=ExtResource("5_rock_wall_a")]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -6.0, -18.0, -47.0)
 
 [node name="SightingFace" parent="Art" index="23" unique_id=1676311283 instance=ExtResource("13_cliff_face_tall_b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -36, -36)
@@ -1237,13 +1302,13 @@ transform = Transform3D(-0.0373, 0, 0.9993, 0, 1, 0, -0.9993, 0, -0.0373, -5.496
 [node name="StealthCovers" type="Node3D" parent="Art" index="25" unique_id=1175566891]
 
 [node name="CoverWest" parent="Art/StealthCovers" index="0" unique_id=411394252 instance=ExtResource("61_aryf8")]
-transform = Transform3D(0.95051575, 0, 0.31067643, 0, 1, 0, -0.31067643, 0, 0.95051575, -1.1, 4.65, -55.8)
+transform = Transform3D(0.95051575, 0, 0.31067643, 0, 1, 0, -0.31067643, 0, 0.95051575, -1.1, 4.1, -55.8)
 
 [node name="CoverEast" parent="Art/StealthCovers" index="1" unique_id=522105655 instance=ExtResource("62_jgfor")]
-transform = Transform3D(0.95527834, 0, -0.29570806, 0, 1, 0, 0.29570806, 0, 0.95527834, 3.05, 4.65, -57)
+transform = Transform3D(0.95527834, 0, -0.29570806, 0, 1, 0, 0.29570806, 0, 0.95527834, 3.05, 4.1, -57)
 
 [node name="CoverEdge" parent="Art/StealthCovers" index="2" unique_id=578481012 instance=ExtResource("63_atkxo")]
-transform = Transform3D(0.95527834, 0, 0.29570806, 0, 1, 0, -0.29570806, 0, 0.95527834, 0.15, 4.65, -58.15)
+transform = Transform3D(0.573167, 0, 0.177425, 0, 1, 0, -0.29570806, 0, 0.95527834, -0.25, 4.1, -58.15)
 
 [node name="Backdrop" type="Node3D" parent="." index="11" unique_id=680566516]
 
@@ -1270,18 +1335,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200, -260, -2600)
 [node name="SeamsMidground" type="Node3D" parent="." index="13" unique_id=535531106]
 
 [node name="SpiresWest" parent="SeamsMidground" index="0" unique_id=440518484 instance=ExtResource("mid_a")]
+visible = false
 transform = Transform3D(1.4, 0, 0, 0, 1.35, 0, 0, 0, 1.4, -50, -15, -5)
 
 [node name="SpiresEast" parent="SeamsMidground" index="1" unique_id=728117485 instance=ExtResource("mid_b")]
+visible = false
 transform = Transform3D(1.3, 0, 0, 0, 1.2, 0, 0, 0, 1.3, 48, -18, -45)
 
 [node name="SpiresNorth" parent="SeamsMidground" index="2" unique_id=1621190379 instance=ExtResource("mid_a")]
+visible = false
 transform = Transform3D(1.5, 0, 0, 0, 1.4, 0, 0, 0, 1.5, 10, -22, -110)
 
 [node name="SpiresBack" parent="SeamsMidground" index="3" unique_id=1241326215 instance=ExtResource("mid_a")]
+visible = false
 transform = Transform3D(1.5, 0, 0, 0, 1.4, 0, 0, 0, 1.5, 0, -18, -115)
 
 [node name="Watchtower" parent="SeamsMidground" index="4" unique_id=1050129067 instance=ExtResource("mid_tower")]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -8, -55)
 
 [node name="DeadTree" parent="SeamsMidground" index="5" unique_id=1307491946 instance=ExtResource("mid_tree")]
@@ -1299,30 +1369,30 @@ omni_range = 10.0
 shadow_enabled = false
 
 [node name="CaveEntranceFill" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.4, -45.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, 5.2, -47.4)
 light_color = Color(0.6, 0.74, 1.0, 1)
-light_energy = 1.4
+light_energy = 2.0
 omni_range = 10.0
 shadow_enabled = false
 
 [node name="CaveMouthFill" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.4, -47.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 5.3, -48.5)
 light_color = Color(0.7, 0.8, 1.0, 1)
-light_energy = 1.8
+light_energy = 3.0
 omni_range = 9.0
 shadow_enabled = false
 
 [node name="CaveFill" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.8, -51.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 5.4, -48.8)
 light_color = Color(0.62, 0.76, 1.0, 1)
-light_energy = 2.2
+light_energy = 3.2
 omni_range = 12.0
 shadow_enabled = false
 
 [node name="CaveDeepFill" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.8, -54.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 5.3, -50.8)
 light_color = Color(0.55, 0.62, 0.8, 1)
-light_energy = 1.5
+light_energy = 2.0
 omni_range = 8.0
 shadow_enabled = false
 
@@ -1332,3 +1402,92 @@ light_color = Color(0.75, 0.62, 0.48, 1)
 light_energy = 4.5
 omni_range = 15.0
 shadow_enabled = false
+
+[node name="AlcoveShelterBack" parent="Art/Trail" instance=ExtResource("5_rock_wall_a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 4.1, -30.3)
+
+[node name="AlcoveShelterRoof" parent="Art/Trail" instance=ExtResource("8_rock_overhang_b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 6.7, -30.3)
+
+[node name="AlcoveFloor0" parent="Art/Trail" instance=ExtResource("3_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 4.1, -26.0)
+
+[node name="AlcoveFloor1" parent="Art/Trail" instance=ExtResource("3_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 4.1, -26.0)
+
+[node name="AlcoveFloor2" parent="Art/Trail" instance=ExtResource("3_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 4.1, -30.0)
+
+[node name="AlcoveFloor3" parent="Art/Trail" instance=ExtResource("3_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 4.1, -30.0)
+
+[node name="AlcoveFloor4" parent="Art/Trail" instance=ExtResource("3_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 4.1, -34.0)
+
+[node name="AlcoveFloor5" parent="Art/Trail" instance=ExtResource("3_road_old_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 4.1, -34.0)
+
+[node name="CaveShell" type="Node3D" parent="Art/Trail"]
+
+[node name="PillarNorth" parent="Art/Trail/CaveShell" instance=ExtResource("6_rock_wall_b")]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.35, 3.6, 4.1, -45.4)
+
+[node name="PillarSouth" parent="Art/Trail/CaveShell" instance=ExtResource("6_rock_wall_b")]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.3, 3.6, 4.1, -50.8)
+
+[node name="RoofNorth" parent="Art/Trail/CaveShell" instance=ExtResource("8_rock_overhang_b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 7.4, -46.9)
+
+[node name="RoofSouth" parent="Art/Trail/CaveShell" instance=ExtResource("8_rock_overhang_b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 7.4, -51.6)
+
+[node name="EastWall" parent="Art/Trail/CaveShell" instance=ExtResource("5_rock_wall_a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.2, 4.1, -48.5)
+
+[node name="RubbleNorth" parent="Art/Trail/CaveShell" instance=ExtResource("15_scree_pile_a")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 6.9, 4.1, -44.8)
+
+[node name="RubbleSouth" parent="Art/Trail/CaveShell" instance=ExtResource("17_boulder_split_a")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 2.8, 4.1, -50.9)
+
+[node name="Bones" parent="Art/Trail/CaveShell" instance=ExtResource("38_bones_scatter_a")]
+transform = Transform3D(0.85, 0, 0.2, 0, 1, 0, -0.2, 0, 0.85, 6.4, 4.12, -49.9)
+
+[node name="Skull" parent="Art/Trail/CaveShell" instance=ExtResource("42_skull_human")]
+transform = Transform3D(0.8, 0, 0.3, 0, 0.8, 0, -0.3, 0, 0.8, 6.0, 4.12, -49.6)
+
+[node name="HangingIcicles" parent="Art/Trail/CaveShell" instance=ExtResource("29_icicles_b")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.2, 6.6, -50.2)
+
+[node name="CaveRockA" parent="Art/Trail/CaveShell" instance=ExtResource("16_boulder_angular_a")]
+transform = Transform3D(1.1, 0, 0.2, 0, 1.1, 0, -0.2, 0, 1.1, 6.7, 4.1, -48.2)
+
+[node name="CaveRockB" parent="Art/Trail/CaveShell" instance=ExtResource("16_boulder_angular_a")]
+transform = Transform3D(0.9, 0, -0.3, 0, 0.9, 0, 0.3, 0, 0.9, 6.8, 4.1, -50.9)
+
+[node name="CaveRockC" parent="Art/Trail/CaveShell" instance=ExtResource("16_boulder_angular_a")]
+transform = Transform3D(1.3, 0, 0.4, 0, 1.3, 0, -0.4, 0, 1.3, 7.0, 4.1, -46.0)
+
+[node name="CaveSnow" parent="Art/Trail/CaveShell" instance=ExtResource("24_snow_drift_small_d")]
+transform = Transform3D(1.2, 0, 0.2, 0, 1, 0, -0.2, 0, 1.2, 6.6, 4.1, -46.4)
+
+[node name="FloorSlabA" parent="Art/Trail/CaveShell" instance=ExtResource("21_boulder_slab_a")]
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1.1, 3.2, 3.62, -46.2)
+
+[node name="FloorSlabB" parent="Art/Trail/CaveShell" instance=ExtResource("21_boulder_slab_a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.2, 6.2, 3.62, -46.6)
+
+[node name="FloorSlabC" parent="Art/Trail/CaveShell" instance=ExtResource("21_boulder_slab_a")]
+transform = Transform3D(1.1, 0, 0, 0, 1, 0, 0, 0, 1.3, 6.0, 3.62, -51.3)
+
+[node name="FloorSlabD" parent="Art/Trail/CaveShell" instance=ExtResource("21_boulder_slab_a")]
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 3.62, -50.9)
+
+[node name="CaveFloor" type="StaticBody3D" parent="Art/Trail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 3.89, -49.6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Art/Trail/CaveFloor"]
+mesh = SubResource("Mesh_cave_floor")
+
+[node name="Shape" type="CollisionShape3D" parent="Art/Trail/CaveFloor"]
+shape = SubResource("Shape_cave_floor")
