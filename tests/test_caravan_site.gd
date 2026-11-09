@@ -411,6 +411,7 @@ func test_three_flasks_update_objective_to_veteran() -> void:
 	add_child_autofree(site)
 	await wait_process_frames(2)
 	site.show_aftermath()
+	site.begin_aftermath_search()
 	for index in 3:
 		site.call(&"_collect_flask", index)
 	await wait_process_frames(1)
@@ -419,3 +420,47 @@ func test_three_flasks_update_objective_to_veteran() -> void:
 		"ветерану",
 		"после трёх фляг цель ведёт к раненому, а не обратно к сбору"
 	)
+
+
+func test_veteran_completion_moves_objective_to_wagon() -> void:
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	assert_not_null(guide, "CampaignGuide доступен")
+	if guide == null:
+		return
+	guide.call(&"clear_external_objective")
+	var site := (load(CAMP_SCENE) as PackedScene).instantiate() as CaravanSite
+	add_child_autofree(site)
+	await wait_process_frames(2)
+	site.show_aftermath()
+	site.begin_aftermath_search()
+	for index in 3:
+		site.call(&"_collect_flask", index)
+	await wait_process_frames(1)
+	site.get_interactable(&"veteran").interact()
+	await wait_process_frames(1)
+	site.execute_veteran()
+	await wait_process_frames(1)
+	assert_string_contains(
+		String(guide.call(&"get_display_objective")),
+		"повозке",
+		"после ветерана цель возвращает к повозке"
+	)
+
+
+func test_aftermath_search_with_existing_flasks_skips_collect_objective() -> void:
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	assert_not_null(guide, "CampaignGuide доступен")
+	if guide == null:
+		return
+	guide.call(&"clear_external_objective")
+	var site := (load(CAMP_SCENE) as PackedScene).instantiate() as CaravanSite
+	add_child_autofree(site)
+	await wait_process_frames(2)
+	site.show_aftermath()
+	for flag in [&"flask_a_collected", &"flask_b_collected", &"flask_c_collected"]:
+		NightmareRunState.set_flag(flag)
+	site.begin_aftermath_search()
+	await wait_process_frames(1)
+	var text := String(guide.call(&"get_display_objective"))
+	assert_string_contains(text, "ветерану", "загрузка с 3/3 сразу ведёт к ветерану")
+	assert_false(text.contains("фляг"), "цель сбора фляг больше не висит")

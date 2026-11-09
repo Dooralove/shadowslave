@@ -155,5 +155,5 @@ terrain_style = &"temple"
 world_bounds = Rect2(-10, -7.5, 20, 15)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9"), SubResource("Feature_10"), SubResource("Feature_11"), SubResource("Feature_12"), SubResource("Feature_13"), SubResource("Feature_14"), SubResource("Feature_15"), SubResource("Feature_16")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3")])
-scene_paths = PackedStringArray("res://scenes/locations/shadow_sanctuary/shadow_sanctuary.tscn", "res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn", "res://scenes/campaign/sanctuary_arrival.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/shadow_sanctuary/shadow_sanctuary.tscn", "res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn", "res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art_boundary.tscn", "res://scenes/campaign/sanctuary_arrival.tscn")
 world_rect = Rect2(0.57, 0.56, 0.2, 0.15)

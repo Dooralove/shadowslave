@@ -42,9 +42,13 @@ func _refresh() -> void:
 		if value is Dictionary:
 			snapshot = value
 	var map := snapshot.get("location") as MapDefinition
-	# В сценах без карты (видения, технические коридоры) не показываем
-	# бесполезный пустой компас.
-	visible = map != null
+	var has_player := bool(snapshot.get("has_player", false))
+	# Играбельная сцена без отдельной карты получает универсальную схему:
+	# пустой компас лучше не показывать, но карта не должна исчезать у игрока.
+	if map == null and has_player:
+		map = MapDefinition.create_fallback("ОКРЕСТНОСТИ")
+		snapshot["location"] = map
+	visible = should_show_for(map, has_player)
 	if not visible:
 		return
 	if _canvas != null:
@@ -58,6 +62,16 @@ func _refresh() -> void:
 			if title.length() > 20:
 				title = "ОКРЕСТНОСТИ"
 		_region_label.text = title
+
+
+## Реальная карта показывается всегда; универсальная заглушка — только когда
+## в сцене есть игрок. Так видения и технические коридоры остаются без HUD.
+static func should_show_for(map: MapDefinition, has_player: bool) -> bool:
+	if map == null:
+		return has_player
+	if map.is_fallback:
+		return has_player
+	return true
 
 
 func _draw() -> void:

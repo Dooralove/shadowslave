@@ -194,5 +194,5 @@ terrain_style = &"snow"
 world_bounds = Rect2(-12, -90, 24, 102)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9"), SubResource("Feature_10"), SubResource("Feature_11"), SubResource("Feature_12"), SubResource("Feature_13"), SubResource("Feature_14"), SubResource("Feature_15"), SubResource("Feature_16"), SubResource("Feature_17"), SubResource("Feature_18")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6")])
-scene_paths = PackedStringArray("res://scenes/locations/pilgrim_path/pilgrim_path.tscn", "res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn", "res://scenes/campaign/pilgrim_path_arrival.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/pilgrim_path/pilgrim_path.tscn", "res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn", "res://scenes/locations/pilgrim_path/pilgrim_path_art_boundary.tscn", "res://scenes/campaign/pilgrim_path_arrival.tscn")
 world_rect = Rect2(0.53, 0.38, 0.2, 0.14)

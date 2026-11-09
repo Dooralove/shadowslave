@@ -7,6 +7,38 @@ const MAP_SCREEN_PATH := "res://scenes/ui/map/map_screen.tscn"
 const TEST_LEVEL_PATH := "res://scenes/levels/test_level.tscn"
 const PASS_SCENE_PATH := "res://scenes/campaign/first_nightmare_pass.tscn"
 
+## Полный играбельный маршрут показа: каждая сцена обязана иметь карту
+## в атласе; fallback допустим только для сцен вне этого списка.
+const PLAYABLE_SCENES := {
+	"res://scenes/campaign/campaign_entry.tscn": &"park_street",
+	"res://scenes/slice/locations/park/park_street_art.tscn": &"park_street",
+	"res://scenes/slice/locations/park/prologue_park_art.tscn": &"park_street",
+	"res://scenes/slice/locations/station_lobby_art.tscn": &"station_lobby",
+	"res://scenes/slice/locations/containment_room_art.tscn": &"containment_room",
+	"res://scenes/slice/locations/mountain_vision_art.tscn": &"mountain_vision",
+	"res://scenes/slice/locations/caravan_road_art.tscn": &"caravan_road",
+	"res://scenes/campaign/first_nightmare_pass.tscn": &"caravan_road",
+	"res://scenes/campaign/caravan_site_arrival.tscn": &"caravan_site",
+	"res://scenes/locations/caravan_site/caravan_site_art.tscn": &"caravan_site",
+	"res://scenes/campaign/pilgrim_path_arrival.tscn": &"pilgrim_path",
+	"res://scenes/locations/pilgrim_path/pilgrim_path_art.tscn": &"pilgrim_path",
+	"res://scenes/campaign/sanctuary_arrival.tscn": &"shadow_sanctuary",
+	"res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn": &"shadow_sanctuary",
+	"res://scenes/campaign/caravan_ambush.tscn": &"ambush_site",
+	"res://scenes/locations/ambush_site/ambush_site.tscn": &"ambush_site",
+	"res://scenes/locations/post_nightmare/police_precinct.tscn": &"police_precinct",
+	"res://scenes/locations/post_nightmare/academy_approach.tscn": &"academy_approach",
+	"res://scenes/locations/post_nightmare/academy_gate.tscn": &"academy_gate",
+	"res://scenes/locations/post_nightmare/academy_campus.tscn": &"academy_campus",
+	"res://scenes/locations/post_nightmare/academy_sleeper_center.tscn": &"academy_sleeper_center",
+	"res://scenes/locations/post_nightmare/black_sea_platform.tscn": &"black_sea_platform",
+	"res://scenes/locations/post_nightmare/tide_descent.tscn": &"tide_descent",
+	"res://scenes/locations/academy_playable/academy_grounds_playable.tscn": &"academy_campus",
+	"res://scenes/locations/academy_playable/academy_sleeper_center_playable.tscn": &"academy_sleeper_center",
+	"res://scenes/locations/forgotten_shore_labyrinth/labyrinth_first_fragment.tscn": &"labyrinth_first_fragment",
+	"res://scenes/locations/post_nightmare/coral_labyrinth.tscn": &"coral_labyrinth",
+}
+
 
 func before_each() -> void:
 	_force_close_map()
@@ -97,6 +129,30 @@ func test_scene_paths_are_unique_and_resolve() -> void:
 		&"caravan_road",
 		"сцена перевала ведёт на карту караванной дороги"
 	)
+
+
+func test_every_playable_scene_has_a_real_map_definition() -> void:
+	var atlas := _atlas()
+	for scene_path in PLAYABLE_SCENES:
+		var expected: StringName = PLAYABLE_SCENES[scene_path]
+		assert_true(FileAccess.file_exists(scene_path), "сцена существует: %s" % scene_path)
+		var location := atlas.find_location_for_scene_path(scene_path)
+		assert_not_null(location, "у сцены есть карта: %s" % scene_path)
+		if location == null:
+			continue
+		assert_eq(location.id, expected, "сцена ведёт на ожидаемую карту: %s" % scene_path)
+		assert_false(location.is_fallback, "играбельная сцена не использует fallback: %s" % scene_path)
+		assert_true(location.has_world_bounds(), "у карты есть мировые границы: %s" % expected)
+		assert_gt(location.markers.size(), 0, "у карты есть маркеры: %s" % expected)
+
+
+func test_minimap_stays_visible_for_playable_fallback() -> void:
+	var fallback := MapDefinition.create_fallback("Тестовая пещера")
+	assert_true(HudMinimap.should_show_for(fallback, true), "с игроком показывается даже fallback")
+	assert_false(HudMinimap.should_show_for(fallback, false), "без игрока fallback скрыт")
+	var real := _atlas().get_location(&"caravan_site")
+	assert_true(HudMinimap.should_show_for(real, false), "реальная карта не скрывается")
+	assert_true(HudMinimap.should_show_for(null, true), "пустой снимок с игроком не прячет HUD")
 
 
 func test_current_location_is_found_through_nested_scene() -> void:
