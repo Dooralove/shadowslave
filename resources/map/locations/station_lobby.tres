@@ -38,5 +38,5 @@ terrain_style = &"stone"
 world_bounds = Rect2(-7, -8, 14, 16)
 features = Array[ExtResource("2_feature")]([SubResource("Feature_walk"), SubResource("Feature_desk")])
 markers = Array[ExtResource("3_marker")]([SubResource("Marker_0")])
-scene_paths = PackedStringArray("res://scenes/slice/locations/station_lobby.tscn", "res://scenes/slice/locations/station_lobby_art.tscn")
+scene_paths = PackedStringArray("res://scenes/slice/locations/station_lobby.tscn", "res://scenes/slice/locations/station_lobby_art.tscn", "res://scenes/slice/locations/lobby_p2_dressing.tscn")
 world_rect = Rect2(0.15, 0.15, 0.7, 0.7)

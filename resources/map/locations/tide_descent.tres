@@ -77,4 +77,4 @@ terrain_style = &"stone"
 world_bounds = Rect2(-4.5, -24, 9, 48)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3")])
-scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/tide_descent.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/tide_descent.tscn", "res://scenes/environment/post_nightmare/tide_descent_art.tscn")

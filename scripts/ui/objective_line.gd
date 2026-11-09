@@ -3,8 +3,9 @@ extends Control
 ## Строка текущей цели: мягко появляется, меняется и гаснет. Держится у
 ## верхнего края малой строкой, поэтому не перекрывает центр кадра.
 ##
-## Источник выбирается автоматически: активный QuestSystem (Лабиринт) имеет
-## приоритет, иначе читается CampaignGuide (пост-Кошмар и Первый Кошмар).
+## Источник выбирается автоматически: цель сцены из CampaignGuide
+## (Первый Кошмар, пост-Кошмар, Академия) перекрывает базовую цель QuestSystem;
+## без цели сцены читается активный QuestSystem, иначе — цель события.
 ## Это одна строка, а не два конкурирующих HUD.
 
 @export var fade_in_seconds := 0.4
@@ -117,6 +118,15 @@ func refresh_from_sources(instant := false) -> void:
 	# запрещён движком.
 	if not is_inside_tree():
 		return
+	var guide := get_node_or_null("/root/CampaignGuide")
+	if _guide_scene_objective_active(guide):
+		show_objective(
+			String(guide.get(&"display_objective")),
+			int(guide.get(&"idle_step")),
+			instant
+		)
+		return
+
 	var quests := get_node_or_null("/root/QuestSystem")
 	if quests != null and quests.has_method(&"is_scope_active") and bool(quests.call(&"is_scope_active")):
 		var text := String(quests.call(&"get_tracked_objective_text")).strip_edges()
@@ -128,7 +138,6 @@ func refresh_from_sources(instant := false) -> void:
 		_apply_quest_objective(text, quest, objective, instant)
 		return
 
-	var guide := get_node_or_null("/root/CampaignGuide")
 	if guide == null:
 		hide_objective(instant)
 		return
@@ -137,6 +146,14 @@ func refresh_from_sources(instant := false) -> void:
 		int(guide.get(&"idle_step")),
 		instant
 	)
+
+
+func _guide_scene_objective_active(guide: Node) -> bool:
+	if guide == null:
+		return false
+	if guide.has_method(&"has_scene_objective"):
+		return bool(guide.call(&"has_scene_objective"))
+	return false
 
 
 func _apply_quest_objective(text: String, quest: Resource, objective: Resource, instant: bool) -> void:
@@ -193,7 +210,12 @@ func _update_progress(quest: Resource, objective: Resource, completed: bool) -> 
 func _on_guide_objective_changed(text: String, _base_text: String, idle_step: int) -> void:
 	if not is_inside_tree():
 		return
-	# Если активен QuestSystem, его цель приоритетнее цели события.
+	# Цель сцены важнее базовой цели QuestSystem. Без неё активный
+	# QuestSystem обновляет строку задания, иначе показываем цель события.
+	var guide := get_node_or_null("/root/CampaignGuide")
+	if _guide_scene_objective_active(guide):
+		show_objective(text, idle_step)
+		return
 	var quests := get_node_or_null("/root/QuestSystem")
 	if quests != null and quests.has_method(&"is_scope_active") and bool(quests.call(&"is_scope_active")):
 		refresh_from_sources()

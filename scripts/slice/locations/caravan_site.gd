@@ -642,6 +642,20 @@ func _refresh_aftermath() -> void:
 	# Ночь начинается не кнопкой у костра, а когда игрок подходит к краю.
 	_arm_night_edges(NightmareRunState.has_flag(FLAG_TASKS) and phase == PHASE_AFTERMATH)
 	set_interactable_enabled(&"dawn_exit", false)
+	_sync_aftermath_objective()
+
+
+## Цель последствий зависит от уже собранных фляг и судьбы ветерана, поэтому
+## повторный вход/загрузка не возвращают игрока к выполненному шагу.
+func _sync_aftermath_objective() -> void:
+	if phase != PHASE_AFTERMATH:
+		return
+	if NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
+		_set_campaign_objective("Вернуться к повозке и продолжить путь.")
+	elif collected_flasks() >= 3:
+		_set_campaign_objective("Подойти к раненому ветерану на тёмном краю.")
+	elif NightmareRunState.has_flag(FLAG_TASKS):
+		_set_campaign_objective("Собрать три фляги у мёртвых солдат.")
 
 
 func collected_flasks() -> int:
@@ -696,10 +710,8 @@ func _collect_flask(index: int) -> void:
 		hint_requested.emit("Фляга с водой. Ещё %d." % (3 - count))
 	elif not NightmareRunState.has_flag(FLAG_VETERAN_DEAD):
 		hint_requested.emit("Три фляги собраны. На тёмном краю всё ещё слышен стон.")
-		_set_campaign_objective("Подойти к раненому ветерану на тёмном краю.")
 	else:
 		hint_requested.emit("Припасы собраны. Пора к краю.")
-		_set_campaign_objective("Вернуться к повозке и продолжить путь.")
 	_refresh_aftermath()
 
 

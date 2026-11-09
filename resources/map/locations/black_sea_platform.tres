@@ -137,4 +137,4 @@ terrain_style = &"stone"
 world_bounds = Rect2(-42, -62, 84, 88)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6"), SubResource("Marker_7")])
-scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/black_sea_platform.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/black_sea_platform.tscn", "res://scenes/environment/post_nightmare/black_sea_platform_art.tscn", "res://scenes/environment/post_nightmare/b01_black_sea_platform_preview.tscn")

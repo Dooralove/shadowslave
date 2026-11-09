@@ -122,4 +122,4 @@ terrain_style = &"city"
 world_bounds = Rect2(-20, -28, 40, 46)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6")])
-scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/police_precinct.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/police_precinct.tscn", "res://scenes/environment/post_nightmare/police_precinct_art.tscn")

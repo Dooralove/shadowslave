@@ -149,4 +149,4 @@ terrain_style = &"city"
 world_bounds = Rect2(-26, -30, 52, 44)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4"), SubResource("Feature_5"), SubResource("Feature_6"), SubResource("Feature_7"), SubResource("Feature_8"), SubResource("Feature_9")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3"), SubResource("Marker_4"), SubResource("Marker_5"), SubResource("Marker_6"), SubResource("Marker_7")])
-scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_sleeper_center.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_sleeper_center.tscn", "res://scenes/locations/academy_playable/academy_sleeper_center_playable.tscn", "res://scenes/locations/academy/academy_sleeper_center_building.tscn", "res://scenes/environment/post_nightmare/academy_sleeper_center_art.tscn")

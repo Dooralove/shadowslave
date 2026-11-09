@@ -65,5 +65,5 @@ terrain_style = &"snow"
 world_bounds = Rect2(-12, -48, 20, 88)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1")])
-scene_paths = PackedStringArray("res://scenes/slice/locations/caravan_road.tscn", "res://scenes/slice/locations/caravan_road_art.tscn", "res://scenes/campaign/first_nightmare_pass.tscn")
+scene_paths = PackedStringArray("res://scenes/slice/locations/caravan_road.tscn", "res://scenes/slice/locations/caravan_road_art.tscn", "res://scenes/slice/locations/caravan_road_art_boundary.tscn", "res://scenes/campaign/first_nightmare_pass.tscn")
 world_rect = Rect2(0.34, 0.2, 0.2, 0.14)

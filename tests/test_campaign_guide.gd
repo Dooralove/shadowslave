@@ -3,19 +3,23 @@ extends GutTest
 ## objective_changed, idle-ступени уточняют её и сбрасываются на действии,
 ## мысли лежат в GuideThought-ресурсах, журнал показывает ту же цель.
 
+const N12_PATH := "res://resources/campaign/beats/n12.tres"
 const N14_PATH := "res://resources/campaign/beats/n14.tres"
 const N15_PATH := "res://resources/campaign/beats/n15.tres"
 const N16_PATH := "res://resources/campaign/beats/n16.tres"
 const SETTINGS_PATH := "res://resources/campaign/guide/guide_settings.tres"
+const OBJECTIVE_LINE_SCENE := "res://scenes/ui/objective_line.tscn"
 
 
 func before_each() -> void:
+	QuestSystem.deactivate_scope()
 	NightmareRunState.reset()
 	CampaignGuide.reset_campaign()
 	CampaignGuide.settings = load(SETTINGS_PATH) as GuideSettings
 
 
 func after_each() -> void:
+	QuestSystem.deactivate_scope()
 	NightmareRunState.reset()
 	CampaignGuide.reset_campaign()
 	CampaignGuide.settings = load(SETTINGS_PATH) as GuideSettings
@@ -170,6 +174,85 @@ func test_thought_trigger_waits_for_its_beat_and_creates_world_bubble() -> void:
 	if bubble != null:
 		assert_eq(bubble.target, sunny)
 		assert_string_contains(bubble.text, "провал")
+
+
+func test_scene_objective_overrides_quest_objective_and_restores_it() -> void:
+	var beat := _beat(N12_PATH)
+	CampaignGuide.apply_beat(beat)
+	CampaignGuide.set_external_objective("Собрать фляги у мёртвых солдат", &"quest_system")
+	assert_eq(CampaignGuide.get_display_objective(), "Собрать фляги у мёртвых солдат")
+	assert_eq(CampaignGuide.get_external_source(), &"quest_system")
+
+	CampaignGuide.set_external_objective("Подойти к раненому ветерану", &"campaign")
+	assert_eq(CampaignGuide.get_display_objective(), "Подойти к раненому ветерану")
+	assert_true(CampaignGuide.has_scene_objective(), "цель сцены активна")
+
+	# Квест может обновляться под сценой, но не возвращает старую цель.
+	CampaignGuide.set_external_objective("Собрать фляги: 3/3", &"quest_system")
+	assert_eq(CampaignGuide.get_display_objective(), "Подойти к раненому ветерану")
+
+	CampaignGuide.clear_external_objective(&"campaign")
+	assert_eq(CampaignGuide.get_display_objective(), "Собрать фляги: 3/3")
+	assert_eq(CampaignGuide.get_external_source(), &"quest_system")
+
+	CampaignGuide.clear_external_objective(&"quest_system")
+	assert_eq(CampaignGuide.get_display_objective(), beat.objective)
+
+
+func test_beat_from_new_scene_clears_previous_scene_objective() -> void:
+	CampaignGuide.apply_beat(_beat(N15_PATH))
+	CampaignGuide.set_external_objective("Испытание завершено.", &"campaign")
+	var next_beat := _beat("res://resources/campaign/beats/n24.tres")
+	CampaignGuide.apply_beat(next_beat)
+	assert_eq(
+		CampaignGuide.get_display_objective(),
+		next_beat.objective,
+		"новое событие из другой сцены не показывает старую цель"
+	)
+
+
+func test_scene_objective_expires_when_scene_changes() -> void:
+	var beat := _beat(N15_PATH)
+	CampaignGuide.apply_beat(beat)
+	var previous := get_tree().current_scene
+	var first := (load(OBJECTIVE_LINE_SCENE) as PackedScene).instantiate()
+	var second := (load("res://scenes/ui/hud_minimap.tscn") as PackedScene).instantiate()
+	# current_scene обязан быть прямым ребёнком root.
+	get_tree().root.add_child(first)
+	get_tree().root.add_child(second)
+	get_tree().current_scene = first
+	CampaignGuide.set_external_objective("Подойти к раненому ветерану", &"campaign")
+	assert_eq(CampaignGuide.get_display_objective(), "Подойти к раненому ветерану")
+
+	get_tree().current_scene = second
+	await wait_physics_frames(2)
+	assert_eq(
+		CampaignGuide.get_display_objective(),
+		beat.objective,
+		"цель сцены не переживает переход в другую сцену"
+	)
+	get_tree().current_scene = previous
+	first.queue_free()
+	second.queue_free()
+
+
+func test_objective_line_shows_scene_objective_while_quest_scope_is_active() -> void:
+	QuestSystem.activate_scope(&"forgotten_shore")
+	CampaignGuide.apply_beat(_beat(N12_PATH))
+	CampaignGuide.set_external_objective("Подойти к раненому ветерану", &"campaign")
+	var line := (load(OBJECTIVE_LINE_SCENE) as PackedScene).instantiate() as ObjectiveLine
+	add_child_autofree(line)
+	await wait_process_frames(1)
+	assert_string_contains(line.get_objective_text(), "ветерану")
+
+	# Смена отслеживаемого задания не должна перебивать цель сцены.
+	assert_true(QuestSystem.set_tracked_quest(&"crystal_cache"))
+	await wait_process_frames(1)
+	assert_string_contains(line.get_objective_text(), "ветерану")
+
+	CampaignGuide.clear_external_objective(&"campaign")
+	await wait_process_frames(1)
+	assert_eq(line.get_objective_text(), QuestSystem.get_tracked_objective_text())
 
 
 func test_guide_settings_are_a_typed_resource() -> void:

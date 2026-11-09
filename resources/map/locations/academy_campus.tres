@@ -83,4 +83,4 @@ terrain_style = &"snow"
 world_bounds = Rect2(-16, -24, 32, 48)
 features = Array[ExtResource("3_feature")]([SubResource("Feature_0"), SubResource("Feature_1"), SubResource("Feature_2"), SubResource("Feature_3"), SubResource("Feature_4")])
 markers = Array[ExtResource("1_marker")]([SubResource("Marker_0"), SubResource("Marker_1"), SubResource("Marker_2"), SubResource("Marker_3")])
-scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_campus.tscn")
+scene_paths = PackedStringArray("res://scenes/locations/post_nightmare/academy_campus.tscn", "res://scenes/locations/academy_playable/academy_grounds_playable.tscn", "res://scenes/locations/academy/academy_grounds.tscn", "res://scenes/environment/post_nightmare/academy_campus_art.tscn")

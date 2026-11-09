@@ -26,11 +26,21 @@ var settings: GuideSettings
 var current_beat: BeatData
 var base_objective := ""
 var display_objective := ""
-## Внешняя цель из другой системы (сейчас — QuestSystem). Пока она задана,
-## она имеет приоритет над целью события, чтобы квестовый HUD и журнал
-## показывали один и тот же текст.
+## Внешняя цель из другой системы. Цели сцены (campaign/post_nightmare/academy)
+## важнее базовой цели QuestSystem: квестовый HUD не должен возвращать игрока
+## к уже выполненному шагу, пока сцена ведёт его дальше. Пока задана хотя бы
+## одна внешняя цель, она имеет приоритет над целью события.
+const EXTERNAL_SOURCE_QUEST := &"quest_system"
+const EXTERNAL_PRIORITY_QUEST := 0
+const EXTERNAL_PRIORITY_SCENE := 10
+
 var external_objective := ""
 var _external_source: StringName = &""
+var _external_objectives: Dictionary[StringName, String] = {}
+var _external_order: Array[StringName] = []
+## Сцена, выставившая цель. При переходе в другую сцену такая цель снимается,
+## чтобы HUD не показывал «подойдите к ветерану» уже в святилище.
+var _external_scene_paths: Dictionary[StringName, String] = {}
 var idle_step := 0
 var idle_time := 0.0
 var history: Array[Dictionary] = []
@@ -101,6 +111,7 @@ func apply_beat(beat: BeatData) -> void:
 	if beat == null:
 		clear_current_objective()
 		return
+	_clear_stale_objectives_for_beat(beat)
 	base_objective = beat.objective
 	_refresh_display()
 	if not base_objective.strip_edges().is_empty():
@@ -120,14 +131,22 @@ func get_base_objective() -> String:
 	return base_objective
 
 
-## Цель другой игровой системы (QuestSystem). Источник указывается, чтобы
-## две системы не гасили чужие строки. Пустой текст возвращает цель события.
+## Цель другой игровой системы или сцены. Источник указывается, чтобы две
+## системы не гасили чужие строки. Цель сцены перекрывает базовую цель
+## QuestSystem; пустой текст снимает только цель указанного источника.
 func set_external_objective(text: String, source: StringName = &"external") -> void:
+	var key := source if source != &"" else &"external"
 	var value := text.strip_edges()
-	if value == external_objective and source == _external_source:
+	if value.is_empty():
+		clear_external_objective(key)
 		return
-	external_objective = value
-	_external_source = StringName(source)
+	if String(_external_objectives.get(key, "")) == value and key == _external_source:
+		return
+	_external_objectives[key] = value
+	if key != EXTERNAL_SOURCE_QUEST:
+		_external_scene_paths[key] = _current_scene_path()
+	_touch_external_source(key)
+	_refresh_external_objective()
 	idle_step = 0
 	idle_time = 0.0
 	_refresh_display()
@@ -135,18 +154,122 @@ func set_external_objective(text: String, source: StringName = &"external") -> v
 
 
 func clear_external_objective(source: StringName = &"") -> void:
-	if source != &"" and source != _external_source:
+	var changed := false
+	if source == &"":
+		if not _external_objectives.is_empty():
+			_external_objectives.clear()
+			_external_order.clear()
+			_external_scene_paths.clear()
+			changed = true
+	elif _external_objectives.has(source):
+		_external_objectives.erase(source)
+		_external_order.erase(source)
+		_external_scene_paths.erase(source)
+		changed = true
+	if not changed:
 		return
-	if external_objective.is_empty() and _external_source == &"":
-		return
-	external_objective = ""
-	_external_source = &""
+	_refresh_external_objective()
 	_refresh_display()
 	_emit_objective()
 
 
 func has_external_objective() -> bool:
 	return not external_objective.strip_edges().is_empty()
+
+
+## Источник, чья внешняя цель сейчас показана. Нужен ObjectiveLine и тестам,
+## чтобы отличить цель сцены от базовой цели QuestSystem.
+func get_external_source() -> StringName:
+	return _external_source
+
+
+## True, когда показана цель сцены, а не базовая цель QuestSystem.
+func has_scene_objective() -> bool:
+	return has_external_objective() and _external_source != EXTERNAL_SOURCE_QUEST
+
+
+func _touch_external_source(source: StringName) -> void:
+	_external_order.erase(source)
+	_external_order.append(source)
+
+
+func _external_priority(source: StringName) -> int:
+	if source == EXTERNAL_SOURCE_QUEST:
+		return EXTERNAL_PRIORITY_QUEST
+	return EXTERNAL_PRIORITY_SCENE
+
+
+func _refresh_external_objective() -> void:
+	var next_source: StringName = &""
+	var best_priority := -1
+	for source in _external_order:
+		var value: String = _external_objectives.get(source, "")
+		if value.strip_edges().is_empty():
+			continue
+		var priority := _external_priority(source)
+		# При равном приоритете выигрывает источник, заданный последним.
+		if priority >= best_priority:
+			best_priority = priority
+			next_source = source
+	_external_source = next_source
+	external_objective = String(_external_objectives.get(next_source, "")) if next_source != &"" else ""
+
+
+func _current_scene_path() -> String:
+	if not is_inside_tree():
+		return ""
+	var scene := get_tree().current_scene
+	return scene.scene_file_path if scene != null else ""
+
+
+## Цели сцены живут только в своей сцене. QuestSystem-цель переживает
+## переходы, поэтому её не трогаем.
+func _prune_stale_scene_objectives() -> void:
+	if _external_scene_paths.is_empty():
+		return
+	var current_path := _current_scene_path()
+	if current_path.is_empty():
+		return
+	var changed := false
+	for source in _external_scene_paths.keys():
+		if source == EXTERNAL_SOURCE_QUEST:
+			continue
+		var owner_path := String(_external_scene_paths[source])
+		if owner_path.is_empty() or owner_path == current_path:
+			continue
+		_external_objectives.erase(source)
+		_external_order.erase(source)
+		_external_scene_paths.erase(source)
+		changed = true
+	if not changed:
+		return
+	_refresh_external_objective()
+	_refresh_display()
+	_emit_objective()
+
+
+## Событие из другой сцены не должно тянуть за собой старую цель сцены даже
+## в QA-обвязке, где current_scene остаётся хостом. В обычной игре цель уже
+## снята _prune_stale_scene_objectives при смене сцены.
+func _clear_stale_objectives_for_beat(beat: BeatData) -> void:
+	if beat == null or beat.scene_path.is_empty():
+		return
+	var changed := false
+	for source in _external_scene_paths.keys():
+		if source == EXTERNAL_SOURCE_QUEST:
+			continue
+		var owner_path := String(_external_scene_paths[source])
+		if owner_path == beat.scene_path:
+			continue
+		var text := String(_external_objectives.get(source, "")).strip_edges()
+		if text == beat.objective.strip_edges():
+			continue
+		_external_objectives.erase(source)
+		_external_order.erase(source)
+		_external_scene_paths.erase(source)
+		changed = true
+	if changed:
+		_refresh_external_objective()
 
 
 func _refresh_display() -> void:
@@ -332,6 +455,9 @@ func clear_current_objective() -> void:
 	display_objective = ""
 	external_objective = ""
 	_external_source = &""
+	_external_objectives.clear()
+	_external_order.clear()
+	_external_scene_paths.clear()
 	idle_step = 0
 	idle_time = 0.0
 	_emit_objective()
@@ -429,6 +555,7 @@ func _record_history(beat: BeatData) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_prune_stale_scene_objectives()
 	if current_beat == null or base_objective.strip_edges().is_empty():
 		return
 	var player := get_tree().get_first_node_in_group(&"player") as Node3D

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/campaign/sanctuary_arrival.gd" id="1_arrival"]
 [ext_resource type="PackedScene" path="res://scenes/locations/shadow_sanctuary/shadow_sanctuary_art.tscn" id="2_sanctuary"]
 [ext_resource type="Script" path="res://scripts/ui/fade_layer.gd" id="3_fade"]
 [ext_resource type="PackedScene" path="res://scenes/ui/objective_line.tscn" id="4_objective"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_minimap.tscn" id="5_minimap"]
 
 [node name="SanctuaryArrival" type="Node3D"]
 script = ExtResource("1_arrival")
@@ -14,6 +15,8 @@ script = ExtResource("1_arrival")
 layer = 9
 
 [node name="ObjectiveLine" parent="UI" instance=ExtResource("4_objective")]
+
+[node name="HUDMinimap" parent="UI" instance=ExtResource("5_minimap")]
 
 [node name="Transition" type="CanvasLayer" parent="."]
 layer = 30
