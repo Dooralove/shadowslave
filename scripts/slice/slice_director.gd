@@ -287,7 +287,7 @@ func _sync_v2_beat(slice_beat: Beat) -> void:
 	match slice_beat:
 		Beat.B01_OPENING:
 			beat_director.start_beat(&"P01", true)
-		Beat.B08_DESK:
+		Beat.B07_ENTER_STATION:
 			beat_director.complete_current_beat(false)
 			beat_director.start_beat(&"P02", true)
 		Beat.B10_RESTRAINED:
@@ -302,6 +302,15 @@ func _sync_v2_beat(slice_beat: Beat) -> void:
 		Beat.FINISHED:
 			if beat_director.current_beat != null:
 				beat_director.beat_completed.emit(beat_director.current_beat)
+	# В прологе квест QuestSystem ещё не ведёт игрока по локациям, поэтому
+	# цель бита публикуем как цель сцены — она перекрывает квестовую строку
+	# и меняется на каждом бите (иначе в участке висит «допить кофе»).
+	var guide := get_node_or_null(^"/root/CampaignGuide")
+	if guide != null and guide.has_method(&"set_external_objective"):
+		var beat_objective := ""
+		if beat_director != null and beat_director.current_beat != null:
+			beat_objective = beat_director.current_beat.objective
+		guide.call(&"set_external_objective", beat_objective, &"prologue")
 
 
 

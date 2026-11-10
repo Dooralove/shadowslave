@@ -96,7 +96,30 @@ func _close_player_menu_for_switch() -> void:
 
 
 func resolve_current_location() -> MapDefinition:
+	# В прологе current_scene — это campaign_entry, а активная локация — его
+	# дочерняя сцена. Ищем ближайшего предка игрока с известной картой, иначе
+	# мини-карта показывает первую попавшуюся локацию (например, парк в участке).
+	var by_player := _location_for_player()
+	if by_player != null:
+		return by_player
 	return resolve_location_for(_current_scene_root())
+
+
+func _location_for_player() -> MapDefinition:
+	if atlas == null:
+		return null
+	var player := get_tree().get_first_node_in_group(&"player") as Node
+	if player == null:
+		return null
+	var node := player
+	while node != null:
+		var path := node.scene_file_path
+		if not path.is_empty():
+			var found := atlas.find_location_for_scene_path(path)
+			if found != null:
+				return found
+		node = node.get_parent()
+	return null
 
 
 ## В редакторском запуске current_scene может быть не назначен на первом
@@ -151,7 +174,7 @@ func minimap_snapshot() -> Dictionary:
 	var scene := _current_scene_root()
 	var state := player_state(scene)
 	return {
-		"location": resolve_location_for(scene),
+		"location": resolve_current_location(),
 		"has_player": state.found,
 		"player": state.position,
 		"forward": state.forward,

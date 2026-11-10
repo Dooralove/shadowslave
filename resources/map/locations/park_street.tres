@@ -38,5 +38,5 @@ terrain_style = &"city"
 world_bounds = Rect2(-20, -24, 40, 34)
 features = Array[ExtResource("2_feature")]([SubResource("Feature_walk"), SubResource("Feature_block")])
 markers = Array[ExtResource("3_marker")]([SubResource("Marker_0")])
-scene_paths = PackedStringArray("res://scenes/slice/locations/park_street.tscn", "res://scenes/slice/locations/park/park_street_art.tscn", "res://scenes/slice/locations/park/prologue_park_art.tscn", "res://scenes/slice/locations/park/park_art.tscn", "res://scenes/slice/locations/park/p2_park_set.tscn", "res://scenes/campaign/campaign_entry.tscn")
+scene_paths = PackedStringArray("res://scenes/slice/locations/park_street.tscn", "res://scenes/slice/locations/park/park_street_art.tscn", "res://scenes/slice/locations/park/prologue_park_art.tscn", "res://scenes/slice/locations/park/park_art.tscn", "res://scenes/slice/locations/park/p2_park_set.tscn")
 world_rect = Rect2(0.12, 0.12, 0.76, 0.76)

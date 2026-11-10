@@ -10,7 +10,6 @@ const PASS_SCENE_PATH := "res://scenes/campaign/first_nightmare_pass.tscn"
 ## Полный играбельный маршрут показа: каждая сцена обязана иметь карту
 ## в атласе; fallback допустим только для сцен вне этого списка.
 const PLAYABLE_SCENES := {
-	"res://scenes/campaign/campaign_entry.tscn": &"park_street",
 	"res://scenes/slice/locations/park/park_street_art.tscn": &"park_street",
 	"res://scenes/slice/locations/park/prologue_park_art.tscn": &"park_street",
 	"res://scenes/slice/locations/station_lobby_art.tscn": &"station_lobby",
